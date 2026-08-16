@@ -48,14 +48,18 @@ Generation evidence: commit `c027411c58510b390ad71e0afab9b4c431fb9b5e`.
 
 The accepted T01_02 benchmark is approximately 45 pages. These drafts remain materially under-depth, so **none is promoted to CONTENT_QA**. Missing depth includes line-by-line explanation, run/observe/fail/correct/regression evidence and full editable Draw.io teaching assets.
 
+## Current generation execution constraint
+
+The current evidence file identifies T02_02-T06_02 as **local draft DOCX files**. Inspection of the connected repository confirms that the rerun branch contains the generation-evidence record and the approved blueprints/control records, but does not expose repository-editable T02_02-T06_02 source trees equivalent to the accepted T01_02 editable source structure. Therefore this coordinator cannot truthfully expand those local binary drafts through the GitHub connector alone. The five lanes remain `GENERATING`; no status-only progress is awarded.
+
 ## Current stream accounting
 
 - Previous: **5.3889%**
 - Updated: **5.3889%**
 - Increase: **+0.0000%**
 - Completed stage points: **970 / 18000**
-- Cycles without increase: **1**
+- Cycles without increase: **2**
 
 ## Action Taken in This Cycle
 
-Kept all five independent T02-T06 Progressive Guide lanes active at the correct `GENERATING` gate and revalidated their first controlled-generation identities and depth against the accepted T01_02 benchmark. No status-only credit was awarded, no under-depth draft was promoted to Content QA, and no `_03` task was started prematurely.
+Kept all five independent T02-T06 Progressive Guide lanes active at the correct `GENERATING` gate, verified the 8-9 page local draft identities against the accepted ~45-page T01_02 benchmark, and explicitly isolated the execution blocker: the current T02_02-T06_02 rerun drafts are not available as repository-editable generation source trees. No under-depth draft was promoted, no `_03` task was started prematurely, and no progress was claimed from status inspection alone.
