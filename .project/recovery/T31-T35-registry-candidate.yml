@@ -17,7 +17,6 @@ tracks:
     cumulative_verification_head: 9d2f5796edb1cd3bb34f56b0433c2c747687e5ed
     cumulative_verification_result: SUCCESS
     registry_ready: true
-    next_action: "retain immutable evidence; batch freeze remains blocked by T33-T35"
   T32:
     readiness: EVIDENCE_CAPTURED_WAITING_BATCH_FREEZE
     implementation_state: "Service + Unit Test + Integration + Frontend complete"
@@ -31,34 +30,30 @@ tracks:
     cumulative_verification_head: ae74ded11fd561d72dabb6857e5461f830508983
     cumulative_verification_result: SUCCESS
     registry_ready: true
-    next_action: "retain immutable evidence; batch freeze remains blocked by T33-T35"
   T33:
-    readiness: FRONTEND_CI_PENDING
-    service: DONE
+    readiness: EVIDENCE_CAPTURED_WAITING_BATCH_FREEZE
+    implementation_state: "Service + Unit Test + Integration + Frontend complete"
     service_commit: fec9bcdbdaa86e17c0b939a8020321de05c632c6
-    unit_test: VERIFIED_GREEN_AFTER_REPAIR
-    unit_test_commit: 4520f779a87bcac8c7628a90f0e6bc14fd87c6d8
-    prior_workflow_run: 31946962274
-    prior_workflow_attempt: 2
-    prior_head_sha: 4520f779a87bcac8c7628a90f0e6bc14fd87c6d8
-    prior_backend_job: 95189332185
-    prior_backend_result: FAILURE
-    diagnosis: "UpdateBookCopyServiceImpl trimmed accessionNumber before duplicate lookup, while T33 duplicate test requires canonical uppercase lookup for input ' acc-0001 ' against business key 'ACC-0001'."
-    repair_commit: fe4b8262bd9536cc0ce88569ae6031f7604e0132
-    repair_verification_run: 31973754438
-    repair_verification_result: SUCCESS
+    unit_test_repair_commit: fe4b8262bd9536cc0ce88569ae6031f7604e0132
+    unit_test_verification_run: 31973754438
+    unit_test_verification_result: SUCCESS
     local_postgres_integration_commit: b2d3a859eb250134c0b1d8c5666df7bf78d9a193
     testcontainers_integration_commit: 2f1bea871d7b8f49fefdb2e8db699724051470da
     integration_verification_run: 31973983928
-    integration_verification_state: SUCCESS
+    integration_verification_result: SUCCESS
     frontend_commit: c82d0f0ed896bc9f6d729e8db34855040ce2fbaa
-    frontend_verification_run: 31976478238
-    frontend_verification_state: IN_PROGRESS
-    registry_ready: false
-    blocker: "Frontend branch-tip cumulative CI must pass; T34/T35 also remain incomplete."
-    next_action: "if workflow 31976478238 is green, mark T33 Frontend complete and preserve its cumulative evidence; then advance only dependency-eligible T34 work"
+    cumulative_verification_run: 31976478238
+    cumulative_verification_head: c82d0f0ed896bc9f6d729e8db34855040ce2fbaa
+    cumulative_backend_job: 95236646515
+    cumulative_backend_result: SUCCESS
+    cumulative_frontend_job: 95236646591
+    cumulative_frontend_result: SUCCESS
+    cumulative_verification_result: SUCCESS
+    registry_ready: true
+    next_action: "retain immutable evidence; batch freeze remains blocked by T34-T35"
   T34:
-    readiness: BLOCKED_NOT_IMPLEMENTED
+    readiness: SOURCE_RECONCILIATION_STARTED
+    contract_code: T34_DEACTIVATE_BOOK_COPY
     registry_ready: false
   T35:
     readiness: BLOCKED_NOT_IMPLEMENTED
@@ -66,5 +61,5 @@ tracks:
 freeze_gate:
   rule: "All T31-T35 tracks must be registry-ready with exact immutable evidence and cumulative validation before freeze."
   current_result: BLOCKED
-  verified_ready_tracks: 2
+  verified_ready_tracks: 3
   required_ready_tracks: 5
