@@ -75,16 +75,16 @@ Recovery progress is split as follows:
 
 | Stream | Progress | Current Stage |
 |---|---:|---|
-| Document Rerun | 0.11% | T01_02 blueprint quality review passed; controlled generation is next |
-| Presenter Solutions | 25.33% | T01-T15 verified; T16 Create Category service implemented |
+| Document Rerun | 0.22% | T01_02 is GENERATING; Sections 01 and 02 are committed |
+| Presenter Solutions | 25.67% | T01-T15 verified; T16 Service + Unit Test implemented; CI running |
 | Classroom Release Preparation | 20.00% | Release-00 source audited and private branch frozen; build verification pending |
 | Recovery / Final Integration | 10.00% | Verified recovery registries cover T01-T15; workflow not yet implemented |
-| **Overall** | **11.92%** | Parallel execution active |
+| **Overall** | **12.08%** | Parallel execution active |
 
 ## Active Work
 
-- Document: T01_02 Create Department Progressive Development Guide - controlled section-by-section generation.
-- Presenter code: T16 Create Category - Unit Test checkpoint next; T17-T20 follow.
+- Document: T01_02 Section 03 - Empty Service and First JUnit Invocation.
+- Presenter code: T16 Create Category - CI run `31930163407`, then Integration/Testcontainers checkpoint.
 - Classroom release: `Classroom-Release-00-Empty` verification/build gate.
 - Recovery: extend registry coverage as each Presenter solution stage becomes verified.
 
