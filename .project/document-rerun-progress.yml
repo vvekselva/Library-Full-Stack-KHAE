@@ -27,7 +27,7 @@ stage_values:
 
 current:
   T01_01: PENDING
-  T01_02: CONTENT_QA
+  T01_02: QUALITY_GATE_PASSED
   T01_03: PENDING
   T02_01: PENDING
   T02_02: PENDING
@@ -44,24 +44,29 @@ current:
   remaining_T06_to_T60: PENDING
 
 calculation:
-  completed_stage_points: 55
+  completed_stage_points: 85
   possible_stage_points: 18000
-  percent: 0.3056
+  percent: 0.4722
 
 active_document:
   id: T01_02
   activity: Create Department
   document: Progressive Development Guide
-  current_stage: CONTENT_QA
-  content_qa: PASS
+  current_stage: QUALITY_GATE_PASSED
   completed_sections: 15
   code_fragments: 23
   editable_drawio_sources: 4
-  next_stage: DOCX assembly, then QG-25 rendered page-by-page visual inspection
+  qg01_to_qg26: PASS
+  docx_pages: 55
+  accepted_binary_size: 234444
+  accepted_binary_sha256: c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4
+  visual_reverification: 55_of_55_pages_match_reviewed_render_set
+  next_stage: QG-27 Private Master binary materialization, re-fetch and hash verification
   final_pending_gates:
-    - QG-25 Visual DOCX inspection
-    - QG-26 Final Golden Reference comparison
     - QG-27 Private Master materialization/re-fetch/hash verification
+
+blockers:
+  - QG-27: current GitHub text-oriented connector path does not directly accept the local DOCX binary; do not mark APPROVED until exact artifact materialization and repository hash verification succeed.
 
 release_prerequisites_discovered:
   - Before Classroom-Release-02, move generic Presenter-owned ApplicationServiceException and ApplicationServiceExceptionHandler into the student baseline.
