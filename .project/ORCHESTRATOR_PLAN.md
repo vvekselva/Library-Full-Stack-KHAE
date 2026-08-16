@@ -1,6 +1,6 @@
 # KHAE Full Stack — Orchestrator Plan
 
-Updated for the documentation-first scale-up approved on 2026-08-16.
+Updated for the high-parallelism Presenter/Classroom/Recovery execution phase on 2026-08-17.
 
 ## Purpose
 
@@ -10,78 +10,87 @@ This file is the coordinator contract for the live dashboard and the scheduled K
 
 | Stream | Weight | Execution priority |
 |---|---:|---|
-| Document Rerun | 45% | PRIMARY |
-| Presenter Solutions | 35% | SECONDARY |
-| Classroom Release Preparation | 10% | SUPPORTING |
-| Recovery / Final Integration | 10% | SUPPORTING |
+| Document Rerun | 45% | UPSTREAM PREREQUISITE / NOT IN CURRENT EIGHT-LANE ALLOCATION |
+| Presenter Solutions | 35% | ACTIVE — FOUR LANES |
+| Classroom Release Preparation | 10% | ACTIVE — THREE LANES |
+| Recovery / Final Integration | 10% | ACTIVE — ONE LANE |
 
 Overall = Documents*0.45 + Presenter*0.35 + ClassroomRelease*0.10 + Recovery*0.10.
 
-## Eight logical worker lanes
+## Primary coordinator + eight logical worker lanes
 
-This repository records eight logical worker lanes. ChatGPT must not claim that separate autonomous agents exist unless an actual agent runtime is available. In a normal ChatGPT execution turn, independent lanes may be advanced in parallel by independent tool work, while this file remains the source of assignment/dependency truth.
+One primary coordinator remains responsible for dependency checks and consolidation. This repository records eight logical worker lanes. ChatGPT must not claim that eight separate autonomous background processes exist unless an actual agent runtime is available; independent repository/tool work may nevertheless be advanced concurrently where dependencies permit.
 
-| Lane | Role | Initial allocation | Parallelism rule |
+| Lane | Role | Current allocation | Dependency boundary |
 |---|---|---|---|
-| Coordinator | Primary coordinator | Reads dashboard/task files, assigns eligible work, consolidates results | Must remain single coordinator |
-| Agent 1 | Document Rerun | T02 complete three-document set | May run independently of T03-T06 |
-| Agent 2 | Document Rerun | T03 complete three-document set | May run independently of T02/T04-T06 |
-| Agent 3 | Document Rerun | T04 complete three-document set | May run independently of T02-T03/T05-T06 |
-| Agent 4 | Document Rerun | T05 complete three-document set | May run independently of T02-T04/T06 |
-| Agent 5 | Document Rerun | T06 complete three-document set | May run independently of T02-T05 |
-| Agent 6 | Presenter Solutions | Resume T33 verification/repair gate, then T33 Integration/Frontend | Must obey CI prerequisite gates |
-| Agent 7 | Classroom Release Preparation | Advance prerequisite-free preparation only | No promotion before approved/materialized document prerequisite |
-| Agent 8 | Recovery / Final Integration | Incremental registry validation for already-green tracks only | No batch/final freeze before dependent tracks are green |
+| Coordinator | Primary coordinator | Read live evidence, assign eligible independent work, reconcile all results | Single coordinator only; no overall completion before consolidation |
+| Agent 1 | Presenter Solutions | T34 Integration CI failure diagnosis and exact failing-test/root-cause evidence | May diagnose immediately; no Frontend until Integration is green |
+| Agent 2 | Presenter Solutions | T34 Integration implementation/test reconciliation against contract, DAO state and PostgreSQL behavior | May inspect/prepare repair independently; any code change must preserve verified Service/UT behavior |
+| Agent 3 | Presenter Solutions | T35 source/contract/interface/controller/stub reconciliation only | Reconciliation may run independently; implementation cannot skip its Service → UT → CI gate sequence |
+| Agent 4 | Classroom Release Preparation | Release-01 prerequisite/evidence audit and exact document identity verification | No materialization/freeze until selected documents are APPROVED and repository-verified |
+| Agent 5 | Classroom Release Preparation | Release-02 controlled-error remediation acceptance mapping against approved student baseline requirements | May prepare/verify private acceptance evidence; no public write and no freeze before baseline is approved |
+| Agent 6 | Presenter Solutions | Presenter regression/cumulative CI readiness across T31-T34 and exact Frontend readiness for T34 | T34 Frontend implementation remains blocked while Integration CI is red |
+| Agent 7 | Classroom Release Preparation | Release manifest/checklist consistency and private promotion-boundary verification | Prerequisite-free private verification only; publication remains Presenter-only |
+| Agent 8 | Recovery / Final Integration | T31-T35 registry candidate, immutable evidence capture and freeze guard | Capture verified evidence incrementally; `freeze_allowed=false` until all five tracks are registry-ready |
 
-## Document scale-up rule
+## Document work during this phase
 
-The approved T01 three-document set is the scaling baseline. Each new track must be processed in this order:
+T02_02-T06_02 remain unfinished upstream Document Rerun work, but they are not assigned one of the eight active lanes in this phase. Their existing state and percentages are preserved. Classroom tasks that depend on approved documents remain BLOCKED; this reallocation must not bypass those document gates.
 
-1. Txx_01 Initial API Contract — success contract only; do not reveal later controlled-error catalogue.
-2. Txx_02 Progressive Development Guide — exact package/source placement, WHY-before-HOW, Unit Test, observed failure, correction, JaCoCo, local PostgreSQL, DBeaver, Testcontainers, frontend integration, editable Draw.io, full visual QA.
-3. Txx_03 Updated API Contract — final response catalogue grounded in verified Presenter/service behavior after the progressive sequence.
-4. Repository materialization/re-fetch/hash verification.
-5. User/Presenter approval when the workflow requires it.
+## Presenter dependency sequence
 
-Within a single track, Txx_03 must not be declared complete before the Progressive Guide has established the final behavior. Across different tracks, independent source-grounded generation and QA may proceed in parallel.
+For each Presenter track the required order remains:
 
-## Package/source placement quality gate
+1. source/contract reconciliation;
+2. Service implementation;
+3. focused Unit Test;
+4. branch-tip CI proving Service + Unit Test green;
+5. local PostgreSQL Integration;
+6. PostgreSQL Testcontainers Integration;
+7. branch-tip Integration CI green;
+8. assigned Frontend;
+9. cumulative CI/registry evidence;
+10. batch registry freeze when the full batch is ready.
 
-Every student guide and both API-contract documents must state:
+No dependent stage may be started or credited prematurely.
 
-- exact Maven/source folder;
-- exact Java package;
-- exact student-owned implementation/test file paths;
-- Presenter-owned interface/controller/shared-infrastructure paths where relevant;
-- explicit warning not to duplicate Presenter-provided interfaces in another package.
+## Classroom release dependency rules
+
+1. Private prerequisite-free audits, manifests, checklists and promotion-boundary verification may run in parallel.
+2. Any stage containing rerun documents is blocked until exact selected documents are APPROVED and repository-verified.
+3. Release-02 is blocked until the approved student baseline contains verified generic controlled-error infrastructure.
+4. ChatGPT/automation must never write to the public classroom repository; public publication is Presenter-only.
+
+## Recovery rules
+
+Registry evidence may be captured incrementally for already verified checkpoints. A batch must not be frozen until every track has exact immutable component evidence and required cumulative CI. Final integration cannot close while Presenter, Document or Release prerequisites remain incomplete.
 
 ## Coordinator selection rules
 
 At every watchdog/execution cycle:
 
-1. Read all four stream task files plus the dashboard.
-2. Prefer Document Rerun work while it remains the highest-weight stream and eligible document tasks exist.
-3. Keep up to five independent document tracks active; never parallelize dependent stages within the same track prematurely.
-4. Give Agent 6 only Presenter work whose preceding CI/contract gate is satisfied.
-5. Give Agent 7 only release work whose document/release prerequisite is satisfied; prerequisite-free packaging/verification work may proceed earlier.
-6. Give Agent 8 only recovery registry work for already verified components; do not freeze incomplete batches.
-7. A task is CLOSED only with repository/test/QG evidence required by its definition of done.
-8. CI/log inspection alone is an action, not task completion.
-9. If a task remains open for 4+ completed cycles, mark STALLED and record `Action Taken in This Cycle`.
-10. If a stream has no percentage increase for 4+ cycles, execute an unblock/fallback action rather than merely reporting it.
-11. Update `.project/PROJECT_PROGRESS.md` after substantive gates and at live checkpoints during an active execution session.
-12. Never write to the public classroom repository or the read-only Quality Gate repository.
+1. Read all four stream task files plus the dashboard and current CI state.
+2. Use Agents 1, 2, 3 and 6 for independent eligible Presenter work.
+3. Use Agents 4, 5 and 7 for independent prerequisite-safe Classroom work.
+4. Use Agent 8 for Recovery evidence/freeze guarding only.
+5. Do not substitute blocked dependent implementation with speculative changes.
+6. A task is CLOSED only with repository/test/QG evidence required by its definition of done.
+7. CI/log inspection alone is an action, not task completion.
+8. If a task remains open for 4+ completed cycles, mark STALLED and record `Action Taken in This Cycle`.
+9. Update `.project/PROJECT_PROGRESS.md` after substantive gates and live checkpoints.
+10. Never write to the public classroom repository or the read-only Quality Gate repository.
 
 ## Consolidation rule
 
-Do not declare a multi-lane batch or the overall task complete until all relevant independent lanes have returned evidence and the coordinator has reconciled:
+Do not declare a multi-lane batch or the overall task complete until all relevant independent lanes have returned evidence and the primary coordinator has reconciled:
 
 - exact commit/blob SHAs;
-- CI/workflow conclusions;
-- QG results and artifact hashes;
+- CI/workflow conclusions and failed-step evidence;
+- QG results and artifact hashes where applicable;
 - task-file statuses;
 - stream percentages and weighted Overall percentage;
-- blockers and stalled-cycle actions.
+- blockers and stalled-cycle actions;
+- registry freeze eligibility.
 
 ## Task files
 
@@ -90,4 +99,4 @@ Do not declare a multi-lane batch or the overall task complete until all relevan
 - `.project/tasks/classroom-release.md`
 - `.project/tasks/recovery-final-integration.md`
 
-These files are the complete execution queues. The watchdog must update/read them before deciding what to do next; conversation memory is not authoritative.
+These files remain the execution queues. Conversation memory is not authoritative.
