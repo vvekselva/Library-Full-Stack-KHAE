@@ -75,18 +75,22 @@ Recovery progress is split as follows:
 
 | Stream | Progress | Current Stage |
 |---|---:|---|
-| Document Rerun | 0.22% | T01_02 is GENERATING; Sections 01 and 02 are committed |
-| Presenter Solutions | 25.67% | T01-T15 verified; T16 Service + Unit Test implemented; CI running |
-| Classroom Release Preparation | 20.00% | Release-00 source audited and private branch frozen; build verification pending |
-| Recovery / Final Integration | 10.00% | Verified recovery registries cover T01-T15; workflow not yet implemented |
-| **Overall** | **12.08%** | Parallel execution active |
+| Document Rerun | 0.22% | T01_02 is GENERATING; Sections 01-04 and two Draw.io sources are committed |
+| Presenter Solutions | 28.00% | T16 fully verified; T17 Service/UT/IT/Frontend implemented and CI queued |
+| Classroom Release Preparation | 20.00% | Release-00 corrected to empty-code-only; isolated build verification queued |
+| Recovery / Final Integration | 10.67% | Verified recovery registry now covers T01-T16 |
+| **Overall** | **12.97%** | Parallel execution active |
 
 ## Active Work
 
-- Document: T01_02 Section 03 - Empty Service and First JUnit Invocation.
-- Presenter code: T16 Create Category - CI run `31930163407`, then Integration/Testcontainers checkpoint.
-- Classroom release: `Classroom-Release-00-Empty` verification/build gate.
-- Recovery: extend registry coverage as each Presenter solution stage becomes verified.
+- Document: T01_02 Section 05 - Natural Successful Create Implementation.
+- Presenter code: T17 final CI/registry, then T18 Update Category.
+- Classroom release: isolated Release-00 build run `31930812083`.
+- Recovery: extend registry coverage as each Presenter solution track becomes verified.
+
+## Release-00 Correction Found During Verification
+
+The source `Frontend-backend-skeleton` also contained the existing `general-documents` directory. Stage 0 must contain only the empty codebase, so the private `Classroom-Release-00-Empty` release snapshot now removes those documents and uses a classroom-starter README. The original source skeleton branch remains untouched.
 
 ## Release Prerequisite Discovered
 
