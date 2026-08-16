@@ -1,0 +1,37 @@
+version: 1
+status: PREPARED_NOT_FROZEN
+batch: T31-T35
+freeze_allowed: false
+tracks:
+  T31:
+    readiness: PARTIAL_EVIDENCE_CAPTURE_PENDING
+    implementation_state: "Service + Unit Test + Integration + Frontend complete"
+    registry_ready: false
+    next_action: "capture exact component SHAs and cumulative green CI evidence"
+  T32:
+    readiness: PARTIAL_EVIDENCE_CAPTURE_PENDING
+    implementation_state: "Service + Unit Test + Integration + Frontend complete"
+    registry_ready: false
+    next_action: "capture exact component SHAs and cumulative green CI evidence"
+  T33:
+    readiness: BLOCKED
+    service: DONE
+    unit_test: "IMPLEMENTED_CI_FAILED"
+    workflow_run: 31946962274
+    workflow_attempt: 2
+    head_sha: 4520f779a87bcac8c7628a90f0e6bc14fd87c6d8
+    backend_job: 95189332185
+    backend_result: FAILURE
+    frontend_job: 95189332541
+    frontend_result: SUCCESS
+    registry_ready: false
+    blocker: "exact backend test failure must be isolated and repaired before Integration/Frontend progression"
+  T34:
+    readiness: BLOCKED_NOT_IMPLEMENTED
+    registry_ready: false
+  T35:
+    readiness: BLOCKED_NOT_IMPLEMENTED
+    registry_ready: false
+freeze_gate:
+  rule: "All T31-T35 tracks must be registry-ready with exact immutable evidence and cumulative validation before freeze."
+  current_result: BLOCKED
