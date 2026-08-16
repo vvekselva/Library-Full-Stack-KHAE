@@ -19,15 +19,17 @@ Do not start Integration before Service + Unit Test branch-tip CI is green. Do n
 ## T33 exact evidence
 
 - Branch: `Presenter-Solutions-T31-T35`
-- Head: `4520f779a87bcac8c7628a90f0e6bc14fd87c6d8`
+- Service commit: `fec9bcdbdaa86e17c0b939a8020321de05c632c6`
+- Unit-test/head commit: `4520f779a87bcac8c7628a90f0e6bc14fd87c6d8`
 - Workflow: `31946962274`, attempt 2, FAILURE
 - Backend job: `95189332185`, FAILURE
 - Frontend job: `95189332541`, SUCCESS
-- Available annotation/log surfaces expose terminal exit code 1 but not the underlying test assertion. Direct job-log retrieval through the available connector still did not yield a usable assertion/error body in the 2026-08-17 00:01 coordinator cycle.
+- Exact failed backend step: **Run Presenter solution tests with PostgreSQL**.
+- The available connector exposes the failed step and terminal exit code but still does not provide the Maven/Surefire assertion/error body needed for a proven repair.
 
 ## Immediate Agent 6 queue
 
-1. Obtain the exact T33 backend failing test/error from a usable Actions log surface.
+1. Obtain the exact T33 backend Maven/Surefire failing test/error from a usable Actions log/report surface.
 2. Apply only the proven repair; do not grant percentage for repair alone.
 3. Require branch-tip CI SUCCESS before T33 Integration.
 4. Then implement/verify T33 local PostgreSQL + PostgreSQL-18 Testcontainers Integration.
@@ -39,9 +41,9 @@ Do not start Integration before Service + Unit Test branch-tip CI is green. Do n
 - Previous: **53.3333%**
 - Updated: **53.3333%**
 - Increase: **+0.0000%**
-- Cycles without increase: **5**
+- Cycles without increase: **6**
 - State: **STALE (>3 completed cycles without percentage increase)**.
 
 ## Action Taken in This Cycle
 
-Rechecked the failed T33 backend job-log surface and confirmed the exact assertion/error remains unavailable through the accessible connector. No speculative code change and no blind rerun were performed; T33 Integration/Frontend remain correctly blocked until proven failure evidence and branch-tip CI success are available.
+Narrowed the T33 CI failure from a generic backend failure to the exact workflow step `Run Presenter solution tests with PostgreSQL`, re-read the T33 unit-test commit and service implementation, and confirmed no source-grounded repair can be justified without the Maven/Surefire failure body. No speculative code change or blind rerun was performed; Integration/Frontend remain blocked.
