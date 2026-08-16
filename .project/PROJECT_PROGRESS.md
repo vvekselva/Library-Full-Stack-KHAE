@@ -27,23 +27,23 @@ The dashboard shows three values for every stream:
 
 A heartbeat-only or verification-only update does not erase the last meaningful comparison baseline. When a new implementation gate changes progress, the current Updated value becomes the next Previous value and the newly calculated value becomes Updated. This makes the actual increase visible instead of showing only the latest total.
 
-## Current Status - 2026-08-16 17:15 IST
+## Current Status - 2026-08-16 17:22 IST
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
 | Document Rerun | **0.47%** | **0.47%** | **+0.00%** | T01_02 QG-01 to QG-26 PASS; QG-27 OPEN. Exact accepted binary identity is unchanged. Materialization run `31941294901` failed with `base64: invalid input`. Successful canonical-source artifact `T01_02-canonical-source` from run `31939791535` contains normalized teaching source, editable Draw.io sources and content QA, but not the accepted 55-page DOCX. The available 42-page Golden Reference does not match the accepted artifact and will not be substituted. |
-| Presenter Solutions | **50.33%** | **50.67%** | **+0.34%** | **T01-T30 VERIFIED; T31 Service COMPLETE; T31 UT VERIFIED.** Branch `Presenter-Solutions-T31-T35`; service `c03fdf12`; unit test `6fdfc020`; verification run `31945047287` SUCCESS at `0a26ccad`. Next gate: local PostgreSQL integration. |
+| Presenter Solutions | **50.67%** | **51.00%** | **+0.33%** | **T01-T30 VERIFIED; T31 Service COMPLETE; T31 UT VERIFIED; T31 Integration IMPLEMENTED / CI PENDING.** Local PostgreSQL `599dac48`; Testcontainers `192761ab`; verification run `31945515199` is IN PROGRESS at the Testcontainers branch tip. Next implementation gate: Update Book Copy frontend. |
 | Classroom Release Preparation | **33.33%** | **33.33%** | **+0.00%** | Release-00 remains Presenter-ready and independently VERIFIED PASS by run `31930965288`. Release-01/02 pending. |
 | Recovery / Final Integration | **20.00%** | **20.00%** | **+0.00%** | Verified solution-registry coverage remains **30/60 tracks = 50% coverage × 40% recovery weight = 20.00%**. T31-T35 is not recoverable yet because its registry must be frozen only after cumulative CI. |
-| **Overall** | **23.16%** | **23.28%** | **+0.12%** | Current formula: `0.4722×0.45 + 50.6667×0.35 + 33.3333×0.10 + 20×0.10 = 23.2792%`, displayed as 23.28%. Previous overall used Presenter 50.3333% and was 23.1625%, displayed as 23.16%. |
+| **Overall** | **23.28%** | **23.40%** | **+0.12%** | Current formula: `0.4722×0.45 + 51.0000×0.35 + 33.3333×0.10 + 20×0.10 = 23.3958%`, displayed as 23.40%. Previous overall was 23.2792%, displayed as 23.28%. |
 
 ## Active Work
 
-- **Presenter code:** T31 Add Book Copy service is complete at `c03fdf121118fdaad8467deec492e97c92c033d9`. Unit tests are implemented at `6fdfc020cb4f5561ac1558e7d41c3610b0392a20` and verified by branch-tip run `31945047287`, which completed SUCCESS at `0a26ccad874be9a2cb1e990b167506c032eb71eb`. Earlier run `31944909840` was superseded/cancelled by the later push and is not treated as a pass or failure.
+- **Presenter code:** T31 Add Book Copy service is complete at `c03fdf121118fdaad8467deec492e97c92c033d9`. Unit tests are verified by run `31945047287`. The single 20-point Integration checkpoint is now implementation-complete through local PostgreSQL `599dac48aa4f406c7f69c87c147527d3c10f9973` plus Testcontainers `192761ab22e10361ecc6456fcfa59402e3d792c5`; branch-tip run `31945515199` is still IN PROGRESS, so integration verification is explicitly pending.
 - **T31 exact teaching contract:** Student 31; Book Copy Management; Add Book Copy Service; `POST /rest/book-copies`; business key Accession Number; null `accessionNumber` must surface the intended unit-test discovery before controlled correction; persisted duplicate Accession Number must be rejected in integration; assignment-plan test value `ACC-000101`; assigned frontend is Update Book Copy UI `PUT /rest/book-copies/{id}` against Student 32's backend without changing the `/rest/` contract.
 - **Source discrepancy retained explicitly:** the current 60-student assignment plan specifies null `accessionNumber` / `ACCESSION_NUMBER_REQUIRED` and duplicate `ACC-000101`; the later consistency-audit register uses generic null-request / `ACC-0001`. Student-facing implementation follows the assignment plan; schema/audit data is used only for repository compatibility.
-- **Database preparation:** Presenter-owned V015 normalized Book Copy accession-number uniqueness protection is committed at `0a26ccad874be9a2cb1e990b167506c032eb71eb` and passed run `31945047287`.
-- **Next T31 gate:** implement local PostgreSQL integration proving persisted duplicate `ACC-000101` is rejected even with normalized input; then add Testcontainers integration.
+- **Integration evidence:** the frozen shared seed remains unchanged. The local PostgreSQL test persists `ACC-000101` inside its own transaction and proves that `" acc-000101 "` is rejected with response code `03`; it also proves the V015 normalized unique index rejects case/space variants at database level. The Testcontainers test repeats the same boundary on temporary PostgreSQL 18 using the established `@ServiceConnection` pattern.
+- **Next T31 gate:** consume integration CI result, then implement the assigned Update Book Copy recovery frontend. The frontend checkpoint is a separate 20-point gate and must not be counted before implementation.
 - **Document:** continue QG-27 recovery from canonical source/history without substituting a different DOCX. Exact accepted target remains size `234444`, SHA-256 `c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4`, Git blob `853fe9b900ba04339441116bdf18e64289a59093`.
 - **Recovery:** T01-T30 registry coverage is verified. The T31-T35 registry remains NOT_YET_CREATED and must be built only from exact verified component SHAs after cumulative CI.
 - **Classroom release:** Release-00 remains verified. Release-01/02 work must preserve Presenter/student ownership boundaries and the Release-02 exception-infrastructure prerequisite.
@@ -54,6 +54,7 @@ During an active execution window, each approximately 15-minute checkpoint must 
 
 ### Checkpoint Log
 
+- **2026-08-16 17:22 IST** - T31 Integration implementation gate completed. Local PostgreSQL test `599dac48` and PostgreSQL-18 Testcontainers test `192761ab` together complete the original single 20-point integration checkpoint. Integration CI run `31945515199` is IN PROGRESS, so verification is pending. Presenter comparison: **50.67% → 51.00% (+0.33%)**. Overall comparison: **23.28% → 23.40% (+0.12%)**. Document **0.47% → 0.47% (+0.00%)**; Classroom **33.33% → 33.33% (+0.00%)**; Recovery **20.00% → 20.00% (+0.00%)**. Next: consume CI, then implement T31 Update Book Copy frontend.
 - **2026-08-16 17:15 IST** - Live format and verification gate update. T31 UT `6fdfc020` is VERIFIED by run `31945047287` SUCCESS at branch-tip migration commit `0a26ccad`. Presenter comparison: **50.33% → 50.67% (+0.34%)**. Overall comparison: **23.16% → 23.28% (+0.12%)**. Document **0.47% → 0.47% (+0.00%)**; Classroom **33.33% → 33.33% (+0.00%)**; Recovery **20.00% → 20.00% (+0.00%)**. Next: T31 local PostgreSQL integration. New comparison-column rule is now authoritative.
 - **2026-08-16 17:09 IST** - 15-minute live checkpoint. T31 service `c03fdf12` COMPLETE. T31 UT `6fdfc020` IMPLEMENTED; exact direct CI run `31944909840` was then in progress and was later superseded by a newer push. Presenter implementation progress **50.67%**; Recovery **20.00%**; Overall **23.28%**. Next: consume CI result, then add normalized Book Copy uniqueness migration and T31 PostgreSQL integration test.
 - **2026-08-16 17:07 IST** - `Presenter-Solutions-T31-T35` exists from exact verified Book registry SHA `277e9e08bd07fb04ad77b18bf4d78d8651c175b6`. Book Copy foundation was confirmed already present. Presenter-owned T31-T35/P07 service codes were added at `0bf2687e`. T31 Add Book Copy service was completed at `c03fdf12`, advancing Presenter progress to **50.33%** and overall to **23.16%**. Next: implement T31 unit tests proving the null-accession controlled correction and happy-path persistence interaction.
@@ -113,10 +114,11 @@ During an active execution window, each approximately 15-minute checkpoint must 
 - `c03fdf121118fdaad8467deec492e97c92c033d9` - Student 31 Add Book Copy service solution.
 - `6fdfc020cb4f5561ac1558e7d41c3610b0392a20` - Student 31 Add Book Copy unit tests.
 - `0a26ccad874be9a2cb1e990b167506c032eb71eb` - Presenter-owned normalized Book Copy accession unique key.
-- Verification run `31945047287` - **SUCCESS** at `0a26ccad`; verifies the T31 unit-test commit in branch history plus V015 migration.
+- Unit-test verification run `31945047287` - **SUCCESS** at `0a26ccad`; verifies the T31 unit-test commit in branch history plus V015 migration.
 - Direct unit-test run `31944909840` - superseded/cancelled by the later branch push; not counted as a pass or failure.
-- Local PostgreSQL integration - PENDING.
-- Testcontainers integration - PENDING.
+- `599dac48aa4f406c7f69c87c147527d3c10f9973` - T31 Create Book Copy local PostgreSQL integration.
+- `192761ab22e10361ecc6456fcfa59402e3d792c5` - T31 Create Book Copy PostgreSQL-18 Testcontainers integration.
+- Integration verification run `31945515199` - **IN PROGRESS** at `192761ab`.
 - Frontend - PENDING.
 - Cumulative CI / registry - PENDING.
 
