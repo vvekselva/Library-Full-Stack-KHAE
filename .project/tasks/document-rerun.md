@@ -4,110 +4,50 @@
 **Task model:** 60 tracks × 3 documents = 180 document tasks.  
 **Stage model:** PENDING → BLUEPRINTING → BLUEPRINT_APPROVED → GENERATING → CONTENT_QA → VISUAL_QA → QUALITY_GATE_PASSED → REPOSITORY_VERIFIED → APPROVED.
 
-## Mandatory definition of done for every document
+## Mandatory definition of done
 
-- Content is grounded in the current verified track contract/code.
-- Exact source folder, Java package and student-owned file path are explicit.
-- Presenter-owned boundaries are explicit.
-- Initial API Contract contains only the initial/success contract and must not prematurely reveal later error outcomes.
-- Progressive Guide follows WHY-before-HOW and progressive Unit/Integration/Testcontainers/frontend discovery.
-- Updated API Contract freezes the final verified response catalogue after progressive behavior is established.
-- Required diagrams are editable Draw.io and rendered clearly.
-- DOCX is rendered and visually inspected page-by-page.
-- Accessibility/content/visual checks pass.
-- Repository materialization, re-fetch and identity verification pass before REPOSITORY_VERIFIED.
-- APPROVED requires the final approval gate defined by the project workflow.
+Every document must be source-grounded; exact student-owned package/path and Presenter-owned boundaries must be explicit; Initial contracts remain success-only; Progressive Guides follow WHY-before-HOW and progressive testing; Updated contracts contain only final source-proven outcomes; Draw.io sources remain editable; DOCX content/visual/accessibility checks and repository materialization/re-fetch/identity verification are mandatory before approval.
 
 ## Active five-lane allocation
 
-| Logical Agent | Current track | Dependency note |
-|---|---|---|
-| Agent 1 | T02 | Independent of T03-T06 |
-| Agent 2 | T03 | Independent of T02/T04-T06 |
-| Agent 3 | T04 | Independent of T02-T03/T05-T06 |
-| Agent 4 | T05 | Independent of T02-T04/T06 |
-| Agent 5 | T06 | Independent of T02-T05 |
+| Logical lane | Track | Current valid stage | Next eligible work |
+|---|---|---|---|
+| Agent 1 | T02 | T02_01 BLUEPRINT_APPROVED | Generate T02_01 only |
+| Agent 2 | T03 | T03_01 BLUEPRINT_APPROVED | Generate T03_01 only |
+| Agent 3 | T04 | T04_01 BLUEPRINT_APPROVED | Generate T04_01 only |
+| Agent 4 | T05 | T05_01 BLUEPRINT_APPROVED | Generate T05_01 only |
+| Agent 5 | T06 | T06_01 BLUEPRINT_APPROVED | Generate T06_01 only |
 
-Each agent completes its own track in the order `_01 Initial → _02 Progressive → _03 Updated`, with final contract closure dependent on the progressive behavior of that same track. When a lane closes a track, the coordinator assigns the next PENDING track.
+Within each track: `_01 Initial → _02 Progressive → _03 Updated`. Cross-track work may proceed independently. Do not start a Progressive Guide before that track's Initial API Contract completes its required gates.
 
-## Complete 180-document queue
+## Queue state
 
-| Track | Txx_01 Initial API Contract | Txx_02 Progressive Guide | Txx_03 Updated API Contract | Lane / Queue State |
-|---|---|---|---|---|
-| T01 | USER_ACCEPTED; repository verification/update pending for revised `_01` | QG-27 PASS + repository verified + USER_ACCEPTED; tracker APPROVED update pending | USER_ACCEPTED; repository verification/update pending for revised `_03` | Baseline accepted; close repository/tracker gates before archival |
-| T02 | PENDING | PENDING | PENDING | Agent 1 ACTIVE |
-| T03 | PENDING | PENDING | PENDING | Agent 2 ACTIVE |
-| T04 | PENDING | PENDING | PENDING | Agent 3 ACTIVE |
-| T05 | PENDING | PENDING | PENDING | Agent 4 ACTIVE |
-| T06 | PENDING | PENDING | PENDING | Agent 5 ACTIVE |
-| T07 | PENDING | PENDING | PENDING | QUEUED |
-| T08 | PENDING | PENDING | PENDING | QUEUED |
-| T09 | PENDING | PENDING | PENDING | QUEUED |
-| T10 | PENDING | PENDING | PENDING | QUEUED |
-| T11 | PENDING | PENDING | PENDING | QUEUED |
-| T12 | PENDING | PENDING | PENDING | QUEUED |
-| T13 | PENDING | PENDING | PENDING | QUEUED |
-| T14 | PENDING | PENDING | PENDING | QUEUED |
-| T15 | PENDING | PENDING | PENDING | QUEUED |
-| T16 | PENDING | PENDING | PENDING | QUEUED |
-| T17 | PENDING | PENDING | PENDING | QUEUED |
-| T18 | PENDING | PENDING | PENDING | QUEUED |
-| T19 | PENDING | PENDING | PENDING | QUEUED |
-| T20 | PENDING | PENDING | PENDING | QUEUED |
-| T21 | PENDING | PENDING | PENDING | QUEUED |
-| T22 | PENDING | PENDING | PENDING | QUEUED |
-| T23 | PENDING | PENDING | PENDING | QUEUED |
-| T24 | PENDING | PENDING | PENDING | QUEUED |
-| T25 | PENDING | PENDING | PENDING | QUEUED |
-| T26 | PENDING | PENDING | PENDING | QUEUED |
-| T27 | PENDING | PENDING | PENDING | QUEUED |
-| T28 | PENDING | PENDING | PENDING | QUEUED |
-| T29 | PENDING | PENDING | PENDING | QUEUED |
-| T30 | PENDING | PENDING | PENDING | QUEUED |
-| T31 | PENDING | PENDING | PENDING | QUEUED |
-| T32 | PENDING | PENDING | PENDING | QUEUED |
-| T33 | PENDING | PENDING | PENDING | QUEUED |
-| T34 | PENDING | PENDING | PENDING | QUEUED |
-| T35 | PENDING | PENDING | PENDING | QUEUED |
-| T36 | PENDING | PENDING | PENDING | QUEUED |
-| T37 | PENDING | PENDING | PENDING | QUEUED |
-| T38 | PENDING | PENDING | PENDING | QUEUED |
-| T39 | PENDING | PENDING | PENDING | QUEUED |
-| T40 | PENDING | PENDING | PENDING | QUEUED |
-| T41 | PENDING | PENDING | PENDING | QUEUED |
-| T42 | PENDING | PENDING | PENDING | QUEUED |
-| T43 | PENDING | PENDING | PENDING | QUEUED |
-| T44 | PENDING | PENDING | PENDING | QUEUED |
-| T45 | PENDING | PENDING | PENDING | QUEUED |
-| T46 | PENDING | PENDING | PENDING | QUEUED |
-| T47 | PENDING | PENDING | PENDING | QUEUED |
-| T48 | PENDING | PENDING | PENDING | QUEUED |
-| T49 | PENDING | PENDING | PENDING | QUEUED |
-| T50 | PENDING | PENDING | PENDING | QUEUED |
-| T51 | PENDING | PENDING | PENDING | QUEUED |
-| T52 | PENDING | PENDING | PENDING | QUEUED |
-| T53 | PENDING | PENDING | PENDING | QUEUED |
-| T54 | PENDING | PENDING | PENDING | QUEUED |
-| T55 | PENDING | PENDING | PENDING | QUEUED |
-| T56 | PENDING | PENDING | PENDING | QUEUED |
-| T57 | PENDING | PENDING | PENDING | QUEUED |
-| T58 | PENDING | PENDING | PENDING | QUEUED |
-| T59 | PENDING | PENDING | PENDING | QUEUED |
-| T60 | PENDING | PENDING | PENDING | QUEUED |
+- T01_01: QUALITY_GATE_PASSED; reviewer accepted; repository materialization/re-fetch verification pending.
+- T01_02: APPROVED; QG-27 and repository verification complete.
+- T01_03: QUALITY_GATE_PASSED; reviewer accepted; repository materialization/re-fetch verification pending.
+- T02_01, T03_01, T04_01, T05_01, T06_01: **BLUEPRINT_APPROVED**.
+- T02_02/T02_03 through T06_02/T06_03: PENDING behind same-track Initial-contract gates.
+- T07-T60: all three documents PENDING and queued; lane refill remains ascending T07, T08, T09, T10, T11, then onward.
 
-## T01 baseline acceptance actions still required
+## Source reconciliation evidence
 
-The reviewer accepted the complete T01 set on 2026-08-16. Before using T01 as a closed accounting baseline:
+The corrected blueprints on `Document-Rerun-QG` were reconciled against Presenter source, replacing earlier inaccurate draft contracts:
 
-1. Materialize/re-fetch/hash-verify the accepted revised T01_01 and T01_03 files in Private Master.
-2. Update `.project/document-rerun-progress.yml` to the actual achieved stages.
-3. Mark T01_02 APPROVED because QG-27 repository verification and user acceptance are both present.
-4. Mark T01_01/T01_03 APPROVED only after their repository-verification gate is complete.
+- T02: verified `GET /rest/departments/{id}` (`Long id`).
+- T03: verified `PUT /rest/departments/{id}` and ID-based update behavior.
+- T04: verified ID-based soft deactivation with active-member dependency guard rather than hard deletion.
+- T05: verified `GET /rest/departments/search?text=...`.
+- T06: verified current Member creation contract from the T06-T10 Presenter source.
 
-## Lane refill rule
+Branch evidence: `Document-Rerun-QG` head `7b16dda6d8e89bed66703fded66ee19d2ded111a`. Machine progress file records T02_01–T06_01 as BLUEPRINT_APPROVED.
 
-After T02-T06, refill lanes in ascending track order: Agent 1→T07, Agent 2→T08, Agent 3→T09, Agent 4→T10, Agent 5→T11, then continue in the same manner. The coordinator may rebalance if one track is blocked, but must record the reassignment here and must not bypass a dependency inside the same track.
+## Current stream accounting
 
-## Stalled-task rule
+- Previous: **1.5000%**
+- Updated: **2.0556%**
+- Increase: **+0.5556%**
+- Completed stage points: **370 / 18000**
 
-For any document task open for 4+ completed cycles, add/update an `Action Taken in This Cycle` entry in the dashboard. A status/log inspection alone does not count as document progress.
+## Action Taken in This Cycle
+
+Consolidated the five source-reconciled Initial-contract blueprints as accepted BLUEPRINT_APPROVED work, verified their current branch artifacts and exact Presenter API boundaries, and advanced each lane's next eligible action to Initial API Contract generation. No Progressive/Updated document was started prematurely.
