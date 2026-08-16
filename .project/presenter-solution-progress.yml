@@ -46,14 +46,13 @@ active_stage:
   base_commit: 277e9e08bd07fb04ad77b18bf4d78d8651c175b6
   presenter_support_commit: 0bf2687e1c2eee622dae9aec6f46579cd9598304
   active_track: T32
-  active_checkpoint: UNIT_TEST
+  active_checkpoint: UNIT_TEST_CI
   track_progress:
     T31:
       service: COMPLETE
       service_commit: c03fdf121118fdaad8467deec492e97c92c033d9
       unit_test: VERIFIED
       unit_test_commit: 6fdfc020cb4f5561ac1558e7d41c3610b0392a20
-      superseded_unit_test_ci_run: 31944909840
       unit_test_verification_ci_run: 31945047287
       normalized_accession_migration: 0a26ccad874be9a2cb1e990b167506c032eb71eb
       integration_test: COMPLETE_VERIFIED_BY_CUMULATIVE_RUN
@@ -68,11 +67,12 @@ active_stage:
     T32:
       service: COMPLETE
       service_commit: db2d4ec55c1e1bcaff008ef2118053a83de723f9
-      unit_test: IN_PROGRESS
+      unit_test: IMPLEMENTED_CI_PENDING
+      unit_test_commit: 7d4571ec761c11d85638cd05845c1fd1a111817f
       integration_test: PENDING
       frontend: PENDING
       final_ci_and_registry: PENDING
-      percent: 20
+      percent: 40
     T33:
       percent: 0
     T34:
@@ -90,16 +90,16 @@ remaining_stages:
 
 calculation:
   fully_verified_tracks: 30
-  additional_checkpoint_points: 100
-  completed_points: 3100
+  additional_checkpoint_points: 120
+  completed_points: 3120
   possible_points: 6000
-  percent: 51.6667
-  previous_percent: 51.3333
+  percent: 52.0000
+  previous_percent: 51.6667
   increment_percent: 0.3333
 
 progress_display:
-  previous_percent: 51.33
-  updated_percent: 51.67
+  previous_percent: 51.67
+  updated_percent: 52.00
   increase_percent: 0.33
   comparison_basis: latest percentage-bearing checkpoint
   rule: Previous is the value immediately before the latest completed gate that changed the percentage; heartbeat-only or verification-only updates do not overwrite that baseline. Increase is calculated from unrounded values and then rounded for display.
@@ -118,5 +118,6 @@ active_contract:
 notes:
   - T26-T30 is VERIFIED because registry-tip run 31943292080 completed SUCCESS at exact registry commit 277e9e08bd07fb04ad77b18bf4d78d8651c175b6.
   - T31 cumulative run 31945620654 completed SUCCESS at 9d2f5796edb1cd3bb34f56b0433c2c747687e5ed. Historical T26/T27 tracker semantics keep T31 at 80% until the T31-T35 batch registry is frozen and registry-tip CI passes.
-  - T32 Read Book Copy service is complete at db2d4ec55c1e1bcaff008ef2118053a83de723f9. It uses BookCopyDao.findCurrentById and BookCopyDtoDoMapper.toResponse; null ID returns controlled invalid-input and unknown/withdrawn IDs return controlled not-found.
-  - T32 unit testing is the active checkpoint.
+  - T32 Read Book Copy service is complete at db2d4ec55c1e1bcaff008ef2118053a83de723f9.
+  - T32 unit tests are implemented at 7d4571ec761c11d85638cd05845c1fd1a111817f. They cover current-copy read/mapping, unknown or withdrawn copy -> controlled not-found, null ID -> controlled invalid input, and service code 32.
+  - Next: consume exact branch-tip unit-test CI before starting the integration checkpoint.
