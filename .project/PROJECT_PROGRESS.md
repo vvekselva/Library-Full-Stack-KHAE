@@ -17,23 +17,22 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-16 16:03 IST
+## Current Status - 2026-08-16 16:15 IST
 
 | Stream | Progress | Current Stage |
 |---|---:|---|
-| Document Rerun | **0.47%** | T01_02 QG-01 to QG-26 PASS; QG-27 Private Master binary materialization is actively being closed. `Document-Rerun-QG` tip is `2ac05ce` (`DOC-T01_02: stage final DOCX part 07`, 15:47 IST). Final reassembly/re-fetch/SHA-256 verification is still required before QG-27 can be marked PASS. |
-| Presenter Solutions | **42.67%** | T01-T20 fully verified; Publisher T21-T25 implementation is recorded; Book branch `Presenter-Solutions-T26-T30` currently tips at `efaf7fc` (`SOLUTIONS-T27: add Deactivate Book recovery frontend`). T28 Update Book is the next active Presenter-code stage. |
-| Classroom Release Preparation | **33.33%** | Release-00 is Presenter-ready; Release-01/02 pending. |
-| Recovery / Final Integration | **13.33%** | Fully verified recovery registries cover T01-T20; Publisher recovery/correction validation remains part of the active integration track. |
-| **Overall** | **19.81%** | Parallel execution active; status is now also committed to this dashboard at execution checkpoints. |
+| Document Rerun | **0.47%** | T01_02 QG-01 to QG-26 PASS. QG-27 is still OPEN. `Document-Rerun-QG` tip `2ac05ce` staged final DOCX part 07. Materialization workflow run `31941294901` failed in reconstruction with `base64: invalid input`; the workflow currently reads top-level `automation/materialization/T01_02/part-*` while the newer staged parts are under `automation/materialization/T01_02/final/`. Payload completion/path correction is the active document task. |
+| Presenter Solutions | **42.67%** | T26 and T27 complete. T28 Update Book implementation has now advanced through Service, Mockito Unit Test, local PostgreSQL integration, PostgreSQL Testcontainers integration, and Search Book recovery frontend. Current branch tip is `a56daf48`; workflow run `31942385786` is **IN PROGRESS** and is not yet counted as PASS. |
+| Classroom Release Preparation | **33.33%** | Release-00 remains Presenter-ready. Verification branch `Verify-Classroom-Release-00` tip `79597f1` has GitHub Actions run `31930965288` **PASS**. Release-01/02 remain pending. |
+| Recovery / Final Integration | **13.33%** | Publisher T21-T25 registry correction is now VERIFIED: run `31934851302` completed **SUCCESS** for corrected T22 frontend recovery path. Existing verified recovery coverage through T20 is preserved. |
+| **Overall** | **19.81%** | Parallel execution active. Frozen percentages are unchanged until their defined completion checkpoints are crossed; live stage evidence is updated here. |
 
 ## Active Work
 
-- Document: close T01_02 QG-27. The accepted DOCX is being materialized on `Document-Rerun-QG` using staged binary parts; latest verified branch checkpoint is part 07. Reassemble/re-fetch the final artifact and verify SHA-256 `c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4` before approval.
-- Presenter code: continue `Presenter-Solutions-T26-T30` from the verified T27 branch tip and execute T28 Update Book next; do not repeat completed T16-T27 checkpoints.
-- Publisher recovery registry: preserve the corrected T22 frontend path and revalidate it as part of the recovery track.
-- Book CI: do not infer PASS from branch presence alone; the current branch-tip combined-status query returned no status contexts at this checkpoint.
-- Classroom release: `Classroom-Release-00-Empty` remains Presenter-ready; no Public write is performed by ChatGPT.
+- **Document:** repair/complete T01_02 QG-27 materialization. The latest workflow failure has been diagnosed: reconstruction currently uses the wrong payload level and the available staged final parts are not yet sufficient to prove the exact 234,444-byte artifact. QG-27 cannot be marked PASS until the reconstructed DOCX has SHA-256 `c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4` and Git blob SHA `853fe9b900ba04339441116bdf18e64289a59093`.
+- **Presenter code:** T28 implementation complete; CI run `31942385786` is active. In parallel, prepare T29 Deactivate Book from the repository contract without changing T28 completion status until CI is green.
+- **Recovery:** Publisher registry correction no longer remains pending; run `31934851302` is verified SUCCESS.
+- **Classroom release:** Release-00 verification is confirmed SUCCESS by run `31930965288`. No Public write is performed by ChatGPT.
 
 ## 15-Minute Execution Checkpoint Protocol
 
@@ -41,21 +40,38 @@ During an active execution window, each 15-minute checkpoint must also update th
 
 ### Checkpoint Log
 
+- **2026-08-16 16:15 IST** - T28 substantive implementation completed through frontend at `a56daf48`; Presenter CI run `31942385786` is still IN PROGRESS. Document QG-27 workflow failure was inspected down to the job log and diagnosed as `base64: invalid input` with a payload-path/staging mismatch; repair remains active. Release-00 verification run `31930965288` is SUCCESS. Publisher recovery correction run `31934851302` is SUCCESS. Next Presenter task prepared: T29 Deactivate Book.
 - **2026-08-16 16:03 IST** - Document stream verified at `Document-Rerun-QG` commit `2ac05ce` staging final DOCX part 07; QG-27 final reassembly/hash verification remains open. Presenter stream verified at `Presenter-Solutions-T26-T30` commit `efaf7fc` for the T27 Deactivate Book recovery frontend; T28 Update Book is next. Release-00 remains Presenter-ready. Main dashboard updated as part of the execution checkpoint.
 
 ## Completed Since Previous Dashboard
 
-- T01_02 assembled to a 55-page DOCX and passed QG-25/QG-26; exact current binary was re-rendered and all 55 pages match the reviewed render set byte-for-byte.
-- T01_02 QG-27 binary materialization has progressed beyond the earlier connector blocker: staged DOCX parts are now being committed to `Document-Rerun-QG`; final artifact verification is still pending.
-- T21-T25 Publisher implementation completed and source-tip CI passed.
-- Publisher T21-T25 solution registry was created; one T22 file-path typo was detected during reuse, corrected, and is being revalidated.
-- Successive Book stage `Presenter-Solutions-T26-T30` created.
-- T26 Create Book: service codes, service, Mockito Unit Tests, normalized-ISBN migration, local PostgreSQL integration, PostgreSQL Testcontainers, and Update Book frontend implemented.
-- T27 Read Book: service, Mockito Unit Tests, local PostgreSQL current/inactive integration, PostgreSQL Testcontainers, and Deactivate Book frontend implemented.
+- T28 Update Book Service implementation committed.
+- T28 Mockito Unit Tests committed.
+- T28 local PostgreSQL integration tests committed.
+- T28 PostgreSQL Testcontainers integration tests committed.
+- T28 Search Book recovery frontend committed; branch tip `a56daf48`.
+- Release-00 verification independently rechecked and confirmed SUCCESS.
+- Publisher T21-T25 corrected recovery registry independently rechecked and confirmed SUCCESS.
+- T01_02 QG-27 materialization failure was investigated to the exact reconstruction step; it is no longer recorded merely as an unspecified connector blocker.
+- T01_02 remains a 55-page accepted/reviewed document through QG-26; QG-27 is deliberately not closed until binary identity is proven.
+
+## T28 Substantive Commit Evidence
+
+- `d8ed5d99` - `SOLUTIONS-T28: implement Update Book service`
+- `055da66b` - `SOLUTIONS-T28: add Update Book unit tests`
+- `03fe8e81` - `SOLUTIONS-T28: add Update Book local PostgreSQL integration test`
+- `95f15e7d` - `SOLUTIONS-T28: add Update Book Testcontainers integration test`
+- `a56daf48` - `SOLUTIONS-T28: add Search Book recovery frontend`
 
 ## Document QG-27 Status
 
-The earlier binary-write blocker is being worked around by staging the accepted DOCX in repository-safe parts on `Document-Rerun-QG`. The latest verified branch checkpoint is `2ac05ce` (`DOC-T01_02: stage final DOCX part 07`). QG-27 remains open until the final artifact is reconstructed or otherwise materialized in Private Master, re-fetched, and hash-verified against the accepted SHA-256 value.
+The accepted artifact identity remains:
+
+- Size: `234444` bytes
+- SHA-256: `c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4`
+- Git blob SHA: `853fe9b900ba04339441116bdf18e64289a59093`
+
+The `Materialize T01_02 Final DOCX` workflow run `31941294901` failed at `Reconstruct exact inspected DOCX` with `base64: invalid input`. The workflow currently concatenates `automation/materialization/T01_02/part-*`; newer staged pieces are present under `automation/materialization/T01_02/final/part-*`. This is an active, explicitly recorded blocker. Do not approve QG-27 until the exact binary is committed, re-fetched, and identity-verified.
 
 ## Release-02 Prerequisite
 
