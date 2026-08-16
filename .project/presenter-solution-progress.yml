@@ -41,18 +41,21 @@ active_stage:
   tracks: T31-T35
   module: Book Copy
   branch: Presenter-Solutions-T31-T35
-  status: CONTRACT_RECOVERED_BRANCH_CREATION_NEXT
+  status: IN_PROGRESS
   base_branch: Presenter-Solutions-T26-T30
   base_commit: 277e9e08bd07fb04ad77b18bf4d78d8651c175b6
+  presenter_support_commit: 0bf2687e1c2eee622dae9aec6f46579cd9598304
   active_track: T31
+  active_checkpoint: UNIT_TEST
   track_progress:
     T31:
-      service: PENDING
-      unit_test: PENDING
+      service: COMPLETE
+      service_commit: c03fdf121118fdaad8467deec492e97c92c033d9
+      unit_test: IN_PROGRESS
       integration_test: PENDING
       frontend: PENDING
       final_ci_and_registry: PENDING
-      percent: 0
+      percent: 20
     T32:
       percent: 0
     T33:
@@ -72,10 +75,10 @@ remaining_stages:
 
 calculation:
   fully_verified_tracks: 30
-  additional_checkpoint_points: 0
-  completed_points: 3000
+  additional_checkpoint_points: 20
+  completed_points: 3020
   possible_points: 6000
-  percent: 50.0000
+  percent: 50.3333
 
 active_contract:
   track: T31
@@ -93,4 +96,5 @@ active_contract:
 
 notes:
   - T26-T30 is VERIFIED only because registry-tip run 31943292080 completed SUCCESS at exact registry commit 277e9e08bd07fb04ad77b18bf4d78d8651c175b6.
-  - T31 contract was recovered from the frozen 60-student assignment plan and consistency audit; implementation must follow the existing Presenter service/unit/integration/frontend boundaries.
+  - T31 service is complete at c03fdf121118fdaad8467deec492e97c92c033d9; the next student checkpoint is unit testing.
+  - The current student assignment plan controls T31 teaching behavior: null accessionNumber -> ACCESSION_NUMBER_REQUIRED and duplicate ACC-000101 integration discovery. The consistency-audit register has a different generic null-request/ACC-0001 convention and is not silently substituted.
