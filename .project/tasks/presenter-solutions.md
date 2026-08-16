@@ -13,64 +13,46 @@ Do not start Integration before Service + Unit Test branch-tip CI is green. Do n
 - T01-T30: completed/verified batch registries.
 - T31: Service + UT + Integration + Frontend complete; 80%; final registry checkpoint pending T31-T35 batch.
 - T32: Service + UT + Integration + Frontend complete; 80%; final registry checkpoint pending T31-T35 batch.
-- T33: Service + Unit Test/repair GREEN; local PostgreSQL + PostgreSQL-18 Testcontainers Integration GREEN; assigned Frontend implemented at `c82d0f0ed896bc9f6d729e8db34855040ce2fbaa`; cumulative branch-tip workflow `31976478238` is still running. Frontend build is SUCCESS while backend PostgreSQL tests remain IN_PROGRESS.
+- T33: Service + Unit Test/repair + Integration + assigned Frontend are all VERIFIED GREEN; 80%; final registry checkpoint pending T31-T35 batch.
 - T34-T60: pending unless later verified repository evidence supersedes this file.
 
 ## T33 exact evidence
 
-Prior failure:
-- Branch: `Presenter-Solutions-T31-T35`
-- Service commit: `fec9bcdbdaa86e17c0b939a8020321de05c632c6`
-- Unit-test/head commit: `4520f779a87bcac8c7628a90f0e6bc14fd87c6d8`
-- Workflow `31946962274`, attempt 2: FAILURE
-- Backend job `95189332185`: FAILURE at **Run Presenter solution tests with PostgreSQL**
-- Frontend job `95189332541`: SUCCESS
-
-Targeted diagnosis and verified repair:
-- T33 duplicate test requires `" acc-0001 "` to query normalized business key `"ACC-0001"` and produce the duplicate error.
-- `UpdateBookCopyServiceImpl` previously trimmed accession number but did not uppercase it before `findByNormalizedBusinessKey`.
-- Repair commit: `fe4b8262bd9536cc0ce88569ae6031f7604e0132`.
-- Verification workflow: `31973754438`: **SUCCESS**.
-
-Integration checkpoint — VERIFIED:
-- Local PostgreSQL integration commit: `b2d3a859eb250134c0b1d8c5666df7bf78d9a193`.
-- PostgreSQL 18 Testcontainers integration commit: `2f1bea871d7b8f49fefdb2e8db699724051470da`.
-- Integration coverage: successful current-row update with normalized accession/status plus duplicate-accession rejection against real PostgreSQL persistence.
-- Branch-tip workflow `31973983928`: **SUCCESS**.
-- This closes the T33 Integration checkpoint and legitimately unlocks Frontend.
-
-Assigned Frontend — IMPLEMENTED, CUMULATIVE CI PENDING:
-- Used the existing verified Update Book Copy frontend recovery pattern and T33's source-proven PUT contract.
-- New track file: `frontend/frontend.lib.mgmt/src/tracks/t33-update-book-copy.js`.
+- Service commit: `fec9bcdbdaa86e17c0b939a8020321de05c632c6`.
+- Unit-test repair commit: `fe4b8262bd9536cc0ce88569ae6031f7604e0132`; verification workflow `31973754438`: SUCCESS.
+- Local PostgreSQL integration: `b2d3a859eb250134c0b1d8c5666df7bf78d9a193`.
+- PostgreSQL 18 Testcontainers integration: `2f1bea871d7b8f49fefdb2e8db699724051470da`.
+- Integration workflow `31973983928`: SUCCESS.
+- Assigned Frontend: `frontend/frontend.lib.mgmt/src/tracks/t33-update-book-copy.js`.
 - Frontend commit: `c82d0f0ed896bc9f6d729e8db34855040ce2fbaa`.
-- Workflow `31976478238`: IN_PROGRESS at this checkpoint.
-- Frontend job `95236646591`: SUCCESS, including dependency installation and Vite production build.
-- Backend job `95236646515`: IN_PROGRESS at `Run Presenter solution tests with PostgreSQL`.
-- Do not credit the Frontend checkpoint until cumulative branch-tip CI completes green.
+- Cumulative workflow `31976478238`: SUCCESS.
+- Backend job `95236646515`: SUCCESS, including PostgreSQL Presenter solution tests.
+- Frontend job `95236646591`: SUCCESS, including Vite production build.
 
 ## Immediate Agent 6 queue
 
-1. Require workflow `31976478238` to complete SUCCESS before granting the T33 Frontend checkpoint.
-2. If green, preserve T33 cumulative evidence and advance only dependency-eligible T34 work.
-3. If it fails, inspect the exact failure and make only an evidence-backed correction.
+1. Preserve T33 cumulative green evidence for T31-T35 batch registry.
+2. Advance only dependency-eligible T34 work after source/contract identity is reconciled.
+3. Continue T35 only after its preceding track/gates satisfy the queue rules.
 4. Freeze T31-T35 registry only when all five tracks satisfy the gate.
 
 ## Current stream accounting
 
 - Previous: **53.3333%**
-- Updated: **53.6667%**
-- Increase: **+0.3334%**
+- Updated: **54.0000%**
+- Increase: **+0.6667%**
 - Cycles without increase: **0**
-- State: **IN PROGRESS — ADVANCED THIS CYCLE**.
+- State: **IN PROGRESS — T33 ADVANCED TO 80% THIS CYCLE**.
 
 ## Tasks Closed This Cycle
 
-- **T33 Integration checkpoint — CLOSED.** Workflow `31973983928` completed SUCCESS at Testcontainers head `2f1bea871d7b8f49fefdb2e8db699724051470da`.
+- **T33 Integration checkpoint — CLOSED.** Workflow `31973983928` SUCCESS.
+- **T33 assigned Frontend checkpoint — CLOSED.** Frontend commit `c82d0f0e...`; cumulative workflow `31976478238` SUCCESS with both backend and frontend jobs green.
 
 ## Tasks In Progress This Cycle
 
-- **T33 assigned Frontend / cumulative CI.** Implementation commit `c82d0f0e...`; frontend build green; cumulative backend test job still running.
+- T34 source/contract reconciliation started after T33 became green. Presenter-owned `ApplicationCodes` identifies T34 as `T34_DEACTIVATE_BOOK_COPY`; implementation work is not credited until exact interface/controller/stub ownership is reconciled.
 
 ## Action Taken in This Cycle
 
-Verified the previously pending Integration workflow green, awarded only the Integration checkpoint, then implemented the now-unblocked T33 Update Book Copy recovery frontend without changing shared frontend infrastructure. The push triggered workflow `31976478238`; its frontend build is green and backend PostgreSQL tests remain active. No Frontend percentage is credited until the complete branch-tip workflow is green.
+Verified T33 Integration green, implemented the newly unblocked assigned Frontend, then waited for and verified cumulative branch-tip CI fully green. Only after both backend PostgreSQL tests and frontend production build succeeded was the Frontend checkpoint credited. T33 is now at 80% and registry-ready for the eventual T31-T35 batch; T34 source reconciliation has begun without speculative implementation.
