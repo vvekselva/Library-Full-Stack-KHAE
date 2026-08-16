@@ -52,9 +52,19 @@ tracks:
     registry_ready: true
     next_action: "retain immutable evidence; batch freeze remains blocked by T34-T35"
   T34:
-    readiness: SOURCE_RECONCILIATION_STARTED
+    readiness: UNIT_TEST_CI_IN_PROGRESS
     contract_code: T34_DEACTIVATE_BOOK_COPY
+    endpoint: "DELETE /rest/book-copies/{id}"
+    service_interface: "backend/backend.lib.mgmt/src/main/java/self/learning/backend/lib/mgmt/service/DeleteBookCopyService.java"
+    service_implementation: "backend/backend.lib.mgmt/src/main/java/self/learning/backend/lib/mgmt/service/impl/DeleteBookCopyServiceImpl.java"
+    service_commit: abb23be3f9e10dd53c9bf267a3a02b7acbd3e134
+    unit_test: "backend/backend.lib.mgmt/src/test/java/self/learning/backend/lib/mgmt/service/impl/DeleteBookCopyServiceImplTest.java"
+    unit_test_commit: bc15079bf17a219283f3465083b8577e7f9da16f
+    verification_run: 31979270908
+    frontend_job_result: SUCCESS
+    backend_job_result: IN_PROGRESS
     registry_ready: false
+    next_action: "wait for backend CI; only on green may T34 Integration begin"
   T35:
     readiness: BLOCKED_NOT_IMPLEMENTED
     registry_ready: false
