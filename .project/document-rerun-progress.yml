@@ -56,7 +56,12 @@ active_document:
   completed_sections:
     - 01 Assignment and Current API Contract
     - 02 Why Create an Empty Service First
-  next_section: 03 Empty Service and First JUnit Invocation
+    - 03 Empty Service and First JUnit Invocation
+    - 04 Mockito and Dependency Isolation
+  editable_drawio_sources:
+    - 01 Full Application Invocation
+    - 02 Unit Test Dependency Isolation
+  next_section: 05 Natural Successful Create Implementation
 
 release_prerequisites_discovered:
   - Before Classroom-Release-02, move generic Presenter-owned ApplicationServiceException and ApplicationServiceExceptionHandler into the student baseline.
