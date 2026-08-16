@@ -34,35 +34,28 @@ Within each track: `_01 Initial → _02 Progressive → _03 Updated`. Cross-trac
 
 All five `_02` blueprints were checked against the accepted T01_02 15-stage instructional structure and frozen Presenter behavior. The QA records are committed under `Documents/Rerun-Control/T02` through `T06` on `Document-Rerun-QG`.
 
-All five passed:
-- WHY before HOW.
-- Successful path before negative conditions.
-- Failure/observation before correction.
-- Exact frozen endpoint and source behavior.
-- Explicit Student/Presenter ownership boundaries.
-- Unit testing, JaCoCo, local PostgreSQL/DBeaver, Testcontainers and frontend integration.
-- Editable Draw.io requirement.
-- QG-25, QG-26 and QG-27 retention.
+All five passed WHY-before-HOW, success-before-negative, failure-before-correction, exact endpoint/source behavior, ownership boundaries, testing coverage, editable Draw.io requirements, and QG-25/QG-26/QG-27 retention.
 
 ## First controlled generation pass
 
-Generation evidence is committed at `documents/rerun/PROGRESSIVE_DRAFT_GENERATION_T02_T06.md` on `Document-Rerun-QG` (commit `c027411c58510b390ad71e0afab9b4c431fb9b5e`).
+Generation evidence: commit `c027411c58510b390ad71e0afab9b4c431fb9b5e`.
 
-- T02_02: 8-page first draft; SHA-256 `3859b98e5f5d567e74cbc30781f37b1e564f32f574103bf8a3006a33112a7e57`.
-- T03_02: 9-page first draft; SHA-256 `d2220881158f75f86ce3a46cd4f6d96d89bd346a5c6c8f88175c8b844f5461e8`.
-- T04_02: 8-page first draft; SHA-256 `24216d62147b5edb6d19e5f8b4e4c15607bbf7290a6fbd20c7f880e7f9045f58`.
-- T05_02: 8-page first draft; SHA-256 `95787fdc3b8ef972dd227221ca72dca06a19baeef36af71827ec7a68e6b28c2f`.
-- T06_02: 9-page first draft; SHA-256 `1bffb5b81089a2bca5c902bbfcc5ed00c2da90253b6ce16e73a6c94920ad253f`.
+- T02_02: 8 pages; SHA-256 `3859b98e5f5d567e74cbc30781f37b1e564f32f574103bf8a3006a33112a7e57`.
+- T03_02: 9 pages; SHA-256 `d2220881158f75f86ce3a46cd4f6d96d89bd346a5c6c8f88175c8b844f5461e8`.
+- T04_02: 8 pages; SHA-256 `24216d62147b5edb6d19e5f8b4e4c15607bbf7290a6fbd20c7f880e7f9045f58`.
+- T05_02: 8 pages; SHA-256 `95787fdc3b8ef972dd227221ca72dca06a19baeef36af71827ec7a68e6b28c2f`.
+- T06_02: 9 pages; SHA-256 `1bffb5b81089a2bca5c902bbfcc5ed00c2da90253b6ce16e73a6c94920ad253f`.
 
-The drafts were rendered to page images for the generation check. Layout is sufficiently clean to continue authoring, but the accepted T01_02 baseline is 45 pages and these first drafts are only 8–9 pages. Therefore **no document has been promoted to CONTENT_QA**. The next generation pass must add the missing textbook depth, line-by-line explanation, run/observe/fail/correct evidence and editable Draw.io assets before QA begins.
+The accepted T01_02 benchmark is approximately 45 pages. These drafts remain materially under-depth, so **none is promoted to CONTENT_QA**. Missing depth includes line-by-line explanation, run/observe/fail/correct/regression evidence and full editable Draw.io teaching assets.
 
 ## Current stream accounting
 
-- Previous: **4.8333%**
+- Previous: **5.3889%**
 - Updated: **5.3889%**
-- Increase: **+0.5556%**
+- Increase: **+0.0000%**
 - Completed stage points: **970 / 18000**
+- Cycles without increase: **1**
 
 ## Action Taken in This Cycle
 
-Corrected the control state using the user's clarification that all five final `_01` contracts were already approved, released all five Progressive Guide lanes, completed independent blueprint QA, generated and rendered first controlled DOCX drafts, and stopped them honestly at `GENERATING` because their current depth is below the approved T01_02 textbook standard. No `_03` task was started prematurely.
+Kept all five independent T02-T06 Progressive Guide lanes active at the correct `GENERATING` gate and revalidated their first controlled-generation identities and depth against the accepted T01_02 benchmark. No status-only credit was awarded, no under-depth draft was promoted to Content QA, and no `_03` task was started prematurely.
