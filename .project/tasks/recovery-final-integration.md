@@ -18,7 +18,7 @@ Registry evidence may be captured incrementally, but a 5-track batch must not be
 - Later batches T36-T60: pending Presenter completion.
 - Final reconciliation/integration/freeze: blocked by upstream completion.
 
-## Candidate preparation completed this cycle
+## Candidate preparation
 
 Private candidate structure: `.project/recovery/T31-T35-registry-candidate.yml` at commit `c77e5b21481aa5857841520e3aad6b8f77ab02ee`.
 
@@ -33,8 +33,9 @@ It records:
 - Previous: **20.0000%**
 - Updated: **20.0000%**
 - Increase: **+0.0000%**
+- Cycles without increase: **11**
 - State: **STALE** by percentage.
 
 ## Action Taken in This Cycle
 
-Created a concrete non-destructive T31-T35 registry candidate structure with exact known T33 CI evidence and explicit T31/T32 evidence-capture placeholders. This advances eligible Recovery preparation while preventing premature batch freeze.
+Revalidated the non-frozen T31-T35 registry candidate against current Presenter evidence. T33 remains failed and T31/T32 exact component SHA/green-CI capture remains incomplete, so `freeze_allowed: false` is preserved and no false completion credit was granted.
