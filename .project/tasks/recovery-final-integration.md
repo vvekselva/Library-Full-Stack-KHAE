@@ -5,48 +5,36 @@
 
 ## Dependency rules
 
-1. Registry validation may advance incrementally for tracks/components that already have exact green SHAs.
-2. Do not freeze a 5-track registry batch until every dependent track in that batch satisfies the required cumulative CI gate.
-3. Do not infer registry completion from implementation percentage alone.
-4. Final integration cannot close while required Presenter, Document or Release prerequisites remain incomplete.
-5. Recovery validation must use exact commit/blob identities and workflow results.
+Registry evidence may be captured incrementally, but a 5-track batch must not be frozen until every dependent track has exact immutable evidence and required cumulative CI. Final integration cannot close while Presenter, Document, or Release prerequisites remain incomplete.
 
 ## Registry coverage queue
 
-| Registry / Recovery task | Status | Next action / dependency |
-|---|---|---|
-| T01-T05 registry | VERIFIED | Preserve exact evidence; no rewrite unless source changes |
-| T06-T10 registry | VERIFIED | Preserve exact evidence |
-| T11-T15 registry | VERIFIED | Preserve exact evidence |
-| T16-T20 registry | VERIFIED | Preserve exact evidence |
-| T21-T25 registry | VERIFIED | Preserve exact evidence |
-| T26-T30 registry | VERIFIED | Preserve exact evidence; registry-tip CI already green |
-| Incremental T31 evidence capture | ELIGIBLE | Record exact verified Service/UT/Integration/Frontend SHAs and cumulative CI evidence |
-| Incremental T32 evidence capture | ELIGIBLE | Record exact verified Service/UT/Integration/Frontend SHAs and cumulative CI evidence |
-| Incremental T33 evidence capture | PARTIAL | Record existing Service/UT identities; do not mark track registry-ready until repaired cumulative CI + Integration + Frontend are green |
-| T34 evidence capture | BLOCKED | Requires T34 implementation/verification |
-| T35 evidence capture | BLOCKED | Requires T35 implementation/verification |
-| Freeze T31-T35 registry | BLOCKED | Requires T31-T35 all registry-ready and cumulative batch validation |
-| Run T31-T35 registry-tip CI / VALIDATE_ONLY recovery test | BLOCKED | Requires frozen T31-T35 registry candidate |
-| T36-T40 registry | PENDING | Requires Presenter tracks T36-T40 |
-| T41-T45 registry | PENDING | Requires Presenter tracks T41-T45 |
-| T46-T50 registry | PENDING | Requires Presenter tracks T46-T50 |
-| T51-T55 registry | PENDING | Requires Presenter tracks T51-T55 |
-| T56-T60 registry | PENDING | Requires Presenter tracks T56-T60 |
-| Final full-registry reconciliation | BLOCKED | Requires all Presenter registry batches verified |
-| Final integration validation | BLOCKED | Requires approved document/release state plus final registry reconciliation |
-| Recovery completion freeze | BLOCKED | Requires successful final integration validation |
+- T01-T30 registries: VERIFIED; preserve existing evidence.
+- T31: implementation checkpoints complete; exact component SHA/green-CI evidence capture remains open.
+- T32: implementation checkpoints complete; exact component SHA/green-CI evidence capture remains open.
+- T33: Service + Unit Test implemented, but unit-test CI is failed; Integration/Frontend and registry readiness remain blocked.
+- T34/T35: implementation evidence not yet available; blocked.
+- T31-T35 freeze: BLOCKED until all five tracks are registry-ready.
+- Later batches T36-T60: pending Presenter completion.
+- Final reconciliation/integration/freeze: blocked by upstream completion.
 
-## Immediate Agent 8 queue
+## Candidate preparation completed this cycle
 
-1. Capture the exact verified T31 evidence already available from cumulative CI and component commits.
-2. Capture the exact verified T32 evidence already available from cumulative CI and component commits.
-3. Capture only the currently valid partial T33 evidence; do not infer readiness.
-4. Prepare the T31-T35 registry candidate structure without freezing it.
-5. As Agent 6 closes T33, T34 and T35, add their exact verified identities.
-6. Freeze and validate T31-T35 only after all five tracks are registry-ready.
-7. Continue later batches incrementally using the same discipline.
+Private candidate structure: `.project/recovery/T31-T35-registry-candidate.yml` at commit `c77e5b21481aa5857841520e3aad6b8f77ab02ee`.
 
-## Stalled-stream requirement
+It records:
+- T31/T32 as evidence-capture pending rather than falsely registry-ready.
+- T33 workflow `31946962274` attempt 2, head `4520f779a87bcac8c7628a90f0e6bc14fd87c6d8`, backend job `95189332185` FAILURE, frontend job `95189332541` SUCCESS.
+- T34/T35 as blocked/not implemented.
+- `freeze_allowed: false` until all batch gates pass.
 
-If Recovery has no percentage increase for 4+ cycles, `Action Taken in This Cycle` must show a concrete eligible evidence-capture/validation/preparation action. Waiting for Presenter completion is not acceptable while verified T31/T32 evidence can still be captured.
+## Current stream accounting
+
+- Previous: **20.0000%**
+- Updated: **20.0000%**
+- Increase: **+0.0000%**
+- State: **STALE** by percentage.
+
+## Action Taken in This Cycle
+
+Created a concrete non-destructive T31-T35 registry candidate structure with exact known T33 CI evidence and explicit T31/T32 evidence-capture placeholders. This advances eligible Recovery preparation while preventing premature batch freeze.
