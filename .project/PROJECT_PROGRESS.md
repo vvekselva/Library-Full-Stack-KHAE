@@ -11,71 +11,84 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-16 22:00 IST
+## Current Status - 2026-08-16 23:18 IST
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
-| **Document Rerun** | **1.50%** | **1.50%** | **+0.00%** | PRIMARY. T02-T06 remain five independent active lanes. No stage promotion without accepted rerun/QG evidence. |
-| Presenter Solutions | **53.33%** | **53.33%** | **+0.00%** | T33 workflow attempt 2 completed FAILURE. `backend-test` failed; `frontend-build` succeeded. Integration remains blocked. |
-| Classroom Release Preparation | **33.33%** | **33.33%** | **+0.00%** | STALE >3 cycles. Promotion remains dependency-gated; no public write made. |
-| Recovery / Final Integration | **20.00%** | **20.00%** | **+0.00%** | STALE >3 cycles. T33 is not registry-ready; T31/T32 evidence capture remains eligible; T31-T35 freeze blocked. |
-| **Overall** | **24.68%** | **24.68%** | **+0.00%** | Raw current ≈ **24.6750%**. No verified stage gate crossed in this execution cycle. |
+| **Document Rerun** | **1.5000%** | **2.0556%** | **+0.5556%** | PRIMARY. T02_01-T06_01 are BLUEPRINT_APPROVED after source reconciliation; five lanes are eligible to generate their Initial API Contracts only. |
+| Presenter Solutions | **53.3333%** | **53.3333%** | **+0.0000%** | **STALE >3 cycles.** T33 backend CI still fails and accessible log surface does not expose the underlying assertion. |
+| Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE >3 cycles.** Release-01 private selection manifest + validation checklist are now prepared; candidate materialization remains dependency-gated. |
+| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | **STALE >3 cycles.** T31-T35 private candidate structure prepared with freeze blocked until exact registry readiness. |
+| **Overall** | **24.6750%** | **24.9250%** | **+0.2500%** | Increase comes only from verified Document BLUEPRINT_APPROVED stage points. |
 
 ## Coordinator / Logical Worker Lanes
 
-One primary coordinator is active. The repository records eight logical worker lanes; this environment does not expose eight autonomous background subagent processes.
+One primary coordinator is active. The eight entries are logical worker lanes; this environment does not expose eight autonomous background subagent processes.
 
 | Lane | Assignment | Current work | Evidence/state |
 |---|---|---|---|
-| Primary Coordinator | Orchestration | Read queues, inspect branches/CI, execute eligible work, consolidate evidence | ACTIVE |
-| Agent 1 | Document Rerun | T02 | ACTIVE; accepted rerun/QG evidence pending |
-| Agent 2 | Document Rerun | T03 | ACTIVE; accepted rerun/QG evidence pending |
-| Agent 3 | Document Rerun | T04 | ACTIVE; accepted rerun/QG evidence pending |
-| Agent 4 | Document Rerun | T05 | ACTIVE; accepted rerun/QG evidence pending |
-| Agent 5 | Document Rerun | T06 | ACTIVE; accepted rerun/QG evidence pending |
-| Agent 6 | Presenter Solutions | T33 verification/repair | CI attempt 2 FAILED; exact test-error diagnosis required before repair |
-| Agent 7 | Classroom Release | Release-01 prerequisite-free preparation | STALE/BLOCKED for promotion; no public write |
-| Agent 8 | Recovery / Final Integration | T31/T32 evidence + T31-T35 candidate | STALE/IN PROGRESS; T33 blocks freeze |
+| Primary Coordinator | Orchestration | Consolidate queues, branches, CI, evidence and live progress | ACTIVE |
+| Agent 1 | Document Rerun | T02 | T02_01 BLUEPRINT_APPROVED; generate Initial contract next |
+| Agent 2 | Document Rerun | T03 | T03_01 BLUEPRINT_APPROVED; generate Initial contract next |
+| Agent 3 | Document Rerun | T04 | T04_01 BLUEPRINT_APPROVED; generate Initial contract next |
+| Agent 4 | Document Rerun | T05 | T05_01 BLUEPRINT_APPROVED; generate Initial contract next |
+| Agent 5 | Document Rerun | T06 | T06_01 BLUEPRINT_APPROVED; generate Initial contract next |
+| Agent 6 | Presenter Solutions | T33 verification/repair | STALE; exact failing assertion unavailable from accessible job-log body |
+| Agent 7 | Classroom Release | Release-01 private prep | STALE by percentage; manifest/checklist completed this cycle |
+| Agent 8 | Recovery / Final Integration | T31-T35 candidate evidence | STALE by percentage; non-frozen candidate structure prepared |
 
 Within a Document track, `Initial API Contract -> Progressive Guide -> Updated API Contract` remains dependency ordered. Across tracks, independent source-grounded work may proceed concurrently.
 
 ## Tasks Taken Up This Cycle
 
-- Re-read the Document queue and maintained T02-T06 as five independent active lanes without bypassing accepted-QG gates.
-- Inspected Presenter workflow `31946962274` attempt 2 at head `4520f779a87bcac8c7628a90f0e6bc14fd87c6d8`.
-- Verified `backend-test` check `95189332185` failed while `frontend-build` check `95189332541` succeeded.
-- Inspected GitHub check annotations. They expose a Node.js 20 deprecation warning for `actions/checkout@v4` and terminal `Process completed with exit code 1`, but not the underlying test assertion/error.
-- Stopped blind T33 reruns; kept Integration and Frontend dependency blocks in place until the exact backend test failure is isolated.
-- Revalidated Classroom Release prerequisites and withheld public promotion.
-- Recorded failed T33 CI as a hard Recovery/registry blocker and prevented premature T31-T35 freeze.
+- Consolidated T02-T06 source reconciliation and checked current `Document-Rerun-QG` artifacts against Presenter source boundaries.
+- Revalidated T33 workflow `31946962274` attempt 2 and attempted direct backend job-log extraction.
+- Prepared the private Release-01 file-selection manifest and validation checklist.
+- Prepared a private, non-frozen T31-T35 recovery/registry candidate evidence structure.
 
 ## Tasks Closed This Cycle
 
-None. CI diagnosis, status inspection and dependency preservation do not count as completed stage gates.
+- **Prepare Release-01 file-selection manifest** — DONE, commit `5fe51ba6b4c8de57bdc71932673171f1ef25ed23`.
+- **Prepare Release-01 validation checklist** — DONE, commit `f0a541258ac8dbf44d1cbb93aff262a779dced98`.
+- The five Document Initial blueprints crossed BLUEPRINT_APPROVED; their document tracks remain open because generation/content/visual/QG/repository gates are still pending.
 
 ## Tasks Still In Progress
 
-- T02-T06 Document rerun: accepted rerun/QG evidence is still required before stage promotion.
-- T33 Presenter: exact backend-test error must be isolated; no speculative implementation repair is credited.
-- Release-01: prerequisite-free preparation remains eligible; promotion blocked.
-- Recovery T31-T35: T31/T32 evidence capture remains eligible; T33 is not registry-ready; final candidate freeze blocked.
+- T02_01-T06_01: generate the five success-only Initial API Contracts, then run required document gates independently.
+- T01_01/T01_03: materialize and re-fetch/hash-verify exact accepted binaries before APPROVED.
+- T33 Presenter: obtain exact backend test failure, apply only proven repair, and require branch-tip CI success before Integration.
+- Release-01: reconcile Release-00/current baseline and prepare private branch/workflow structure; candidate materialization remains blocked by document approval identities.
+- Recovery T31-T35: capture exact T31/T32 component SHAs/green-CI evidence; T33/T34/T35 prevent freeze.
 
 ## Tasks / Streams Open More Than 3 Cycles
 
-| Stream | Cycles Without Increase | State | Action Taken in This Cycle |
+| Task / Stream | Cycles | State | Action Taken in This Cycle |
 |---|---:|---|---|
-| Classroom Release Preparation | 9 | **STALE** | Revalidated dependency rules and withheld public promotion because required Presenter/document prerequisites are incomplete. |
-| Recovery / Final Integration | 9 | **STALE** | Recorded T33 failed CI attempt 2 as a hard registry blocker; preserved T31/T32 evidence-capture path and prevented premature T31-T35 freeze. |
+| Document lanes T02-T06 | 4 | IN PROGRESS, not stale by percentage | Consolidated five corrected source-grounded blueprints to BLUEPRINT_APPROVED and moved each lane to Initial-contract generation eligibility. |
+| Presenter T33 | 4 | **STALE** | Revalidated failed run and attempted direct backend job-log extraction; accessible log body was empty/unusable, so no speculative repair or blind rerun was made. |
+| Classroom Release | 10 | **STALE** | Created private Release-01 selection manifest and validation checklist; public promotion remained untouched. |
+| Recovery / Final Integration | 10 | **STALE** | Created private T31-T35 candidate structure with exact known T33 CI evidence and `freeze_allowed: false`. |
 
-Presenter is at 3 consecutive cycles without increase and has not yet crossed the 4-completed-cycle threshold. Document Rerun is at 2 cycles without increase after its prior increase.
+## Streams With No Increase More Than 3 Cycles
+
+- **Presenter Solutions — 4 cycles:** exact T33 backend failure remains the repair prerequisite.
+- **Classroom Release — 10 cycles:** percentage remains dependency-gated despite two prerequisite-free preparation tasks closing this cycle.
+- **Recovery / Final Integration — 10 cycles:** percentage remains gated by exact registry readiness; non-destructive candidate preparation advanced.
+- Document Rerun and Overall reset their no-increase counters to 0 because verified blueprint stage points advanced.
 
 ## Execution Evidence
 
-- Presenter task evidence commit: `345c44533cbf952f2f60de36f3008453ed99c09d`
-- Cycle monitor update: `885b6f8fc321e1b0a1a96e618adcbaff52322af3`
-- Presenter workflow: `31946962274`, attempt 2, completed FAILURE.
-- Presenter head: `4520f779a87bcac8c7628a90f0e6bc14fd87c6d8`.
-- Backend check: `95189332185` = FAILURE; frontend check `95189332541` = SUCCESS.
+- Document progress: `.project/document-rerun-progress.yml` = **370 / 18000** points = **2.0556%**.
+- Document branch head: `7b16dda6d8e89bed66703fded66ee19d2ded111a`.
+- Document task consolidation: `afd8c2490ba4b7565599181fdca71a4129171c7f`.
+- Presenter task update: `60ba99615b74a76622f67fd7f16bd29c1ec3cfab`.
+- Presenter workflow: `31946962274` attempt 2; head `4520f779a87bcac8c7628a90f0e6bc14fd87c6d8`; backend `95189332185` FAILURE; frontend `95189332541` SUCCESS.
+- Release manifest: `5fe51ba6b4c8de57bdc71932673171f1ef25ed23`.
+- Release checklist: `f0a541258ac8dbf44d1cbb93aff262a779dced98`.
+- Classroom task update: `270bf442f03342c65d056ce24e04ba5666a14703`.
+- Recovery candidate: `c77e5b21481aa5857841520e3aad6b8f77ab02ee`.
+- Recovery task update: `441dfc0ba40cf8697e184ba06c196c5890cec67e`.
+- Cycle monitor update: `45f6970cbdf5eaa76b46d0894cde36b7a1809056`.
 - No write was made to the public classroom repository or the read-only Quality Gate repository.
 
 ## Hard Rules
