@@ -4,14 +4,9 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 ## Repository Roles
 
-- Public classroom repository: `vvekselva/Library-Full-Stack-KHAE`
-  - Presenter-controlled publication only.
-  - ChatGPT/automation does not write to this repository.
-- Private Master repository: `vvekselva/Library-Full-Stack-KHAE-Master`
-  - The only repository where ChatGPT/automation commits project code, approved document candidates, release snapshots, progress files, and recovery assets.
-- Quality Gate repository: `vvekselva/Library_KAHE_PRIVATE_RERUN`
-  - Read-only quality authority for ChatGPT/automation.
-  - Supplies the Golden Reference, `QUALITY_GATE.md`, `GENERATION_PROTOCOL.md`, and quality checkpoints.
+- Public classroom repository: `vvekselva/Library-Full-Stack-KHAE` - Presenter publication only; ChatGPT/automation does not write here.
+- Private Master repository: `vvekselva/Library-Full-Stack-KHAE-Master` - all project commits by ChatGPT/automation.
+- Quality Gate repository: `vvekselva/Library_KAHE_PRIVATE_RERUN` - read-only Golden Reference and quality authority.
 
 ## Frozen Progress Formula
 
@@ -22,65 +17,44 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-Document stage values: PENDING 0, BLUEPRINTING 10, BLUEPRINT APPROVED 20, GENERATING 40, CONTENT QA 55, VISUAL QA 70, QUALITY GATE PASSED 85, REPOSITORY VERIFIED 95, APPROVED 100.
-
-Presenter solution checkpoints per track: Service 20, Unit Test 20, Integration/Testcontainers 20, Frontend 20, Final CI + Registry 20.
-
-Classroom release gates per release: Source identified 20, Contents audited 20, Private branch frozen 20, Build verified 20, Presenter-ready 20.
-
-Recovery weights: verified registry coverage 40, selection/dependency design 20, private workflow implementation 20, classroom rehearsal 20.
-
 ## Current Status - 2026-08-16
 
 | Stream | Progress | Current Stage |
 |---|---:|---|
-| Document Rerun | **0.31%** | T01_02 source generation complete; QG-01 to QG-24 content review PASS; DOCX assembly/QG-25 next |
-| Presenter Solutions | **33.33%** | T01-T20 code verified; Category T16-T20 registry frozen; registry-commit CI running |
-| Classroom Release Preparation | **33.33%** | Release-00 empty-code snapshot is Presenter-ready; Release-01 and Release-02 pending |
+| Document Rerun | **0.31%** | T01_02 has 15 sections + 4 Draw.io sources; QG-01 to QG-24 PASS; DOCX assembly/QG-25 next |
+| Presenter Solutions | **34.67%** | T01-T20 verified; T21 Publisher Service/UT/IT/Frontend implemented; exact-tip CI running |
+| Classroom Release Preparation | **33.33%** | Release-00 is Presenter-ready; Release-01/02 pending |
 | Recovery / Final Integration | **13.33%** | Exact recovery registries cover T01-T20 |
-| **Overall** | **16.47%** | Parallel execution active |
+| **Overall** | **16.94%** | Parallel execution active |
 
 ## Active Work
 
-- Document: assemble T01_02 DOCX from the 15 committed source sections and four editable Draw.io sources; render every page for QG-25.
-- Presenter code: close metadata CI for Category, then create/start T21-T25 Publisher successor stage.
-- Classroom release: `Classroom-Release-00-Empty` is ready for Presenter publication; no Public write is performed by ChatGPT.
-- Recovery: extend verified registry coverage with each completed Presenter solution stage.
+- Document: assemble T01_02 DOCX from committed sources, then render every page for QG-25.
+- Presenter code: T21 CI run `31931700781`; only after green will T21 be registered/verified and T22 begin.
+- Classroom release: `Classroom-Release-00-Empty` remains ready for Presenter publication; no Public write is performed by ChatGPT.
+- Recovery: extend registry coverage after each Presenter track becomes verified.
 
-## Release-00 Result
+## Completed This Cycle
 
-The final private Release-00 root was re-fetched and contains only:
-
-- `README.md`
-- `backend/`
-- `frontend/`
-
-Verification run `31930965288` passed backend Maven packaging and frontend Vite build. The original skeleton branch was not modified.
-
-## T01_02 Content Result
-
-- 15 controlled teaching sections complete.
-- Code Fragment 01 through 23 are sequential.
-- Four editable Draw.io sources committed.
-- QG-01 through QG-24 content checks passed.
-- QG-25/QG-26/QG-27 remain mandatory and pending.
+- Category T16-T20 full solution stage verified and registry metadata CI passed (`31931485400`).
+- Successive Publisher stage `Presenter-Solutions-T21-T25` created.
+- T21 Create Publisher implemented with normalized business-key protection, Unit Test, local PostgreSQL integration, PostgreSQL Testcontainers and Update Publisher frontend.
+- T01_02 source generation completed through Section 15; content Quality Gate report committed.
+- Release-00 backend Maven + frontend Vite verification passed (`31930965288`) and final private root contains only README, backend and frontend.
 
 ## Release-02 Prerequisite
 
-Before `Classroom-Release-02-Student-Baseline` is frozen, the generic Presenter-owned controlled-error infrastructure must be present in the student baseline:
+Before `Classroom-Release-02-Student-Baseline` is frozen, move the generic Presenter-owned controlled-error infrastructure into the student baseline:
 
 - `ApplicationServiceException.java`
 - `ApplicationServiceExceptionHandler.java`
 
-Students must not be required to create this shared framework.
-
 ## Hard Rules
 
-1. No ChatGPT/automation write to the Public classroom repository.
-2. No further ChatGPT/automation write to the Quality Gate repository.
-3. All project changes are committed only to the Private Master repository.
-4. A document is not approved until it passes the Golden Reference Quality Gate and final artifact verification.
-5. QG-27 materialization/re-fetch/hash verification is performed against the private `Document-Rerun-QG` branch.
-6. Presenter solution code remains private.
-7. Public publication is always performed by the Presenter.
-8. Progress percentages use the frozen formulas and are not adjusted for appearance.
+1. No ChatGPT/automation write to Public.
+2. No further ChatGPT/automation write to Quality Gate.
+3. All project changes are committed only to Private Master.
+4. Documents require QG-25, QG-26 and QG-27 before approval.
+5. Presenter solution code remains private.
+6. Public publication is always performed by the Presenter.
+7. Percentages use frozen formulas and verified checkpoints.
