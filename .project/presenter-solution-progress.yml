@@ -23,38 +23,56 @@ verified_stages:
   T16-T20:
     branch: Presenter-Solutions-T16-T20
     status: VERIFIED
-    verified_source_sha: fbc5646939363fc9518c40cf50414736fcfadcd4
-    verified_ci_run: 31931234393
-    registry_commit: 06da698a9a7b5140fb1048c6d38c10ce8363a354
     registry_commit_ci: 31931485400
 
-active_stage:
+publisher_stage:
   tracks: T21-T25
   module: Publisher
   branch: Presenter-Solutions-T21-T25
-  status: IN_PROGRESS
-  base_branch: Presenter-Solutions-T16-T20
+  implementation_status: COMPLETE
+  source_ci: PASS
+  source_ci_run: 31933543164
+  registry_status: PATH_CORRECTION_CI_RUNNING
+  registry_correction_commit: b9323bab3ac36b53d472af4e759b9a4804d70189
+  registry_correction_ci_run: 31934851302
   track_progress:
-    T21:
+    T21: 80
+    T22: 80
+    T23: 80
+    T24: 80
+    T25: 80
+
+active_stage:
+  tracks: T26-T30
+  module: Book
+  branch: Presenter-Solutions-T26-T30
+  status: IN_PROGRESS
+  base_branch: Presenter-Solutions-T21-T25
+  track_progress:
+    T26:
       service: IMPLEMENTED
       unit_test: IMPLEMENTED
       integration_test: IMPLEMENTED
       frontend: IMPLEMENTED
       final_ci_and_registry: CI_RUNNING
       percent: 80
-      latest_component_sha: 50649a538028dea5b23250e17fb1488cde61822b
-      latest_ci_run: 31931700781
-    T22:
+      latest_component_sha: 991e340449b688c93a7321c80e493413c969b596
+    T27:
+      service: IMPLEMENTED
+      unit_test: IMPLEMENTED
+      integration_test: IMPLEMENTED
+      frontend: IMPLEMENTED
+      final_ci_and_registry: CI_RUNNING
+      percent: 80
+      latest_component_sha: efaf7fc81ad918b7296626637efea17d2d255ace
+    T28:
       percent: 0
-    T23:
+    T29:
       percent: 0
-    T24:
-      percent: 0
-    T25:
+    T30:
       percent: 0
 
 remaining_stages:
-  - T21-T25 Publisher
   - T26-T30 Book
   - T31-T35 Book Copy
   - T36-T40 Membership
@@ -65,7 +83,11 @@ remaining_stages:
 
 calculation:
   fully_verified_tracks: 20
-  additional_checkpoint_points: 80
-  completed_points: 2080
+  additional_checkpoint_points: 560
+  completed_points: 2560
   possible_points: 6000
-  percent: 34.6667
+  percent: 42.6667
+
+notes:
+  - Publisher final registry checkpoint remains open only until the corrected T22 frontend path passes exact-tip CI.
+  - T26 and T27 implementation checkpoints are complete; they are not registry-verified until their cumulative Book CI/registry gate passes.
