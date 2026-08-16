@@ -46,7 +46,7 @@ active_stage:
   base_commit: 277e9e08bd07fb04ad77b18bf4d78d8651c175b6
   presenter_support_commit: 0bf2687e1c2eee622dae9aec6f46579cd9598304
   active_track: T32
-  active_checkpoint: UNIT_TEST_CI
+  active_checkpoint: INTEGRATION_CI_AND_FRONTEND_SOURCE_CONFIRMATION
   track_progress:
     T31:
       service: COMPLETE
@@ -67,12 +67,15 @@ active_stage:
     T32:
       service: COMPLETE
       service_commit: db2d4ec55c1e1bcaff008ef2118053a83de723f9
-      unit_test: IMPLEMENTED_CI_PENDING
+      unit_test: VERIFIED
       unit_test_commit: 7d4571ec761c11d85638cd05845c1fd1a111817f
-      integration_test: PENDING
+      unit_test_verification_ci_run: 31946189396
+      integration_test: IMPLEMENTED_CI_PENDING
+      local_postgres_integration_commit: 7c6ed2ede5d47ae8a519da04f44fc0f978470c91
+      testcontainers_integration_commit: 59937e81e3639e17bf518e1c6bd68fbf49eb3b70
       frontend: PENDING
       final_ci_and_registry: PENDING
-      percent: 40
+      percent: 60
     T33:
       percent: 0
     T34:
@@ -90,16 +93,16 @@ remaining_stages:
 
 calculation:
   fully_verified_tracks: 30
-  additional_checkpoint_points: 120
-  completed_points: 3120
+  additional_checkpoint_points: 140
+  completed_points: 3140
   possible_points: 6000
-  percent: 52.0000
-  previous_percent: 51.6667
+  percent: 52.3333
+  previous_percent: 52.0000
   increment_percent: 0.3333
 
 progress_display:
-  previous_percent: 51.67
-  updated_percent: 52.00
+  previous_percent: 52.00
+  updated_percent: 52.33
   increase_percent: 0.33
   comparison_basis: latest percentage-bearing checkpoint
   rule: Previous is the value immediately before the latest completed gate that changed the percentage; heartbeat-only or verification-only updates do not overwrite that baseline. Increase is calculated from unrounded values and then rounded for display.
@@ -112,12 +115,13 @@ active_contract:
   endpoint: GET /rest/book-copies/{id}
   unit_discovery: unknown Book Copy ID must be converted to controlled NOT_FOUND behavior instead of allowing an uncontrolled null-to-response mapping failure
   integration_discovery: withdrawn Book Copy must not be exposed by the current-read path
-  integration_seed_reference: "ID 3 / ACC-0003 / WITHDRAWN"
-  frontend_assignment: "Withdraw/Deactivate Book Copy recovery UI - confirm exact track-source wording before frontend gate"
+  integration_seed_reference: "physical Book Copy ID 3 is non-current/WITHDRAWN; TrainingDataContractTest proves findById(3) present and findCurrentById(3) absent"
+  frontend_assignment: "Pending exact source confirmation before frontend implementation"
 
 notes:
   - T26-T30 is VERIFIED because registry-tip run 31943292080 completed SUCCESS at exact registry commit 277e9e08bd07fb04ad77b18bf4d78d8651c175b6.
   - T31 cumulative run 31945620654 completed SUCCESS at 9d2f5796edb1cd3bb34f56b0433c2c747687e5ed. Historical T26/T27 tracker semantics keep T31 at 80% until the T31-T35 batch registry is frozen and registry-tip CI passes.
   - T32 Read Book Copy service is complete at db2d4ec55c1e1bcaff008ef2118053a83de723f9.
-  - T32 unit tests are implemented at 7d4571ec761c11d85638cd05845c1fd1a111817f. They cover current-copy read/mapping, unknown or withdrawn copy -> controlled not-found, null ID -> controlled invalid input, and service code 32.
-  - Next: consume exact branch-tip unit-test CI before starting the integration checkpoint.
+  - T32 unit tests are VERIFIED by run 31946189396 SUCCESS at 7d4571ec761c11d85638cd05845c1fd1a111817f.
+  - T32 local PostgreSQL integration at 7c6ed2ede5d47ae8a519da04f44fc0f978470c91 and PostgreSQL-18 Testcontainers integration at 59937e81e3639e17bf518e1c6bd68fbf49eb3b70 together complete the single 20-point Integration implementation checkpoint. Both prove the physically persisted non-current Book Copy is not exposed by the current-read service.
+  - Next: consume the branch-tip integration CI result and confirm the exact T32 frontend assignment before implementation.
