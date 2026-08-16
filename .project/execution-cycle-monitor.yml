@@ -1,0 +1,84 @@
+version: 1
+repository: vvekselva/Library-Full-Stack-KHAE-Master
+updated_at: 2026-08-16T17:31:00+05:30
+
+cycle_rule:
+  nominal_minutes: 15
+  long_running_threshold_completed_cycles: 4
+  interpretation: "More than 3 cycles means 4 or more completed cycles."
+  early_gate_updates_allowed: true
+
+current_cycle:
+  cycle_id: C-20260816-1725
+  start: 2026-08-16T17:25:00+05:30
+  planned_end: 2026-08-16T17:40:00+05:30
+  tasks:
+    - task: Add live cycle task and stalled-stream monitoring tables
+      stream: Project Control
+      taken_up_this_cycle: true
+      closed_this_cycle: true
+      status: CLOSED
+      consecutive_cycles_open: 1
+      over_three_cycles: false
+    - task: Consume T31 cumulative CI and confirm final-checkpoint semantics
+      stream: Presenter Solutions
+      taken_up_this_cycle: true
+      closed_this_cycle: true
+      status: CLOSED
+      evidence: "run 31945620654 SUCCESS at 9d2f5796; final 20 points remain batch-registry gated"
+      consecutive_cycles_open: 1
+      over_three_cycles: false
+    - task: Implement T32 Read Book Copy Service
+      stream: Presenter Solutions
+      taken_up_this_cycle: true
+      closed_this_cycle: false
+      status: IN_PROGRESS
+      consecutive_cycles_open: 1
+      over_three_cycles: false
+    - task: Recover exact accepted T01_02 QG-27 DOCX binary
+      stream: Document Rerun
+      taken_up_this_cycle: false
+      closed_this_cycle: false
+      status: IN_PROGRESS_BLOCKED
+      consecutive_cycles_open: 4
+      over_three_cycles: true
+      blocker: "Accepted 55-page binary is not present in canonical-source artifact; materialization reconstruction failed with base64 invalid input."
+    - task: Freeze T31-T35 recovery registry
+      stream: Recovery / Final Integration
+      taken_up_this_cycle: false
+      closed_this_cycle: false
+      status: WAITING_FOR_T31_T35_COMPLETION
+      consecutive_cycles_open: 4
+      over_three_cycles: true
+
+stream_stall_monitor:
+  - stream: Document Rerun
+    current_percent: 0.4722
+    cycles_without_increase: 4
+    over_three_cycles: true
+    reason: QG-27 exact accepted binary recovery remains open
+    next_unblock_action: Recover and identity-verify the exact accepted DOCX binary
+  - stream: Presenter Solutions
+    current_percent: 51.3333
+    cycles_without_increase: 0
+    over_three_cycles: false
+    reason: T31 frontend increased progress in the latest completed cycle
+    next_unblock_action: Complete T32 service checkpoint
+  - stream: Classroom Release Preparation
+    current_percent: 33.3333
+    cycles_without_increase: 4
+    over_three_cycles: true
+    reason: Release-01 and Release-02 remain behind prerequisite gates
+    next_unblock_action: Resume Release-01/02 preparation without violating Presenter/student ownership boundaries
+  - stream: Recovery / Final Integration
+    current_percent: 20.0000
+    cycles_without_increase: 4
+    over_three_cycles: true
+    reason: T31-T35 registry cannot be frozen until the Book Copy batch reaches its verified registry gate
+    next_unblock_action: Complete T31-T35, freeze exact component SHAs, run registry-tip CI
+  - stream: Overall
+    current_percent: 23.5125
+    cycles_without_increase: 0
+    over_three_cycles: false
+    reason: Presenter progress increased in the latest completed cycle
+    next_unblock_action: Continue percentage-bearing Presenter and document/release/recovery gates
