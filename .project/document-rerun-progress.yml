@@ -27,7 +27,7 @@ stage_values:
 
 current:
   T01_01: PENDING
-  T01_02: GENERATING
+  T01_02: CONTENT_QA
   T01_03: PENDING
   T02_01: PENDING
   T02_02: PENDING
@@ -44,24 +44,24 @@ current:
   remaining_T06_to_T60: PENDING
 
 calculation:
-  completed_stage_points: 40
+  completed_stage_points: 55
   possible_stage_points: 18000
-  percent: 0.2222
+  percent: 0.3056
 
 active_document:
   id: T01_02
   activity: Create Department
   document: Progressive Development Guide
-  current_stage: GENERATING
-  completed_sections:
-    - 01 Assignment and Current API Contract
-    - 02 Why Create an Empty Service First
-    - 03 Empty Service and First JUnit Invocation
-    - 04 Mockito and Dependency Isolation
-  editable_drawio_sources:
-    - 01 Full Application Invocation
-    - 02 Unit Test Dependency Isolation
-  next_section: 05 Natural Successful Create Implementation
+  current_stage: CONTENT_QA
+  content_qa: PASS
+  completed_sections: 15
+  code_fragments: 23
+  editable_drawio_sources: 4
+  next_stage: DOCX assembly, then QG-25 rendered page-by-page visual inspection
+  final_pending_gates:
+    - QG-25 Visual DOCX inspection
+    - QG-26 Final Golden Reference comparison
+    - QG-27 Private Master materialization/re-fetch/hash verification
 
 release_prerequisites_discovered:
   - Before Classroom-Release-02, move generic Presenter-owned ApplicationServiceException and ApplicationServiceExceptionHandler into the student baseline.
