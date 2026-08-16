@@ -31,28 +31,28 @@ current:
   T01_02: APPROVED
   T01_03: QUALITY_GATE_PASSED
   T02_01: APPROVED
-  T02_02: BLUEPRINTING
+  T02_02: BLUEPRINT_APPROVED
   T02_03: PENDING
   T03_01: APPROVED
-  T03_02: BLUEPRINTING
+  T03_02: BLUEPRINT_APPROVED
   T03_03: PENDING
   T04_01: APPROVED
-  T04_02: BLUEPRINTING
+  T04_02: BLUEPRINT_APPROVED
   T04_03: PENDING
   T05_01: APPROVED
-  T05_02: BLUEPRINTING
+  T05_02: BLUEPRINT_APPROVED
   T05_03: PENDING
   T06_01: APPROVED
-  T06_02: BLUEPRINTING
+  T06_02: BLUEPRINT_APPROVED
   T06_03: PENDING
   remaining_T07_to_T60: PENDING
 
 calculation:
-  completed_stage_points: 820
+  completed_stage_points: 870
   possible_stage_points: 18000
-  percent: 4.5556
-  previous_percent: 4.1389
-  increase: 0.4167
+  percent: 4.8333
+  previous_percent: 4.5556
+  increase: 0.2777
 
 accepted_baseline:
   track: T01
@@ -96,32 +96,35 @@ active_scale_up:
 
 latest_cycle:
   time: 2026-08-16T23:19:00+05:30
-  action: "Recorded reviewer confirmation that the five final _01 Initial API Contracts were already approved; released T02_02 through T06_02 and started Progressive Guide blueprinting."
+  action: "Recorded _01 approvals, released T02_02 through T06_02, and completed independent Progressive Guide blueprint QA against the accepted T01_02 15-section baseline."
   approval_source: "User confirmation in active coordinator conversation."
-  approved_initial_contracts:
-    T02_01: "APPROVED after prior QG-27 PASS; blob aefe44ad6ea34332986b7de7ec02f2e83aadd1a3."
-    T03_01: "APPROVED after prior QG-27 PASS; blob 50c56180a5eb8bd231c038123b258a7e1f5f54dc."
-    T04_01: "APPROVED after prior QG-27 PASS; blob 6972b494a5f5cf8598a70e11b3623bd47b1e829f."
-    T05_01: "APPROVED after prior QG-27 PASS; blob 3a8d901c2e45c9f9f397952f73e9ec3916c1b8e1."
-    T06_01: "APPROVED after prior QG-27 PASS; blob 77f6dcf932afcd5b1fed3df89c8a7be673a12d4e."
-  progressive_lane_start:
-    T02_02: "Blueprinting read-department progression: invocation proof, success, unit isolation, invalid ID, not-found, JaCoCo, local PostgreSQL/DBeaver, Testcontainers, frontend integration."
-    T03_02: "Blueprinting update-department progression: success, validation, not-found, duplicate normalization, testing layers and frontend integration."
-    T04_02: "Blueprinting soft-deactivation progression: success, invalid ID, not-found, active-member dependency guard, persistence verification and frontend integration."
-    T05_02: "Blueprinting search progression: successful free-text search, DAO delegation, blank-input fail/correct, testing layers and frontend integration."
-    T06_02: "Blueprinting member-create progression: success, required fields, normalization, duplicate behavior, migration verification, testing layers and frontend integration."
-  result: "T02_01 through T06_01 APPROVED; T02_02 through T06_02 BLUEPRINTING."
+  progressive_blueprint_qa:
+    T02_02: "PASS; committed Documents/Rerun-Control/T02/PROGRESSIVE_BLUEPRINT_QA.md at 5d6a52111fb8a21584110c93fd5d6dd67c3feb5a."
+    T03_02: "PASS; committed Documents/Rerun-Control/T03/PROGRESSIVE_BLUEPRINT_QA.md at 828b799fa230f8eac2e8ac95a5b057ce6a0bd970."
+    T04_02: "PASS; committed Documents/Rerun-Control/T04/PROGRESSIVE_BLUEPRINT_QA.md at db02b5a9be9ff0a44884226f46788a89d7525671."
+    T05_02: "PASS; committed Documents/Rerun-Control/T05/PROGRESSIVE_BLUEPRINT_QA.md at 96132c312667c29cac1ec09e16302ce8e538ff13."
+    T06_02: "PASS; committed Documents/Rerun-Control/T06/PROGRESSIVE_BLUEPRINT_QA.md at 84e7b646e5236a0bff2b001166e638850b233821."
+  baseline_checks:
+    why_before_how: PASS
+    success_before_negative_conditions: PASS
+    observation_before_correction: PASS
+    source_contract_truth: PASS
+    ownership_boundaries: PASS
+    unit_jacoco_postgresql_testcontainers_frontend: PASS
+    drawio_requirement: PASS
+    qg25_qg26_qg27_retained: PASS
+  result: "T02_01 through T06_01 APPROVED; T02_02 through T06_02 BLUEPRINT_APPROVED and ready for controlled generation."
 
 immediate_actions:
-  - Complete detailed Progressive Guide blueprints for T02_02 through T06_02 using T01_02 approved depth and WHY-before-HOW progression.
-  - Run blueprint QA independently per lane before generating each Progressive Development Guide.
-  - Preserve exact Presenter/student ownership boundaries and source-frozen behavior.
-  - After blueprint approval, generate each Txx_02 DOCX, render every page, run accessibility/content/visual/Golden checks and QG-27 materialization verification.
+  - Generate T02_02 through T06_02 from the approved Progressive Guide blueprints using T01_02 instructional depth.
+  - Preserve the 15-stage WHY-before-HOW progression with numbered/commented/explained code and explicit run/observe/fail/correct cycles.
+  - Create editable Draw.io sources where visual explanation materially helps.
+  - Render and inspect every DOCX page, run accessibility/content checks, compare against Golden/T01 and materialize/re-fetch/hash verify before approval.
   - Do not start any Txx_03 Updated API Contract until the corresponding Txx_02 Progressive Guide reaches its required approval state.
 
 blockers:
   - T01_01 and T01_03 remain below APPROVED until their exact reviewed binaries are materialized and re-fetched from Private Master.
-  - No approval blocker remains for T02_02 through T06_02.
+  - No blocker remains for T02_02 through T06_02 controlled generation.
 
 release_prerequisites_discovered:
   - Before Classroom-Release-02, verify/move generic Presenter-owned ApplicationServiceException and ApplicationServiceExceptionHandler into the student baseline without duplication.
