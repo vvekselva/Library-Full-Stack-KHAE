@@ -19,192 +19,137 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 ## Live Percentage Comparison Rule
 
-The dashboard shows three values for every stream:
+Every live progress row must show:
 
-- **Previous %** = the value immediately before the latest completed percentage-bearing gate.
-- **Updated %** = the current authoritative value.
-- **Increase** = the change from Previous to Updated using the underlying unrounded progress values.
+- **Previous %** = value immediately before the latest percentage-bearing gate.
+- **Updated %** = current authoritative value.
+- **Increase** = change calculated from the unrounded values, then rounded for display.
 
-A heartbeat-only or verification-only update does not erase the last meaningful comparison baseline. When a new implementation gate changes progress, the current Updated value becomes the next Previous value and the newly calculated value becomes Updated. Increase is calculated from the unrounded values and then rounded for display. Because Previous and Updated are independently displayed to two decimals, subtracting the displayed values can occasionally differ from the displayed Increase by 0.01 percentage point.
+Heartbeat-only and verification-only updates do not erase the last meaningful comparison baseline.
 
-## Current Status - 2026-08-16 17:38 IST
+## Current Status - 2026-08-16 17:48 IST
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
-| Document Rerun | **0.47%** | **0.47%** | **+0.00%** | T01_02 QG-01 to QG-26 PASS; QG-27 OPEN. Exact accepted binary identity is unchanged. Materialization run `31941294901` failed with `base64: invalid input`. Successful canonical-source artifact `T01_02-canonical-source` from run `31939791535` contains normalized teaching source, editable Draw.io sources and content QA, but not the accepted 55-page DOCX. The available 42-page Golden Reference does not match the accepted artifact and will not be substituted. |
-| Presenter Solutions | **51.67%** | **52.00%** | **+0.33%** | **T01-T30 VERIFIED; T31 remains 80% pending the T31-T35 batch registry; T32 Service COMPLETE at `db2d4ec5`; T32 Unit Test IMPLEMENTED at `7d4571ec`; CI run `31946189396` IN PROGRESS.** |
-| Classroom Release Preparation | **33.33%** | **33.33%** | **+0.00%** | Release-00 remains Presenter-ready and independently VERIFIED PASS by run `31930965288`. Release-01/02 pending. |
-| Recovery / Final Integration | **20.00%** | **20.00%** | **+0.00%** | Verified solution-registry coverage remains **30/60 tracks = 50% coverage × 40% recovery weight = 20.00%**. T31-T35 registry is still waiting for the complete Book Copy batch. |
-| **Overall** | **23.63%** | **23.75%** | **+0.12%** | Current raw formula result is approximately `23.7458%`, displayed as 23.75%. Previous raw overall was approximately `23.6292%`, displayed as 23.63%. The unrounded increase is approximately `0.1167%`, displayed as +0.12%. |
+| Document Rerun | **0.47%** | **0.47%** | **+0.00%** | T01_02 QG-01 to QG-26 PASS; QG-27 OPEN. Current recovery investigation proves the accepted binary cannot be reconstructed from the presently committed fragment set alone. |
+| Presenter Solutions | **52.33%** | **52.67%** | **+0.34%** | **T01-T30 VERIFIED; T31 = 80%; T32 = 80% through Frontend.** T32 integration run `31946440881` SUCCESS; Withdraw Book Copy frontend committed at `ae74ded1`; cumulative frontend run `31946688302` IN PROGRESS. |
+| Classroom Release Preparation | **33.33%** | **33.33%** | **+0.00%** | Release-00 VERIFIED. Release-01 cannot be frozen until a rerun document is APPROVED, materialized and verified. |
+| Recovery / Final Integration | **20.00%** | **20.00%** | **+0.00%** | T01-T30 registry coverage verified. T31-T35 registry must wait for the complete Book Copy batch. |
+| **Overall** | **23.86%** | **23.98%** | **+0.12%** | Raw current ≈ `23.9792%`; raw previous ≈ `23.8625%`; raw increase ≈ `0.1167%`. |
 
 ## Current 15-Minute Cycle Task Table
 
-Current cycle: **C-20260816-1725**, nominal window **17:25-17:40 IST**. “More than 3 cycles” means **4 or more completed cycles**.
+Current cycle: **C-20260816-1740**, nominal window **17:40-17:55 IST**. “More than 3 cycles” means **4 or more completed cycles**.
 
 | Task | Stream | Taken Up This Cycle | Closed This Cycle | Current State | Consecutive Cycles Open | >3 Cycles |
 |---|---|---|---|---|---:|---|
-| Add live cycle-task and stalled-stream monitoring | Project Control | **Yes** | **Yes** | **CLOSED** at `fb917183` machine monitor + `0744c4f9` dashboard | 1 | No |
-| Consume T31 cumulative CI and confirm final-checkpoint semantics | Presenter Solutions | **Yes** | **Yes** | **CLOSED** - run `31945620654` SUCCESS; final 20 points correctly remain batch-registry gated | 1 | No |
-| Implement T32 Read Book Copy Service | Presenter Solutions | **Yes** | **Yes** | **CLOSED** at `db2d4ec5` | 1 | No |
-| Implement T32 Read Book Copy unit tests | Presenter Solutions | **Yes** | **Yes** | **CLOSED** at `7d4571ec` | 1 | No |
-| Verify T32 unit-test branch tip in CI | Presenter Solutions | **Yes** | No | **IN PROGRESS** - run `31946189396` at `7d4571ec` | 1 | No |
-| Recover exact accepted T01_02 QG-27 DOCX binary | Document Rerun | No - carried forward | No | **IN PROGRESS / BLOCKED** by missing accepted 55-page binary | **4+** | **YES** |
-| Freeze T31-T35 recovery registry | Recovery / Final Integration | No - dependency task | No | **WAITING** for complete T31-T35 component set and cumulative verification | **4+** | **YES** |
+| Verify T32 unit-test branch tip | Presenter Solutions | Carried forward | **Yes** | **CLOSED** - run `31946189396` SUCCESS | 2 | No |
+| Implement T32 local PostgreSQL integration | Presenter Solutions | **Yes** | **Yes** | **CLOSED** at `7c6ed2ed` | 1 | No |
+| Implement T32 PostgreSQL-18 Testcontainers integration | Presenter Solutions | **Yes** | **Yes** | **CLOSED** at `59937e81` | 1 | No |
+| Verify T32 integration branch tip | Presenter Solutions | **Yes** | **Yes** | **CLOSED** - run `31946440881` SUCCESS | 1 | No |
+| Confirm exact T32 frontend assignment | Presenter Solutions | **Yes** | **Yes** | **CLOSED** - execution authority = Withdraw Book Copy UI | 1 | No |
+| Implement T32 Withdraw Book Copy frontend | Presenter Solutions | **Yes** | **Yes** | **CLOSED** at `ae74ded1` | 1 | No |
+| Verify T32 frontend cumulative branch tip | Presenter Solutions | **Yes** | No | **IN PROGRESS** - run `31946688302` | 1 | No |
+| Recover exact accepted T01_02 QG-27 DOCX binary | Document Rerun | **Yes - carried forward** | No | **IN PROGRESS / BLOCKED** after fragment-history and Git-object checks | **5** | **YES** |
+| Assess Classroom Release-01 safe start | Classroom Release Preparation | **Yes** | **Yes** | **CLOSED / BLOCKED BY QG-27 PREREQUISITE** | 1 | No |
+| Freeze T31-T35 recovery registry | Recovery / Final Integration | Carried forward | No | **WAITING** for T31-T35 completion | **5** | **YES** |
 
-Machine-readable cycle state is maintained in `.project/execution-cycle-monitor.yml`.
+Machine-readable cycle state: `.project/execution-cycle-monitor.yml`.
 
 ## Streams With No Increase for More Than 3 Cycles
 
-Only streams with **4 or more completed consecutive cycles without a percentage increase** are escalated here.
+| Stream | Current % | Cycles Without Increase | Reason | Next Unblock Action |
+|---|---:|---:|---|---|
+| **Document Rerun** | **0.47%** | **5** | QG-27 exact accepted binary remains unrecovered. Current `final/` fragment history ends at part-07; direct accepted blob lookup failed in both accessible repositories. | Inspect failed workflow artifacts/logs and archive/first-version branches for the exact accepted binary. |
+| **Classroom Release Preparation** | **33.33%** | **5** | Stage 1 requires an APPROVED + materialized + verified rerun document. | Clear QG-27, then create and verify Release-01 from approved artifacts. |
+| **Recovery / Final Integration** | **20.00%** | **5** | T31-T35 registry cannot be frozen from a partial Book Copy batch. | Complete T33-T35, freeze exact component SHAs, then run registry-tip CI. |
 
-| Stream | Current % | Consecutive Cycles Without Increase | Last Known Increase / Baseline | Reason | Next Unblock Action |
-|---|---:|---:|---|---|---|
-| **Document Rerun** | **0.47%** | **4+** | No increase in the recent recorded cycle window | QG-27 exact accepted DOCX binary still unavailable; reconstruction failed | Recover exact binary and pass identity verification |
-| **Classroom Release Preparation** | **33.33%** | **4+** | Release-00 verification is the current plateau | Release-01/02 remain behind prerequisite gates | Resume Release-01/02 preparation while preserving ownership boundaries |
-| **Recovery / Final Integration** | **20.00%** | **4** | Last increase at the T01-T30 registry coverage checkpoint | T31-T35 registry cannot be frozen from a partial batch | Complete T31-T35, freeze exact SHAs, then run registry-tip CI |
-
-Presenter Solutions and Overall are **not** in the stalled-stream table because Presenter increased through the T32 Unit Test implementation gate in the current cycle.
+Presenter Solutions and Overall are not stalled because T32 Integration and Frontend produced percentage-bearing progress in this cycle.
 
 ## Active Work
 
-- **Presenter code:** T31 Add Book Copy is complete through Service, Unit Test, local PostgreSQL, Testcontainers and the Update Book Copy recovery frontend. Cumulative run `31945620654` completed **SUCCESS** at exact substantive tip `9d2f5796edb1cd3bb34f56b0433c2c747687e5ed`.
-- **T31 final-checkpoint rule:** historical T26/T27 tracker evidence proves a track remains at 80% after Service + UT + Integration + Frontend. The final 20% is held until the batch cumulative CI/registry gate. Therefore T31 remains 80% until the T31-T35 registry is frozen and registry-tip CI passes.
-- **T32 service:** Read Book Copy Service is complete at `db2d4ec55c1e1bcaff008ef2118053a83de723f9`. It validates null ID, reads through `BookCopyDao.findCurrentById`, returns controlled not-found for an unknown/withdrawn ID, and maps the persisted DO with `BookCopyDtoDoMapper.toResponse`.
-- **T32 unit tests:** implemented at `7d4571ec761c11d85638cd05845c1fd1a111817f`. They prove successful current-copy mapping, unknown/withdrawn copy → controlled response code `02`, null ID → controlled response code `01`, and service code `32`. Exact branch-tip CI run `31946189396` is currently IN PROGRESS.
-- **T32 next integration boundary:** after CI is green, local PostgreSQL + Testcontainers will form the single 20-point Integration checkpoint and will prove that the withdrawn Book Copy state is not exposed through the current-read service.
-- **Document:** continue QG-27 recovery from canonical source/history without substituting a different DOCX. Exact accepted target remains size `234444`, SHA-256 `c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4`, Git blob `853fe9b900ba04339441116bdf18e64289a59093`.
-- **Recovery:** T01-T30 registry coverage is verified. The T31-T35 registry remains NOT_YET_CREATED and must be built only from exact verified component SHAs after cumulative batch completion.
-- **Classroom release:** Release-00 remains verified. Release-01/02 work must preserve Presenter/student ownership boundaries and the Release-02 exception-infrastructure prerequisite.
+### Presenter Solutions
+
+- T31 is complete through Service, Unit Test, Integration and Frontend, with cumulative run `31945620654` SUCCESS. Its final 20 points remain batch-registry gated.
+- T32 Service: `db2d4ec55c1e1bcaff008ef2118053a83de723f9`.
+- T32 Unit Test: `7d4571ec761c11d85638cd05845c1fd1a111817f`; run `31946189396` SUCCESS.
+- T32 local PostgreSQL integration: `7c6ed2ede5d47ae8a519da04f44fc0f978470c91`.
+- T32 PostgreSQL-18 Testcontainers integration: `59937e81e3639e17bf518e1c6bd68fbf49eb3b70`; run `31946440881` SUCCESS.
+- T32 frontend: `ae74ded11fd561d72dabb6857e5461f830508983`, `DELETE /rest/book-copies/{id}`, safe demonstration ID `4`.
+- T32 frontend cumulative CI: run `31946688302` IN PROGRESS.
+- After the cumulative run is green, the next percentage-bearing task is **T33 Update Book Copy Service**.
+
+### T32 Source Resolution
+
+The newer 60-track manifest and the later T01-T60 consistency audit assign T32 the **Withdraw Book Copy UI**. An older assignment-plan version that assigned Update Book Copy UI is retained as superseded-source evidence; it is not execution authority for this gate.
+
+### Document QG-27 Recovery
+
+Accepted target identity remains:
+
+- Size: `234444` bytes
+- SHA-256: `c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4`
+- Recorded Git blob: `853fe9b900ba04339441116bdf18e64289a59093`
+
+Current investigation results:
+
+- QG-01 through QG-26 PASS; QG-27 remains OPEN.
+- Materialization run `31941294901` failed with `base64: invalid input`.
+- `Document-Rerun-QG/automation/materialization/T01_02/final/` currently contains only `part-00` through `part-07`.
+- Commit history for that path also ends at `part-07` (`2ac05ce`); no committed `part-08+` exists there.
+- Therefore fixing the workflow path alone cannot reconstruct the accepted 234,444-byte binary.
+- Direct lookup of recorded blob `853fe9b...` returned not-found in both Private Master and Quality Gate repositories.
+- The available 42-page Golden Reference and historical 52-page v21 copy are not silently substituted for the accepted 55-page identity.
+
+Next recovery action: inspect the failed materialization run artifacts/logs and other archive/first-version branches for the exact accepted binary. If the exact binary is conclusively unrecoverable, regeneration must be treated as a **new QG candidate**, not as the old accepted identity.
+
+### Classroom Release
+
+- Release-00 remains VERIFIED by run `31930965288`.
+- Only Release-00-related private branches are currently present.
+- Release-01 is correctly blocked by the QG-27 document materialization/approval prerequisite; no unapproved Stage-1 branch will be manufactured.
+- Before Release-02 freeze, Presenter-owned controlled-error infrastructure must be placed into the student baseline as already recorded in the release prerequisite.
+
+### Recovery / Final Integration
+
+- T01-T30 exact solution registry coverage is verified.
+- T31-T35 registry remains intentionally uncreated until T31-T35 component work is complete and cumulative verification is green.
+- Conflicts must stop recovery automation; exact component SHAs are required.
 
 ## 15-Minute Execution Checkpoint Protocol
 
-During an active execution window, each approximately 15-minute checkpoint must also update this file on `main` with evidence-based status. The checkpoint entry must record the timestamp, active branch/task, latest substantive branch commit, **Previous %, Updated %, and Increase**, blockers, and the next concrete action. A real checkpoint crossing is written immediately even if it occurs before the 15-minute heartbeat. A heartbeat-only code commit must not be created merely to manufacture activity; this dashboard update is the status record.
+Each active cycle records:
 
-Each cycle must additionally maintain:
-
-- tasks taken up in the cycle;
-- tasks closed in the cycle;
+- tasks taken up;
+- tasks closed;
 - tasks still in progress;
-- tasks open/progressing for 4 or more completed cycles;
-- streams with 4 or more completed cycles without a percentage increase.
+- tasks open for 4+ completed cycles;
+- streams with 4+ completed cycles without a percentage increase;
+- latest Previous %, Updated %, and Increase values.
 
-### Checkpoint Log
+A real gate crossing is recorded immediately. A heartbeat-only commit is not created simply to manufacture activity.
 
-- **2026-08-16 17:38 IST** - T32 Read Book Copy Unit Test implementation gate completed at `7d4571ec`. Presenter comparison: **51.67% → 52.00% (+0.33%)**. Overall comparison: **23.63% → 23.75% (+0.12% from unrounded values)**. Branch-tip run `31946189396` is IN PROGRESS. Cycle table now shows T32 Service and Unit Test CLOSED; CI verification is the active task.
-- **2026-08-16 17:35 IST** - T32 Read Book Copy Service implementation gate completed at `db2d4ec5`. Presenter comparison: **51.33% → 51.67% (+0.33%)**. Overall comparison: **23.51% → 23.63% (+0.12% from unrounded values)**. Cycle task table changed T32 Service to CLOSED and T32 Unit Test to IN PROGRESS.
-- **2026-08-16 17:31 IST** - Cycle-control extension activated. Added machine-readable `.project/execution-cycle-monitor.yml`, current-cycle task table, long-running-task escalation, and stalled-stream escalation. T31 cumulative run `31945620654` confirmed **SUCCESS** at `9d2f5796`; T31 remained 80% pending the T31-T35 batch registry gate.
-- **2026-08-16 17:25 IST** - T31 Frontend implementation gate completed at `9d2f5796`. Presenter comparison: **51.00% → 51.33% (+0.33%)**. Overall comparison: **23.40% → 23.51% (+0.12% from unrounded values)**.
-- **2026-08-16 17:22 IST** - T31 Integration implementation gate completed. Local PostgreSQL test `599dac48` and PostgreSQL-18 Testcontainers test `192761ab` together complete the original single 20-point integration checkpoint. Presenter comparison: **50.67% → 51.00% (+0.33%)**. Overall comparison: **23.28% → 23.40% (+0.12%)**.
-- **2026-08-16 17:15 IST** - T31 UT `6fdfc020` VERIFIED by run `31945047287` SUCCESS at branch-tip migration commit `0a26ccad`. Presenter comparison: **50.33% → 50.67% (+0.34%)**. Overall comparison: **23.16% → 23.28% (+0.12%)**.
-- **2026-08-16 17:09 IST** - T31 service `c03fdf12` COMPLETE. T31 UT `6fdfc020` IMPLEMENTED; exact direct CI run `31944909840` was then in progress and later superseded by a newer push.
-- **2026-08-16 17:07 IST** - `Presenter-Solutions-T31-T35` created from exact verified Book registry SHA `277e9e08bd07fb04ad77b18bf4d78d8651c175b6`. Presenter-owned T31-T35/P07 service codes added at `0bf2687e`. T31 Add Book Copy service completed at `c03fdf12`.
-- **2026-08-16 16:54 IST** - Exact registry-tip run `31943292080` confirmed `SUCCESS` with head SHA `277e9e08bd07fb04ad77b18bf4d78d8651c175b6`. Presenter advanced to T01-T30 VERIFIED / **50.00%**; recovery registry coverage advanced to 30/60 tracks / **20.00% weighted progress**.
-- **2026-08-16 16:33 IST** - Book cumulative source run `31942708483` SUCCESS at `1b931bf9`. T26-T30 registry frozen at `277e9e08`; exact-tip verification run `31943292080` was IN PROGRESS.
-- **2026-08-16 16:23 IST** - T28 cumulative CI VERIFIED PASS (`31942385786`). T29 and T30 implemented through frontend. Cumulative T30 run `31942708483` was still running. Document recovery expanded.
-- **2026-08-16 16:15 IST** - T28 substantive implementation completed through frontend at `a56daf48`; Document QG-27 failure diagnosed as `base64: invalid input`; Release-00 run `31930965288` SUCCESS; Publisher registry correction run `31934851302` SUCCESS.
-- **2026-08-16 16:03 IST** - Document stream verified at `Document-Rerun-QG` commit `2ac05ce`; QG-27 remained open. Presenter stream verified at T27 frontend commit `efaf7fc`; T28 was next.
+## Recent Checkpoint Log
 
-## Presenter Commit Evidence - T26-T30
-
-### T26 - Create Book
-- `f22c79e2` - Book service codes
-- `52075fd5` - Create Book service
-- `6b24585a` - Create Book unit tests
-- `92921cf5` - normalized ISBN protection
-- `4c077af6` - local PostgreSQL integration
-- `61a6e5f6` - Testcontainers integration
-- `991e3404` - Update Book recovery frontend
-
-### T27 - Read Book
-- `f3a6d6cb` - Read Book service
-- `2cdc5a66` - Read Book unit tests
-- `0e5a2907` - local PostgreSQL integration
-- `ac1906da` - Testcontainers integration
-- `efaf7fc8` - Deactivate Book recovery frontend
-
-### T28 - Update Book
-- `d8ed5d99` - Update Book service
-- `055da66b` - Update Book unit tests
-- `03fe8e81` - Update Book local PostgreSQL integration
-- `95f15e7d` - Update Book Testcontainers integration
-- `a56daf48` - Search Book recovery frontend
-- Verification: run `31942385786` **SUCCESS**
-
-### T29 - Deactivate Book
-- `aea3df18` - Deactivate Book service
-- `31ad8b57` - Deactivate Book unit tests
-- `fa8cc20a` - Deactivate Book local PostgreSQL integration
-- `972e5147` - Deactivate Book Testcontainers integration
-- `9c1a840b` - Create Book recovery frontend
-
-### T30 - Search Book
-- `b3e639af` - current case-insensitive Book search DAO
-- `78fa9fff` - Search Book service
-- `73401663` - Search Book unit tests
-- `cb9989a2` - Search Book local PostgreSQL integration
-- `223ba0ed` - Search Book Testcontainers integration
-- `1b931bf9` - Book List/Read recovery frontend
-- Cumulative source verification: run `31942708483` **SUCCESS**
-- Registry freeze: `277e9e08bd07fb04ad77b18bf4d78d8651c175b6` - `.presenter/solution-registry/T26-T30.yml`
-- Registry-tip verification: run `31943292080` **SUCCESS**
-
-## T31 Evidence
-
-- `0bf2687e1c2eee622dae9aec6f46579cd9598304` - Presenter-owned Book Copy service codes T31-T35/P07.
-- `c03fdf121118fdaad8467deec492e97c92c033d9` - Student 31 Add Book Copy service solution.
-- `6fdfc020cb4f5561ac1558e7d41c3610b0392a20` - Student 31 Add Book Copy unit tests.
-- `0a26ccad874be9a2cb1e990b167506c032eb71eb` - Presenter-owned normalized Book Copy accession unique key.
-- Unit-test verification run `31945047287` - **SUCCESS** at `0a26ccad`.
-- `599dac48aa4f406c7f69c87c147527d3c10f9973` - T31 Create Book Copy local PostgreSQL integration.
-- `192761ab22e10361ecc6456fcfa59402e3d792c5` - T31 Create Book Copy PostgreSQL-18 Testcontainers integration.
-- `9d2f5796edb1cd3bb34f56b0433c2c747687e5ed` - T31 Update Book Copy recovery frontend.
-- Cumulative verification run `31945620654` - **SUCCESS** at exact substantive T31 tip `9d2f5796`.
-- Final CI / registry checkpoint - **PENDING** until the T31-T35 batch registry is frozen and exact-tip CI passes.
-
-## T32 Evidence
-
-- `db2d4ec55c1e1bcaff008ef2118053a83de723f9` - T32 Read Book Copy service solution.
-- `7d4571ec761c11d85638cd05845c1fd1a111817f` - T32 Read Book Copy unit tests.
-- Unit-test verification run `31946189396` - **IN PROGRESS** at exact unit-test tip.
-- Integration - PENDING.
-- Frontend - PENDING.
-- Final CI / registry - PENDING with the T31-T35 batch gate.
-
-## Document QG-27 Status
-
-Accepted artifact identity:
-- Size: `234444` bytes
-- SHA-256: `c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4`
-- Git blob SHA: `853fe9b900ba04339441116bdf18e64289a59093`
-
-Known evidence:
-- QG-01 through QG-26 PASS.
-- `Materialize T01_02 Final DOCX` run `31941294901` failed at reconstruction with `base64: invalid input`.
-- Workflow reads top-level `automation/materialization/T01_02/part-*`, while newer staged payload exists under `automation/materialization/T01_02/final/part-*`; available staged pieces are incomplete for the accepted binary.
-- Canonical-source workflow run `31939791535` is SUCCESS and artifact `9261693562` is intact; it contains 15 normalized sections, 4 Draw.io source diagrams and `QUALITY_REPORT_CONTENT.md`.
-- That canonical-source package does not contain the accepted 55-page DOCX.
-- The available 42-page Golden Reference has size `1433406`, SHA-256 `9210c21a1a4856a6d5f8f45738c7ee000808a987469f97a9ca784447e98988c7`, and is therefore not the accepted QG-27 artifact.
-
-Do not approve QG-27 until the exact accepted binary is committed to Private Master, re-fetched and identity-verified.
-
-## Release-02 Prerequisite
-
-Before `Classroom-Release-02-Student-Baseline` is frozen, move the generic Presenter-owned controlled-error infrastructure into the student baseline:
-- `ApplicationServiceException.java`
-- `ApplicationServiceExceptionHandler.java`
+- **2026-08-16 17:48 IST** - T32 Withdraw Book Copy frontend committed at `ae74ded1`. Presenter **52.33% → 52.67% (+0.34%)**; Overall **23.86% → 23.98% (+0.12%)**. Frontend cumulative run `31946688302` is IN PROGRESS. QG-27 recovery was actively re-investigated; fragment history and direct blob lookup did not recover the accepted binary. Release-01 safe-start assessment closed as prerequisite-blocked.
+- **2026-08-16 17:43 IST** - T32 Integration implementation completed through `7c6ed2ed` + `59937e81`; Presenter **52.00% → 52.33% (+0.33%)**; Overall **23.75% → 23.86% (+0.12%)**.
+- **2026-08-16 17:38 IST** - T32 Unit Test implementation completed at `7d4571ec`; Presenter **51.67% → 52.00% (+0.33%)**; Overall **23.63% → 23.75% (+0.12%)**.
+- **2026-08-16 17:35 IST** - T32 Service implementation completed at `db2d4ec5`; Presenter **51.33% → 51.67% (+0.33%)**; Overall **23.51% → 23.63% (+0.12%)**.
+- **2026-08-16 17:31 IST** - cycle-task and stalled-stream monitoring became mandatory and machine-readable.
+- **2026-08-16 17:25 IST** - T31 Frontend completed at `9d2f5796`; Presenter **51.00% → 51.33% (+0.33%)**.
+- **2026-08-16 17:22 IST** - T31 Integration checkpoint completed.
+- **2026-08-16 17:15 IST** - T31 Unit Test verified.
+- **2026-08-16 16:54 IST** - T01-T30 Presenter solutions and recovery registry coverage verified.
 
 ## Hard Rules
 
 1. No ChatGPT/automation write to Public.
 2. No further ChatGPT/automation write to Quality Gate.
 3. All project changes are committed only to Private Master.
-4. Documents require QG-27 before approval.
+4. Documents require QG-27 before approval/promotion.
 5. Presenter solution code remains private.
 6. Public publication is always performed by the Presenter.
-7. Percentages use frozen formulas and completed implementation checkpoints; pending CI/registry verification gates are shown explicitly.
-8. During active 15-minute execution windows, `.project/PROJECT_PROGRESS.md` must be updated as the authoritative status checkpoint record.
-9. Every live progress table must show Previous %, Updated %, and Increase so the actual percentage movement is visible.
-10. Increase is derived from underlying unrounded values; two-decimal displayed totals can differ by 0.01 percentage point when subtracted directly.
-11. Every cycle must show tasks taken up, tasks closed, tasks still in progress, and tasks open for more than 3 completed cycles.
-12. Every cycle must show streams with no percentage increase for more than 3 completed cycles.
-13. `.project/execution-cycle-monitor.yml` is the machine-readable source for cycle-age and stalled-stream escalation.
+7. Percentages use completed implementation checkpoints; pending verification/registry gates are explicit.
+8. `.project/PROJECT_PROGRESS.md` is the human live dashboard.
+9. `.project/execution-cycle-monitor.yml` is the machine source for cycle aging and stalled-stream escalation.
+10. Every cycle must show Previous %, Updated %, Increase, cycle tasks, >3-cycle tasks, and >3-cycle stalled streams.
