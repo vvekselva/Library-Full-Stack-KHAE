@@ -5,6 +5,11 @@ quality_source:
   golden_reference: golden-reference/Student_01_Create_Department_Progressive_Testing_Guide_v20_Final(2).docx
   qg00: PASS
 
+execution_repository:
+  repository: vvekselva/Library-Full-Stack-KHAE-Master
+  branch: Document-Rerun-QG
+  qg27_materialization_target: private-master
+
 total_tracks: 60
 documents_per_track: 3
 total_documents: 180
@@ -22,7 +27,7 @@ stage_values:
 
 current:
   T01_01: PENDING
-  T01_02: BLUEPRINTING
+  T01_02: BLUEPRINT_APPROVED
   T01_03: PENDING
   T02_01: PENDING
   T02_02: PENDING
@@ -39,12 +44,16 @@ current:
   remaining_T06_to_T60: PENDING
 
 calculation:
-  completed_stage_points: 10
+  completed_stage_points: 20
   possible_stage_points: 18000
-  percent: 0.0556
+  percent: 0.1111
 
 active_document:
   id: T01_02
   activity: Create Department
   document: Progressive Development Guide
-  next_gate: Blueprint quality review
+  current_stage: BLUEPRINT_APPROVED
+  next_gate: Controlled section-by-section generation
+
+release_prerequisites_discovered:
+  - Before Classroom-Release-02, move generic Presenter-owned ApplicationServiceException and ApplicationServiceExceptionHandler into the student baseline.
