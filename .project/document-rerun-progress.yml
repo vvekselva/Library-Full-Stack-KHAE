@@ -30,29 +30,29 @@ current:
   T01_01: QUALITY_GATE_PASSED
   T01_02: APPROVED
   T01_03: QUALITY_GATE_PASSED
-  T02_01: PENDING
+  T02_01: BLUEPRINT_APPROVED
   T02_02: PENDING
   T02_03: PENDING
-  T03_01: PENDING
+  T03_01: BLUEPRINT_APPROVED
   T03_02: PENDING
   T03_03: PENDING
-  T04_01: PENDING
+  T04_01: BLUEPRINT_APPROVED
   T04_02: PENDING
   T04_03: PENDING
-  T05_01: PENDING
+  T05_01: BLUEPRINT_APPROVED
   T05_02: PENDING
   T05_03: PENDING
-  T06_01: PENDING
+  T06_01: BLUEPRINT_APPROVED
   T06_02: PENDING
   T06_03: PENDING
   remaining_T07_to_T60: PENDING
 
 calculation:
-  completed_stage_points: 270
+  completed_stage_points: 370
   possible_stage_points: 18000
-  percent: 1.5000
-  previous_percent: 0.4722
-  increase: 1.0278
+  percent: 2.0556
+  previous_percent: 1.5000
+  increase: 0.5556
 
 accepted_baseline:
   track: T01
@@ -94,11 +94,23 @@ active_scale_up:
   task_file: .project/tasks/document-rerun.md
   orchestration_file: .project/ORCHESTRATOR_PLAN.md
 
+latest_cycle:
+  time: 2026-08-16T22:46:00+05:30
+  action: "Ran Agents 1-5 through source reconciliation and blueprint QA."
+  source_reconciliation:
+    T02: "Corrected departmentCode draft to verified GET /rest/departments/{id}."
+    T03: "Corrected departmentCode path draft to verified PUT /rest/departments/{id}; restored duplicate-code behavior."
+    T04: "Corrected hard-delete draft to verified ID-based soft deactivation with active-member dependency guard."
+    T05: "Corrected multi-criteria draft to verified GET /rest/departments/search?text=."
+    T06: "Corrected generic member-code/name draft to verified registrationNumber/fullName/email/departmentId contract."
+  result: "T02_01 through T06_01 BLUEPRINT_APPROVED; no generated DOCX promoted without later content/visual/QG evidence."
+
 immediate_actions:
   - Materialize and re-fetch/hash-verify the accepted T01_01 Initial API Contract in Private Master.
   - Materialize and re-fetch/hash-verify the accepted T01_03 Updated API Contract in Private Master.
   - After repository verification, promote T01_01 and T01_03 to APPROVED without requiring another content review unless the binary changes.
-  - Begin independent T02-T06 source grounding and Initial API Contract generation in the five document lanes.
+  - Generate T02_01 through T06_01 from the corrected, source-verified blueprints; keep each Initial API Contract success-only.
+  - Do not start each track's Progressive Guide until its Initial API Contract has completed the required document gates.
 
 blockers:
   - T01_01 and T01_03 are accepted by the reviewer but remain below APPROVED until their exact reviewed binaries are materialized and re-fetched from Private Master.
