@@ -21,26 +21,32 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 | Stream | Progress | Current Stage |
 |---|---:|---|
-| Document Rerun | **0.31%** | T01_02 has 15 sections + 4 Draw.io sources; QG-01 to QG-24 PASS; DOCX assembly/QG-25 next |
-| Presenter Solutions | **34.67%** | T01-T20 verified; T21 Publisher Service/UT/IT/Frontend implemented; exact-tip CI running |
+| Document Rerun | **0.47%** | T01_02 QG-01 to QG-26 PASS; only QG-27 Private Master binary materialization/hash verification remains |
+| Presenter Solutions | **42.67%** | T01-T20 fully verified; T21-T25 implementation complete with registry correction CI running; T26 and T27 at 80% |
 | Classroom Release Preparation | **33.33%** | Release-00 is Presenter-ready; Release-01/02 pending |
-| Recovery / Final Integration | **13.33%** | Exact recovery registries cover T01-T20 |
-| **Overall** | **16.94%** | Parallel execution active |
+| Recovery / Final Integration | **13.33%** | Fully verified recovery registries cover T01-T20; Publisher correction validation running |
+| **Overall** | **19.81%** | Parallel execution active |
 
 ## Active Work
 
-- Document: assemble T01_02 DOCX from committed sources, then render every page for QG-25.
-- Presenter code: T21 CI run `31931700781`; only after green will T21 be registered/verified and T22 begin.
-- Classroom release: `Classroom-Release-00-Empty` remains ready for Presenter publication; no Public write is performed by ChatGPT.
-- Recovery: extend registry coverage after each Presenter track becomes verified.
+- Document: close T01_02 QG-27 by committing the exact accepted DOCX binary to `Document-Rerun-QG`, re-fetching it, and verifying SHA-256 `c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4`.
+- Presenter code: `Presenter-Solutions-T26-T30`; T26 Create Book and T27 Read Book have Service, Unit Test, Integration/Testcontainers, and assigned frontend components implemented.
+- Publisher recovery registry: corrected T22 frontend path is under CI run `31934851302`.
+- Book CI: cumulative Book branch CI is running after T27 implementation.
+- Classroom release: `Classroom-Release-00-Empty` remains Presenter-ready; no Public write is performed by ChatGPT.
 
-## Completed This Cycle
+## Completed Since Previous Dashboard
 
-- Category T16-T20 full solution stage verified and registry metadata CI passed (`31931485400`).
-- Successive Publisher stage `Presenter-Solutions-T21-T25` created.
-- T21 Create Publisher implemented with normalized business-key protection, Unit Test, local PostgreSQL integration, PostgreSQL Testcontainers and Update Publisher frontend.
-- T01_02 source generation completed through Section 15; content Quality Gate report committed.
-- Release-00 backend Maven + frontend Vite verification passed (`31930965288`) and final private root contains only README, backend and frontend.
+- T01_02 assembled to a 55-page DOCX and passed QG-25/QG-26; exact current binary was re-rendered and all 55 pages match the reviewed render set byte-for-byte.
+- T21-T25 Publisher implementation completed and source-tip CI passed.
+- Publisher T21-T25 solution registry was created; one T22 file-path typo was detected during reuse, corrected, and is being revalidated.
+- Successive Book stage `Presenter-Solutions-T26-T30` created.
+- T26 Create Book: service codes, service, Mockito Unit Tests, normalized-ISBN migration, local PostgreSQL integration, PostgreSQL Testcontainers, and Update Book frontend implemented.
+- T27 Read Book: service, Mockito Unit Tests, local PostgreSQL current/inactive integration, PostgreSQL Testcontainers, and Deactivate Book frontend implemented.
+
+## Document QG-27 Blocker
+
+The accepted T01_02 DOCX is locally verified but the current GitHub connector's normal contents API is text-oriented and does not directly accept the local binary file path. QG-27 remains open until an exact Private Master artifact is physically committed and re-fetched/hash-verified. This blocker does not stop independent Presenter-code work.
 
 ## Release-02 Prerequisite
 
@@ -54,7 +60,7 @@ Before `Classroom-Release-02-Student-Baseline` is frozen, move the generic Prese
 1. No ChatGPT/automation write to Public.
 2. No further ChatGPT/automation write to Quality Gate.
 3. All project changes are committed only to Private Master.
-4. Documents require QG-25, QG-26 and QG-27 before approval.
+4. Documents require QG-27 before approval.
 5. Presenter solution code remains private.
 6. Public publication is always performed by the Presenter.
-7. Percentages use frozen formulas and verified checkpoints.
+7. Percentages use frozen formulas and completed checkpoints; pending CI/registry gates are shown explicitly.
