@@ -19,90 +19,83 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 ## Live Percentage Comparison Rule
 
-Every live row shows **Previous %**, **Updated %**, and **Increase**. A verification-only or heartbeat-only update does not overwrite the last meaningful percentage-bearing comparison. Increase is calculated from underlying unrounded values and then rounded for display.
+Every live row shows **Previous %**, **Updated %**, and **Increase**. Verification/replacement work on an already-counted logical document does not manufacture a percentage increase. A new percentage is recorded only when the repository-defined completion formula earns a new checkpoint.
 
-## Current Status - 2026-08-16 17:55 IST
+## Current Status - 2026-08-16 20:08 IST
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
-| Document Rerun | **0.47%** | **0.47%** | **+0.00%** | T01_02 QG-27 remains OPEN; exact accepted binary unrecovered. |
-| Presenter Solutions | **53.00%** | **53.33%** | **+0.33%** | **T01-T30 VERIFIED; T31=80%; T32=80%; T33 Service + Unit Test implemented.** T33 UT run `31946962274` IN PROGRESS. |
-| Classroom Release Preparation | **33.33%** | **33.33%** | **+0.00%** | Release-00 VERIFIED; Release-01 blocked by QG-27 prerequisite. |
-| Recovery / Final Integration | **20.00%** | **20.00%** | **+0.00%** | T01-T30 registry verified; T31-T35 registry waits for batch completion. |
-| **Overall** | **24.10%** | **24.21%** | **+0.12%** | Raw current ≈ `24.2125%`; the comparison remains the latest percentage-bearing T33 Unit Test gate. |
+| Document Rerun | **0.47%** | **0.47%** | **+0.00%** | **PRIMARY STREAM. T01_02 Create Department NEW REVIEW REVISION is complete through QG-27 and is REVIEW-READY.** Scale-up is paused for user review. |
+| Presenter Solutions | **53.33%** | **53.33%** | **+0.00%** | Intentionally deprioritized while the 45%-weight Documentation stream is corrected. Last percentage-bearing state retained; no Presenter completion is claimed in this cycle. |
+| Classroom Release Preparation | **33.33%** | **33.33%** | **+0.00%** | Waiting for acceptance of the newly materialized T01_02 revision before promotion. |
+| Recovery / Final Integration | **20.00%** | **20.00%** | **+0.00%** | Intentionally deprioritized by the document-first directive. |
+| **Overall** | **24.21%** | **24.21%** | **+0.00%** | No artificial percentage increase is assigned to replacement/repair of the same logical T01_02 document. |
 
-## Current 15-Minute Cycle Task Table
+## T01_02 Create Department - Completed Review Candidate
 
-Current cycle: **C-20260816-1755**, nominal window **17:55-18:10 IST**. “More than 3 cycles” means **4 or more completed cycles**.
+**Status: QG-01 through QG-27 PASS; awaiting user review before scale-up.**
 
-| Task | Stream | Taken Up This Cycle | Closed This Cycle | Current State | Consecutive Cycles Open | >3 Cycles |
-|---|---|---|---|---|---:|---|
-| Verify T33 unit-test branch tip | Presenter Solutions | Carried forward | No | **IN PROGRESS** - run `31946962274` | 2 | No |
-| Prepare T33 local PostgreSQL + Testcontainers Integration gate | Presenter Solutions | **Yes** | No | **IN PROGRESS / SOURCE GROUNDING** | 1 | No |
-| Recover exact accepted T01_02 QG-27 DOCX binary | Document Rerun | **Yes - carried forward** | No | **IN PROGRESS / BLOCKED** | **6** | **YES** |
-| Freeze T31-T35 recovery registry | Recovery / Final Integration | Carried forward | No | **WAITING** for T31-T35 completion | **6** | **YES** |
+The prior QG-27 exact-binary recovery blocker is no longer the active path. A fresh, fully gated revision was generated because the earlier document omitted the exact service package/source location required by the student.
+
+### Required package/source placement now explicit in the document
+
+| Student artifact | Exact repository path | Required Java package |
+|---|---|---|
+| Service implementation | `backend/backend.lib.mgmt/src/main/java/self/learning/backend/lib/mgmt/service/impl/CreateDepartmentServiceImpl.java` | `self.learning.backend.lib.mgmt.service.impl` |
+| Presenter-provided service interface | `backend/backend.lib.mgmt/src/main/java/self/learning/backend/lib/mgmt/service/CreateDepartmentService.java` | `self.learning.backend.lib.mgmt.service` |
+| Unit test | `backend/backend.lib.mgmt/src/test/java/self/learning/backend/lib/mgmt/service/impl/CreateDepartmentServiceImplTest.java` | `self.learning.backend.lib.mgmt.service.impl` |
+| Local PostgreSQL integration test | `backend/backend.lib.mgmt/src/test/java/self/learning/backend/lib/mgmt/integration/CreateDepartmentIntegrationTest.java` | `self.learning.backend.lib.mgmt.integration` |
+| PostgreSQL Testcontainers integration test | `backend/backend.lib.mgmt/src/test/java/self/learning/backend/lib/mgmt/integration/CreateDepartmentTestcontainersIntegrationTest.java` | `self.learning.backend.lib.mgmt.integration` |
+
+The student implementation therefore starts with:
+
+```java
+package self.learning.backend.lib.mgmt.service.impl;
+```
+
+### Quality/materialization evidence
+
+- Presenter source contract verified against `Presenter-Solutions-T01-T05` commit `c3555b1a5c44074ba731e86a9eaad1108e5b0f29`.
+- Final review DOCX: **45 pages**, **1,713,214 bytes**.
+- DOCX SHA-256: `73e30feb0f971d952c69f090009aa5b94f01ffee2dbd4be4799cfc49d11155b7`.
+- Git blob SHA: `0038f9f4bfaf4aedec8a7e2443032d987852ace6`.
+- Materialization workflow run `31953115263`: **SUCCESS**.
+- Materialized artifact commit: `501b2ef5c896d56dd054636629a14cc36d28d948`.
+- QG-27 quality-report close commit: `47aef90e1f4c58836f928efe5d0b4e69810488d2`.
+- Six rendered diagrams are present; four editable Draw.io source files are included.
+- Full 45-page render was visually inspected; diagram geometry and a nearly blank section-boundary page were corrected before QG-25 PASS.
+- Golden Reference comparison completed for QG-26.
+- Accessibility audit: zero high-severity findings; all six figures have meaningful alternative text; all eight multi-row/data tables have marked header rows.
+- Repository re-fetch verified that the committed DOCX has the same size/hash/blob identity as the fully inspected local binary.
+
+## Current Review Boundary
+
+**Do not scale this pattern to T02 or later documents yet.** The user requested one complete document set first. The next documentation action is therefore `WAIT_FOR_USER_REVIEW`:
+
+- If accepted, this exact pattern becomes the scaling baseline for subsequent document reruns.
+- If corrections are requested, revise this single document, rerun all affected quality gates, materialize the new identity, and present it again.
+
+## Current Cycle Task Table
+
+Current cycle: **C-20260816-2008**, nominal window **20:08-20:23 IST**.
+
+| Task | Stream | Taken Up This Cycle | Closed This Cycle | Current State |
+|---|---|---|---|---|
+| Add exact Create Department service/test package and source placement | Document Rerun | Yes | **Yes** | PASS |
+| Rerun content/depth/accessibility gates | Document Rerun | Yes | **Yes** | PASS |
+| Render and inspect complete DOCX | Document Rerun | Yes | **Yes** | QG-25 PASS; 45 pages inspected |
+| Compare with Golden Reference | Document Rerun | Yes | **Yes** | QG-26 PASS |
+| Commit exact artifact + Draw.io + quality evidence and re-fetch/hash verify | Document Rerun | Yes | **Yes** | QG-27 PASS |
+| Scale to additional documents | Document Rerun | No | No | **PAUSED FOR USER REVIEW** |
+| Continue Presenter Solutions | Presenter Solutions | No | No | **DEPRIORITIZED** |
 
 Machine-readable cycle state: `.project/execution-cycle-monitor.yml`.
 
-## Streams With No Increase for More Than 3 Cycles
-
-| Stream | Current % | Cycles Without Increase | Reason | Next Unblock Action |
-|---|---:|---:|---|---|
-| **Document Rerun** | **0.47%** | **6** | Exact QG-27 binary remains unrecovered after fragment, workflow artifact/log, direct-blob and First-Version archive checks. | Continue exact-binary archive/history search; if irrecoverable, create a new fully gated candidate rather than reuse the old identity. |
-| **Classroom Release Preparation** | **33.33%** | **6** | Stage 1 requires an APPROVED, materialized and verified rerun document. | Clear QG-27, then create and verify Release-01. |
-| **Recovery / Final Integration** | **20.00%** | **6** | T31-T35 registry cannot be frozen from a partial Book Copy batch. | Complete T33-T35, freeze exact SHAs, then run registry-tip CI. |
-
-Presenter Solutions and Overall are not stalled because they increased in the immediately preceding cycle.
-
-## Active Work
-
-### Presenter Solutions
-
-- T31 remains 80% through Service + UT + Integration + Frontend; final 20% is batch-registry gated.
-- T32 remains 80% through Service + UT + Integration + Withdraw Book Copy frontend; cumulative run `31946688302` SUCCESS.
-- T33 Service: `fec9bcdbdaa86e17c0b939a8020321de05c632c6`.
-- T33 Unit Test: `4520f779a87bcac8c7628a90f0e6bc14fd87c6d8`; run `31946962274` IN PROGRESS.
-- T33 Unit Tests cover own-accession exclusion, null request -> response `01`, unknown/non-current target -> `02`, and another row owning normalized `ACC-0001` -> `03`, all using service code `33`.
-- **Current Presenter task:** prepare T33 Integration; commit it only after branch-tip UT CI is green.
-- T33 Integration is one 20-point checkpoint consisting of local PostgreSQL + PostgreSQL-18 Testcontainers.
-- T33 frontend after Integration: Search Book Copy UI.
-
-### Document QG-27 Recovery
-
-Accepted target identity remains size `234444`, SHA-256 `c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4`, recorded Git blob `853fe9b900ba04339441116bdf18e64289a59093`.
-
-Recovery evidence now rules out:
-
-- successful reconstruction from the committed `final/part-00..07` set;
-- hidden artifacts from failed run `31941294901` (none exist);
-- a later committed `part-08+` history in that path;
-- direct blob recovery from accessible Master or Quality Gate repositories;
-- recovery from `First-Version-of-Documents`.
-
-The available 42-page Golden Reference and historical 52-page v21 copy are not substituted for the accepted 55-page identity. Remaining archive/history surfaces will be checked before any regeneration decision. Any regeneration is a **new QG candidate**, not the old identity.
-
-### Classroom Release
-
-- Release-00 VERIFIED by run `31930965288`.
-- Release-01 remains prerequisite-blocked by QG-27; no unapproved Stage-1 branch is created.
-- Release-02 retains its controlled-error-infrastructure prerequisite.
-
-### Recovery / Final Integration
-
-- T01-T30 exact registry coverage is verified.
-- T31-T35 registry remains intentionally uncreated until the Book Copy batch is complete and cumulative verification is green.
-
-## 15-Minute Execution Checkpoint Protocol
-
-Each active cycle records tasks taken up, tasks closed, tasks in progress, tasks open for 4+ completed cycles, streams with 4+ cycles without a percentage increase, and Previous/Updated/Increase values. Real gate crossings are recorded immediately.
-
 ## Recent Checkpoint Log
 
-- **2026-08-16 17:55 IST** - New cycle C-20260816-1755 started. Document, Classroom Release and Recovery stalled counters increased to **6**. Presenter/Overall remain unstalled. T33 UT CI carried into the new cycle.
-- **2026-08-16 17:54 IST** - T33 Unit Test implementation completed at `4520f779`. Presenter **53.00% → 53.33% (+0.33%)**; Overall **24.10% → 24.21% (+0.12%)**.
-- **2026-08-16 17:52 IST** - T32 cumulative run `31946688302` SUCCESS; T33 Service completed at `fec9bcdb`. Presenter **52.67% → 53.00% (+0.33%)**.
-- **2026-08-16 17:48 IST** - T32 Withdraw Book Copy frontend completed at `ae74ded1`. Presenter **52.33% → 52.67% (+0.34%)**.
-- **2026-08-16 17:43 IST** - T32 Integration completed through `7c6ed2ed` + `59937e81`. Presenter **52.00% → 52.33% (+0.33%)**.
+- **2026-08-16 20:08 IST** - T01_02 package-placement review revision completed through **QG-27 PASS**. Exact materialized identity verified; scale-up explicitly stopped pending user review.
+- **2026-08-16 17:55 IST** - Previous cycle still had the old exact-binary QG-27 recovery blocker open. That blocker is superseded by the new fully gated review revision rather than by substituting a different old document.
+- **2026-08-16 17:54 IST** - Last retained percentage-bearing Presenter checkpoint: T33 Unit Test implementation; Presenter **53.00% -> 53.33%**.
 
 ## Hard Rules
 
@@ -112,7 +105,7 @@ Each active cycle records tasks taken up, tasks closed, tasks in progress, tasks
 4. Documents require QG-27 before approval/promotion.
 5. Presenter solution code remains private.
 6. Public publication is performed by the Presenter.
-7. Percentages use completed implementation checkpoints; pending verification/registry gates are explicit.
+7. Percentages use completed implementation checkpoints; pending user review/promotion is explicit.
 8. `.project/PROJECT_PROGRESS.md` is the human live dashboard.
-9. `.project/execution-cycle-monitor.yml` is the machine source for cycle aging and stalled-stream escalation.
-10. Every cycle must show Previous %, Updated %, Increase, cycle tasks, >3-cycle tasks, and >3-cycle stalled streams.
+9. `.project/execution-cycle-monitor.yml` is the machine source for cycle state.
+10. For the present review boundary, no additional document is generated until the user reviews T01_02.
