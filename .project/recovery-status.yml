@@ -10,10 +10,21 @@ weights:
 
 status:
   verified_solution_registry_coverage:
-    tracks_verified: 20
+    tracks_verified: 30
     tracks_total: 60
-    coverage_percent: 33.3333
-    weighted_progress: 13.3333
+    coverage_percent: 50.0000
+    weighted_progress: 20.0000
+    verified_batches:
+      - T01-T05
+      - T06-T10
+      - T11-T15
+      - T16-T20
+      - T21-T25
+      - T26-T30
+    latest_registry_branch: Presenter-Solutions-T26-T30
+    latest_registry_commit: 277e9e08d266bc38af14e38f5c919ef0e8e3cfa7
+    latest_registry_ci_run: 31943292080
+    latest_registry_ci_conclusion: SUCCESS
   selection_and_dependency_design:
     status: DESIGNED_CONCEPTUALLY_NOT_IMPLEMENTED
     weighted_progress: 0.0
@@ -25,7 +36,13 @@ status:
     weighted_progress: 0.0
 
 calculation:
-  percent: 13.3333
+  percent: 20.0000
+
+next:
+  active_batch: T31-T35
+  active_module: Book Copy
+  first_track: T31
+  registry_status: NOT_YET_CREATED
 
 hard_rules:
   - Never auto-publish to the Public repository.
