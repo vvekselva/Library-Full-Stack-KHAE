@@ -33,22 +33,27 @@ tracks:
     registry_ready: true
     next_action: "retain immutable evidence; batch freeze remains blocked by T33-T35"
   T33:
-    readiness: BLOCKED
+    readiness: REPAIR_CANDIDATE_CI_PENDING
     service: DONE
     service_commit: fec9bcdbdaa86e17c0b939a8020321de05c632c6
-    unit_test: "IMPLEMENTED_CI_FAILED"
+    unit_test: "IMPLEMENTED_REPAIR_PENDING_CI"
     unit_test_commit: 4520f779a87bcac8c7628a90f0e6bc14fd87c6d8
-    workflow_run: 31946962274
-    workflow_attempt: 2
-    head_sha: 4520f779a87bcac8c7628a90f0e6bc14fd87c6d8
-    backend_job: 95189332185
-    backend_result: FAILURE
-    frontend_job: 95189332541
-    frontend_result: SUCCESS
-    failing_step: "Run Presenter solution tests with PostgreSQL"
+    prior_workflow_run: 31946962274
+    prior_workflow_attempt: 2
+    prior_head_sha: 4520f779a87bcac8c7628a90f0e6bc14fd87c6d8
+    prior_backend_job: 95189332185
+    prior_backend_result: FAILURE
+    prior_frontend_job: 95189332541
+    prior_frontend_result: SUCCESS
+    prior_failing_step: "Run Presenter solution tests with PostgreSQL"
+    diagnosis: "UpdateBookCopyServiceImpl trimmed accessionNumber before duplicate lookup, while T33 duplicate test requires canonical uppercase lookup for input ' acc-0001 ' against business key 'ACC-0001'."
+    repair_commit: fe4b8262bd9536cc0ce88569ae6031f7604e0132
+    repair_change: "trim required accessionNumber and normalize to uppercase using Locale.ROOT before duplicate lookup and mapper update"
+    verification_run: 31973754438
+    verification_state: IN_PROGRESS
     registry_ready: false
-    blocker: "backend test command exits with code 1; available connector log surface does not expose the underlying test assertion/error"
-    next_action: "isolate the backend Maven/Surefire failure before targeted repair; do not blind-rerun"
+    blocker: "repair is not registry-ready until the new Presenter workflow completes successfully"
+    next_action: "wait for workflow 31973754438; if green, record immutable CI evidence before allowing dependent T33 stages"
   T34:
     readiness: BLOCKED_NOT_IMPLEMENTED
     registry_ready: false
