@@ -18,20 +18,21 @@ Expected source families when prerequisites are satisfied:
 
 ## Hard prerequisites before materialization
 
-- [ ] Exact baseline source branch/commit identified and frozen.
-- [ ] Generic controlled-error infrastructure located by exact repository path and immutable commit SHA.
-- [ ] Controlled-error behavior verified against the student-facing API/error contract.
+- [x] Exact baseline source branch/commit identified and frozen: `Frontend-backend-Baseline` at `345d0abe73e0e9ac74d0148c90704611011e74f3`.
+- [x] Controlled-error infrastructure placement inspected at the frozen baseline identity. The application package root exposes `contract`, `controller`, `dao`, `dataobject`, `dto`, `mapper`, and `service`, but no generic exception/advice package; direct lookup of the expected `exception/GlobalExceptionHandler.java` path returns Not Found.
+- [ ] Generic controlled-error infrastructure located by exact repository path and immutable commit SHA — **BLOCKED because it is absent from the frozen baseline evidence**.
+- [ ] Controlled-error behavior verified against the student-facing API/error contract — blocked until the infrastructure exists at an approved baseline identity.
 - [ ] Every selected student guide is `APPROVED` and repository-verified.
-- [ ] Exact source/document identities recorded before any copy/materialization step.
+- [ ] Exact selected document identities recorded before any copy/materialization step.
 
-Current prerequisite decision: **BLOCKED**. The current repository evidence does not yet prove the required generic `ControllerAdvice` / `ExceptionHandler` infrastructure, so no source is inferred and no release candidate is materialized.
+Current prerequisite decision: **BLOCKED — VERIFIED MISSING INFRASTRUCTURE**. This cycle converted the earlier unknown into exact negative evidence; no source is inferred and no release candidate is materialized.
 
-## Private selection manifest template
+## Private selection manifest
 
 | Selection class | Required identity | Current decision |
 |---|---|---|
-| Student baseline source | exact branch + commit SHA | PENDING |
-| Controlled-error infrastructure | exact package/path + commit SHA | PENDING — hard blocker |
+| Student baseline source | exact branch + commit SHA | `Frontend-backend-Baseline` @ `345d0abe73e0e9ac74d0148c90704611011e74f3` |
+| Controlled-error infrastructure | exact package/path + commit SHA | VERIFIED MISSING at frozen baseline; hard blocker |
 | Approved student guides | exact repository path + blob/content identity | PENDING by document approval |
 | Classroom README/instructions | exact path + commit SHA | PENDING |
 | Presenter solution code | none | EXCLUDED |
@@ -52,4 +53,4 @@ Current prerequisite decision: **BLOCKED**. The current repository evidence does
 
 ## Promotion rule
 
-Preparation of this manifest/checklist is not a release gate. `source_identified`, `contents_audited`, `private_branch_frozen`, `build_verified`, and `presenter_ready` remain PENDING until their concrete evidence exists.
+Preparation and negative prerequisite verification are not release percentage gates. `source_identified` may now use the frozen baseline identity internally, but `contents_audited`, `private_branch_frozen`, `build_verified`, and `presenter_ready` remain PENDING until concrete release-candidate evidence exists.
