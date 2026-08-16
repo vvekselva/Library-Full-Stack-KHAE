@@ -25,9 +25,9 @@
 | Add subsequent approved document sets to Release-01 candidate | BLOCKED | Requires each document set APPROVED |
 | Run / freeze Release-01 candidate | BLOCKED | Requires candidate materialization and validation |
 | Presenter manual publication of Release-01 | PRESENTER ONLY | Never performed by ChatGPT/automation |
-| Verify controlled-error infrastructure placement for Release-02 | PENDING | Exact source-grounded evidence still required |
-| Prepare Release-02 manifest/checklist | **DONE** | Private conditional manifest/checklist commit `9e5e570d58527abaf6512851e6cd1dac40242478`; no materialization implied |
-| Materialize / validate / freeze Release-02 | BLOCKED | Requires controlled-error baseline + approved prerequisites |
+| Verify controlled-error infrastructure placement for Release-02 | **DONE — VERIFIED MISSING** | Frozen `Frontend-backend-Baseline` @ `345d0abe73e0e9ac74d0148c90704611011e74f3`; application package root has no generic exception/advice package and expected handler path is absent. Evidence record `6ba32469ebba0fb53ebf6865902ea0e45ce3912f` |
+| Prepare Release-02 manifest/checklist | DONE | Private conditional manifest/checklist, now reconciled with exact baseline/negative infrastructure evidence |
+| Materialize / validate / freeze Release-02 | BLOCKED | Requires controlled-error infrastructure to be added to an approved student baseline + approved document prerequisites |
 | Presenter manual publication of Release-02 | PRESENTER ONLY | Never performed by ChatGPT/automation |
 
 ## Current stream accounting
@@ -35,13 +35,18 @@
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000%**
-- Cycles without increase: **14**
-- State: **STALE** by percentage, despite another prerequisite-free preparation task closing.
+- Cycles without increase: **15**
+- State: **STALE — prerequisite verification advanced, percentage-bearing release gate still blocked**.
 
 ## Tasks Closed This Cycle
 
-- **Prepare Release-02 manifest/checklist — CLOSED.** Created `.project/release-prep/Release-02-private-manifest-checklist.md` at commit `9e5e570d58527abaf6512851e6cd1dac40242478`. The record freezes selection/exclusion rules and validation steps but deliberately leaves all percentage-bearing release gates PENDING.
+- **Verify controlled-error infrastructure placement for Release-02 — CLOSED WITH NEGATIVE RESULT.** The frozen source is now exact: `Frontend-backend-Baseline` at `345d0abe...`. Inspection proves the generic ControllerAdvice/ExceptionHandler infrastructure required by Release-02 is not present at that identity. This converts an unknown dependency into an explicit source blocker; it does not satisfy the prerequisite.
+
+## Tasks In Progress / Blocked
+
+- Release-01 materialization remains blocked by incomplete approved/repository-verified document prerequisites.
+- Release-02 materialization remains blocked until the missing generic controlled-error infrastructure is added and verified on an approved student baseline.
 
 ## Action Taken in This Cycle
 
-Used the CI wait window to complete the private Release-02 manifest/checklist. The manifest excludes Presenter solution code and private `.project/` controls, requires immutable source/document identities, and keeps materialization blocked until generic controlled-error infrastructure and approved student guides are proven. No public repository write was made and no release-gate percentage was claimed from preparation alone.
+Used the Presenter CI wait window to resolve the Release-02 source ambiguity. Re-fetched the frozen baseline branch identity, inspected its backend application package structure, verified the expected global exception-handler path is absent, and updated the private Release-02 manifest at commit `6ba32469...`. No candidate was materialized, no public repository write occurred, and no percentage was credited for negative verification alone.
