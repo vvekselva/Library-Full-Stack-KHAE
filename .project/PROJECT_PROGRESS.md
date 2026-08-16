@@ -27,15 +27,15 @@ The dashboard shows three values for every stream:
 
 A heartbeat-only or verification-only update does not erase the last meaningful comparison baseline. When a new implementation gate changes progress, the current Updated value becomes the next Previous value and the newly calculated value becomes Updated. Increase is calculated from the unrounded values and then rounded for display. Because Previous and Updated are independently displayed to two decimals, subtracting the displayed values can occasionally differ from the displayed Increase by 0.01 percentage point.
 
-## Current Status - 2026-08-16 17:35 IST
+## Current Status - 2026-08-16 17:38 IST
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
 | Document Rerun | **0.47%** | **0.47%** | **+0.00%** | T01_02 QG-01 to QG-26 PASS; QG-27 OPEN. Exact accepted binary identity is unchanged. Materialization run `31941294901` failed with `base64: invalid input`. Successful canonical-source artifact `T01_02-canonical-source` from run `31939791535` contains normalized teaching source, editable Draw.io sources and content QA, but not the accepted 55-page DOCX. The available 42-page Golden Reference does not match the accepted artifact and will not be substituted. |
-| Presenter Solutions | **51.33%** | **51.67%** | **+0.33%** | **T01-T30 VERIFIED; T31 remains 80% pending the T31-T35 batch registry; T32 Read Book Copy Service COMPLETE at `db2d4ec5`; T32 Unit Test IN PROGRESS.** |
+| Presenter Solutions | **51.67%** | **52.00%** | **+0.33%** | **T01-T30 VERIFIED; T31 remains 80% pending the T31-T35 batch registry; T32 Service COMPLETE at `db2d4ec5`; T32 Unit Test IMPLEMENTED at `7d4571ec`; CI run `31946189396` IN PROGRESS.** |
 | Classroom Release Preparation | **33.33%** | **33.33%** | **+0.00%** | Release-00 remains Presenter-ready and independently VERIFIED PASS by run `31930965288`. Release-01/02 pending. |
 | Recovery / Final Integration | **20.00%** | **20.00%** | **+0.00%** | Verified solution-registry coverage remains **30/60 tracks = 50% coverage × 40% recovery weight = 20.00%**. T31-T35 registry is still waiting for the complete Book Copy batch. |
-| **Overall** | **23.51%** | **23.63%** | **+0.12%** | Current raw formula result is approximately `23.6292%`, displayed as 23.63%. Previous raw overall was approximately `23.5125%`, displayed as 23.51%. The unrounded increase is approximately `0.1167%`, displayed as +0.12%. |
+| **Overall** | **23.63%** | **23.75%** | **+0.12%** | Current raw formula result is approximately `23.7458%`, displayed as 23.75%. Previous raw overall was approximately `23.6292%`, displayed as 23.63%. The unrounded increase is approximately `0.1167%`, displayed as +0.12%. |
 
 ## Current 15-Minute Cycle Task Table
 
@@ -46,7 +46,8 @@ Current cycle: **C-20260816-1725**, nominal window **17:25-17:40 IST**. “More 
 | Add live cycle-task and stalled-stream monitoring | Project Control | **Yes** | **Yes** | **CLOSED** at `fb917183` machine monitor + `0744c4f9` dashboard | 1 | No |
 | Consume T31 cumulative CI and confirm final-checkpoint semantics | Presenter Solutions | **Yes** | **Yes** | **CLOSED** - run `31945620654` SUCCESS; final 20 points correctly remain batch-registry gated | 1 | No |
 | Implement T32 Read Book Copy Service | Presenter Solutions | **Yes** | **Yes** | **CLOSED** at `db2d4ec5` | 1 | No |
-| Implement T32 Read Book Copy unit tests | Presenter Solutions | **Yes** | No | **IN PROGRESS** | 1 | No |
+| Implement T32 Read Book Copy unit tests | Presenter Solutions | **Yes** | **Yes** | **CLOSED** at `7d4571ec` | 1 | No |
+| Verify T32 unit-test branch tip in CI | Presenter Solutions | **Yes** | No | **IN PROGRESS** - run `31946189396` at `7d4571ec` | 1 | No |
 | Recover exact accepted T01_02 QG-27 DOCX binary | Document Rerun | No - carried forward | No | **IN PROGRESS / BLOCKED** by missing accepted 55-page binary | **4+** | **YES** |
 | Freeze T31-T35 recovery registry | Recovery / Final Integration | No - dependency task | No | **WAITING** for complete T31-T35 component set and cumulative verification | **4+** | **YES** |
 
@@ -62,15 +63,15 @@ Only streams with **4 or more completed consecutive cycles without a percentage 
 | **Classroom Release Preparation** | **33.33%** | **4+** | Release-00 verification is the current plateau | Release-01/02 remain behind prerequisite gates | Resume Release-01/02 preparation while preserving ownership boundaries |
 | **Recovery / Final Integration** | **20.00%** | **4** | Last increase at the T01-T30 registry coverage checkpoint | T31-T35 registry cannot be frozen from a partial batch | Complete T31-T35, freeze exact SHAs, then run registry-tip CI |
 
-Presenter Solutions and Overall are **not** in the stalled-stream table because Presenter increased through the T32 Service gate in the current cycle.
+Presenter Solutions and Overall are **not** in the stalled-stream table because Presenter increased through the T32 Unit Test implementation gate in the current cycle.
 
 ## Active Work
 
 - **Presenter code:** T31 Add Book Copy is complete through Service, Unit Test, local PostgreSQL, Testcontainers and the Update Book Copy recovery frontend. Cumulative run `31945620654` completed **SUCCESS** at exact substantive tip `9d2f5796edb1cd3bb34f56b0433c2c747687e5ed`.
 - **T31 final-checkpoint rule:** historical T26/T27 tracker evidence proves a track remains at 80% after Service + UT + Integration + Frontend. The final 20% is held until the batch cumulative CI/registry gate. Therefore T31 remains 80% until the T31-T35 registry is frozen and registry-tip CI passes.
-- **T32 service:** Read Book Copy Service is complete at `db2d4ec55c1e1bcaff008ef2118053a83de723f9`. It now validates null ID, reads through `BookCopyDao.findCurrentById`, returns controlled not-found for an unknown/withdrawn ID, and maps the persisted DO with `BookCopyDtoDoMapper.toResponse`.
-- **T32 active checkpoint:** Unit Test. The tests must prove successful read/mapping, null-ID controlled invalid input, and unknown-ID controlled not-found without invoking unrelated Presenter-owned layers.
-- **T32 next integration boundary:** local PostgreSQL + Testcontainers will form the single 20-point Integration checkpoint and must prove that the withdrawn Book Copy state is not exposed through the current-read service.
+- **T32 service:** Read Book Copy Service is complete at `db2d4ec55c1e1bcaff008ef2118053a83de723f9`. It validates null ID, reads through `BookCopyDao.findCurrentById`, returns controlled not-found for an unknown/withdrawn ID, and maps the persisted DO with `BookCopyDtoDoMapper.toResponse`.
+- **T32 unit tests:** implemented at `7d4571ec761c11d85638cd05845c1fd1a111817f`. They prove successful current-copy mapping, unknown/withdrawn copy → controlled response code `02`, null ID → controlled response code `01`, and service code `32`. Exact branch-tip CI run `31946189396` is currently IN PROGRESS.
+- **T32 next integration boundary:** after CI is green, local PostgreSQL + Testcontainers will form the single 20-point Integration checkpoint and will prove that the withdrawn Book Copy state is not exposed through the current-read service.
 - **Document:** continue QG-27 recovery from canonical source/history without substituting a different DOCX. Exact accepted target remains size `234444`, SHA-256 `c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4`, Git blob `853fe9b900ba04339441116bdf18e64289a59093`.
 - **Recovery:** T01-T30 registry coverage is verified. The T31-T35 registry remains NOT_YET_CREATED and must be built only from exact verified component SHAs after cumulative batch completion.
 - **Classroom release:** Release-00 remains verified. Release-01/02 work must preserve Presenter/student ownership boundaries and the Release-02 exception-infrastructure prerequisite.
@@ -89,11 +90,12 @@ Each cycle must additionally maintain:
 
 ### Checkpoint Log
 
-- **2026-08-16 17:35 IST** - T32 Read Book Copy Service implementation gate completed at `db2d4ec5`. Presenter comparison: **51.33% → 51.67% (+0.33%)**. Overall comparison: **23.51% → 23.63% (+0.12% from unrounded values)**. Cycle task table now shows T32 Service CLOSED and T32 Unit Test IN PROGRESS. Document, Classroom Release and Recovery remain in the >3-cycle stalled-stream table.
-- **2026-08-16 17:31 IST** - Cycle-control extension activated. Added machine-readable `.project/execution-cycle-monitor.yml`, current-cycle task table, long-running-task escalation, and stalled-stream escalation. T31 cumulative run `31945620654` is confirmed **SUCCESS** at `9d2f5796`; historical tracker semantics keep T31 at 80% until the T31-T35 batch registry gate. Presenter remained **51.00% → 51.33% (+0.33%)** because the CI result itself was verification-only; Overall remained **23.40% → 23.51% (+0.12%)**. T32 Read Book Copy Service became IN PROGRESS.
-- **2026-08-16 17:25 IST** - T31 Frontend implementation gate completed at `9d2f5796`. Existing `import.meta.glob` discovery means no shared routing modification was needed. Presenter comparison: **51.00% → 51.33% (+0.33%)**. Overall comparison: **23.40% → 23.51% (+0.12% from unrounded values)**. Document **0.47% → 0.47% (+0.00%)**; Classroom **33.33% → 33.33% (+0.00%)**; Recovery **20.00% → 20.00% (+0.00%)**.
-- **2026-08-16 17:22 IST** - T31 Integration implementation gate completed. Local PostgreSQL test `599dac48` and PostgreSQL-18 Testcontainers test `192761ab` together complete the original single 20-point integration checkpoint. Presenter comparison: **50.67% → 51.00% (+0.33%)**. Overall comparison: **23.28% → 23.40% (+0.12%)**. Document **0.47% → 0.47% (+0.00%)**; Classroom **33.33% → 33.33% (+0.00%)**; Recovery **20.00% → 20.00% (+0.00%)**.
-- **2026-08-16 17:15 IST** - T31 UT `6fdfc020` VERIFIED by run `31945047287` SUCCESS at branch-tip migration commit `0a26ccad`. Presenter comparison: **50.33% → 50.67% (+0.34%)**. Overall comparison: **23.16% → 23.28% (+0.12%)**. Document **0.47% → 0.47% (+0.00%)**; Classroom **33.33% → 33.33% (+0.00%)**; Recovery **20.00% → 20.00% (+0.00%)**.
+- **2026-08-16 17:38 IST** - T32 Read Book Copy Unit Test implementation gate completed at `7d4571ec`. Presenter comparison: **51.67% → 52.00% (+0.33%)**. Overall comparison: **23.63% → 23.75% (+0.12% from unrounded values)**. Branch-tip run `31946189396` is IN PROGRESS. Cycle table now shows T32 Service and Unit Test CLOSED; CI verification is the active task.
+- **2026-08-16 17:35 IST** - T32 Read Book Copy Service implementation gate completed at `db2d4ec5`. Presenter comparison: **51.33% → 51.67% (+0.33%)**. Overall comparison: **23.51% → 23.63% (+0.12% from unrounded values)**. Cycle task table changed T32 Service to CLOSED and T32 Unit Test to IN PROGRESS.
+- **2026-08-16 17:31 IST** - Cycle-control extension activated. Added machine-readable `.project/execution-cycle-monitor.yml`, current-cycle task table, long-running-task escalation, and stalled-stream escalation. T31 cumulative run `31945620654` confirmed **SUCCESS** at `9d2f5796`; T31 remained 80% pending the T31-T35 batch registry gate.
+- **2026-08-16 17:25 IST** - T31 Frontend implementation gate completed at `9d2f5796`. Presenter comparison: **51.00% → 51.33% (+0.33%)**. Overall comparison: **23.40% → 23.51% (+0.12% from unrounded values)**.
+- **2026-08-16 17:22 IST** - T31 Integration implementation gate completed. Local PostgreSQL test `599dac48` and PostgreSQL-18 Testcontainers test `192761ab` together complete the original single 20-point integration checkpoint. Presenter comparison: **50.67% → 51.00% (+0.33%)**. Overall comparison: **23.28% → 23.40% (+0.12%)**.
+- **2026-08-16 17:15 IST** - T31 UT `6fdfc020` VERIFIED by run `31945047287` SUCCESS at branch-tip migration commit `0a26ccad`. Presenter comparison: **50.33% → 50.67% (+0.34%)**. Overall comparison: **23.16% → 23.28% (+0.12%)**.
 - **2026-08-16 17:09 IST** - T31 service `c03fdf12` COMPLETE. T31 UT `6fdfc020` IMPLEMENTED; exact direct CI run `31944909840` was then in progress and later superseded by a newer push.
 - **2026-08-16 17:07 IST** - `Presenter-Solutions-T31-T35` created from exact verified Book registry SHA `277e9e08bd07fb04ad77b18bf4d78d8651c175b6`. Presenter-owned T31-T35/P07 service codes added at `0bf2687e`. T31 Add Book Copy service completed at `c03fdf12`.
 - **2026-08-16 16:54 IST** - Exact registry-tip run `31943292080` confirmed `SUCCESS` with head SHA `277e9e08bd07fb04ad77b18bf4d78d8651c175b6`. Presenter advanced to T01-T30 VERIFIED / **50.00%**; recovery registry coverage advanced to 30/60 tracks / **20.00% weighted progress**.
@@ -162,7 +164,8 @@ Each cycle must additionally maintain:
 ## T32 Evidence
 
 - `db2d4ec55c1e1bcaff008ef2118053a83de723f9` - T32 Read Book Copy service solution.
-- Unit Test - **IN PROGRESS**.
+- `7d4571ec761c11d85638cd05845c1fd1a111817f` - T32 Read Book Copy unit tests.
+- Unit-test verification run `31946189396` - **IN PROGRESS** at exact unit-test tip.
 - Integration - PENDING.
 - Frontend - PENDING.
 - Final CI / registry - PENDING with the T31-T35 batch gate.
