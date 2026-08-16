@@ -17,30 +17,32 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-16 16:54 IST
+## Current Status - 2026-08-16 17:07 IST
 
 | Stream | Progress | Current Stage |
 |---|---:|---|
 | Document Rerun | **0.47%** | T01_02 QG-01 to QG-26 PASS; QG-27 OPEN. Exact accepted binary identity is unchanged. Materialization run `31941294901` failed with `base64: invalid input`. Successful canonical-source artifact `T01_02-canonical-source` from run `31939791535` contains normalized teaching source, editable Draw.io sources and content QA, but not the accepted 55-page DOCX. The available 42-page Golden Reference does not match the accepted artifact and will not be substituted. |
-| Presenter Solutions | **50.00%** | **T01-T30 VERIFIED.** T26-T30 Book source CI run `31942708483` succeeded. Registry commit `277e9e08bd07fb04ad77b18bf4d78d8651c175b6` was verified by exact-tip run `31943292080` = **SUCCESS**. T31 Book Copy contract is recovered; next gate is creation of `Presenter-Solutions-T31-T35` from this exact verified tip and T31 service implementation. |
+| Presenter Solutions | **50.33%** | **T01-T30 VERIFIED; T31 Service COMPLETE.** `Presenter-Solutions-T31-T35` was created from exact verified Book registry SHA `277e9e08bd07fb04ad77b18bf4d78d8651c175b6`. Presenter support codes are at `0bf2687e`; T31 Add Book Copy service is committed at `c03fdf12`. Next gate: T31 unit tests. |
 | Classroom Release Preparation | **33.33%** | Release-00 remains Presenter-ready and independently VERIFIED PASS by run `31930965288`. Release-01/02 pending. |
-| Recovery / Final Integration | **20.00%** | Verified solution-registry coverage is now **30/60 tracks = 50% coverage × 40% recovery weight = 20.00%**. Verified batches: T01-T05 through T26-T30. Selection/dependency workflow implementation and classroom rehearsal remain pending. |
-| **Overall** | **23.05%** | `0.4722×0.45 + 50×0.35 + 33.3333×0.10 + 20×0.10 = 23.04582%`, displayed as 23.05%. Parallel execution continues with T31 Book Copy. |
+| Recovery / Final Integration | **20.00%** | Verified solution-registry coverage remains **30/60 tracks = 50% coverage × 40% recovery weight = 20.00%**. T31-T35 is not recoverable yet because its registry must be frozen only after cumulative CI. |
+| **Overall** | **23.16%** | `0.4722×0.45 + 50.3333×0.35 + 33.3333×0.10 + 20×0.10 = 23.1625%`, displayed as 23.16%. Parallel execution continues with T31 unit testing. |
 
 ## Active Work
 
-- **Presenter code:** T26-T30 Book is formally VERIFIED. Exact registry SHA: `277e9e08bd07fb04ad77b18bf4d78d8651c175b6`; exact-tip CI run `31943292080` = SUCCESS. T31 contract is recovered from the frozen 60-student assignment plan and consistency audit. Next: create `Presenter-Solutions-T31-T35` from the verified Book registry tip, inspect existing Book Copy presenter-owned foundation, and implement T31 in SERVICE -> UT -> local PostgreSQL IT -> Testcontainers IT -> FRONTEND -> cumulative CI order.
-- **T31 exact contract:** Student 31; Book Copy Management; Add Book Copy Service; `POST /rest/book-copies`; business key Accession Number; null `accessionNumber` must surface the intended unit-test discovery before controlled correction; persisted duplicate Accession Number must be rejected in integration; seed/test value `ACC-000101`; assigned frontend is Update Book Copy UI `PUT /rest/book-copies/{id}` against Student 32's backend without changing the `/rest/` contract.
+- **Presenter code:** T31 Add Book Copy service is complete at `c03fdf121118fdaad8467deec492e97c92c033d9`. The service validates null request, enforces `ACCESSION_NUMBER_REQUIRED` for missing/blank accession number, validates a positive Book ID, checks normalized accession uniqueness through `BookCopyDao`, defaults missing status to `AVAILABLE`, normalizes nonblank status, persists through `BookCopyDtoDoMapper`, and uses `ApplicationCodes.T31_CREATE_BOOK_COPY` for controlled errors. Next: T31 unit tests.
+- **T31 exact teaching contract:** Student 31; Book Copy Management; Add Book Copy Service; `POST /rest/book-copies`; business key Accession Number; null `accessionNumber` must surface the intended unit-test discovery before controlled correction; persisted duplicate Accession Number must be rejected in integration; assignment-plan test value `ACC-000101`; assigned frontend is Update Book Copy UI `PUT /rest/book-copies/{id}` against Student 32's backend without changing the `/rest/` contract.
+- **Source discrepancy retained explicitly:** the current 60-student assignment plan specifies null `accessionNumber` / `ACCESSION_NUMBER_REQUIRED` and duplicate `ACC-000101`; the later consistency-audit register uses generic null-request / `ACC-0001`. Student-facing implementation follows the assignment plan; schema/audit data is used only for repository compatibility.
 - **Document:** continue QG-27 recovery from canonical source/history without substituting a different DOCX. Exact accepted target remains size `234444`, SHA-256 `c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4`, Git blob `853fe9b900ba04339441116bdf18e64289a59093`.
 - **Recovery:** T01-T30 registry coverage is verified. The T31-T35 registry remains NOT_YET_CREATED and must be built only from exact verified component SHAs after cumulative CI.
 - **Classroom release:** Release-00 remains verified. Release-01/02 work must preserve Presenter/student ownership boundaries and the Release-02 exception-infrastructure prerequisite.
 
 ## 15-Minute Execution Checkpoint Protocol
 
-During an active execution window, each approximately 15-minute checkpoint must also update this file on `main` with evidence-based status. The checkpoint entry must record the timestamp, active branch/task, latest substantive branch commit, percentages, blockers, and the next concrete action. A heartbeat-only code commit must not be created merely to manufacture activity; this dashboard update is the status record.
+During an active execution window, each approximately 15-minute checkpoint must also update this file on `main` with evidence-based status. The checkpoint entry must record the timestamp, active branch/task, latest substantive branch commit, percentages, blockers, and the next concrete action. A real checkpoint crossing is written immediately even if it occurs before the 15-minute heartbeat. A heartbeat-only code commit must not be created merely to manufacture activity; this dashboard update is the status record.
 
 ### Checkpoint Log
 
+- **2026-08-16 17:07 IST** - `Presenter-Solutions-T31-T35` exists from exact verified Book registry SHA `277e9e08bd07fb04ad77b18bf4d78d8651c175b6`. Book Copy foundation was confirmed already present. Presenter-owned T31-T35/P07 service codes were added at `0bf2687e`. T31 Add Book Copy service was completed at `c03fdf12`, advancing Presenter progress to **50.33%** and overall to **23.16%**. Next: implement T31 unit tests proving the null-accession controlled correction and happy-path persistence interaction.
 - **2026-08-16 16:54 IST** - Exact registry-tip run `31943292080` re-fetched and confirmed `SUCCESS` with head SHA `277e9e08bd07fb04ad77b18bf4d78d8651c175b6`. Presenter machine progress was advanced to T01-T30 VERIFIED / **50.00%**; recovery registry coverage advanced to 30/60 tracks / **20.00% weighted progress**. Overall recalculated to **23.05%**. T31 source contract recovered: Add Book Copy Service, `POST /rest/book-copies`, Accession Number business key, null-request-field unit discovery, duplicate persisted accession integration discovery, Update Book Copy UI. Next: create `Presenter-Solutions-T31-T35` from the exact verified SHA and implement T31 service.
 - **2026-08-16 16:33 IST** - Book cumulative source run `31942708483` is SUCCESS at `1b931bf9`. Full T26-T30 commit/path evidence was reconciled and `.presenter/solution-registry/T26-T30.yml` frozen at substantive commit `277e9e08`. Exact-tip verification run `31943292080` was IN PROGRESS. Next was to promote Book T26-T30 on green.
 - **2026-08-16 16:23 IST** - T28 cumulative CI is VERIFIED PASS (`31942385786`). T29 implemented through frontend; T30 implemented through frontend with branch tip `1b931bf9`. Cumulative T30 run `31942708483` was still running at this checkpoint. Document recovery expanded: canonical-source artifact was inspected and the 42-page Golden Reference rejected as a QG-27 substitute because its identity differs.
@@ -90,6 +92,16 @@ During an active execution window, each approximately 15-minute checkpoint must 
 - Cumulative source verification: run `31942708483` **SUCCESS**
 - Registry freeze: `277e9e08bd07fb04ad77b18bf4d78d8651c175b6` - `.presenter/solution-registry/T26-T30.yml`
 - Registry-tip verification: run `31943292080` **SUCCESS**
+
+## T31 Evidence
+
+- `0bf2687e1c2eee622dae9aec6f46579cd9598304` - Presenter-owned Book Copy service codes T31-T35/P07.
+- `c03fdf121118fdaad8467deec492e97c92c033d9` - Student 31 Add Book Copy service solution.
+- Unit test - IN PROGRESS.
+- Local PostgreSQL integration - PENDING.
+- Testcontainers integration - PENDING.
+- Frontend - PENDING.
+- Cumulative CI / registry - PENDING.
 
 ## Document QG-27 Status
 
