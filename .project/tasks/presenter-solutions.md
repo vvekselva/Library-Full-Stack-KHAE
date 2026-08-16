@@ -23,7 +23,7 @@ Do not start Integration before Service + Unit Test branch-tip CI is green. Do n
 - Workflow: `31946962274`, attempt 2, FAILURE
 - Backend job: `95189332185`, FAILURE
 - Frontend job: `95189332541`, SUCCESS
-- Available annotation/log surfaces expose terminal exit code 1 but not the underlying test assertion. Direct job-log retrieval through the available connector returned no decodable log body in this cycle.
+- Available annotation/log surfaces expose terminal exit code 1 but not the underlying test assertion. Direct job-log retrieval through the available connector still did not yield a usable assertion/error body in the 2026-08-17 00:01 coordinator cycle.
 
 ## Immediate Agent 6 queue
 
@@ -39,8 +39,9 @@ Do not start Integration before Service + Unit Test branch-tip CI is green. Do n
 - Previous: **53.3333%**
 - Updated: **53.3333%**
 - Increase: **+0.0000%**
+- Cycles without increase: **5**
 - State: **STALE (>3 completed cycles without percentage increase)**.
 
 ## Action Taken in This Cycle
 
-Revalidated the failing T33 run, attempted direct backend job-log extraction, and confirmed the available Actions log surface does not expose the underlying assertion/error. No speculative code change or blind rerun was performed; T33 Integration/Frontend remain correctly blocked until exact failure evidence is available.
+Rechecked the failed T33 backend job-log surface and confirmed the exact assertion/error remains unavailable through the accessible connector. No speculative code change and no blind rerun were performed; T33 Integration/Frontend remain correctly blocked until proven failure evidence and branch-tip CI success are available.
