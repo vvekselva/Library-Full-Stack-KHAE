@@ -15,8 +15,6 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 ## Frozen Progress Formula
 
-Overall progress is calculated with these fixed weights:
-
 - Document rerun: 45%
 - Presenter solutions: 35%
 - Classroom release preparation: 10%
@@ -24,82 +22,57 @@ Overall progress is calculated with these fixed weights:
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-### Document stage values
+Document stage values: PENDING 0, BLUEPRINTING 10, BLUEPRINT APPROVED 20, GENERATING 40, CONTENT QA 55, VISUAL QA 70, QUALITY GATE PASSED 85, REPOSITORY VERIFIED 95, APPROVED 100.
 
-- PENDING = 0%
-- BLUEPRINTING = 10%
-- BLUEPRINT APPROVED = 20%
-- GENERATING = 40%
-- CONTENT QA = 55%
-- VISUAL QA = 70%
-- QUALITY GATE PASSED = 85%
-- REPOSITORY VERIFIED = 95%
-- APPROVED = 100%
+Presenter solution checkpoints per track: Service 20, Unit Test 20, Integration/Testcontainers 20, Frontend 20, Final CI + Registry 20.
 
-Document stream progress is the average across all 180 required DOCX artifacts.
+Classroom release gates per release: Source identified 20, Contents audited 20, Private branch frozen 20, Build verified 20, Presenter-ready 20.
 
-### Presenter solution stage values
-
-Each student track has five equal checkpoints:
-
-1. Service = 20%
-2. Unit Test = 20%
-3. Integration/Testcontainers = 20%
-4. Frontend = 20%
-5. Final CI + Solution Registry = 20%
-
-Presenter solution stream progress is the average across T01-T60.
-
-### Classroom release stage values
-
-Each private classroom release has five equal gates:
-
-1. Source identified = 20%
-2. Contents audited = 20%
-3. Private release branch frozen = 20%
-4. Build/verification passed = 20%
-5. Presenter-ready = 20%
-
-The stream covers Release-00, Release-01, and Release-02. Publication to the Public repository is a Presenter action and is not included in this percentage.
-
-### Recovery stage values
-
-Recovery progress is split as follows:
-
-- Verified solution-registry coverage for T01-T60 = 40%
-- Recovery selection/dependency design = 20%
-- Private recovery workflow implementation = 20%
-- Full classroom recovery rehearsal = 20%
+Recovery weights: verified registry coverage 40, selection/dependency design 20, private workflow implementation 20, classroom rehearsal 20.
 
 ## Current Status - 2026-08-16
 
 | Stream | Progress | Current Stage |
 |---|---:|---|
-| Document Rerun | 0.22% | T01_02 is GENERATING; Sections 01-04 and two Draw.io sources are committed |
-| Presenter Solutions | 28.00% | T16 fully verified; T17 Service/UT/IT/Frontend implemented and CI queued |
-| Classroom Release Preparation | 20.00% | Release-00 corrected to empty-code-only; isolated build verification queued |
-| Recovery / Final Integration | 10.67% | Verified recovery registry now covers T01-T16 |
-| **Overall** | **12.97%** | Parallel execution active |
+| Document Rerun | **0.31%** | T01_02 source generation complete; QG-01 to QG-24 content review PASS; DOCX assembly/QG-25 next |
+| Presenter Solutions | **33.33%** | T01-T20 code verified; Category T16-T20 registry frozen; registry-commit CI running |
+| Classroom Release Preparation | **33.33%** | Release-00 empty-code snapshot is Presenter-ready; Release-01 and Release-02 pending |
+| Recovery / Final Integration | **13.33%** | Exact recovery registries cover T01-T20 |
+| **Overall** | **16.47%** | Parallel execution active |
 
 ## Active Work
 
-- Document: T01_02 Section 05 - Natural Successful Create Implementation.
-- Presenter code: T17 final CI/registry, then T18 Update Category.
-- Classroom release: isolated Release-00 build run `31930812083`.
-- Recovery: extend registry coverage as each Presenter solution track becomes verified.
+- Document: assemble T01_02 DOCX from the 15 committed source sections and four editable Draw.io sources; render every page for QG-25.
+- Presenter code: close metadata CI for Category, then create/start T21-T25 Publisher successor stage.
+- Classroom release: `Classroom-Release-00-Empty` is ready for Presenter publication; no Public write is performed by ChatGPT.
+- Recovery: extend verified registry coverage with each completed Presenter solution stage.
 
-## Release-00 Correction Found During Verification
+## Release-00 Result
 
-The source `Frontend-backend-skeleton` also contained the existing `general-documents` directory. Stage 0 must contain only the empty codebase, so the private `Classroom-Release-00-Empty` release snapshot now removes those documents and uses a classroom-starter README. The original source skeleton branch remains untouched.
+The final private Release-00 root was re-fetched and contains only:
 
-## Release Prerequisite Discovered
+- `README.md`
+- `backend/`
+- `frontend/`
+
+Verification run `31930965288` passed backend Maven packaging and frontend Vite build. The original skeleton branch was not modified.
+
+## T01_02 Content Result
+
+- 15 controlled teaching sections complete.
+- Code Fragment 01 through 23 are sequential.
+- Four editable Draw.io sources committed.
+- QG-01 through QG-24 content checks passed.
+- QG-25/QG-26/QG-27 remain mandatory and pending.
+
+## Release-02 Prerequisite
 
 Before `Classroom-Release-02-Student-Baseline` is frozen, the generic Presenter-owned controlled-error infrastructure must be present in the student baseline:
 
 - `ApplicationServiceException.java`
 - `ApplicationServiceExceptionHandler.java`
 
-These classes currently exist in the verified Presenter-solution lineage but not in `Frontend-backend-Baseline`. Students must not be required to create this shared infrastructure.
+Students must not be required to create this shared framework.
 
 ## Hard Rules
 
@@ -110,4 +83,4 @@ These classes currently exist in the verified Presenter-solution lineage but not
 5. QG-27 materialization/re-fetch/hash verification is performed against the private `Document-Rerun-QG` branch.
 6. Presenter solution code remains private.
 7. Public publication is always performed by the Presenter.
-8. Progress percentages must use the fixed formulas in this file; they must not be changed merely to make progress appear faster.
+8. Progress percentages use the frozen formulas and are not adjusted for appearance.
