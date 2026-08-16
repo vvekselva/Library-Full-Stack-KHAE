@@ -75,25 +75,35 @@ Recovery progress is split as follows:
 
 | Stream | Progress | Current Stage |
 |---|---:|---|
-| Document Rerun | 0.06% | T01_02 is BLUEPRINTING; 1 of 180 documents has entered work |
-| Presenter Solutions | 25.00% | T01-T15 verified; T16-T20 Category is next |
-| Classroom Release Preparation | 20.00% | Release-00 source audited and private branch frozen; Release-01/02 pending |
+| Document Rerun | 0.11% | T01_02 blueprint quality review passed; controlled generation is next |
+| Presenter Solutions | 25.33% | T01-T15 verified; T16 Create Category service implemented |
+| Classroom Release Preparation | 20.00% | Release-00 source audited and private branch frozen; build verification pending |
 | Recovery / Final Integration | 10.00% | Verified recovery registries cover T01-T15; workflow not yet implemented |
-| **Overall** | **11.78%** | Parallel execution active |
+| **Overall** | **11.92%** | Parallel execution active |
 
 ## Active Work
 
-- Document: T01_02 Create Department Progressive Development Guide - blueprint quality review.
-- Presenter code: T16-T20 Category solution stage.
+- Document: T01_02 Create Department Progressive Development Guide - controlled section-by-section generation.
+- Presenter code: T16 Create Category - Unit Test checkpoint next; T17-T20 follow.
 - Classroom release: `Classroom-Release-00-Empty` verification/build gate.
 - Recovery: extend registry coverage as each Presenter solution stage becomes verified.
+
+## Release Prerequisite Discovered
+
+Before `Classroom-Release-02-Student-Baseline` is frozen, the generic Presenter-owned controlled-error infrastructure must be present in the student baseline:
+
+- `ApplicationServiceException.java`
+- `ApplicationServiceExceptionHandler.java`
+
+These classes currently exist in the verified Presenter-solution lineage but not in `Frontend-backend-Baseline`. Students must not be required to create this shared infrastructure.
 
 ## Hard Rules
 
 1. No ChatGPT/automation write to the Public classroom repository.
 2. No further ChatGPT/automation write to the Quality Gate repository.
-3. All executable project changes are committed only to the Private Master repository.
+3. All project changes are committed only to the Private Master repository.
 4. A document is not approved until it passes the Golden Reference Quality Gate and final artifact verification.
-5. Presenter solution code remains private.
-6. Public publication is always performed by the Presenter.
-7. Progress percentages must use the fixed formulas in this file; they must not be changed merely to make progress appear faster.
+5. QG-27 materialization/re-fetch/hash verification is performed against the private `Document-Rerun-QG` branch.
+6. Presenter solution code remains private.
+7. Public publication is always performed by the Presenter.
+8. Progress percentages must use the fixed formulas in this file; they must not be changed merely to make progress appear faster.
