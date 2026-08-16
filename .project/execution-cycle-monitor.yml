@@ -1,6 +1,6 @@
 version: 1
 repository: vvekselva/Library-Full-Stack-KHAE-Master
-updated_at: 2026-08-16T17:48:00+05:30
+updated_at: 2026-08-16T17:52:00+05:30
 
 cycle_rule:
   nominal_minutes: 15
@@ -22,52 +22,43 @@ current_cycle:
       evidence: "run 31946189396 SUCCESS at 7d4571ec"
       consecutive_cycles_open: 2
       over_three_cycles: false
-    - task: Implement T32 Read Book Copy local PostgreSQL integration test
+    - task: Implement and verify T32 Integration checkpoint
       stream: Presenter Solutions
       taken_up_this_cycle: true
       closed_this_cycle: true
       status: CLOSED
-      evidence: 7c6ed2ede5d47ae8a519da04f44fc0f978470c91
+      evidence: "local 7c6ed2ed + Testcontainers 59937e81; run 31946440881 SUCCESS"
       consecutive_cycles_open: 1
       over_three_cycles: false
-    - task: Implement T32 Read Book Copy PostgreSQL-18 Testcontainers integration test
+    - task: Confirm exact T32 frontend assignment
       stream: Presenter Solutions
       taken_up_this_cycle: true
       closed_this_cycle: true
       status: CLOSED
-      evidence: 59937e81e3639e17bf518e1c6bd68fbf49eb3b70
+      evidence: "newer manifest + later audit = Withdraw Book Copy UI; older Update UI source retained as superseded"
       consecutive_cycles_open: 1
       over_three_cycles: false
-    - task: Verify T32 integration branch tip in CI
+    - task: Implement and verify T32 Withdraw Book Copy frontend
       stream: Presenter Solutions
       taken_up_this_cycle: true
       closed_this_cycle: true
       status: CLOSED
-      evidence: "run 31946440881 SUCCESS at 59937e81"
+      evidence: "frontend ae74ded1; cumulative run 31946688302 SUCCESS"
       consecutive_cycles_open: 1
       over_three_cycles: false
-    - task: Confirm exact T32 frontend assignment from project source
+    - task: Implement T33 Update Book Copy Service
       stream: Presenter Solutions
       taken_up_this_cycle: true
       closed_this_cycle: true
       status: CLOSED
-      evidence: "newer 60-track manifest + later T01-T60 audit = Withdraw Book Copy UI; older Update Book Copy assignment retained as superseded evidence"
+      evidence: fec9bcdbdaa86e17c0b939a8020321de05c632c6
       consecutive_cycles_open: 1
       over_three_cycles: false
-    - task: Implement T32 Withdraw Book Copy frontend
-      stream: Presenter Solutions
-      taken_up_this_cycle: true
-      closed_this_cycle: true
-      status: CLOSED
-      evidence: ae74ded11fd561d72dabb6857e5461f830508983
-      consecutive_cycles_open: 1
-      over_three_cycles: false
-    - task: Verify T32 frontend cumulative branch tip in CI
+    - task: Implement T33 Update Book Copy unit tests
       stream: Presenter Solutions
       taken_up_this_cycle: true
       closed_this_cycle: false
       status: IN_PROGRESS
-      evidence: "run 31946688302 IN_PROGRESS at ae74ded1"
       consecutive_cycles_open: 1
       over_three_cycles: false
     - task: Recover exact accepted T01_02 QG-27 DOCX binary
@@ -78,15 +69,15 @@ current_cycle:
       status: IN_PROGRESS_BLOCKED
       consecutive_cycles_open: 5
       over_three_cycles: true
-      evidence: "Document-Rerun-QG contains only final part-00..part-07; history also ends at part-07; accepted git blob 853fe9b900ba04339441116bdf18e64289a59093 is absent from both Master and Quality Gate object databases"
-      blocker: "Exact accepted 55-page/234444-byte binary remains unavailable; path correction alone cannot reconstruct it from the incomplete fragment set."
-      next_action: "Inspect failed materialization workflow artifacts/logs and other archive/first-version branches for the exact accepted file before considering regeneration as a new QG candidate."
+      evidence: "failed run 31941294901 has no artifacts; job log proves decode failed before identity/commit; final fragment history ends at part-07; recorded exact blob absent from Master and Quality Gate; First-Version-of-Documents contains only general Git/SourceTree guides"
+      blocker: "Exact accepted 55-page/234444-byte binary remains unavailable and cannot be reconstructed from the committed fragment set."
+      next_action: "Continue archive/branch search; if exact binary is conclusively unrecoverable, regenerate only as a new QG candidate under the full quality gate."
     - task: Assess Classroom Release-01 safe start
       stream: Classroom Release Preparation
       taken_up_this_cycle: true
       closed_this_cycle: true
       status: CLOSED_BLOCKED_BY_PREREQUISITE
-      evidence: "Only Release-00 branches exist; release guide requires APPROVED + materialized rerun documents before Stage 1 freeze."
+      evidence: "Stage 1 requires APPROVED + materialized + verified rerun document; QG-27 remains open."
       consecutive_cycles_open: 1
       over_three_cycles: false
     - task: Freeze T31-T35 recovery registry
@@ -103,29 +94,29 @@ stream_stall_monitor:
     current_percent: 0.4722
     cycles_without_increase: 5
     over_three_cycles: true
-    reason: "QG-27 exact accepted binary is unrecovered after fragment-history, direct-blob and current-repository checks"
-    next_unblock_action: Inspect failed run artifacts/logs and archive branches for exact accepted binary
+    reason: Exact QG-27 binary remains unrecovered after fragment, workflow-artifact, log, direct-blob and First-Version archive checks
+    next_unblock_action: Continue exact-binary archive/history search or start a new fully gated regeneration candidate if irrecoverable
   - stream: Presenter Solutions
-    current_percent: 52.6667
+    current_percent: 53.0000
     cycles_without_increase: 0
     over_three_cycles: false
-    reason: T32 frontend implementation increased progress in the current cycle
-    next_unblock_action: Consume run 31946688302, then begin T33 Update Book Copy Service
+    reason: T33 Service increased progress in the current cycle
+    next_unblock_action: Complete T33 Unit Test checkpoint
   - stream: Classroom Release Preparation
     current_percent: 33.3333
     cycles_without_increase: 5
     over_three_cycles: true
-    reason: Stage 1 cannot be frozen until a rerun document is APPROVED, materialized and verified under QG-27
-    next_unblock_action: Clear QG-27; then create and verify Release-01 from approved document artifacts
+    reason: Stage 1 is gated by QG-27 document approval/materialization
+    next_unblock_action: Clear QG-27, then create and verify Release-01
   - stream: Recovery / Final Integration
     current_percent: 20.0000
     cycles_without_increase: 5
     over_three_cycles: true
-    reason: T31-T35 registry cannot be frozen until the Book Copy batch reaches its complete verified component set
-    next_unblock_action: Complete T33-T35, freeze exact component SHAs, then run registry-tip CI
+    reason: T31-T35 registry cannot be frozen until T31-T35 is complete
+    next_unblock_action: Complete T33-T35, freeze exact component SHAs, run registry-tip CI
   - stream: Overall
-    current_percent: 23.9792
+    current_percent: 24.0958
     cycles_without_increase: 0
     over_three_cycles: false
-    reason: Presenter progress increased through the T32 frontend implementation gate in the current cycle
-    next_unblock_action: Continue T33 after cumulative T32 CI passes
+    reason: Presenter progress increased through the T33 Service checkpoint in the current cycle
+    next_unblock_action: Continue T33 Unit Test and Integration checkpoints
