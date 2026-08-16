@@ -31,11 +31,12 @@ active_stage:
   track_progress:
     T16:
       service: IMPLEMENTED
-      unit_test: PENDING
+      unit_test: IMPLEMENTED_CI_IN_PROGRESS
       integration_test: PENDING
       frontend: PENDING
       final_ci_and_registry: PENDING
-      percent: 20
+      percent: 40
+      latest_ci_run: 31930163407
     T17:
       percent: 0
     T18:
@@ -57,6 +58,6 @@ remaining_stages:
 
 calculation:
   fully_verified_tracks: 15
-  additional_checkpoint_points: 20
+  additional_checkpoint_points: 40
   possible_points: 6000
-  percent: 25.3333
+  percent: 25.6667
