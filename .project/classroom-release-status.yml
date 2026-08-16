@@ -1,0 +1,49 @@
+version: 1
+publication_owner: Presenter
+public_repository: vvekselva/Library-Full-Stack-KHAE
+private_repository: vvekselva/Library-Full-Stack-KHAE-Master
+chatgpt_public_write: FORBIDDEN
+
+release_gates:
+  source_identified: 20
+  contents_audited: 20
+  private_branch_frozen: 20
+  build_verified: 20
+  presenter_ready: 20
+
+releases:
+  Classroom-Release-00-Empty:
+    purpose: Initial empty Spring Boot + Vite classroom starter
+    source: Frontend-backend-skeleton
+    source_identified: PASS
+    contents_audited: PASS
+    private_branch_frozen: PASS
+    build_verified: PENDING
+    presenter_ready: PENDING
+    progress: 60
+    public_publication: PRESENTER_ONLY
+
+  Classroom-Release-01-Documents:
+    purpose: Introduction/setup and approved document release stage
+    source: TO_BE_ASSEMBLED_FROM_APPROVED_PRIVATE_CONTENT
+    source_identified: PENDING
+    contents_audited: PENDING
+    private_branch_frozen: PENDING
+    build_verified: PENDING
+    presenter_ready: PENDING
+    progress: 0
+    public_publication: PRESENTER_ONLY
+
+  Classroom-Release-02-Student-Baseline:
+    purpose: Assigned student working baseline plus approved student guides
+    source: Frontend-backend-Baseline plus approved private documents
+    source_identified: PENDING
+    contents_audited: PENDING
+    private_branch_frozen: PENDING
+    build_verified: PENDING
+    presenter_ready: PENDING
+    progress: 0
+    public_publication: PRESENTER_ONLY
+
+calculation:
+  average_percent: 20.0
