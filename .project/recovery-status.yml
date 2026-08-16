@@ -22,7 +22,7 @@ status:
       - T21-T25
       - T26-T30
     latest_registry_branch: Presenter-Solutions-T26-T30
-    latest_registry_commit: 277e9e08d266bc38af14e38f5c919ef0e8e3cfa7
+    latest_registry_commit: 277e9e08bd07fb04ad77b18bf4d78d8651c175b6
     latest_registry_ci_run: 31943292080
     latest_registry_ci_conclusion: SUCCESS
   selection_and_dependency_design:
