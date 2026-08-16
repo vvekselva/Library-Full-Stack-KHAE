@@ -21,10 +21,12 @@ releases:
     contents_audited: PASS
     audit_note: Source skeleton also contained general-documents; release snapshot removes those documents and contains only backend, frontend and classroom-starter README.
     private_branch_frozen: PASS
-    build_verified: RUNNING
-    verification_run: 31930812083
-    presenter_ready: PENDING
-    progress: 60
+    build_verified: PASS
+    verification_run: 31930965288
+    verification_note: Frontend Vite build and backend Maven package passed on isolated verification branch. The first run failed only because mvnw lacked Linux execute permission; verification was corrected to use bash mvnw without modifying the release snapshot.
+    presenter_ready: PASS
+    final_content_check: PASS - only README.md, backend/, frontend/ at release root
+    progress: 100
     public_publication: PRESENTER_ONLY
 
   Classroom-Release-01-Documents:
@@ -50,4 +52,4 @@ releases:
     public_publication: PRESENTER_ONLY
 
 calculation:
-  average_percent: 20.0
+  average_percent: 33.3333
