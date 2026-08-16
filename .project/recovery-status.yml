@@ -1,0 +1,35 @@
+version: 1
+scope: private preparation only
+public_publication_owner: Presenter
+
+weights:
+  verified_solution_registry_coverage: 40
+  selection_and_dependency_design: 20
+  private_workflow_implementation: 20
+  classroom_rehearsal: 20
+
+status:
+  verified_solution_registry_coverage:
+    tracks_verified: 15
+    tracks_total: 60
+    coverage_percent: 25.0
+    weighted_progress: 10.0
+  selection_and_dependency_design:
+    status: DESIGNED_CONCEPTUALLY_NOT_IMPLEMENTED
+    weighted_progress: 0.0
+  private_workflow_implementation:
+    status: PENDING
+    weighted_progress: 0.0
+  classroom_rehearsal:
+    status: PENDING
+    weighted_progress: 0.0
+
+calculation:
+  percent: 10.0
+
+hard_rules:
+  - Never auto-publish to the Public repository.
+  - Never guess recovery commits from commit messages.
+  - Use exact verified registry SHAs/paths.
+  - Stop on conflicts; do not auto-select ours/theirs.
+  - Preserve valid student work and replace only missing/failed components.
