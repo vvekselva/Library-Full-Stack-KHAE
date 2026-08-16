@@ -1,4 +1,4 @@
-version: 1
+version: 2
 quality_source:
   repository: vvekselva/Library_KAHE_PRIVATE_RERUN
   mode: read-only
@@ -7,7 +7,8 @@ quality_source:
 
 execution_repository:
   repository: vvekselva/Library-Full-Stack-KHAE-Master
-  branch: Document-Rerun-QG
+  document_branch: Document-Rerun-QG
+  task_control_branch: main
   qg27_materialization_target: private-master
 
 total_tracks: 60
@@ -26,9 +27,9 @@ stage_values:
   APPROVED: 100
 
 current:
-  T01_01: PENDING
-  T01_02: QUALITY_GATE_PASSED
-  T01_03: PENDING
+  T01_01: QUALITY_GATE_PASSED
+  T01_02: APPROVED
+  T01_03: QUALITY_GATE_PASSED
   T02_01: PENDING
   T02_02: PENDING
   T02_03: PENDING
@@ -41,32 +42,66 @@ current:
   T05_01: PENDING
   T05_02: PENDING
   T05_03: PENDING
-  remaining_T06_to_T60: PENDING
+  T06_01: PENDING
+  T06_02: PENDING
+  T06_03: PENDING
+  remaining_T07_to_T60: PENDING
 
 calculation:
-  completed_stage_points: 85
+  completed_stage_points: 270
   possible_stage_points: 18000
-  percent: 0.4722
+  percent: 1.5000
+  previous_percent: 0.4722
+  increase: 1.0278
 
-active_document:
-  id: T01_02
+accepted_baseline:
+  track: T01
   activity: Create Department
-  document: Progressive Development Guide
-  current_stage: QUALITY_GATE_PASSED
-  completed_sections: 15
-  code_fragments: 23
-  editable_drawio_sources: 4
-  qg01_to_qg26: PASS
-  docx_pages: 55
-  accepted_binary_size: 234444
-  accepted_binary_sha256: c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4
-  visual_reverification: 55_of_55_pages_match_reviewed_render_set
-  next_stage: QG-27 Private Master binary materialization, re-fetch and hash verification
-  final_pending_gates:
-    - QG-27 Private Master materialization/re-fetch/hash verification
+  reviewer_acceptance: PASS
+  acceptance_time: 2026-08-16T21:08:00+05:30
+  T01_01:
+    document: Initial API Contract / Initial Response
+    stage: QUALITY_GATE_PASSED
+    local_review: PASS
+    repository_materialization: PENDING
+    note: Success contract only; no premature error catalogue.
+  T01_02:
+    document: Progressive Development Guide
+    stage: APPROVED
+    qg01_to_qg27: PASS
+    repository_materialization: PASS
+    materialization_run: 31953115263
+    materialized_commit: 501b2ef5c896d56dd054636629a14cc36d28d948
+    docx_pages: 45
+    accepted_binary_size: 1713214
+    accepted_binary_sha256: 73e30feb0f971d952c69f090009aa5b94f01ffee2dbd4be4799cfc49d11155b7
+    git_blob_sha: 0038f9f4bfaf4aedec8a7e2443032d987852ace6
+  T01_03:
+    document: Updated API Contract / Final Response
+    stage: QUALITY_GATE_PASSED
+    local_review: PASS
+    repository_materialization: PENDING
+    note: Final verified 00/01/03 response catalogue.
+
+active_scale_up:
+  coordinator: primary
+  lane_1: T02
+  lane_2: T03
+  lane_3: T04
+  lane_4: T05
+  lane_5: T06
+  dependency_rule: "Within a track: Initial -> Progressive -> Updated. Across tracks, independent source-grounded work may proceed in parallel."
+  task_file: .project/tasks/document-rerun.md
+  orchestration_file: .project/ORCHESTRATOR_PLAN.md
+
+immediate_actions:
+  - Materialize and re-fetch/hash-verify the accepted T01_01 Initial API Contract in Private Master.
+  - Materialize and re-fetch/hash-verify the accepted T01_03 Updated API Contract in Private Master.
+  - After repository verification, promote T01_01 and T01_03 to APPROVED without requiring another content review unless the binary changes.
+  - Begin independent T02-T06 source grounding and Initial API Contract generation in the five document lanes.
 
 blockers:
-  - QG-27: current GitHub text-oriented connector path does not directly accept the local DOCX binary; do not mark APPROVED until exact artifact materialization and repository hash verification succeed.
+  - T01_01 and T01_03 are accepted by the reviewer but remain below APPROVED until their exact reviewed binaries are materialized and re-fetched from Private Master.
 
 release_prerequisites_discovered:
-  - Before Classroom-Release-02, move generic Presenter-owned ApplicationServiceException and ApplicationServiceExceptionHandler into the student baseline.
+  - Before Classroom-Release-02, verify/move generic Presenter-owned ApplicationServiceException and ApplicationServiceExceptionHandler into the student baseline without duplication.
