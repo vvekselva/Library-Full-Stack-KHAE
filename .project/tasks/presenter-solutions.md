@@ -6,14 +6,14 @@
 
 ## Dependency rules
 
-Do not start Integration before Service + Unit Test branch-tip CI is green. Do not start assigned Frontend before its backend/support contract is source-grounded. Do not award registry completion until required cumulative CI/batch registry gates pass. Presenter code remains private.
+Do not start Integration before Service + Unit Test branch-tip CI is green. Do not start assigned Frontend before Integration is green. Do not award registry completion until required cumulative CI/batch registry gates pass. Presenter code remains private.
 
 ## Current verified state
 
 - T01-T30: completed/verified batch registries.
 - T31: Service + UT + Integration + Frontend complete; 80%; final registry checkpoint pending T31-T35 batch.
 - T32: Service + UT + Integration + Frontend complete; 80%; final registry checkpoint pending T31-T35 batch.
-- T33: Service + Unit Test implemented; targeted repair committed; branch-tip CI is IN PROGRESS; Integration and Frontend remain BLOCKED until green.
+- T33: Service + Unit Test/repair CI GREEN; local PostgreSQL + PostgreSQL-18 Testcontainers Integration implemented; branch-tip Integration CI IN PROGRESS; Frontend remains BLOCKED until Integration is green.
 - T34-T60: pending unless later verified repository evidence supersedes this file.
 
 ## T33 exact evidence
@@ -26,21 +26,25 @@ Prior failure:
 - Backend job `95189332185`: FAILURE at **Run Presenter solution tests with PostgreSQL**
 - Frontend job `95189332541`: SUCCESS
 
-Targeted diagnosis and repair:
+Targeted diagnosis and verified repair:
 - T33 duplicate test requires `" acc-0001 "` to query normalized business key `"ACC-0001"` and produce the duplicate error.
 - `UpdateBookCopyServiceImpl` previously trimmed accession number but did not uppercase it before `findByNormalizedBusinessKey`.
 - Repair commit: `fe4b8262bd9536cc0ce88569ae6031f7604e0132`.
-- Repair: normalize the required accession number to uppercase with `Locale.ROOT` before duplicate lookup and mapper update.
-- Verification workflow: `31973754438`, head `fe4b8262bd9536cc0ce88569ae6031f7604e0132`.
-- Latest observed state: backend-test IN_PROGRESS at `Run Presenter solution tests with PostgreSQL`; frontend-build SUCCESS.
+- Verification workflow: `31973754438` at repair head: **SUCCESS**; backend PostgreSQL tests SUCCESS and frontend build SUCCESS.
+
+Integration implementation:
+- Local PostgreSQL integration commit: `b2d3a859eb250134c0b1d8c5666df7bf78d9a193`.
+- PostgreSQL 18 Testcontainers integration commit: `2f1bea871d7b8f49fefdb2e8db699724051470da`.
+- Integration coverage: successful current-row update with normalized accession/status plus duplicate-accession rejection against real PostgreSQL persistence.
+- Branch-tip workflow: `31973983928` at `2f1bea871d7b8f49fefdb2e8db699724051470da`.
+- Latest observed state: backend-test and frontend-build IN_PROGRESS/queued through the new Integration head.
 
 ## Immediate Agent 6 queue
 
-1. Require workflow `31973754438` to complete SUCCESS before granting the Unit Test checkpoint or starting Integration.
-2. If green, record immutable run/job/head evidence and start T33 local PostgreSQL + PostgreSQL-18 Testcontainers Integration.
-3. Only after Integration success, advance assigned Frontend and cumulative CI.
-4. If the repair CI fails, inspect the exact new failure and make only another evidence-backed correction.
-5. Continue T34 then T35; freeze T31-T35 registry only when all five tracks satisfy the gate.
+1. Require workflow `31973983928` to complete SUCCESS before granting the T33 Integration checkpoint.
+2. Only after Integration success, implement/advance the assigned T33 Frontend and cumulative CI.
+3. If Integration CI fails, inspect the exact failure and make only an evidence-backed correction.
+4. Continue T34 then T35; freeze T31-T35 registry only when all five tracks satisfy the gate.
 
 ## Current stream accounting
 
@@ -48,8 +52,12 @@ Targeted diagnosis and repair:
 - Updated: **53.3333%**
 - Increase: **+0.0000%**
 - Cycles without increase: **8**
-- State: **STALE (>3 completed cycles without percentage increase)**, with substantive repair verification now in progress.
+- State: **STALE (>3 completed cycles without percentage increase)**, but the former Unit-Test blocker is closed and Integration verification is now active.
+
+## Tasks Closed This Cycle
+
+- **T33 targeted Unit-Test/CI repair — CLOSED.** Minimal normalization repair `fe4b8262...` passed workflow `31973754438` and unlocked Integration.
 
 ## Action Taken in This Cycle
 
-Compared the committed T33 unit test directly with `UpdateBookCopyServiceImpl`, isolated the normalization mismatch, committed the minimal targeted repair `fe4b8262...`, and triggered branch-tip workflow `31973754438`. Frontend is green and backend verification remains in progress; no percentage or dependent Integration work was started before CI success.
+Isolated and repaired the T33 accession normalization defect, verified the repair green through PostgreSQL CI, then implemented both dependency-allowed Integration layers at `b2d3a859...` and `2f1bea87...`. Workflow `31973983928` is validating the new Integration head. Frontend remains blocked until that run is green; no premature percentage was credited.
