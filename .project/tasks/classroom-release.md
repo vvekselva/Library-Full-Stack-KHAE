@@ -20,7 +20,7 @@
 | Reconcile Release-00 manifest against current Private Master | PENDING | Safe prerequisite-free verification task |
 | Prepare Release-01 file-selection manifest | **DONE** | Private manifest committed at `5fe51ba6b4c8de57bdc71932673171f1ef25ed23` |
 | Prepare Release-01 validation checklist | **DONE** | Private checklist committed at `f0a541258ac8dbf44d1cbb93aff262a779dced98` |
-| Prepare Release-01 promotion workflow/private branch structure | PENDING | Private only; do not publish |
+| Prepare Release-01 promotion workflow/private branch structure | **DONE** | Private-only promotion plan committed at `dd71bd33e898cbe61bf78c7b1630adad415aa41c` |
 | Materialize approved T01 rerun set into Release-01 candidate | BLOCKED | Requires T01_01/T01_02/T01_03 APPROVED + repository verified |
 | Add subsequent approved document sets to Release-01 candidate | BLOCKED | Requires each document set APPROVED |
 | Run / freeze Release-01 candidate | BLOCKED | Requires candidate materialization and validation |
@@ -35,9 +35,13 @@
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000%**
-- Cycles without increase: **11**
+- Cycles without increase: **12**
 - State: **STALE** by percentage, despite completed prerequisite-free preparation.
+
+## Tasks Closed This Cycle
+
+- Prepare Release-01 promotion workflow/private structure — **CLOSED** at `dd71bd33e898cbe61bf78c7b1630adad415aa41c`.
 
 ## Action Taken in This Cycle
 
-Revalidated the private Release-01 selection manifest and validation checklist against the current document state. Candidate materialization remains correctly blocked because required APPROVED + repository-verified document identities are incomplete. No public classroom repository write was made.
+Created the private-only Release-01 promotion sequence and hard guards without materializing unapproved documents and without writing to the public classroom repository. Candidate materialization remains correctly blocked until selected rerun documents are APPROVED and repository-verified.
