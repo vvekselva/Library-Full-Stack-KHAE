@@ -44,7 +44,7 @@ active_stage:
   base_commit: 277e9e08bd07fb04ad77b18bf4d78d8651c175b6
   presenter_support_commit: 0bf2687e1c2eee622dae9aec6f46579cd9598304
   active_track: T33
-  active_checkpoint: UNIT_TEST
+  active_checkpoint: UNIT_TEST_CI
   track_progress:
     T31:
       service: COMPLETE
@@ -80,11 +80,13 @@ active_stage:
     T33:
       service: COMPLETE
       service_commit: fec9bcdbdaa86e17c0b939a8020321de05c632c6
-      unit_test: IN_PROGRESS
+      unit_test: IMPLEMENTED_CI_PENDING
+      unit_test_commit: 4520f779a87bcac8c7628a90f0e6bc14fd87c6d8
+      unit_test_ci_run: 31946962274
       integration_test: PENDING
       frontend: PENDING
       final_ci_and_registry: PENDING
-      percent: 20
+      percent: 40
     T34:
       percent: 0
     T35:
@@ -100,16 +102,16 @@ remaining_stages:
 
 calculation:
   fully_verified_tracks: 30
-  additional_checkpoint_points: 180
-  completed_points: 3180
+  additional_checkpoint_points: 200
+  completed_points: 3200
   possible_points: 6000
-  percent: 53.0000
-  previous_percent: 52.6667
+  percent: 53.3333
+  previous_percent: 53.0000
   increment_percent: 0.3333
 
 progress_display:
-  previous_percent: 52.67
-  updated_percent: 53.00
+  previous_percent: 53.00
+  updated_percent: 53.33
   increase_percent: 0.33
   comparison_basis: latest percentage-bearing checkpoint
   rule: Previous is the value immediately before the latest completed gate that changed the percentage; heartbeat-only or verification-only updates do not overwrite that baseline. Increase is calculated from unrounded values and then rounded for display.
@@ -126,7 +128,7 @@ active_contract:
 
 notes:
   - T31 and T32 each remain at 80% until the T31-T35 batch registry is frozen and registry-tip CI passes.
-  - T32 cumulative frontend run 31946688302 completed SUCCESS at ae74ded11fd561d72dabb6857e5461f830508983.
-  - T33 Update Book Copy service is complete at fec9bcdbdaa86e17c0b939a8020321de05c632c6.
-  - T33 validates null ID/request, reads only current Book Copies, normalizes required accession number, validates Book ID, rejects a normalized accession key owned by another row while allowing the current row to keep its own key, normalizes status, applies the Presenter mapper, saves through BookCopyDao and returns service code 33 on controlled failures.
-  - T33 unit testing is the active checkpoint.
+  - T33 Service is complete at fec9bcdbdaa86e17c0b939a8020321de05c632c6.
+  - T33 Unit Test is implemented at 4520f779a87bcac8c7628a90f0e6bc14fd87c6d8 and exact branch-tip CI run 31946962274 is pending/in progress.
+  - T33 tests cover successful update with own-accession exclusion, null request controlled response 01/service 33, unknown or withdrawn target controlled response 02, and normalized accession ACC-0001 owned by another row controlled response 03.
+  - Next: consume run 31946962274, then implement the single T33 Integration checkpoint with local PostgreSQL and PostgreSQL-18 Testcontainers.
