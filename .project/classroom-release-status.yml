@@ -15,10 +15,14 @@ releases:
   Classroom-Release-00-Empty:
     purpose: Initial empty Spring Boot + Vite classroom starter
     source: Frontend-backend-skeleton
+    release_branch: Classroom-Release-00-Empty
+    verification_branch: Verify-Classroom-Release-00
     source_identified: PASS
     contents_audited: PASS
+    audit_note: Source skeleton also contained general-documents; release snapshot removes those documents and contains only backend, frontend and classroom-starter README.
     private_branch_frozen: PASS
-    build_verified: PENDING
+    build_verified: RUNNING
+    verification_run: 31930812083
     presenter_ready: PENDING
     progress: 60
     public_publication: PRESENTER_ONLY
