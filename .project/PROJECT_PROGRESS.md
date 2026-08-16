@@ -11,15 +11,15 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-17 00:12 IST
+## Current Status - 2026-08-17 01:03 IST
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
-| **Document Rerun** | **2.0556%** | **5.3889%** | **+3.3333%** | PRIMARY. T02_01-T06_01 are APPROVED; T02_02-T06_02 are actively GENERATING first Progressive Guide drafts. |
-| Presenter Solutions | **53.3333%** | **53.3333%** | **+0.0000%** | **STALE >3 cycles.** T33 backend CI remains failed; exact underlying assertion is still unavailable from the accessible log surface. |
-| Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE >3 cycles.** Release-01 private manifest/checklist remain valid; materialization is dependency-gated. |
-| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | **STALE >3 cycles.** T31-T35 candidate remains non-frozen; T33 and exact T31/T32 evidence block freeze. |
-| **Overall** | **24.9250%** | **26.4250%** | **+1.5000%** | Increase comes only from verified Document Rerun stage advancement since the prior live dashboard. |
+| **Document Rerun** | **5.3889%** | **5.3889%** | **+0.0000%** | PRIMARY. T02_02-T06_02 remain active at GENERATING; first drafts are 8-9 pages versus the accepted ~45-page T01_02 textbook baseline, so Content QA has not started. |
+| Presenter Solutions | **53.3333%** | **53.3333%** | **+0.0000%** | **STALE >3 cycles.** T33 backend CI failure narrowed to `Run Presenter solution tests with PostgreSQL`; Maven/Surefire assertion body still unavailable, so no speculative repair was made. |
+| Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE >3 cycles.** Private Release-01 promotion structure is now prepared; materialization remains dependency-gated. |
+| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | **STALE >3 cycles.** T31 and T32 exact evidence capture is now complete/registry-ready; T33-T35 still block T31-T35 freeze. |
+| **Overall** | **26.4250%** | **26.4250%** | **+0.0000%** | Substantive preparation/evidence tasks closed, but no percentage-bearing quality gate crossed. |
 
 ## Coordinator / Logical Worker Lanes
 
@@ -27,77 +27,71 @@ One primary coordinator is active. The eight entries are logical worker lanes; t
 
 | Lane | Assignment | Current work | Evidence/state |
 |---|---|---|---|
-| Primary Coordinator | Orchestration | Reconcile queues, branch/CI evidence and live progress | ACTIVE |
-| Agent 1 | Document Rerun | T02 | T02_01 APPROVED; T02_02 GENERATING, 8-page controlled draft |
-| Agent 2 | Document Rerun | T03 | T03_01 APPROVED; T03_02 GENERATING, 9-page controlled draft |
-| Agent 3 | Document Rerun | T04 | T04_01 APPROVED; T04_02 GENERATING, 8-page controlled draft |
-| Agent 4 | Document Rerun | T05 | T05_01 APPROVED; T05_02 GENERATING, 8-page controlled draft |
-| Agent 5 | Document Rerun | T06 | T06_01 APPROVED; T06_02 GENERATING, 9-page controlled draft |
-| Agent 6 | Presenter Solutions | T33 verification/repair | STALE; backend CI failed and exact assertion unavailable |
-| Agent 7 | Classroom Release | Release-01 private preparation | STALE by percentage; materialization remains blocked |
-| Agent 8 | Recovery / Final Integration | T31-T35 candidate evidence | STALE by percentage; freeze remains disabled |
+| Primary Coordinator | Orchestration | Branch/CI validation, dependency-safe execution, consolidation | ACTIVE |
+| Agent 1 | Document Rerun | T02 | T02_02 GENERATING; depth expansion required |
+| Agent 2 | Document Rerun | T03 | T03_02 GENERATING; depth expansion required |
+| Agent 3 | Document Rerun | T04 | T04_02 GENERATING; depth expansion required |
+| Agent 4 | Document Rerun | T05 | T05_02 GENERATING; depth expansion required |
+| Agent 5 | Document Rerun | T06 | T06_02 GENERATING; depth expansion required |
+| Agent 6 | Presenter Solutions | T33 verification/repair | STALE; exact failing workflow step known, underlying Maven/Surefire failure body missing |
+| Agent 7 | Classroom Release | Release-01 private preparation | Promotion plan prepared; materialization blocked |
+| Agent 8 | Recovery / Final Integration | T31-T35 candidate evidence | T31/T32 evidence captured; T33-T35 block freeze |
 
 Within a Document track, `Initial API Contract -> Progressive Guide -> Updated API Contract` remains dependency ordered. Across tracks, independent source-grounded work may proceed concurrently.
 
 ## Tasks Taken Up This Cycle
 
-- Reconciled manual Document-lane work that had advanced beyond the previous live dashboard.
-- Verified `.project/document-rerun-progress.yml` at **970 / 18000 stage points = 5.3889%**.
-- Preserved T02_02-T06_02 at GENERATING because their rendered 8-9 page drafts remain below the accepted 45-page T01_02 textbook depth.
-- Rechecked Presenter T33 failed backend evidence without performing a speculative repair or blind rerun.
-- Revalidated Release-01 private preparation and withheld public/candidate promotion while document identities remain incomplete.
-- Revalidated the non-frozen T31-T35 Recovery candidate and preserved `freeze_allowed: false`.
+- Revalidated all five T02-T06 Progressive Guide lanes at the correct `GENERATING` gate and preserved the depth quality gate.
+- Inspected T33 attempt-2 workflow jobs and identified the exact failed backend step: `Run Presenter solution tests with PostgreSQL`.
+- Re-read the T33 unit-test commit and current service implementation; withheld speculative repair because the actionable Maven/Surefire failure body is unavailable.
+- Prepared the private-only Release-01 promotion sequence and hard guards.
+- Captured exact immutable T31 and T32 recovery component SHAs plus cumulative green-CI evidence into the non-frozen T31-T35 candidate.
 
-## Tasks Closed Since Prior Live Dashboard
+## Tasks Closed This Cycle
 
-- **T02_01 Initial API Contract — APPROVED.**
-- **T03_01 Initial API Contract — APPROVED.**
-- **T04_01 Initial API Contract — APPROVED.**
-- **T05_01 Initial API Contract — APPROVED.**
-- **T06_01 Initial API Contract — APPROVED.**
+- **Release-01 private promotion workflow/structure preparation — CLOSED.** Evidence commit: `dd71bd33e898cbe61bf78c7b1630adad415aa41c`.
+- **T31 exact recovery component evidence capture — CLOSED.**
+- **T32 exact recovery component evidence capture — CLOSED.** Candidate evidence commit: `fdf65fac60be477458712d85396e875a4ff9d812`.
 
-The five Progressive Guide tasks remain open at GENERATING; no `_03` Updated API Contract was started prematurely.
+These are substantive prerequisite/evidence closures, but they do not cross a percentage-bearing stream gate by themselves.
 
 ## Tasks Still In Progress
 
-- T02_02-T06_02: expand each controlled draft to T01_02 textbook depth, add line-by-line explanation, run/observe/fail/correct evidence and editable Draw.io assets, then re-render before CONTENT_QA.
+- T02_02-T06_02: expand each Progressive Guide to textbook depth with line-by-line explanation, run/observe/fail/correct/regression evidence, and editable Draw.io assets before Content QA.
 - T01_01/T01_03: repository materialization/re-fetch/hash verification remains required before APPROVED.
-- T33 Presenter: obtain exact backend test failure, apply only proven repair, then require branch-tip CI success before Integration.
-- Release-01: candidate materialization remains blocked by required APPROVED + repository-verified document identities.
-- Recovery T31-T35: capture exact T31/T32 component SHA/green-CI evidence; T33/T34/T35 prevent freeze.
+- T33 Presenter: obtain the exact Maven/Surefire failure body, apply only a proven repair, then require branch-tip CI SUCCESS before Integration.
+- Release-01: candidate materialization remains blocked by APPROVED + repository-verified document prerequisites.
+- Recovery T31-T35: T31/T32 are now evidence-complete; T33/T34/T35 prevent batch freeze.
 
 ## Tasks / Streams Open More Than 3 Cycles
 
 | Task / Stream | Cycles | State | Action Taken in This Cycle |
 |---|---:|---|---|
-| Document lanes T02-T06 | 5 | IN PROGRESS, advanced this cycle | Reconciled five APPROVED `_01` contracts and five active `_02` first drafts; held `_02` at GENERATING because depth is not yet comparable to T01_02. |
-| Presenter T33 | 5 | **STALE** | Rechecked the failed backend log surface; exact assertion remains unavailable, so no speculative repair or blind rerun was made. |
-| Classroom Release | 11 | **STALE** | Revalidated private Release-01 manifest/checklist and current dependency gates; no public write and no premature candidate materialization. |
-| Recovery / Final Integration | 11 | **STALE** | Revalidated the non-frozen T31-T35 candidate and kept `freeze_allowed: false` because exact evidence remains incomplete. |
+| Document lanes T02-T06 | 6 open cycles | IN PROGRESS; not stale by stream percentage threshold | Revalidated controlled draft identities/depth and held all five at GENERATING rather than prematurely promoting to Content QA. |
+| Presenter T33 | 6 no-increase cycles | **STALE** | Narrowed failure to the exact backend workflow step and reviewed T33 test/service sources; no speculative fix or blind rerun. |
+| Classroom Release | 12 no-increase cycles | **STALE** | Closed the private Release-01 promotion-plan task while preserving the materialization/publication dependency gates. |
+| Recovery / Final Integration | 12 no-increase cycles | **STALE** | Closed exact T31/T32 evidence capture and marked those two tracks registry-ready; kept batch freeze disabled because T33-T35 remain incomplete. |
 
 ## Streams With No Increase More Than 3 Cycles
 
-- **Presenter Solutions — 5 cycles:** exact T33 backend failure remains the repair prerequisite.
-- **Classroom Release — 11 cycles:** percentage remains dependency-gated by approved/repository-verified document identities.
-- **Recovery / Final Integration — 11 cycles:** percentage remains gated by exact registry readiness.
-- Document Rerun and Overall reset their no-increase counters to 0 because verified document stage points advanced.
+- **Presenter Solutions — 6 cycles:** T33 backend-test failure remains the percentage gate blocker.
+- **Classroom Release — 12 cycles:** percentage-bearing candidate materialization remains gated by approved/repository-verified documents.
+- **Recovery / Final Integration — 12 cycles:** T31/T32 are now evidence-ready, but T33-T35 still block the batch freeze.
+- Document Rerun and Overall have one cycle without increase after their prior verified advancement.
 
 ## Execution Evidence
 
-- Document progress source: `.project/document-rerun-progress.yml` = **970 / 18000** = **5.3889%**.
-- Progressive generation evidence: `c027411c58510b390ad71e0afab9b4c431fb9b5e`.
-- T02_02 first controlled draft: 8 pages, SHA-256 `3859b98e5f5d567e74cbc30781f37b1e564f32f574103bf8a3006a33112a7e57`.
-- T03_02 first controlled draft: 9 pages, SHA-256 `d2220881158f75f86ce3a46cd4f6d96d89bd346a5c6c8f88175c8b844f5461e8`.
-- T04_02 first controlled draft: 8 pages, SHA-256 `24216d62147b5edb6d19e5f8b4e4c15607bbf7290a6fbd20c7f880e7f9045f58`.
-- T05_02 first controlled draft: 8 pages, SHA-256 `95787fdc3b8ef972dd227221ca72dca06a19baeef36af71827ec7a68e6b28c2f`.
-- T06_02 first controlled draft: 9 pages, SHA-256 `1bffb5b81089a2bca5c902bbfcc5ed00c2da90253b6ce16e73a6c94920ad253f`.
-- Presenter workflow: `31946962274` attempt 2; head `4520f779a87bcac8c7628a90f0e6bc14fd87c6d8`; backend `95189332185` FAILURE; frontend `95189332541` SUCCESS.
-- Release manifest: `5fe51ba6b4c8de57bdc71932673171f1ef25ed23`; checklist: `f0a541258ac8dbf44d1cbb93aff262a779dced98`.
-- Recovery candidate: `c77e5b21481aa5857841520e3aad6b8f77ab02ee`, `freeze_allowed: false`.
-- Midnight cycle monitor commit: `1ad49520df932e1687e79f15ff94aeb61f97efcc`.
-- Presenter task refresh: `0be868598a7d23c794316c067232fac8de7f0989`.
-- Classroom task refresh: `a88e9ebc210d5a3148e44d51cb71fb89eaeed7c1`.
-- Recovery task refresh: `fed8ba92d51c284eb412e6d2575da00ed5c6195a`.
+- Document progress remains **970 / 18000 = 5.3889%**; generation evidence `c027411c58510b390ad71e0afab9b4c431fb9b5e`.
+- T33 workflow `31946962274`, attempt 2; head `4520f779a87bcac8c7628a90f0e6bc14fd87c6d8`; backend job `95189332185` FAILURE at `Run Presenter solution tests with PostgreSQL`; frontend job `95189332541` SUCCESS.
+- T31 cumulative verification: run `31945620654` SUCCESS at `9d2f5796edb1cd3bb34f56b0433c2c747687e5ed`.
+- T32 cumulative verification: run `31946688302` SUCCESS at `ae74ded11fd561d72dabb6857e5461f830508983`.
+- Recovery candidate exact-evidence update: `fdf65fac60be477458712d85396e875a4ff9d812`; `verified_ready_tracks: 2/5`; `freeze_allowed: false`.
+- Release-01 private promotion plan: `dd71bd33e898cbe61bf78c7b1630adad415aa41c`.
+- Document task refresh: `50f2c37fc5d93bdb730046a039bddb83c93ac5be`.
+- Presenter task refresh: `8b88c36d145c897474025739b6c091385e76696f`.
+- Classroom task refresh: `fe0880fdea2590b4e4dc3174ecef847d84ad0878`.
+- Recovery task refresh: `20d551068b9f748272d9e32c6ea1085fe4f8eb35`.
+- Cycle monitor: `3144e8a6c8eeb9c62ee7b1cf1168769d00e5efd4`.
 - No write was made to the public classroom repository or the read-only Quality Gate repository.
 
 ## Hard Rules
