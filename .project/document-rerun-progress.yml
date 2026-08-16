@@ -27,7 +27,7 @@ stage_values:
 
 current:
   T01_01: PENDING
-  T01_02: BLUEPRINT_APPROVED
+  T01_02: GENERATING
   T01_03: PENDING
   T02_01: PENDING
   T02_02: PENDING
@@ -44,16 +44,19 @@ current:
   remaining_T06_to_T60: PENDING
 
 calculation:
-  completed_stage_points: 20
+  completed_stage_points: 40
   possible_stage_points: 18000
-  percent: 0.1111
+  percent: 0.2222
 
 active_document:
   id: T01_02
   activity: Create Department
   document: Progressive Development Guide
-  current_stage: BLUEPRINT_APPROVED
-  next_gate: Controlled section-by-section generation
+  current_stage: GENERATING
+  completed_sections:
+    - 01 Assignment and Current API Contract
+    - 02 Why Create an Empty Service First
+  next_section: 03 Empty Service and First JUnit Invocation
 
 release_prerequisites_discovered:
   - Before Classroom-Release-02, move generic Presenter-owned ApplicationServiceException and ApplicationServiceExceptionHandler into the student baseline.
