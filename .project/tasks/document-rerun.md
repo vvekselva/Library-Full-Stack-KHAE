@@ -30,27 +30,11 @@ Within each track: `_01 Initial → _02 Progressive → _03 Updated`. Cross-trac
 - T02_03/T03_03/T04_03/T05_03/T06_03: PENDING behind same-track Progressive Guide approval.
 - T07-T60: all three documents PENDING and queued; lane refill remains ascending T07, T08, T09, T10, T11, then onward.
 
-## Progressive blueprint QA
+## Progressive generation evidence
 
-All five `_02` blueprints were checked against the accepted T01_02 15-stage instructional structure and frozen Presenter behavior. The QA records are committed under `Documents/Rerun-Control/T02` through `T06` on `Document-Rerun-QG`.
+Read-only `Document-Rerun-QG` evidence `documents/rerun/PROGRESSIVE_DRAFT_GENERATION_T02_T06.md` confirms the first controlled drafts remain 8, 9, 8, 8 and 9 rendered pages for T02_02-T06_02. The accepted T01_02 benchmark is approximately 45 pages. Required next-pass gaps are textbook-depth simple-English explanation, numbered/commented code with line-by-line explanation, explicit run/observe/fail/correct/regression evidence, editable Draw.io teaching assets, and detailed JaCoCo/PostgreSQL/Testcontainers walkthroughs.
 
-All five passed WHY-before-HOW, success-before-negative, failure-before-correction, exact endpoint/source behavior, ownership boundaries, testing coverage, editable Draw.io requirements, and QG-25/QG-26/QG-27 retention.
-
-## First controlled generation pass
-
-Generation evidence: commit `c027411c58510b390ad71e0afab9b4c431fb9b5e`.
-
-- T02_02: 8 pages; SHA-256 `3859b98e5f5d567e74cbc30781f37b1e564f32f574103bf8a3006a33112a7e57`.
-- T03_02: 9 pages; SHA-256 `d2220881158f75f86ce3a46cd4f6d96d89bd346a5c6c8f88175c8b844f5461e8`.
-- T04_02: 8 pages; SHA-256 `24216d62147b5edb6d19e5f8b4e4c15607bbf7290a6fbd20c7f880e7f9045f58`.
-- T05_02: 8 pages; SHA-256 `95787fdc3b8ef972dd227221ca72dca06a19baeef36af71827ec7a68e6b28c2f`.
-- T06_02: 9 pages; SHA-256 `1bffb5b81089a2bca5c902bbfcc5ed00c2da90253b6ce16e73a6c94920ad253f`.
-
-The accepted T01_02 benchmark is approximately 45 pages. These drafts remain materially under-depth, so **none is promoted to CONTENT_QA**. Missing depth includes line-by-line explanation, run/observe/fail/correct/regression evidence and full editable Draw.io teaching assets.
-
-## Current generation execution constraint
-
-The current evidence file identifies T02_02-T06_02 as **local draft DOCX files**. Inspection of the connected repository confirms that the rerun branch contains the generation-evidence record and the approved blueprints/control records, but does not expose repository-editable T02_02-T06_02 source trees equivalent to the accepted T01_02 editable source structure. Therefore this coordinator cannot truthfully expand those local binary drafts through the GitHub connector alone. The five lanes remain `GENERATING`; no status-only progress is awarded.
+The same read-only branch contains the accepted T01_02 editable source/tooling structure, but no equivalent repository-editable T02_02-T06_02 source trees were found in the recursive branch inspection. Therefore the coordinator cannot truthfully expand the local binary rerun drafts through repository text edits alone. No write was made to `Document-Rerun-QG`.
 
 ## Current stream accounting
 
@@ -58,8 +42,9 @@ The current evidence file identifies T02_02-T06_02 as **local draft DOCX files**
 - Updated: **5.3889%**
 - Increase: **+0.0000%**
 - Completed stage points: **970 / 18000**
-- Cycles without increase: **2**
+- Cycles without increase: **3**
+- State: **IN PROGRESS**; not yet over the 4-completed-cycle stale threshold after the prior advance.
 
 ## Action Taken in This Cycle
 
-Kept all five independent T02-T06 Progressive Guide lanes active at the correct `GENERATING` gate, verified the 8-9 page local draft identities against the accepted ~45-page T01_02 benchmark, and explicitly isolated the execution blocker: the current T02_02-T06_02 rerun drafts are not available as repository-editable generation source trees. No under-depth draft was promoted, no `_03` task was started prematurely, and no progress was claimed from status inspection alone.
+Kept all five independent T02-T06 lanes active at `GENERATING`, inspected the complete read-only rerun tree and generation evidence, confirmed the exact mandatory expansion gaps, and corrected the source diagnosis: T01_02 has editable source/tooling, but T02_02-T06_02 do not yet have equivalent editable rerun source trees. No under-depth draft was promoted, no `_03` work was started prematurely, and no percentage was claimed from inspection alone.
