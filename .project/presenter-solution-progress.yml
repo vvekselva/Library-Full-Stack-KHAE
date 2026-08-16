@@ -92,7 +92,8 @@ progress_display:
   previous_percent: 50.33
   updated_percent: 50.67
   increase_percent: 0.34
-  rule: Previous is the immediately preceding committed checkpoint; Increase = Updated - Previous.
+  comparison_basis: latest percentage-bearing checkpoint
+  rule: Previous is the value immediately before the latest completed gate that changed the percentage; heartbeat-only or verification-only updates do not overwrite that baseline. Increase = Updated - Previous.
 
 active_contract:
   track: T31
