@@ -14,7 +14,6 @@ tracks:
     testcontainers_integration_commit: 192761ab22e10361ecc6456fcfa59402e3d792c5
     frontend_commit: 9d2f5796edb1cd3bb34f56b0433c2c747687e5ed
     cumulative_verification_run: 31945620654
-    cumulative_verification_head: 9d2f5796edb1cd3bb34f56b0433c2c747687e5ed
     cumulative_verification_result: SUCCESS
     registry_ready: true
   T32:
@@ -24,10 +23,8 @@ tracks:
     unit_test_commit: 7d4571ec761c11d85638cd05845c1fd1a111817f
     local_postgres_integration_commit: 7c6ed2ede5d47ae8a519da04f44fc0f978470c91
     testcontainers_integration_commit: 59937e81e3639e17bf518e1c6bd68fbf49eb3b70
-    integration_verification_run: 31946440881
     frontend_commit: ae74ded11fd561d72dabb6857e5461f830508983
     cumulative_verification_run: 31946688302
-    cumulative_verification_head: ae74ded11fd561d72dabb6857e5461f830508983
     cumulative_verification_result: SUCCESS
     registry_ready: true
   T33:
@@ -35,24 +32,14 @@ tracks:
     implementation_state: "Service + Unit Test + Integration + Frontend complete"
     service_commit: fec9bcdbdaa86e17c0b939a8020321de05c632c6
     unit_test_repair_commit: fe4b8262bd9536cc0ce88569ae6031f7604e0132
-    unit_test_verification_run: 31973754438
-    unit_test_verification_result: SUCCESS
     local_postgres_integration_commit: b2d3a859eb250134c0b1d8c5666df7bf78d9a193
     testcontainers_integration_commit: 2f1bea871d7b8f49fefdb2e8db699724051470da
-    integration_verification_run: 31973983928
-    integration_verification_result: SUCCESS
     frontend_commit: c82d0f0ed896bc9f6d729e8db34855040ce2fbaa
     cumulative_verification_run: 31976478238
-    cumulative_verification_head: c82d0f0ed896bc9f6d729e8db34855040ce2fbaa
-    cumulative_backend_job: 95236646515
-    cumulative_backend_result: SUCCESS
-    cumulative_frontend_job: 95236646591
-    cumulative_frontend_result: SUCCESS
     cumulative_verification_result: SUCCESS
     registry_ready: true
-    next_action: "retain immutable evidence; batch freeze remains blocked by T34-T35"
   T34:
-    readiness: UNIT_TEST_CI_IN_PROGRESS
+    readiness: INTEGRATION_CI_IN_PROGRESS
     contract_code: T34_DEACTIVATE_BOOK_COPY
     endpoint: "DELETE /rest/book-copies/{id}"
     service_interface: "backend/backend.lib.mgmt/src/main/java/self/learning/backend/lib/mgmt/service/DeleteBookCopyService.java"
@@ -60,11 +47,14 @@ tracks:
     service_commit: abb23be3f9e10dd53c9bf267a3a02b7acbd3e134
     unit_test: "backend/backend.lib.mgmt/src/test/java/self/learning/backend/lib/mgmt/service/impl/DeleteBookCopyServiceImplTest.java"
     unit_test_commit: bc15079bf17a219283f3465083b8577e7f9da16f
-    verification_run: 31979270908
-    frontend_job_result: SUCCESS
-    backend_job_result: IN_PROGRESS
+    service_unit_verification_run: 31979270908
+    service_unit_verification_result: SUCCESS
+    local_postgres_integration_commit: f5c7804210431152ec40e54ca03d64a093fd9361
+    testcontainers_integration_commit: d61995c62f19152ec5fb7ab9b3c30e6e52e5ab6e
+    integration_verification_run: 31979478188
+    integration_verification_result: IN_PROGRESS
     registry_ready: false
-    next_action: "wait for backend CI; only on green may T34 Integration begin"
+    next_action: "wait for Integration CI; only on green may assigned Frontend begin"
   T35:
     readiness: BLOCKED_NOT_IMPLEMENTED
     registry_ready: false
