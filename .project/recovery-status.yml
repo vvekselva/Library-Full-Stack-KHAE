@@ -10,10 +10,10 @@ weights:
 
 status:
   verified_solution_registry_coverage:
-    tracks_verified: 16
+    tracks_verified: 20
     tracks_total: 60
-    coverage_percent: 26.6667
-    weighted_progress: 10.6667
+    coverage_percent: 33.3333
+    weighted_progress: 13.3333
   selection_and_dependency_design:
     status: DESIGNED_CONCEPTUALLY_NOT_IMPLEMENTED
     weighted_progress: 0.0
@@ -25,7 +25,7 @@ status:
     weighted_progress: 0.0
 
 calculation:
-  percent: 10.6667
+  percent: 13.3333
 
 hard_rules:
   - Never auto-publish to the Public repository.
