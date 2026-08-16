@@ -25,9 +25,25 @@ active_stage:
   tracks: T16-T20
   module: Category
   branch: Presenter-Solutions-T16-T20
-  status: NOT_STARTED
+  status: IN_PROGRESS
   base_branch: Presenter-Solutions-T11-T15
-  base_relation: IDENTICAL
+  base_relation_at_start: IDENTICAL
+  track_progress:
+    T16:
+      service: IMPLEMENTED
+      unit_test: PENDING
+      integration_test: PENDING
+      frontend: PENDING
+      final_ci_and_registry: PENDING
+      percent: 20
+    T17:
+      percent: 0
+    T18:
+      percent: 0
+    T19:
+      percent: 0
+    T20:
+      percent: 0
 
 remaining_stages:
   - T21-T25 Publisher
@@ -41,5 +57,6 @@ remaining_stages:
 
 calculation:
   fully_verified_tracks: 15
-  total_tracks: 60
-  percent: 25.0
+  additional_checkpoint_points: 20
+  possible_points: 6000
+  percent: 25.3333
