@@ -31,28 +31,28 @@ current:
   T01_02: APPROVED
   T01_03: QUALITY_GATE_PASSED
   T02_01: APPROVED
-  T02_02: BLUEPRINT_APPROVED
+  T02_02: GENERATING
   T02_03: PENDING
   T03_01: APPROVED
-  T03_02: BLUEPRINT_APPROVED
+  T03_02: GENERATING
   T03_03: PENDING
   T04_01: APPROVED
-  T04_02: BLUEPRINT_APPROVED
+  T04_02: GENERATING
   T04_03: PENDING
   T05_01: APPROVED
-  T05_02: BLUEPRINT_APPROVED
+  T05_02: GENERATING
   T05_03: PENDING
   T06_01: APPROVED
-  T06_02: BLUEPRINT_APPROVED
+  T06_02: GENERATING
   T06_03: PENDING
   remaining_T07_to_T60: PENDING
 
 calculation:
-  completed_stage_points: 870
+  completed_stage_points: 970
   possible_stage_points: 18000
-  percent: 4.8333
-  previous_percent: 4.5556
-  increase: 0.2777
+  percent: 5.3889
+  previous_percent: 4.8333
+  increase: 0.5556
 
 accepted_baseline:
   track: T01
@@ -96,35 +96,34 @@ active_scale_up:
 
 latest_cycle:
   time: 2026-08-16T23:19:00+05:30
-  action: "Recorded _01 approvals, released T02_02 through T06_02, and completed independent Progressive Guide blueprint QA against the accepted T01_02 15-section baseline."
+  action: "Recorded _01 approvals, approved all five Progressive blueprints, and generated/rendered first controlled T02_02-T06_02 DOCX drafts."
   approval_source: "User confirmation in active coordinator conversation."
   progressive_blueprint_qa:
-    T02_02: "PASS; committed Documents/Rerun-Control/T02/PROGRESSIVE_BLUEPRINT_QA.md at 5d6a52111fb8a21584110c93fd5d6dd67c3feb5a."
-    T03_02: "PASS; committed Documents/Rerun-Control/T03/PROGRESSIVE_BLUEPRINT_QA.md at 828b799fa230f8eac2e8ac95a5b057ce6a0bd970."
-    T04_02: "PASS; committed Documents/Rerun-Control/T04/PROGRESSIVE_BLUEPRINT_QA.md at db02b5a9be9ff0a44884226f46788a89d7525671."
-    T05_02: "PASS; committed Documents/Rerun-Control/T05/PROGRESSIVE_BLUEPRINT_QA.md at 96132c312667c29cac1ec09e16302ce8e538ff13."
-    T06_02: "PASS; committed Documents/Rerun-Control/T06/PROGRESSIVE_BLUEPRINT_QA.md at 84e7b646e5236a0bff2b001166e638850b233821."
-  baseline_checks:
-    why_before_how: PASS
-    success_before_negative_conditions: PASS
-    observation_before_correction: PASS
-    source_contract_truth: PASS
-    ownership_boundaries: PASS
-    unit_jacoco_postgresql_testcontainers_frontend: PASS
-    drawio_requirement: PASS
-    qg25_qg26_qg27_retained: PASS
-  result: "T02_01 through T06_01 APPROVED; T02_02 through T06_02 BLUEPRINT_APPROVED and ready for controlled generation."
+    T02_02: PASS
+    T03_02: PASS
+    T04_02: PASS
+    T05_02: PASS
+    T06_02: PASS
+  first_controlled_drafts:
+    T02_02: "8 pages; SHA-256 3859b98e5f5d567e74cbc30781f37b1e564f32f574103bf8a3006a33112a7e57."
+    T03_02: "9 pages; SHA-256 d2220881158f75f86ce3a46cd4f6d96d89bd346a5c6c8f88175c8b844f5461e8."
+    T04_02: "8 pages; SHA-256 24216d62147b5edb6d19e5f8b4e4c15607bbf7290a6fbd20c7f880e7f9045f58."
+    T05_02: "8 pages; SHA-256 95787fdc3b8ef972dd227221ca72dca06a19baeef36af71827ec7a68e6b28c2f."
+    T06_02: "9 pages; SHA-256 1bffb5b81089a2bca5c902bbfcc5ed00c2da90253b6ce16e73a6c94920ad253f."
+  generation_evidence_commit: c027411c58510b390ad71e0afab9b4c431fb9b5e
+  generation_quality_decision: "Drafts are structurally clean enough to continue generation but are far below the accepted 45-page T01_02 textbook depth; do NOT promote to CONTENT_QA yet."
+  result: "T02_01 through T06_01 APPROVED; T02_02 through T06_02 GENERATING."
 
 immediate_actions:
-  - Generate T02_02 through T06_02 from the approved Progressive Guide blueprints using T01_02 instructional depth.
-  - Preserve the 15-stage WHY-before-HOW progression with numbered/commented/explained code and explicit run/observe/fail/correct cycles.
-  - Create editable Draw.io sources where visual explanation materially helps.
-  - Render and inspect every DOCX page, run accessibility/content checks, compare against Golden/T01 and materialize/re-fetch/hash verify before approval.
+  - Expand T02_02 through T06_02 to T01_02 textbook depth before Content QA.
+  - Add detailed simple-English explanations, numbered/commented code, line-by-line explanation, exact run/observe/fail/correct/regression evidence and editable Draw.io sources.
+  - Re-render all expanded drafts and begin Content QA only after teaching depth is comparable to the accepted T01_02 baseline.
+  - Then run accessibility, page-by-page visual QA, Golden comparison and QG-27 materialization/re-fetch/hash verification.
   - Do not start any Txx_03 Updated API Contract until the corresponding Txx_02 Progressive Guide reaches its required approval state.
 
 blockers:
   - T01_01 and T01_03 remain below APPROVED until their exact reviewed binaries are materialized and re-fetched from Private Master.
-  - No blocker remains for T02_02 through T06_02 controlled generation.
+  - T02_02 through T06_02 have no dependency blocker; their current blocker is generation depth/quality, which is being worked rather than bypassed.
 
 release_prerequisites_discovered:
   - Before Classroom-Release-02, verify/move generic Presenter-owned ApplicationServiceException and ApplicationServiceExceptionHandler into the student baseline without duplication.
