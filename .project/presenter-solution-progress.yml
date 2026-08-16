@@ -34,7 +34,7 @@ verified_stages:
     module: Book
     status: VERIFIED
     source_ci_run: 31942708483
-    registry_commit: 277e9e08d266bc38af14e38f5c919ef0e8e3cfa7
+    registry_commit: 277e9e08bd07fb04ad77b18bf4d78d8651c175b6
     registry_commit_ci: 31943292080
 
 active_stage:
@@ -43,7 +43,7 @@ active_stage:
   branch: Presenter-Solutions-T31-T35
   status: CONTRACT_RECOVERED_BRANCH_CREATION_NEXT
   base_branch: Presenter-Solutions-T26-T30
-  base_commit: 277e9e08d266bc38af14e38f5c919ef0e8e3cfa7
+  base_commit: 277e9e08bd07fb04ad77b18bf4d78d8651c175b6
   active_track: T31
   track_progress:
     T31:
@@ -92,5 +92,5 @@ active_contract:
   integration_backend_owner: Student 32
 
 notes:
-  - T26-T30 is VERIFIED only because registry-tip run 31943292080 completed SUCCESS at exact registry commit 277e9e08d266bc38af14e38f5c919ef0e8e3cfa7.
+  - T26-T30 is VERIFIED only because registry-tip run 31943292080 completed SUCCESS at exact registry commit 277e9e08bd07fb04ad77b18bf4d78d8651c175b6.
   - T31 contract was recovered from the frozen 60-student assignment plan and consistency audit; implementation must follow the existing Presenter service/unit/integration/frontend boundaries.
