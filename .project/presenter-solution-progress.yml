@@ -1,0 +1,45 @@
+version: 1
+repository: vvekselva/Library-Full-Stack-KHAE-Master
+visibility: private
+
+total_tracks: 60
+checkpoints_per_track:
+  service: 20
+  unit_test: 20
+  integration_test: 20
+  frontend: 20
+  final_ci_and_registry: 20
+
+verified_stages:
+  T01-T05:
+    branch: Presenter-Solutions-T01-T05
+    status: VERIFIED
+  T06-T10:
+    branch: Presenter-Solutions-T06-T10
+    status: VERIFIED
+  T11-T15:
+    branch: Presenter-Solutions-T11-T15
+    status: VERIFIED
+
+active_stage:
+  tracks: T16-T20
+  module: Category
+  branch: Presenter-Solutions-T16-T20
+  status: NOT_STARTED
+  base_branch: Presenter-Solutions-T11-T15
+  base_relation: IDENTICAL
+
+remaining_stages:
+  - T21-T25 Publisher
+  - T26-T30 Book
+  - T31-T35 Book Copy
+  - T36-T40 Membership
+  - T41-T45 Book Issue
+  - T46-T50 Book Return
+  - T51-T55 Reservation
+  - T56-T60 Fine
+
+calculation:
+  fully_verified_tracks: 15
+  total_tracks: 60
+  percent: 25.0
