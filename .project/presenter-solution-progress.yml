@@ -25,15 +25,33 @@ verified_stages:
     status: VERIFIED
     verified_source_sha: fbc5646939363fc9518c40cf50414736fcfadcd4
     verified_ci_run: 31931234393
-    registry: .presenter/solution-registry/T16-T20.yml
     registry_commit: 06da698a9a7b5140fb1048c6d38c10ce8363a354
-    registry_commit_ci: RUNNING
+    registry_commit_ci: 31931485400
 
 active_stage:
   tracks: T21-T25
   module: Publisher
-  status: NEXT
+  branch: Presenter-Solutions-T21-T25
+  status: IN_PROGRESS
   base_branch: Presenter-Solutions-T16-T20
+  track_progress:
+    T21:
+      service: IMPLEMENTED
+      unit_test: IMPLEMENTED
+      integration_test: IMPLEMENTED
+      frontend: IMPLEMENTED
+      final_ci_and_registry: CI_RUNNING
+      percent: 80
+      latest_component_sha: 50649a538028dea5b23250e17fb1488cde61822b
+      latest_ci_run: 31931700781
+    T22:
+      percent: 0
+    T23:
+      percent: 0
+    T24:
+      percent: 0
+    T25:
+      percent: 0
 
 remaining_stages:
   - T21-T25 Publisher
@@ -47,7 +65,7 @@ remaining_stages:
 
 calculation:
   fully_verified_tracks: 20
-  total_tracks: 60
+  additional_checkpoint_points: 80
+  completed_points: 2080
   possible_points: 6000
-  completed_points: 2000
-  percent: 33.3333
+  percent: 34.6667
