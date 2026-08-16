@@ -46,7 +46,7 @@ active_stage:
   base_commit: 277e9e08bd07fb04ad77b18bf4d78d8651c175b6
   presenter_support_commit: 0bf2687e1c2eee622dae9aec6f46579cd9598304
   active_track: T31
-  active_checkpoint: LOCAL_POSTGRES_INTEGRATION
+  active_checkpoint: FRONTEND
   track_progress:
     T31:
       service: COMPLETE
@@ -54,14 +54,17 @@ active_stage:
       unit_test: VERIFIED
       unit_test_commit: 6fdfc020cb4f5561ac1558e7d41c3610b0392a20
       superseded_unit_test_ci_run: 31944909840
-      verification_ci_run: 31945047287
-      verification_ci_head: 0a26ccad874be9a2cb1e990b167506c032eb71eb
-      verification_ci_conclusion: SUCCESS
+      unit_test_verification_ci_run: 31945047287
+      unit_test_verification_ci_head: 0a26ccad874be9a2cb1e990b167506c032eb71eb
       normalized_accession_migration: 0a26ccad874be9a2cb1e990b167506c032eb71eb
-      integration_test: PENDING
+      integration_test: COMPLETE_VERIFICATION_PENDING
+      local_postgres_integration_commit: 599dac48aa4f406c7f69c87c147527d3c10f9973
+      testcontainers_integration_commit: 192761ab22e10361ecc6456fcfa59402e3d792c5
+      integration_verification_ci_run: 31945515199
+      integration_verification_ci_status: IN_PROGRESS
       frontend: PENDING
       final_ci_and_registry: PENDING
-      percent: 40
+      percent: 60
     T32:
       percent: 0
     T33:
@@ -81,17 +84,17 @@ remaining_stages:
 
 calculation:
   fully_verified_tracks: 30
-  additional_checkpoint_points: 40
-  completed_points: 3040
+  additional_checkpoint_points: 60
+  completed_points: 3060
   possible_points: 6000
-  percent: 50.6667
-  previous_percent: 50.3333
-  increment_percent: 0.3334
+  percent: 51.0000
+  previous_percent: 50.6667
+  increment_percent: 0.3333
 
 progress_display:
-  previous_percent: 50.33
-  updated_percent: 50.67
-  increase_percent: 0.34
+  previous_percent: 50.67
+  updated_percent: 51.00
+  increase_percent: 0.33
   comparison_basis: latest percentage-bearing checkpoint
   rule: Previous is the value immediately before the latest completed gate that changed the percentage; heartbeat-only or verification-only updates do not overwrite that baseline. Increase = Updated - Previous.
 
@@ -110,9 +113,12 @@ active_contract:
   integration_backend_owner: Student 32
 
 notes:
-  - T26-T30 is VERIFIED only because registry-tip run 31943292080 completed SUCCESS at exact registry commit 277e9e08bd07fb04ad77b18bf4d78d8651c175b6.
+  - T26-T30 is VERIFIED because registry-tip run 31943292080 completed SUCCESS at exact registry commit 277e9e08bd07fb04ad77b18bf4d78d8651c175b6.
   - T31 service is complete at c03fdf121118fdaad8467deec492e97c92c033d9.
-  - T31 unit tests at 6fdfc020cb4f5561ac1558e7d41c3610b0392a20 are verified by later branch-tip CI run 31945047287, which completed SUCCESS at 0a26ccad874be9a2cb1e990b167506c032eb71eb. Earlier run 31944909840 was superseded/cancelled by the later push and is not treated as a failure or success.
-  - Presenter-owned migration 0a26ccad874be9a2cb1e990b167506c032eb71eb adds normalized Book Copy accession-number uniqueness protection and passed the same verification run.
+  - T31 unit tests at 6fdfc020cb4f5561ac1558e7d41c3610b0392a20 are verified by run 31945047287, SUCCESS at 0a26ccad874be9a2cb1e990b167506c032eb71eb. Earlier run 31944909840 was superseded/cancelled and is not treated as a failure or success.
+  - Presenter-owned migration 0a26ccad874be9a2cb1e990b167506c032eb71eb adds normalized Book Copy accession-number uniqueness protection.
+  - Local PostgreSQL integration is implemented at 599dac48aa4f406c7f69c87c147527d3c10f9973. It persists assignment-plan value ACC-000101 inside the test transaction and proves normalized duplicate rejection without changing frozen shared seed data.
+  - Testcontainers integration is implemented at 192761ab22e10361ecc6456fcfa59402e3d792c5 using PostgreSQL 18 and the inherited T26-T30 ServiceConnection pattern.
+  - Local PostgreSQL and Testcontainers together form one 20-point integration checkpoint, matching the original tracker history. The checkpoint is implementation-complete; CI run 31945515199 is still in progress, so verification remains explicitly pending.
   - The current student assignment plan controls T31 teaching behavior: null accessionNumber -> ACCESSION_NUMBER_REQUIRED and duplicate ACC-000101 integration discovery. The consistency-audit register has a different generic null-request/ACC-0001 convention and is not silently substituted.
-  - Next checkpoint is T31 local PostgreSQL integration; no additional percentage is counted until that implementation checkpoint is completed.
+  - Next implementation checkpoint is T31 Update Book Copy frontend; do not count additional percentage until that frontend is implemented.
