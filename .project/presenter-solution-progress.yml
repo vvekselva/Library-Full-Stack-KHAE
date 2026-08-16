@@ -24,56 +24,45 @@ verified_stages:
     branch: Presenter-Solutions-T16-T20
     status: VERIFIED
     registry_commit_ci: 31931485400
-
-publisher_stage:
-  tracks: T21-T25
-  module: Publisher
-  branch: Presenter-Solutions-T21-T25
-  implementation_status: COMPLETE
-  source_ci: PASS
-  source_ci_run: 31933543164
-  registry_status: PATH_CORRECTION_CI_RUNNING
-  registry_correction_commit: b9323bab3ac36b53d472af4e759b9a4804d70189
-  registry_correction_ci_run: 31934851302
-  track_progress:
-    T21: 80
-    T22: 80
-    T23: 80
-    T24: 80
-    T25: 80
+  T21-T25:
+    branch: Presenter-Solutions-T21-T25
+    status: VERIFIED
+    registry_correction_commit: b9323bab3ac36b53d472af4e759b9a4804d70189
+    registry_commit_ci: 31934851302
+  T26-T30:
+    branch: Presenter-Solutions-T26-T30
+    module: Book
+    status: VERIFIED
+    source_ci_run: 31942708483
+    registry_commit: 277e9e08d266bc38af14e38f5c919ef0e8e3cfa7
+    registry_commit_ci: 31943292080
 
 active_stage:
-  tracks: T26-T30
-  module: Book
-  branch: Presenter-Solutions-T26-T30
-  status: IN_PROGRESS
-  base_branch: Presenter-Solutions-T21-T25
+  tracks: T31-T35
+  module: Book Copy
+  branch: Presenter-Solutions-T31-T35
+  status: CONTRACT_RECOVERED_BRANCH_CREATION_NEXT
+  base_branch: Presenter-Solutions-T26-T30
+  base_commit: 277e9e08d266bc38af14e38f5c919ef0e8e3cfa7
+  active_track: T31
   track_progress:
-    T26:
-      service: IMPLEMENTED
-      unit_test: IMPLEMENTED
-      integration_test: IMPLEMENTED
-      frontend: IMPLEMENTED
-      final_ci_and_registry: CI_RUNNING
-      percent: 80
-      latest_component_sha: 991e340449b688c93a7321c80e493413c969b596
-    T27:
-      service: IMPLEMENTED
-      unit_test: IMPLEMENTED
-      integration_test: IMPLEMENTED
-      frontend: IMPLEMENTED
-      final_ci_and_registry: CI_RUNNING
-      percent: 80
-      latest_component_sha: efaf7fc81ad918b7296626637efea17d2d255ace
-    T28:
+    T31:
+      service: PENDING
+      unit_test: PENDING
+      integration_test: PENDING
+      frontend: PENDING
+      final_ci_and_registry: PENDING
       percent: 0
-    T29:
+    T32:
       percent: 0
-    T30:
+    T33:
+      percent: 0
+    T34:
+      percent: 0
+    T35:
       percent: 0
 
 remaining_stages:
-  - T26-T30 Book
   - T31-T35 Book Copy
   - T36-T40 Membership
   - T41-T45 Book Issue
@@ -82,12 +71,26 @@ remaining_stages:
   - T56-T60 Fine
 
 calculation:
-  fully_verified_tracks: 20
-  additional_checkpoint_points: 560
-  completed_points: 2560
+  fully_verified_tracks: 30
+  additional_checkpoint_points: 0
+  completed_points: 3000
   possible_points: 6000
-  percent: 42.6667
+  percent: 50.0000
+
+active_contract:
+  track: T31
+  student: Student 31
+  module: Book Copy Management
+  backend_service: Add Book Copy Service
+  endpoint: POST /rest/book-copies
+  business_key: Accession Number
+  unit_discovery: null accessionNumber must produce controlled ACCESSION_NUMBER_REQUIRED instead of NullPointerException
+  integration_discovery: duplicate persisted accession number must be rejected
+  integration_seed: ACC-000101
+  frontend_assignment: Update Book Copy UI
+  frontend_endpoint: PUT /rest/book-copies/{id}
+  integration_backend_owner: Student 32
 
 notes:
-  - Publisher final registry checkpoint remains open only until the corrected T22 frontend path passes exact-tip CI.
-  - T26 and T27 implementation checkpoints are complete; they are not registry-verified until their cumulative Book CI/registry gate passes.
+  - T26-T30 is VERIFIED only because registry-tip run 31943292080 completed SUCCESS at exact registry commit 277e9e08d266bc38af14e38f5c919ef0e8e3cfa7.
+  - T31 contract was recovered from the frozen 60-student assignment plan and consistency audit; implementation must follow the existing Presenter service/unit/integration/frontend boundaries.
