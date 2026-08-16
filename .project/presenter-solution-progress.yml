@@ -44,7 +44,7 @@ active_stage:
   base_commit: 277e9e08bd07fb04ad77b18bf4d78d8651c175b6
   presenter_support_commit: 0bf2687e1c2eee622dae9aec6f46579cd9598304
   active_track: T33
-  active_checkpoint: WAIT_FOR_T32_FRONTEND_CUMULATIVE_CI_THEN_T33_SERVICE
+  active_checkpoint: UNIT_TEST
   track_progress:
     T31:
       service: COMPLETE
@@ -71,13 +71,20 @@ active_stage:
       local_postgres_integration_commit: 7c6ed2ede5d47ae8a519da04f44fc0f978470c91
       testcontainers_integration_commit: 59937e81e3639e17bf518e1c6bd68fbf49eb3b70
       integration_verification_ci_run: 31946440881
-      frontend: IMPLEMENTED_CI_PENDING
+      frontend: VERIFIED
       frontend_commit: ae74ded11fd561d72dabb6857e5461f830508983
       frontend_cumulative_ci_run: 31946688302
+      frontend_cumulative_ci_status: SUCCESS
       final_ci_and_registry: WAITING_FOR_T31_T35_BATCH_REGISTRY
       percent: 80
     T33:
-      percent: 0
+      service: COMPLETE
+      service_commit: fec9bcdbdaa86e17c0b939a8020321de05c632c6
+      unit_test: IN_PROGRESS
+      integration_test: PENDING
+      frontend: PENDING
+      final_ci_and_registry: PENDING
+      percent: 20
     T34:
       percent: 0
     T35:
@@ -93,17 +100,17 @@ remaining_stages:
 
 calculation:
   fully_verified_tracks: 30
-  additional_checkpoint_points: 160
-  completed_points: 3160
+  additional_checkpoint_points: 180
+  completed_points: 3180
   possible_points: 6000
-  percent: 52.6667
-  previous_percent: 52.3333
-  increment_percent: 0.3334
+  percent: 53.0000
+  previous_percent: 52.6667
+  increment_percent: 0.3333
 
 progress_display:
-  previous_percent: 52.33
-  updated_percent: 52.67
-  increase_percent: 0.34
+  previous_percent: 52.67
+  updated_percent: 53.00
+  increase_percent: 0.33
   comparison_basis: latest percentage-bearing checkpoint
   rule: Previous is the value immediately before the latest completed gate that changed the percentage; heartbeat-only or verification-only updates do not overwrite that baseline. Increase is calculated from unrounded values and then rounded for display.
 
@@ -118,10 +125,8 @@ active_contract:
   frontend_assignment: Search Book Copy UI
 
 notes:
-  - T31 remains at 80% until the T31-T35 batch registry is frozen and registry-tip CI passes.
-  - T32 unit tests are VERIFIED by run 31946189396 SUCCESS.
-  - T32 local PostgreSQL and PostgreSQL-18 Testcontainers integrations are VERIFIED by run 31946440881 SUCCESS at 59937e81e3639e17bf518e1c6bd68fbf49eb3b70.
-  - T32 frontend authority is the newer 60-track manifest plus the later T01-T60 consistency audit: Withdraw Book Copy UI. An older assignment-plan variant that says Update Book Copy UI is retained as superseded-source evidence and is not execution authority.
-  - T32 Withdraw Book Copy frontend is implemented at ae74ded11fd561d72dabb6857e5461f830508983 using DELETE /rest/book-copies/{id} and safe withdrawable Book Copy ID 4. Cumulative run 31946688302 is currently in progress.
-  - T32 final 20 points remain intentionally unawarded until the T31-T35 registry gate.
-  - Next percentage-bearing Presenter task after T32 cumulative CI is T33 Update Book Copy Service.
+  - T31 and T32 each remain at 80% until the T31-T35 batch registry is frozen and registry-tip CI passes.
+  - T32 cumulative frontend run 31946688302 completed SUCCESS at ae74ded11fd561d72dabb6857e5461f830508983.
+  - T33 Update Book Copy service is complete at fec9bcdbdaa86e17c0b939a8020321de05c632c6.
+  - T33 validates null ID/request, reads only current Book Copies, normalizes required accession number, validates Book ID, rejects a normalized accession key owned by another row while allowing the current row to keep its own key, normalizes status, applies the Presenter mapper, saves through BookCopyDao and returns service code 33 on controlled failures.
+  - T33 unit testing is the active checkpoint.
