@@ -20,40 +20,20 @@ verified_stages:
   T11-T15:
     branch: Presenter-Solutions-T11-T15
     status: VERIFIED
+  T16-T20:
+    branch: Presenter-Solutions-T16-T20
+    status: VERIFIED
+    verified_source_sha: fbc5646939363fc9518c40cf50414736fcfadcd4
+    verified_ci_run: 31931234393
+    registry: .presenter/solution-registry/T16-T20.yml
+    registry_commit: 06da698a9a7b5140fb1048c6d38c10ce8363a354
+    registry_commit_ci: RUNNING
 
 active_stage:
-  tracks: T16-T20
-  module: Category
-  branch: Presenter-Solutions-T16-T20
-  status: IN_PROGRESS
-  base_branch: Presenter-Solutions-T11-T15
-  base_relation_at_start: IDENTICAL
-  track_progress:
-    T16:
-      service: VERIFIED
-      unit_test: VERIFIED
-      integration_test: VERIFIED
-      frontend: VERIFIED
-      final_ci_and_registry: VERIFIED
-      percent: 100
-      verified_source_sha: 85d7d3d4ebdd016b0a239aab4c9803c8f0486622
-      verified_ci_run: 31930684345
-      registry: .presenter/solution-registry/T16-T20.yml
-    T17:
-      service: IMPLEMENTED
-      unit_test: IMPLEMENTED
-      integration_test: IMPLEMENTED
-      frontend: IMPLEMENTED
-      final_ci_and_registry: CI_QUEUED
-      percent: 80
-      latest_component_sha: b61cc83f0189dcf2def64846f97fbe4ee0754562
-      latest_ci_run: 31930862079
-    T18:
-      percent: 0
-    T19:
-      percent: 0
-    T20:
-      percent: 0
+  tracks: T21-T25
+  module: Publisher
+  status: NEXT
+  base_branch: Presenter-Solutions-T16-T20
 
 remaining_stages:
   - T21-T25 Publisher
@@ -66,7 +46,8 @@ remaining_stages:
   - T56-T60 Fine
 
 calculation:
-  fully_verified_tracks: 16
-  additional_checkpoint_points: 80
+  fully_verified_tracks: 20
+  total_tracks: 60
   possible_points: 6000
-  percent: 28.0
+  completed_points: 2000
+  percent: 33.3333
