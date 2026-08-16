@@ -17,33 +17,45 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-16 17:09 IST
+## Live Percentage Comparison Rule
 
-| Stream | Progress | Current Stage |
-|---|---:|---|
-| Document Rerun | **0.47%** | T01_02 QG-01 to QG-26 PASS; QG-27 OPEN. Exact accepted binary identity is unchanged. Materialization run `31941294901` failed with `base64: invalid input`. Successful canonical-source artifact `T01_02-canonical-source` from run `31939791535` contains normalized teaching source, editable Draw.io sources and content QA, but not the accepted 55-page DOCX. The available 42-page Golden Reference does not match the accepted artifact and will not be substituted. |
-| Presenter Solutions | **50.67%** | **T01-T30 VERIFIED; T31 Service COMPLETE; T31 UT IMPLEMENTED / CI PENDING.** Branch `Presenter-Solutions-T31-T35`; service `c03fdf12`; unit test `6fdfc020`; exact UT CI run `31944909840` is IN PROGRESS. Next gate: CI verification, then PostgreSQL integration. |
-| Classroom Release Preparation | **33.33%** | Release-00 remains Presenter-ready and independently VERIFIED PASS by run `31930965288`. Release-01/02 pending. |
-| Recovery / Final Integration | **20.00%** | Verified solution-registry coverage remains **30/60 tracks = 50% coverage × 40% recovery weight = 20.00%**. T31-T35 is not recoverable yet because its registry must be frozen only after cumulative CI. |
-| **Overall** | **23.28%** | `0.4722×0.45 + 50.6667×0.35 + 33.3333×0.10 + 20×0.10 = 23.2792%`, displayed as 23.28%. Parallel execution continues with T31 verification/integration. |
+The dashboard shows three values for every stream:
+
+- **Previous %** = the value immediately before the latest completed percentage-bearing gate.
+- **Updated %** = the current authoritative value.
+- **Increase** = `Updated % - Previous %`.
+
+A heartbeat-only or verification-only update does not erase the last meaningful comparison baseline. When a new implementation gate changes progress, the current Updated value becomes the next Previous value and the newly calculated value becomes Updated. This makes the actual increase visible instead of showing only the latest total.
+
+## Current Status - 2026-08-16 17:15 IST
+
+| Stream | Previous % | Updated % | Increase | Current Stage |
+|---|---:|---:|---:|---|
+| Document Rerun | **0.47%** | **0.47%** | **+0.00%** | T01_02 QG-01 to QG-26 PASS; QG-27 OPEN. Exact accepted binary identity is unchanged. Materialization run `31941294901` failed with `base64: invalid input`. Successful canonical-source artifact `T01_02-canonical-source` from run `31939791535` contains normalized teaching source, editable Draw.io sources and content QA, but not the accepted 55-page DOCX. The available 42-page Golden Reference does not match the accepted artifact and will not be substituted. |
+| Presenter Solutions | **50.33%** | **50.67%** | **+0.34%** | **T01-T30 VERIFIED; T31 Service COMPLETE; T31 UT VERIFIED.** Branch `Presenter-Solutions-T31-T35`; service `c03fdf12`; unit test `6fdfc020`; verification run `31945047287` SUCCESS at `0a26ccad`. Next gate: local PostgreSQL integration. |
+| Classroom Release Preparation | **33.33%** | **33.33%** | **+0.00%** | Release-00 remains Presenter-ready and independently VERIFIED PASS by run `31930965288`. Release-01/02 pending. |
+| Recovery / Final Integration | **20.00%** | **20.00%** | **+0.00%** | Verified solution-registry coverage remains **30/60 tracks = 50% coverage × 40% recovery weight = 20.00%**. T31-T35 is not recoverable yet because its registry must be frozen only after cumulative CI. |
+| **Overall** | **23.16%** | **23.28%** | **+0.12%** | Current formula: `0.4722×0.45 + 50.6667×0.35 + 33.3333×0.10 + 20×0.10 = 23.2792%`, displayed as 23.28%. Previous overall used Presenter 50.3333% and was 23.1625%, displayed as 23.16%. |
 
 ## Active Work
 
-- **Presenter code:** T31 Add Book Copy service is complete at `c03fdf121118fdaad8467deec492e97c92c033d9`. Unit tests are implemented at `6fdfc020cb4f5561ac1558e7d41c3610b0392a20`; exact CI run `31944909840` is in progress. The tests cover successful normalized create, null request, null/blank accession with exact `ACCESSION_NUMBER_REQUIRED`, missing Book ID, and duplicate accession behavior.
+- **Presenter code:** T31 Add Book Copy service is complete at `c03fdf121118fdaad8467deec492e97c92c033d9`. Unit tests are implemented at `6fdfc020cb4f5561ac1558e7d41c3610b0392a20` and verified by branch-tip run `31945047287`, which completed SUCCESS at `0a26ccad874be9a2cb1e990b167506c032eb71eb`. Earlier run `31944909840` was superseded/cancelled by the later push and is not treated as a pass or failure.
 - **T31 exact teaching contract:** Student 31; Book Copy Management; Add Book Copy Service; `POST /rest/book-copies`; business key Accession Number; null `accessionNumber` must surface the intended unit-test discovery before controlled correction; persisted duplicate Accession Number must be rejected in integration; assignment-plan test value `ACC-000101`; assigned frontend is Update Book Copy UI `PUT /rest/book-copies/{id}` against Student 32's backend without changing the `/rest/` contract.
 - **Source discrepancy retained explicitly:** the current 60-student assignment plan specifies null `accessionNumber` / `ACCESSION_NUMBER_REQUIRED` and duplicate `ACC-000101`; the later consistency-audit register uses generic null-request / `ACC-0001`. Student-facing implementation follows the assignment plan; schema/audit data is used only for repository compatibility.
-- **Next T31 database step:** add Presenter-owned normalized uniqueness protection for Book Copy accession numbers following the existing V014 Book pattern, then add local PostgreSQL integration and Testcontainers integration. The database gate must prove persisted duplicate `ACC-000101` is rejected even with normalized input.
+- **Database preparation:** Presenter-owned V015 normalized Book Copy accession-number uniqueness protection is committed at `0a26ccad874be9a2cb1e990b167506c032eb71eb` and passed run `31945047287`.
+- **Next T31 gate:** implement local PostgreSQL integration proving persisted duplicate `ACC-000101` is rejected even with normalized input; then add Testcontainers integration.
 - **Document:** continue QG-27 recovery from canonical source/history without substituting a different DOCX. Exact accepted target remains size `234444`, SHA-256 `c1e43a93f7355032b8cc650815621613bf3cb2012c446756068961d13bf7cce4`, Git blob `853fe9b900ba04339441116bdf18e64289a59093`.
 - **Recovery:** T01-T30 registry coverage is verified. The T31-T35 registry remains NOT_YET_CREATED and must be built only from exact verified component SHAs after cumulative CI.
 - **Classroom release:** Release-00 remains verified. Release-01/02 work must preserve Presenter/student ownership boundaries and the Release-02 exception-infrastructure prerequisite.
 
 ## 15-Minute Execution Checkpoint Protocol
 
-During an active execution window, each approximately 15-minute checkpoint must also update this file on `main` with evidence-based status. The checkpoint entry must record the timestamp, active branch/task, latest substantive branch commit, percentages, blockers, and the next concrete action. A real checkpoint crossing is written immediately even if it occurs before the 15-minute heartbeat. A heartbeat-only code commit must not be created merely to manufacture activity; this dashboard update is the status record.
+During an active execution window, each approximately 15-minute checkpoint must also update this file on `main` with evidence-based status. The checkpoint entry must record the timestamp, active branch/task, latest substantive branch commit, **Previous %, Updated %, and Increase**, blockers, and the next concrete action. A real checkpoint crossing is written immediately even if it occurs before the 15-minute heartbeat. A heartbeat-only code commit must not be created merely to manufacture activity; this dashboard update is the status record.
 
 ### Checkpoint Log
 
-- **2026-08-16 17:09 IST** - 15-minute live checkpoint. T31 service `c03fdf12` COMPLETE. T31 UT `6fdfc020` IMPLEMENTED; exact branch CI run `31944909840` is IN PROGRESS. Presenter implementation progress **50.67%**; Recovery **20.00%**; Overall **23.28%**. Next: consume CI result, then add normalized Book Copy uniqueness migration and T31 PostgreSQL integration test. No QG-27 or Release stream percentage change during this interval.
+- **2026-08-16 17:15 IST** - Live format and verification gate update. T31 UT `6fdfc020` is VERIFIED by run `31945047287` SUCCESS at branch-tip migration commit `0a26ccad`. Presenter comparison: **50.33% → 50.67% (+0.34%)**. Overall comparison: **23.16% → 23.28% (+0.12%)**. Document **0.47% → 0.47% (+0.00%)**; Classroom **33.33% → 33.33% (+0.00%)**; Recovery **20.00% → 20.00% (+0.00%)**. Next: T31 local PostgreSQL integration. New comparison-column rule is now authoritative.
+- **2026-08-16 17:09 IST** - 15-minute live checkpoint. T31 service `c03fdf12` COMPLETE. T31 UT `6fdfc020` IMPLEMENTED; exact direct CI run `31944909840` was then in progress and was later superseded by a newer push. Presenter implementation progress **50.67%**; Recovery **20.00%**; Overall **23.28%**. Next: consume CI result, then add normalized Book Copy uniqueness migration and T31 PostgreSQL integration test.
 - **2026-08-16 17:07 IST** - `Presenter-Solutions-T31-T35` exists from exact verified Book registry SHA `277e9e08bd07fb04ad77b18bf4d78d8651c175b6`. Book Copy foundation was confirmed already present. Presenter-owned T31-T35/P07 service codes were added at `0bf2687e`. T31 Add Book Copy service was completed at `c03fdf12`, advancing Presenter progress to **50.33%** and overall to **23.16%**. Next: implement T31 unit tests proving the null-accession controlled correction and happy-path persistence interaction.
 - **2026-08-16 16:54 IST** - Exact registry-tip run `31943292080` re-fetched and confirmed `SUCCESS` with head SHA `277e9e08bd07fb04ad77b18bf4d78d8651c175b6`. Presenter machine progress was advanced to T01-T30 VERIFIED / **50.00%**; recovery registry coverage advanced to 30/60 tracks / **20.00% weighted progress**. Overall recalculated to **23.05%**. T31 source contract recovered: Add Book Copy Service, `POST /rest/book-copies`, Accession Number business key, null-request-field unit discovery, duplicate persisted accession integration discovery, Update Book Copy UI. Next: create `Presenter-Solutions-T31-T35` from the exact verified SHA and implement T31 service.
 - **2026-08-16 16:33 IST** - Book cumulative source run `31942708483` is SUCCESS at `1b931bf9`. Full T26-T30 commit/path evidence was reconciled and `.presenter/solution-registry/T26-T30.yml` frozen at substantive commit `277e9e08`. Exact-tip verification run `31943292080` was IN PROGRESS. Next was to promote Book T26-T30 on green.
@@ -99,7 +111,10 @@ During an active execution window, each approximately 15-minute checkpoint must 
 
 - `0bf2687e1c2eee622dae9aec6f46579cd9598304` - Presenter-owned Book Copy service codes T31-T35/P07.
 - `c03fdf121118fdaad8467deec492e97c92c033d9` - Student 31 Add Book Copy service solution.
-- `6fdfc020cb4f5561ac1558e7d41c3610b0392a20` - Student 31 Add Book Copy unit tests; CI run `31944909840` IN PROGRESS at 17:09 IST.
+- `6fdfc020cb4f5561ac1558e7d41c3610b0392a20` - Student 31 Add Book Copy unit tests.
+- `0a26ccad874be9a2cb1e990b167506c032eb71eb` - Presenter-owned normalized Book Copy accession unique key.
+- Verification run `31945047287` - **SUCCESS** at `0a26ccad`; verifies the T31 unit-test commit in branch history plus V015 migration.
+- Direct unit-test run `31944909840` - superseded/cancelled by the later branch push; not counted as a pass or failure.
 - Local PostgreSQL integration - PENDING.
 - Testcontainers integration - PENDING.
 - Frontend - PENDING.
@@ -138,3 +153,4 @@ Before `Classroom-Release-02-Student-Baseline` is frozen, move the generic Prese
 6. Public publication is always performed by the Presenter.
 7. Percentages use frozen formulas and completed implementation checkpoints; pending CI/registry verification gates are shown explicitly.
 8. During active 15-minute execution windows, `.project/PROJECT_PROGRESS.md` must be updated as the authoritative status checkpoint record.
+9. Every live progress table must show Previous %, Updated %, and Increase so the actual percentage movement is visible.
