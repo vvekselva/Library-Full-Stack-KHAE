@@ -4,19 +4,40 @@ batch: T31-T35
 freeze_allowed: false
 tracks:
   T31:
-    readiness: PARTIAL_EVIDENCE_CAPTURE_PENDING
+    readiness: EVIDENCE_CAPTURED_WAITING_BATCH_FREEZE
     implementation_state: "Service + Unit Test + Integration + Frontend complete"
-    registry_ready: false
-    next_action: "capture exact component SHAs and cumulative green CI evidence"
+    service_commit: c03fdf121118fdaad8467deec492e97c92c033d9
+    unit_test_commit: 6fdfc020cb4f5561ac1558e7d41c3610b0392a20
+    unit_test_verification_run: 31945047287
+    normalized_accession_migration: 0a26ccad874be9a2cb1e990b167506c032eb71eb
+    local_postgres_integration_commit: 599dac48aa4f406c7f69c87c147527d3c10f9973
+    testcontainers_integration_commit: 192761ab22e10361ecc6456fcfa59402e3d792c5
+    frontend_commit: 9d2f5796edb1cd3bb34f56b0433c2c747687e5ed
+    cumulative_verification_run: 31945620654
+    cumulative_verification_head: 9d2f5796edb1cd3bb34f56b0433c2c747687e5ed
+    cumulative_verification_result: SUCCESS
+    registry_ready: true
+    next_action: "retain immutable evidence; batch freeze remains blocked by T33-T35"
   T32:
-    readiness: PARTIAL_EVIDENCE_CAPTURE_PENDING
+    readiness: EVIDENCE_CAPTURED_WAITING_BATCH_FREEZE
     implementation_state: "Service + Unit Test + Integration + Frontend complete"
-    registry_ready: false
-    next_action: "capture exact component SHAs and cumulative green CI evidence"
+    service_commit: db2d4ec55c1e1bcaff008ef2118053a83de723f9
+    unit_test_commit: 7d4571ec761c11d85638cd05845c1fd1a111817f
+    local_postgres_integration_commit: 7c6ed2ede5d47ae8a519da04f44fc0f978470c91
+    testcontainers_integration_commit: 59937e81e3639e17bf518e1c6bd68fbf49eb3b70
+    integration_verification_run: 31946440881
+    frontend_commit: ae74ded11fd561d72dabb6857e5461f830508983
+    cumulative_verification_run: 31946688302
+    cumulative_verification_head: ae74ded11fd561d72dabb6857e5461f830508983
+    cumulative_verification_result: SUCCESS
+    registry_ready: true
+    next_action: "retain immutable evidence; batch freeze remains blocked by T33-T35"
   T33:
     readiness: BLOCKED
     service: DONE
+    service_commit: fec9bcdbdaa86e17c0b939a8020321de05c632c6
     unit_test: "IMPLEMENTED_CI_FAILED"
+    unit_test_commit: 4520f779a87bcac8c7628a90f0e6bc14fd87c6d8
     workflow_run: 31946962274
     workflow_attempt: 2
     head_sha: 4520f779a87bcac8c7628a90f0e6bc14fd87c6d8
@@ -24,8 +45,10 @@ tracks:
     backend_result: FAILURE
     frontend_job: 95189332541
     frontend_result: SUCCESS
+    failing_step: "Run Presenter solution tests with PostgreSQL"
     registry_ready: false
-    blocker: "exact backend test failure must be isolated and repaired before Integration/Frontend progression"
+    blocker: "backend test command exits with code 1; available connector log surface does not expose the underlying test assertion/error"
+    next_action: "isolate the backend Maven/Surefire failure before targeted repair; do not blind-rerun"
   T34:
     readiness: BLOCKED_NOT_IMPLEMENTED
     registry_ready: false
@@ -35,3 +58,5 @@ tracks:
 freeze_gate:
   rule: "All T31-T35 tracks must be registry-ready with exact immutable evidence and cumulative validation before freeze."
   current_result: BLOCKED
+  verified_ready_tracks: 2
+  required_ready_tracks: 5
