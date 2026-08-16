@@ -33,7 +33,7 @@ tracks:
     registry_ready: true
     next_action: "retain immutable evidence; batch freeze remains blocked by T33-T35"
   T33:
-    readiness: INTEGRATION_CI_PENDING
+    readiness: FRONTEND_CI_PENDING
     service: DONE
     service_commit: fec9bcdbdaa86e17c0b939a8020321de05c632c6
     unit_test: VERIFIED_GREEN_AFTER_REPAIR
@@ -50,11 +50,13 @@ tracks:
     local_postgres_integration_commit: b2d3a859eb250134c0b1d8c5666df7bf78d9a193
     testcontainers_integration_commit: 2f1bea871d7b8f49fefdb2e8db699724051470da
     integration_verification_run: 31973983928
-    integration_verification_state: IN_PROGRESS
-    frontend: BLOCKED_UNTIL_INTEGRATION_GREEN
+    integration_verification_state: SUCCESS
+    frontend_commit: c82d0f0ed896bc9f6d729e8db34855040ce2fbaa
+    frontend_verification_run: 31976478238
+    frontend_verification_state: IN_PROGRESS
     registry_ready: false
-    blocker: "Integration branch-tip CI must pass before Frontend and final registry evidence can advance."
-    next_action: "wait for workflow 31973983928; if green, start only the assigned T33 Frontend stage"
+    blocker: "Frontend branch-tip cumulative CI must pass; T34/T35 also remain incomplete."
+    next_action: "if workflow 31976478238 is green, mark T33 Frontend complete and preserve its cumulative evidence; then advance only dependency-eligible T34 work"
   T34:
     readiness: BLOCKED_NOT_IMPLEMENTED
     registry_ready: false
