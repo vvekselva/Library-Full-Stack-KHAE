@@ -30,29 +30,29 @@ current:
   T01_01: QUALITY_GATE_PASSED
   T01_02: APPROVED
   T01_03: QUALITY_GATE_PASSED
-  T02_01: BLUEPRINT_APPROVED
+  T02_01: REPOSITORY_VERIFIED
   T02_02: PENDING
   T02_03: PENDING
-  T03_01: BLUEPRINT_APPROVED
+  T03_01: REPOSITORY_VERIFIED
   T03_02: PENDING
   T03_03: PENDING
-  T04_01: BLUEPRINT_APPROVED
+  T04_01: REPOSITORY_VERIFIED
   T04_02: PENDING
   T04_03: PENDING
-  T05_01: BLUEPRINT_APPROVED
+  T05_01: REPOSITORY_VERIFIED
   T05_02: PENDING
   T05_03: PENDING
-  T06_01: BLUEPRINT_APPROVED
+  T06_01: REPOSITORY_VERIFIED
   T06_02: PENDING
   T06_03: PENDING
   remaining_T07_to_T60: PENDING
 
 calculation:
-  completed_stage_points: 370
+  completed_stage_points: 745
   possible_stage_points: 18000
-  percent: 2.0556
-  previous_percent: 1.5000
-  increase: 0.5556
+  percent: 4.1389
+  previous_percent: 2.0556
+  increase: 2.0833
 
 accepted_baseline:
   track: T01
@@ -96,24 +96,35 @@ active_scale_up:
 
 latest_cycle:
   time: 2026-08-16T22:46:00+05:30
-  action: "Ran Agents 1-5 through source reconciliation and blueprint QA."
+  action: "Ran Agents 1-5 through source reconciliation, controlled generation, content/accessibility QA, page-by-page visual QA, Golden/T01 comparison, repository materialization and QG-27 identity verification."
   source_reconciliation:
     T02: "Corrected departmentCode draft to verified GET /rest/departments/{id}."
     T03: "Corrected departmentCode path draft to verified PUT /rest/departments/{id}; restored duplicate-code behavior."
     T04: "Corrected hard-delete draft to verified ID-based soft deactivation with active-member dependency guard."
     T05: "Corrected multi-criteria draft to verified GET /rest/departments/search?text=."
     T06: "Corrected generic member-code/name draft to verified registrationNumber/fullName/email/departmentId contract."
-  result: "T02_01 through T06_01 BLUEPRINT_APPROVED; no generated DOCX promoted without later content/visual/QG evidence."
+  generation:
+    T02_01: "4-page success-only Initial API Contract; QG-27 PASS; git blob aefe44ad6ea34332986b7de7ec02f2e83aadd1a3."
+    T03_01: "4-page success-only Initial API Contract; QG-27 PASS; git blob 50c56180a5eb8bd231c038123b258a7e1f5f54dc."
+    T04_01: "4-page success-only Initial API Contract; QG-27 PASS; git blob 6972b494a5f5cf8598a70e11b3623bd47b1e829f."
+    T05_01: "4-page success-only Initial API Contract; QG-27 PASS; git blob 3a8d901c2e45c9f9f397952f73e9ec3916c1b8e1."
+    T06_01: "4-page success-only Initial API Contract; QG-27 PASS; git blob 77f6dcf932afcd5b1fed3df89c8a7be673a12d4e."
+  visual_qa: "PASS across 20 rendered pages; no clipping, overlap, table overflow, broken code blocks or orphan continuation pages."
+  accessibility_qa: "PASS; high=0, medium=0, low=0 for all five documents."
+  materialization_commit: bccb09bfe301e69ee02c362383cf2a890606528a
+  qg27_verification_record_commit: a2d443b05257d45d80191f9384a5e44dceb6e3cd
+  result: "T02_01 through T06_01 REPOSITORY_VERIFIED. APPROVAL intentionally not inferred; T02_02 through T06_02 remain PENDING."
 
 immediate_actions:
   - Materialize and re-fetch/hash-verify the accepted T01_01 Initial API Contract in Private Master.
   - Materialize and re-fetch/hash-verify the accepted T01_03 Updated API Contract in Private Master.
   - After repository verification, promote T01_01 and T01_03 to APPROVED without requiring another content review unless the binary changes.
-  - Generate T02_01 through T06_01 from the corrected, source-verified blueprints; keep each Initial API Contract success-only.
-  - Do not start each track's Progressive Guide until its Initial API Contract has completed the required document gates.
+  - Obtain/record final approval for T02_01 through T06_01.
+  - After each track's Initial API Contract becomes APPROVED, start that track's Progressive Development Guide; do not bypass the intra-track dependency.
 
 blockers:
   - T01_01 and T01_03 are accepted by the reviewer but remain below APPROVED until their exact reviewed binaries are materialized and re-fetched from Private Master.
+  - T02_02 through T06_02 are blocked by the final approval state of their corresponding `_01` Initial API Contract.
 
 release_prerequisites_discovered:
   - Before Classroom-Release-02, verify/move generic Presenter-owned ApplicationServiceException and ApplicationServiceExceptionHandler into the student baseline without duplication.
