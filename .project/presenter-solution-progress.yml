@@ -45,8 +45,8 @@ active_stage:
   base_branch: Presenter-Solutions-T26-T30
   base_commit: 277e9e08bd07fb04ad77b18bf4d78d8651c175b6
   presenter_support_commit: 0bf2687e1c2eee622dae9aec6f46579cd9598304
-  active_track: T31
-  active_checkpoint: FINAL_CI_AND_TRACK_VERIFICATION
+  active_track: T32
+  active_checkpoint: UNIT_TEST
   track_progress:
     T31:
       service: COMPLETE
@@ -55,21 +55,24 @@ active_stage:
       unit_test_commit: 6fdfc020cb4f5561ac1558e7d41c3610b0392a20
       superseded_unit_test_ci_run: 31944909840
       unit_test_verification_ci_run: 31945047287
-      unit_test_verification_ci_head: 0a26ccad874be9a2cb1e990b167506c032eb71eb
       normalized_accession_migration: 0a26ccad874be9a2cb1e990b167506c032eb71eb
-      integration_test: COMPLETE_VERIFICATION_PENDING
+      integration_test: COMPLETE_VERIFIED_BY_CUMULATIVE_RUN
       local_postgres_integration_commit: 599dac48aa4f406c7f69c87c147527d3c10f9973
       testcontainers_integration_commit: 192761ab22e10361ecc6456fcfa59402e3d792c5
-      superseded_local_postgres_ci_run: 31945501634
-      integration_only_ci_run: 31945515199
-      frontend: COMPLETE_VERIFICATION_PENDING
+      frontend: COMPLETE_VERIFIED_BY_CUMULATIVE_RUN
       frontend_commit: 9d2f5796edb1cd3bb34f56b0433c2c747687e5ed
       cumulative_verification_ci_run: 31945620654
-      cumulative_verification_ci_status: PENDING
-      final_ci_and_registry: PENDING
+      cumulative_verification_ci_status: SUCCESS
+      final_ci_and_registry: WAITING_FOR_T31_T35_BATCH_REGISTRY
       percent: 80
     T32:
-      percent: 0
+      service: COMPLETE
+      service_commit: db2d4ec55c1e1bcaff008ef2118053a83de723f9
+      unit_test: IN_PROGRESS
+      integration_test: PENDING
+      frontend: PENDING
+      final_ci_and_registry: PENDING
+      percent: 20
     T33:
       percent: 0
     T34:
@@ -87,43 +90,33 @@ remaining_stages:
 
 calculation:
   fully_verified_tracks: 30
-  additional_checkpoint_points: 80
-  completed_points: 3080
+  additional_checkpoint_points: 100
+  completed_points: 3100
   possible_points: 6000
-  percent: 51.3333
-  previous_percent: 51.0000
+  percent: 51.6667
+  previous_percent: 51.3333
   increment_percent: 0.3333
 
 progress_display:
-  previous_percent: 51.00
-  updated_percent: 51.33
+  previous_percent: 51.33
+  updated_percent: 51.67
   increase_percent: 0.33
   comparison_basis: latest percentage-bearing checkpoint
   rule: Previous is the value immediately before the latest completed gate that changed the percentage; heartbeat-only or verification-only updates do not overwrite that baseline. Increase is calculated from unrounded values and then rounded for display.
 
 active_contract:
-  track: T31
-  student: Student 31
+  track: T32
+  student: Student 32
   module: Book Copy Management
-  backend_service: Add Book Copy Service
-  endpoint: POST /rest/book-copies
-  business_key: Accession Number
-  unit_discovery: null accessionNumber must produce controlled ACCESSION_NUMBER_REQUIRED instead of NullPointerException
-  integration_discovery: duplicate persisted accession number must be rejected
-  integration_seed: ACC-000101
-  frontend_assignment: Update Book Copy UI
-  frontend_endpoint: PUT /rest/book-copies/{id}
-  integration_backend_owner: Student 32
+  backend_service: Read Book Copy Service
+  endpoint: GET /rest/book-copies/{id}
+  unit_discovery: unknown Book Copy ID must be converted to controlled NOT_FOUND behavior instead of allowing an uncontrolled null-to-response mapping failure
+  integration_discovery: withdrawn Book Copy must not be exposed by the current-read path
+  integration_seed_reference: "ID 3 / ACC-0003 / WITHDRAWN"
+  frontend_assignment: "Withdraw/Deactivate Book Copy recovery UI - confirm exact track-source wording before frontend gate"
 
 notes:
   - T26-T30 is VERIFIED because registry-tip run 31943292080 completed SUCCESS at exact registry commit 277e9e08bd07fb04ad77b18bf4d78d8651c175b6.
-  - T31 service is complete at c03fdf121118fdaad8467deec492e97c92c033d9.
-  - T31 unit tests are verified by run 31945047287, SUCCESS at 0a26ccad874be9a2cb1e990b167506c032eb71eb.
-  - Presenter-owned migration 0a26ccad874be9a2cb1e990b167506c032eb71eb adds normalized Book Copy accession-number uniqueness protection.
-  - Local PostgreSQL integration is implemented at 599dac48aa4f406c7f69c87c147527d3c10f9973. It persists assignment-plan value ACC-000101 inside the test transaction and proves normalized duplicate rejection without changing frozen shared seed data.
-  - Testcontainers integration is implemented at 192761ab22e10361ecc6456fcfa59402e3d792c5 using PostgreSQL 18 and the inherited T26-T30 ServiceConnection pattern.
-  - Local PostgreSQL and Testcontainers together form one 20-point integration checkpoint, matching the original tracker history.
-  - T31 Update Book Copy recovery frontend is implemented at 9d2f5796edb1cd3bb34f56b0433c2c747687e5ed. The existing import.meta.glob track explorer discovers it automatically; no shared routing modification was required.
-  - Run 31945501634 for the local PostgreSQL commit was superseded/cancelled by the subsequent Testcontainers push. Run 31945515199 was still running when the frontend push created the newer cumulative target. Run 31945620654 at 9d2f5796 is now the authoritative current T31 verification target.
-  - The current student assignment plan controls T31 teaching behavior: null accessionNumber -> ACCESSION_NUMBER_REQUIRED and duplicate ACC-000101 integration discovery. The consistency-audit register has a different generic null-request/ACC-0001 convention and is not silently substituted.
-  - Next checkpoint is final T31 cumulative CI verification. Do not award the final 20 points until the exact T31 cumulative tip is green and the evidence is frozen according to the established registry model.
+  - T31 cumulative run 31945620654 completed SUCCESS at 9d2f5796edb1cd3bb34f56b0433c2c747687e5ed. Historical T26/T27 tracker semantics keep T31 at 80% until the T31-T35 batch registry is frozen and registry-tip CI passes.
+  - T32 Read Book Copy service is complete at db2d4ec55c1e1bcaff008ef2118053a83de723f9. It uses BookCopyDao.findCurrentById and BookCopyDtoDoMapper.toResponse; null ID returns controlled invalid-input and unknown/withdrawn IDs return controlled not-found.
+  - T32 unit testing is the active checkpoint.
