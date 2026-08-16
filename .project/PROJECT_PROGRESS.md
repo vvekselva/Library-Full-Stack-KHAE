@@ -11,15 +11,15 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-17 02:13 IST
+## Current Status - 2026-08-17 03:07 IST
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
-| **Document Rerun** | **5.3889%** | **5.3889%** | **+0.0000%** | PRIMARY. T02_02-T06_02 remain at GENERATING. The controlled 8-9 page rerun drafts are local binary DOCX artifacts; no repository-editable T02_02-T06_02 generation source trees are exposed, so no honest expansion or Content-QA promotion occurred this cycle. |
-| Presenter Solutions | **53.3333%** | **53.3333%** | **+0.0000%** | **STALE >3 cycles.** T33 failure is reconfirmed at `Run Presenter solution tests with PostgreSQL`; setup passes, but actionable Maven/Surefire failure detail is still unavailable. Integration/Frontend remain blocked. |
-| Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE >3 cycles.** Release-00 manifest reconciliation is now CLOSED with frozen-tree and successful-CI evidence. Release-01 materialization remains dependency-gated. |
-| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | **STALE >3 cycles.** T31/T32 cumulative green evidence was freshly revalidated; T33-T35 still block T31-T35 freeze. |
-| **Overall** | **26.4250%** | **26.4250%** | **+0.0000%** | A real prerequisite verification task closed, but no weighted percentage-bearing quality gate crossed. |
+| **Document Rerun** | **5.3889%** | **5.3889%** | **+0.0000%** | PRIMARY. T02_02-T06_02 remain five active GENERATING lanes. Read-only rerun evidence confirms 8,9,8,8,9-page controlled drafts; equivalent repository-editable T02_02-T06_02 rerun source trees are not exposed, so no under-depth draft was promoted. |
+| Presenter Solutions | **53.3333%** | **53.3333%** | **+0.0000%** | **STALE >3 cycles by percentage, but substantive progress occurred.** T33 accession-normalization defect was repaired and repair CI is GREEN. Local PostgreSQL + PostgreSQL-18 Testcontainers Integration is implemented; workflow `31973983928` is validating the Integration head. Frontend remains blocked until Integration is green. |
+| Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE >3 cycles.** Private Release-02 manifest/checklist preparation is CLOSED. Release materialization remains dependency-gated; no public write made. |
+| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | **STALE >3 cycles.** T31/T32 remain registry-ready. T33 candidate now carries green repair evidence plus Integration commits/active CI; `freeze_allowed=false` remains because T33 Frontend and T34/T35 are incomplete. |
+| **Overall** | **26.4250%** | **26.4250%** | **+0.0000%** | Substantive repair, Integration implementation, and private release preparation completed, but no new weighted percentage-bearing gate is complete while T33 Integration CI is still running. |
 
 ## Coordinator / Logical Worker Lanes
 
@@ -28,64 +28,65 @@ One primary coordinator is active. The eight entries are logical worker lanes; t
 | Lane | Assignment | Current work | Evidence/state |
 |---|---|---|---|
 | Primary Coordinator | Orchestration | Branch/CI validation, dependency-safe execution, consolidation | ACTIVE |
-| Agent 1 | Document Rerun | T02 | T02_02 GENERATING; local draft 8 pages; repository-editable rerun generation source not exposed |
-| Agent 2 | Document Rerun | T03 | T03_02 GENERATING; local draft 9 pages; repository-editable rerun generation source not exposed |
-| Agent 3 | Document Rerun | T04 | T04_02 GENERATING; local draft 8 pages; repository-editable rerun generation source not exposed |
-| Agent 4 | Document Rerun | T05 | T05_02 GENERATING; local draft 8 pages; repository-editable rerun generation source not exposed |
-| Agent 5 | Document Rerun | T06 | T06_02 GENERATING; local draft 9 pages; repository-editable rerun generation source not exposed |
-| Agent 6 | Presenter Solutions | T33 verification/repair | STALE; exact failed step known, underlying Maven/Surefire failure body unavailable |
-| Agent 7 | Classroom Release | Release verification/private preparation | Release-00 reconciliation CLOSED; Release-01 materialization blocked |
-| Agent 8 | Recovery / Final Integration | T31-T35 candidate evidence | T31/T32 green evidence revalidated; T33-T35 block freeze |
+| Agent 1 | Document Rerun | T02 | T02_02 GENERATING; 8-page controlled draft; textbook expansion/source gap recorded |
+| Agent 2 | Document Rerun | T03 | T03_02 GENERATING; 9-page controlled draft; textbook expansion/source gap recorded |
+| Agent 3 | Document Rerun | T04 | T04_02 GENERATING; 8-page controlled draft; textbook expansion/source gap recorded |
+| Agent 4 | Document Rerun | T05 | T05_02 GENERATING; 8-page controlled draft; textbook expansion/source gap recorded |
+| Agent 5 | Document Rerun | T06 | T06_02 GENERATING; 9-page controlled draft; textbook expansion/source gap recorded |
+| Agent 6 | Presenter Solutions | T33 | Repair CI GREEN; local + Testcontainers Integration implemented; branch-tip Integration CI IN PROGRESS |
+| Agent 7 | Classroom Release | Release-02 private preparation | Manifest/checklist CLOSED; materialization BLOCKED by prerequisites |
+| Agent 8 | Recovery / Final Integration | T31-T35 candidate | T31/T32 registry-ready; T33 Integration CI pending; freeze guard preserved |
 
 Within a Document track, `Initial API Contract -> Progressive Guide -> Updated API Contract` remains dependency ordered. Across tracks, independent source-grounded work may proceed concurrently.
 
 ## Tasks Taken Up This Cycle
 
-- Revalidated all five T02-T06 Progressive Guide lanes and inspected the connected rerun repository structure to determine whether the under-depth drafts could be expanded through repository-editable sources.
-- Revalidated T33 attempt-2 job steps and confirmed successful setup/PostgreSQL/checkout/Java preparation followed by failure specifically at `Run Presenter solution tests with PostgreSQL`; preserved the dependency gate because the Surefire failure body remains unavailable.
-- Reconciled the Release-00 manifest against the actual frozen release branch and revalidated workflow run `31930965288` as SUCCESS.
-- Searched for Release-02 controlled-error infrastructure markers (`ControllerAdvice` / `ExceptionHandler`); no indexed source evidence was found, so the verification task remains open.
-- Freshly revalidated T31 and T32 cumulative successful Actions runs and preserved `freeze_allowed: false` for T31-T35.
+- Maintained all five T02-T06 Progressive Guide lanes, inspected read-only rerun generation/source evidence, and preserved the content gate because the 8-9 page drafts remain below textbook depth and equivalent editable T02_02-T06_02 rerun source trees are not exposed.
+- Compared T33 unit-test expectations directly with `UpdateBookCopyServiceImpl`, isolated the accession-number case-normalization mismatch, and committed the minimal repair `fe4b8262bd9536cc0ce88569ae6031f7604e0132`.
+- Verified repair workflow `31973754438` SUCCESS for backend PostgreSQL tests and frontend build.
+- After that gate turned green, implemented T33 local PostgreSQL Integration `b2d3a859eb250134c0b1d8c5666df7bf78d9a193` and PostgreSQL-18 Testcontainers Integration `2f1bea871d7b8f49fefdb2e8db699724051470da`; workflow `31973983928` is validating the new head.
+- Prepared the private Release-02 manifest/checklist at `9e5e570d58527abaf6512851e6cd1dac40242478`, explicitly excluding Presenter solutions/private controls and blocking materialization until exact prerequisites are proven.
+- Advanced the T31-T35 recovery candidate with T33 green repair and Integration evidence while preserving `freeze_allowed: false`.
 
 ## Tasks Closed This Cycle
 
-- **Reconcile Release-00 manifest against current Private Master — CLOSED.** Frozen release tree `418ff61219e3f7d7a009bee7be70705addfe853a` still has only `README.md`, `backend/`, `frontend/`; verification run `31930965288` remains SUCCESS. Evidence commit: `951c9abbc238cd4cfcd47c7f0d6668276a38a73b`; task update: `205274b63c5065ec3e1d6b46ff38f1b4ec717b4b`.
-
-This is a substantive prerequisite verification closure, but it does not cross a percentage-bearing release gate.
+- **T33 targeted Unit-Test/CI repair — CLOSED.** Repair `fe4b8262...` passed workflow `31973754438`; this legitimately unlocked Integration.
+- **Prepare Release-02 private manifest/checklist — CLOSED.** Commit `9e5e570d...`; preparation only, no release gate percentage and no public publication.
 
 ## Tasks Still In Progress
 
-- T02_02-T06_02: remain GENERATING. Expansion to textbook depth is still required before Content QA; current rerun drafts are local DOCX artifacts and no repository-editable T02_02-T06_02 generation sources are exposed through the connected repository.
+- T02_02-T06_02: GENERATING; textbook-depth expansion, editable Draw.io, run/fail/fix/regression evidence and re-rendering remain required before Content QA.
 - T01_01/T01_03: repository materialization/re-fetch/hash verification remains required before APPROVED.
-- T33 Presenter: obtain exact Maven/Surefire failure body, apply only a proven repair, then require branch-tip CI SUCCESS before Integration.
+- T33 Presenter: Integration workflow `31973983928` remains in progress at head `2f1bea871d7b8f49fefdb2e8db699724051470da`; Frontend must not start until Integration is green.
 - Release-01: candidate materialization remains blocked by APPROVED + repository-verified document prerequisites.
-- Release-02: controlled-error infrastructure placement verification remains open; no indexed `ControllerAdvice` / `ExceptionHandler` evidence was found in this cycle.
-- Recovery T31-T35: T31/T32 remain evidence-complete; T33/T34/T35 prevent batch freeze.
+- Release-02: controlled-error infrastructure and exact baseline/document identities remain required before materialization.
+- Recovery T31-T35: T31/T32 registry-ready; T33 Integration/Frontend and T34/T35 prevent batch freeze.
 
 ## Tasks / Streams Open More Than 3 Cycles
 
 | Task / Stream | Cycles | State | Action Taken in This Cycle |
 |---|---:|---|---|
-| Document lanes T02-T06 | 7 open cycles | IN PROGRESS; stream itself at 2 no-increase cycles | Verified exact local draft identities and repository structure; isolated absence of repository-editable rerun generation sources and held all five at GENERATING rather than falsely promoting them. |
-| Presenter T33 | 7 no-increase cycles | **STALE** | Revalidated job-step boundaries: environment setup succeeds and backend test execution fails; withheld speculative code changes because the Maven/Surefire failure body remains unavailable. |
-| Classroom Release | 13 no-increase cycles | **STALE** | Closed Release-00 manifest reconciliation with exact frozen tree + successful CI evidence; kept Release-01 dependency gates and Release-02 source-verification gate intact. |
-| Recovery / Final Integration | 13 no-increase cycles | **STALE** | Revalidated T31/T32 cumulative SUCCESS runs at immutable heads and preserved the T31-T35 freeze guard because T33-T35 are incomplete. |
+| Document lanes T02-T06 | 8 open cycles | IN PROGRESS; stream at 3 no-increase cycles | Re-inspected generation/source evidence, kept five lanes active, recorded exact mandatory expansion gaps and prevented under-depth Content-QA or `_03` promotion. |
+| Presenter T33 | 8 no-increase cycles | **STALE by percentage; ACTIVE execution** | Replaced the old vague CI blocker with a proven repair: fixed accession normalization, obtained green repair CI, then implemented both Integration layers and started branch-tip Integration CI. |
+| Classroom Release | 14 no-increase cycles | **STALE** | Closed Release-02 private manifest/checklist preparation while keeping all percentage-bearing materialization/publication gates dependency-blocked. |
+| Recovery / Final Integration | 14 no-increase cycles | **STALE** | Preserved T31/T32 immutable evidence, added T33 green repair + Integration candidate evidence, and maintained `freeze_allowed=false`. |
 
 ## Streams With No Increase More Than 3 Cycles
 
-- **Presenter Solutions — 7 cycles:** T33 backend test failure remains the percentage gate blocker.
-- **Classroom Release — 13 cycles:** percentage-bearing Release-01 candidate materialization remains gated by approved/repository-verified documents.
-- **Recovery / Final Integration — 13 cycles:** T31/T32 are registry-ready, but T33-T35 still block the batch freeze.
-- Document Rerun and Overall are at 2 cycles without increase after their prior verified advancement.
+- **Presenter Solutions — 8 cycles:** T33 Integration CI is now the active percentage gate; the former Unit-Test blocker is closed.
+- **Classroom Release — 14 cycles:** percentage-bearing release materialization remains gated by approved/repository-verified documents and controlled-error prerequisites.
+- **Recovery / Final Integration — 14 cycles:** T31/T32 are registry-ready, but T33 Frontend and T34/T35 still block the batch freeze.
+- Document Rerun and Overall are at 3 cycles without increase after their prior verified advancement.
 
 ## Execution Evidence
 
-- Document progress remains **970 / 18000 = 5.3889%**; generation evidence `c027411c58510b390ad71e0afab9b4c431fb9b5e`; document task update `887309a79f542472d2966a8005e3e8fa071678fa`.
-- T02_02-T06_02 generation evidence records 8, 9, 8, 8, 9 rendered pages respectively against the accepted ~45-page T01_02 benchmark; no Content QA promotion occurred.
-- T33 workflow `31946962274`, attempt 2; head `4520f779a87bcac8c7628a90f0e6bc14fd87c6d8`; backend job `95189332185` FAILURE at `Run Presenter solution tests with PostgreSQL`; frontend job `95189332541` SUCCESS; Presenter task update `0806df81cd442a05d99905c1d46074d725590aae`.
-- Release-00 frozen tree `418ff61219e3f7d7a009bee7be70705addfe853a`; verification run `31930965288` SUCCESS; reconciliation evidence `951c9abbc238cd4cfcd47c7f0d6668276a38a73b`; Classroom task update `205274b63c5065ec3e1d6b46ff38f1b4ec717b4b`.
-- T31 cumulative run `31945620654` SUCCESS at `9d2f5796edb1cd3bb34f56b0433c2c747687e5ed`; T32 cumulative run `31946688302` SUCCESS at `ae74ded11fd561d72dabb6857e5461f830508983`; Recovery task update `b1c8e9674095757c05cbe7d9d6c56ab4577bd1af`.
-- Cycle monitor update: `24a9043229206659848488334aaee2b070be0491`.
+- Document Rerun remains **970 / 18000 = 5.3889%**; T02_02-T06_02 controlled drafts remain 8,9,8,8,9 pages; no write was made to `Document-Rerun-QG`.
+- T33 repair commit `fe4b8262bd9536cc0ce88569ae6031f7604e0132`; repair workflow `31973754438` SUCCESS.
+- T33 local PostgreSQL Integration `b2d3a859eb250134c0b1d8c5666df7bf78d9a193`; Testcontainers Integration `2f1bea871d7b8f49fefdb2e8db699724051470da`; branch-tip workflow `31973983928` IN PROGRESS at consolidation time.
+- Presenter task update `89495c1c46098629346b7072e65d574bf85401c1`.
+- Release-02 manifest/checklist `9e5e570d58527abaf6512851e6cd1dac40242478`; Classroom task update `18b451086a3ac0e56ad0bf59af226445c24d6144`.
+- T31/T32 remain registry-ready; T33 candidate Integration update `3e94825eecec4e8138284cd770d861e5345a9f7c`; Recovery task update `4b43408a533c0d25ddc60f60bfa37fbc6b576430`.
+- Cycle monitor update: `32d0bbe3156199e3dc296b9e398f9bf8edf2592d`.
 - No write was made to the public classroom repository or the read-only Quality Gate repository.
 
 ## Hard Rules
