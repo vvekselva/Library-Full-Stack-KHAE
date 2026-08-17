@@ -11,9 +11,8 @@
 - T46-T50: OPEN candidate.
 - T46 all four component checkpoints are immutable VERIFIED GREEN.
 - T47 Service, Unit, local PostgreSQL Integration and PostgreSQL 18 Testcontainers Integration are immutable VERIFIED GREEN.
-- T47 Assigned Frontend `38173db4...` remains provisional because exact green CI evidence was not independently retrievable this cycle.
-- T48 source reconciliation artifact `d1cc4cfeb43f06be23b52677a2d860c85935e990` is preparation evidence only and does not make T48 registry-ready.
-- T48-T50 remain incomplete.
+- T47 Assigned Frontend remains provisional. Branch artifact blob is `11f6b067f234fdc36779f5080e4cfe66fd338472`; fresh CI reverification trigger commit is `cbc9fdcbfda18d644833815175672e3149d87aa4`.
+- T48 source reconciliation `d1cc4cfeb43f06be23b52677a2d860c85935e990` remains preparation evidence only.
 - `freeze_allowed=false` until every T46-T50 component checkpoint and registry-tip CI is verified.
 
 ## Current stream accounting
@@ -27,8 +26,7 @@ Recovery component weights are: registry coverage 40%, selection/dependency desi
 - State: **T46-T50 CANDIDATE OPEN / NO NEW RECOVERY PERCENTAGE GATE**.
 
 ## Tasks Taken Up This Cycle
-- Agent 8 revalidated the T46-T50 candidate against the unresolved T47 Frontend CI gate.
-- Captured T48 reconciliation `d1cc4cfe...` only as provisional preparation evidence and retained `freeze_allowed=false`.
+- Agent 8 revalidated the T46-T50 candidate and captured the fresh T47 CI reverification trigger as provisional evidence only.
 
 ## Tasks Closed This Cycle
 No Recovery percentage-bearing gate closed.
@@ -41,4 +39,4 @@ No Recovery percentage-bearing gate closed.
 - Final integration — BLOCKED by remaining Presenter, Document and Classroom prerequisites.
 
 ## Open More Than 3 Cycles / Agent 8 Action Taken in This Cycle
-Recovery has **2 cycles without percentage increase** after the accounting reconciliation reset. **Action Taken:** revalidated immutable T47 evidence, captured T48 reconciliation only as non-credit preparation evidence, and kept `freeze_allowed=false`; no false Recovery credit was applied.
+Recovery has **3 cycles without percentage increase**, below the >3-cycle threshold. **Action Taken:** captured fresh branch-tip T47 verification-trigger evidence and retained `freeze_allowed=false`; no false Recovery credit was applied.
