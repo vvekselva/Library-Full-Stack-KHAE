@@ -11,11 +11,10 @@
 - T53 Service, Unit, combined Integration and Assigned Frontend are CLOSED / VERIFIED GREEN.
 - **T54 Service — IMPLEMENTED / CI UNVERIFIED** at `3f8ebd45cf15c48418a9552fa09811612ddc7100`.
 - **T54 focused Unit Test — IMPLEMENTED / CI UNVERIFIED** at `1e37f0f25ba9765eb23caca8af23eb1ad5c942ca`.
-- The Presenter workflow is correctly configured for pushes to `Presenter-Solutions-*` in `.github/workflows/presenter-solution-build.yml`.
-- Because the connected push-run discovery surface still did not expose an exact completed branch-tip run for the T54 Service+Unit tip, a private CI evidence marker was committed at `06721881820a09f40668ba985176ee02d8ec39f4` to force a fresh exact Presenter CI boundary without changing application behavior.
-- T54 Service/Unit remain uncredited until backend-test and frontend-build are both exact-green for the new branch tip.
-- T54 Integration and Assigned Frontend remain BLOCKED behind that exact green Service+Unit gate.
-- T55 source-only readiness inspection remains permitted; no T55 implementation has started.
+- Fresh exact T54 CI marker / branch tip remains `06721881820a09f40668ba985176ee02d8ec39f4`; branch inspection confirms it is still the current head. `fetch_commit_workflow_runs` exposes no run for this push commit, so exact Actions completion evidence is still unavailable through the connected run-discovery surface.
+- T54 Service/Unit remain uncredited; Integration and Assigned Frontend remain BLOCKED.
+- **T55 Search Reservation source/contract reconciliation — CLOSED as a non-percentage prerequisite.** `SearchReservationServiceImpl` is a synthetic hard-coded stub. The authoritative REST boundary is `GET /rest/reservations/search?text=...`; service interface is `searchReservation(String text)`; `ReservationDao.search(text)` performs reservation-number substring search ordered by `reservationId`; response mapping is `ReservationDtoDoMapper.toResponse(...)`.
+- T55 implementation remains BLOCKED behind ordered T54 completion.
 
 ## Current stream accounting
 Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300 checkpoints.
@@ -23,24 +22,25 @@ Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300 checkpoints.
 - Updated: **87.3333%**.
 - Increase: **+0.0000 percentage points**.
 - Verified total: **262 / 300**.
-- State: **IN PROGRESS — T54 SERVICE/UNIT IMPLEMENTED; FRESH EXACT CI GATE TRIGGERED, NO CREDIT YET.**
+- Cycles without increase: **2**.
+- State: **IN PROGRESS — T54 CI GATE BLOCKED ON EXACT ACTIONS EVIDENCE; T55 SOURCE CONTRACT RECONCILED.**
 
 ## Tasks Taken Up This Cycle
-- Agent 1 revalidated the current Presenter branch and exact T54 Service/Unit identities.
-- Agent 2 verified that the Presenter workflow definition still triggers on every `Presenter-Solutions-*` push and that the connected commit-status surface does not substitute for Actions check evidence.
-- Agent 1 forced a new exact branch-tip CI boundary by adding `.project/presenter-ci/T54_SERVICE_UNIT_GATE.md` at `06721881820a09f40668ba985176ee02d8ec39f4`; this marker explicitly authorizes no downstream work by itself.
-- Agent 3 retained T55 source-only readiness; no dependency-violating implementation was started.
-- Agent 6 retained the frontend guard; T54 Assigned Frontend remains blocked until combined Integration is green.
+- Agent 1 revalidated `Presenter-Solutions-T51-T55` at branch head `06721881820a09f40668ba985176ee02d8ec39f4`.
+- Agent 2 queried exact commit workflow discovery for `06721881...`; no push-run result is exposed, so the Service/Unit checkpoint remains uncredited.
+- Agent 3 completed T55 source/contract reconciliation using `SearchReservationServiceImpl`, `SearchReservationService`, `ReservationDao`, `ReservationRestController`, and `ReservationDtoDoMapper`.
+- Agent 6 retained the T54/T55 frontend dependency guard; no frontend or Integration work started prematurely.
 
 ## Tasks Closed This Cycle
-None. CI triggering and evidence inspection are not percentage-bearing completion.
+- **T55 Search Reservation source/contract reconciliation — CLOSED as a non-percentage prerequisite.** Exact implementation boundary is now frozen for later execution; no percentage credit is attached to this prerequisite.
 
 ## Tasks In Progress / Blocked
-- T54 Service + Unit — IMPLEMENTED at `3f8ebd45...` / `1e37f0f2...`; fresh exact CI gate tip `06721881...` awaiting exposed green Actions evidence.
-- T54 Integration — BLOCKED until Service/Unit exact branch-tip CI is fully green.
+- T54 Service + Unit — IMPLEMENTED / UNVERIFIED / UNCREDITED; exact green branch-tip Actions evidence still required.
+- T54 Integration — BLOCKED until T54 Service+Unit exact branch-tip CI is fully green.
 - T54 Assigned Frontend — BLOCKED until combined Integration is green.
-- T55 implementation — BLOCKED behind T54 ordered completion; source-only reconciliation may continue.
+- T55 Service implementation — SOURCE-READY but BLOCKED behind T54 ordered completion.
+- T55 Unit/Integration/Frontend — BLOCKED behind their ordered prerequisites.
 - T51-T55 cumulative final CI/registry checkpoint — BLOCKED until all five Reservation tracks close.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Presenter is not stalled by the >3-cycle rule. **Action Taken in This Cycle:** revalidated the exact T54 branch boundary and Presenter workflow trigger, forced a fresh private branch-tip CI run at `06721881820a09f40668ba985176ee02d8ec39f4`, and stopped before Integration because exact green Actions evidence is still required.
+Presenter is not stalled by the >3-cycle rule. **Action Taken in This Cycle:** revalidated the exact T54 branch tip and missing Actions discovery evidence, completed the T55 Search Reservation source/contract reconciliation from repository source, and stopped before T54 Integration/T55 implementation because their dependency gates remain closed.
