@@ -1,0 +1,50 @@
+version: 1
+batch: T41-T45
+module: Book Issue
+status: OPEN_SOURCE_RECONCILED
+freeze_allowed: false
+presenter_branch: Presenter-Solutions-T41-T45
+base_verified_registry: 25581a24d5e85c9ef261f072316282a0b0431bd8
+source_reconciliation_commit: 44a2f4df8cecacf8831f6f7ca88c0a8fa87c5b0f
+tracks:
+  T41:
+    operation: Create Book Issue
+    source_reconciled: true
+    service: pending
+    unit_test: pending
+    integration: pending
+    testcontainers: pending
+    assigned_frontend: pending
+  T42:
+    operation: Read Book Issue
+    source_reconciled: true
+    service: pending
+    unit_test: pending
+    integration: pending
+    testcontainers: pending
+    assigned_frontend: pending
+  T43:
+    operation: Update Book Issue
+    source_reconciled: true
+    service: pending
+    unit_test: pending
+    integration: pending
+    testcontainers: pending
+    assigned_frontend: pending
+  T44:
+    operation: Cancel Book Issue
+    source_reconciled: true
+    service: pending
+    unit_test: pending
+    integration: pending
+    testcontainers: pending
+    assigned_frontend: pending
+  T45:
+    operation: Search Book Issue
+    source_reconciled: true
+    service: pending
+    unit_test: pending
+    integration: pending
+    testcontainers: pending
+    assigned_frontend: pending
+freeze_guard: "Do not freeze until all five tracks have immutable Service, Unit, local Integration, PostgreSQL 18 Testcontainers, assigned Frontend and green cumulative/registry-tip CI evidence."
