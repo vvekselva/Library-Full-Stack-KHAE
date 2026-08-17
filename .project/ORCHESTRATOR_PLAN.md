@@ -33,16 +33,16 @@ One primary coordinator remains responsible for dependency checks and consolidat
 ## Current Presenter boundary
 - T01-T45: frozen/verified registries.
 - T46 Create Book Return: Service, Unit, Integration and Assigned Frontend VERIFIED GREEN; final batch registry gate waits for T46-T50 completion.
-- T47 Read Book Return: Service, Unit and Integration VERIFIED GREEN.
-- T47 Assigned Frontend — human-readable component: **Void/Delete Book Return UI** — implementation exists at `frontend/frontend.lib.mgmt/src/tracks/t47-delete-book-return.js`, blob `11f6b067f234fdc36779f5080e4cfe66fd338472`; implementation commit `38173db4b7dd4f89b3c8160d925551f8eb77a97a`. Exact green Actions evidence remains unavailable through the connected Actions surface, so this checkpoint is uncredited.
-- Fresh T47 CI reverification trigger commit: `cbc9fdcbfda18d644833815175672e3149d87aa4`; workflow definition confirms all `Presenter-Solutions-*` pushes trigger backend PostgreSQL tests and frontend Vite build, but the Actions run endpoint is denied to the integration and combined commit status exposes no conclusion.
-- T48 Update Book Return: source reconciliation complete at `d1cc4cfeb43f06be23b52677a2d860c85935e990`; implementation remains blocked until T47 Assigned Frontend closes.
+- T47 Read Book Return: Service, Unit, Integration and Assigned Frontend VERIFIED GREEN.
+- T47 Assigned Frontend / Void Book Return UI exact evidence: implementation commit `38173db4b7dd4f89b3c8160d925551f8eb77a97a`; reverify branch-tip `cbc9fdcbfda18d644833815175672e3149d87aa4`; Actions run `32042595095` completed SUCCESS.
+- T48 Update Book Return: source reconciliation complete at `d1cc4cfeb43f06be23b52677a2d860c85935e990`; Service implementation commit `d171beb685665337dc93dabc42c612b9b64bc82b`; Unit test commit `b3f3cf070ccbb6dd017d53501439ddb1f51b8d47`.
+- T48 exact branch-tip CI `32048602233` is in progress; Service/Unit credit and Integration start remain blocked until this run is green.
 - T49-T50 remain ordered YET TO DO.
 
 ## Current Classroom boundary
 - Release-01 remains blocked by T01_01/T01_03 repository identity/materialization completion.
 - Release-02 application/source acceptance remains anchored at `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb` with controlled-error acceptance run `31989985693`.
-- Release-02 baseline README inconsistency was corrected privately: `BASELINE_README.md` commit `793371388d16fdefb5a7aa539927d738a5b25e41`, blob `01812dbf7c35a215cc831f7e5c767cf96ac9c7fd`. This is prerequisite cleanup, not a release-percentage gate.
+- Release-02 baseline README consistency remains corrected privately at commit `793371388d16fdefb5a7aa539927d738a5b25e41`, blob `01812dbf7c35a215cc831f7e5c767cf96ac9c7fd`; this is prerequisite cleanup, not release-gate credit.
 - Release-02 remains document-gated by T02_02 GENERATING and T02_03 PENDING.
 
 ## Document work during this phase
