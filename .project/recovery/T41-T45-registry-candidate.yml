@@ -1,73 +1,62 @@
 version: 1
 batch: T41-T45
 module: Book Issue
-status: OPEN_T41_T42_T43_COMPONENTS_VERIFIED_T44_T45_PENDING
-freeze_allowed: false
+status: FROZEN_VERIFIED
+freeze_allowed: true
 presenter_branch: Presenter-Solutions-T41-T45
 base_verified_registry: 25581a24d5e85c9ef261f072316282a0b0431bd8
 source_reconciliation_commit: 44a2f4df8cecacf8831f6f7ca88c0a8fa87c5b0f
+verified_registry_commit: 9f4f5e70b48e5eaa0b8296aa23bf19a438a0e33a
+registry_tip_ci: {workflow_run: 32021541997, backend_job: 95362087862, backend_result: SUCCESS, frontend_job: 95362087926, frontend_result: SUCCESS}
 tracks:
   T41:
     operation: Create Book Issue
-    source_reconciled: true
-    application_codes_commit: 4268d84f03eab7e6554a741a4dd5e20260cbd0a1
     service: 6a4aa6bf5f0f47f2bac91ade0af940fb0f8549ce
     unit_test: f171bdb963bc128e8f27f63a99d6ec997ba6e240
-    service_unit_ci: {workflow_run: 31996615824, backend_job: 95289321640, backend_result: SUCCESS, frontend_job: 95289321718, frontend_result: SUCCESS}
     local_integration: 0cdf45ea668dd6ffe8f71270f9f99a7b56484310
-    local_integration_ci: {workflow_run: 32002481031, backend_job: 95305354363, backend_result: SUCCESS, frontend_job: 95305354437, frontend_result: SUCCESS}
     testcontainers: ac877e6b16109255fd44c39a4ecba34e5dc255fc
-    integration_ci: {workflow_run: 32002762781, backend_job: 95306166999, backend_result: SUCCESS, frontend_job: 95306166911, frontend_result: SUCCESS}
     assigned_frontend: fdb3cd7d23b2919c6092c6110cc83388a30e6fe0
     assigned_frontend_path: frontend/frontend.lib.mgmt/src/tracks/t41-update-book-issue.js
-    frontend_ci: {workflow_run: 32003077667, backend_job: 95307055354, backend_result: SUCCESS, frontend_job: 95307055315, frontend_result: SUCCESS}
-    registry_checkpoint: pending_batch_cumulative_ci
+    registry_checkpoint: verified
   T42:
     operation: Read Book Issue
-    source_reconciled: true
     service: f000d3f96d403813ed1797476b2b1a01d7ff47ef
     unit_test: 5d76fd986ce6e7fe41121594a8114df5bf8a0fa0
-    service_unit_ci: {workflow_run: 32005669596, backend_job: 95314528525, backend_result: SUCCESS, frontend_job: 95314528387, frontend_result: SUCCESS}
     local_integration: bf0ed017b48647af5b758c84cb3074f995a407c3
-    local_integration_ci: {workflow_run: 32007424895, backend_job: 95319681801, backend_result: SUCCESS, frontend_job: 95319681625, frontend_result: SUCCESS}
     testcontainers: 7d0e5ea8e3682d86c0beaf142d743421c2e40f17
-    integration_ci: {workflow_run: 32007777271, backend_job: 95320727403, backend_result: SUCCESS, frontend_job: 95320727278, frontend_result: SUCCESS}
-    assignment_reconciliation: 78e68d1ed13a6bea66d0c525291a32dfd0380ee3
-    assignment_reconciliation_path: .presenter/reconciliation/T42-frontend-assignment-authoritative.md
     assigned_frontend: 16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f
     assigned_frontend_path: frontend/frontend.lib.mgmt/src/tracks/t42-delete-book-issue.js
-    frontend_ci: {workflow_run: 32013008131, backend_job: 95336451899, backend_result: SUCCESS, frontend_job: 95336451882, frontend_result: SUCCESS}
-    registry_checkpoint: pending_batch_cumulative_ci
+    registry_checkpoint: verified
   T43:
     operation: Update Book Issue
-    source_reconciled: true
     service: 3cd7ae2e10594bf05e8452daa140cb8c378d66c0
     unit_test: 0aa890bd66e6da270cf4df0527ce603947c4a813
-    service_unit_ci: {workflow_run: 32015802884, backend_job: 95344959983, backend_result: SUCCESS, frontend_job: 95344959916, frontend_result: SUCCESS}
     local_integration: c38c5d2e891767f8c388f3c252b85d126f994e16
-    local_integration_ci: {workflow_run: 32016211744, backend_job: 95346115035, backend_result: SUCCESS, frontend_job: 95346115054, frontend_result: SUCCESS}
     testcontainers: 88c7a13dba4731f9c3bb95b7e8e297105ed0cfd5
-    assignment_reconciliation: 44f29090942d833bc16ab7a214255b6a1a5786d2
-    assignment_reconciliation_path: .presenter/reconciliation/T43-frontend-assignment-authoritative.md
-    integration_ci: {workflow_run: 32016604920, backend_job: 95347315707, backend_result: SUCCESS, frontend_job: 95347315698, frontend_result: SUCCESS}
     assigned_frontend: d32dad80281d62327ce27e9edd3a86c34c640bb4
     assigned_frontend_path: frontend/frontend.lib.mgmt/src/tracks/t43-search-book-issue.js
-    frontend_ci: {workflow_run: 32016956178, backend_job: 95348362510, backend_result: SUCCESS, frontend_job: 95348362622, frontend_result: SUCCESS}
-    registry_checkpoint: pending_batch_cumulative_ci
+    registry_checkpoint: verified
   T44:
     operation: Cancel Book Issue
-    source_reconciled: true
-    service: pending
-    unit_test: pending
-    integration: pending
-    testcontainers: pending
-    assigned_frontend: pending
+    service: 8845e4331279363d91b452397484dc30523436dc
+    unit_test: 23ab71f8e0cf1feb4bb55e29569c15adb10504cd
+    local_integration: e50e567fc93b4c69a89555c5afd7be2daa2dcdfd
+    testcontainers: dd36c03d3671fbd85a337fa7e34dc50bbed0a514
+    assigned_frontend: 23a809f2468c75a5847bd5f65459e23542b17cb2
+    assigned_frontend_path: frontend/frontend.lib.mgmt/src/tracks/t44-create-book-issue.js
+    registry_checkpoint: verified
   T45:
     operation: Search Book Issue
-    source_reconciled: true
-    service: pending
-    unit_test: pending
-    integration: pending
-    testcontainers: pending
-    assigned_frontend: pending
-freeze_guard: "Do not freeze until all five tracks have immutable Service, Unit, local Integration, PostgreSQL 18 Testcontainers, assigned Frontend and green cumulative/registry-tip CI evidence."
+    service: 92fa8905e717ff72dc13aaee450131eb943fd8f6
+    unit_test: 9ed37bda2af21ff91ad41afc87188d3d981898f5
+    service_unit_ci: {workflow_run: 32019458367, backend_job: 95355874960, backend_result: SUCCESS, frontend_job: 95355874881, frontend_result: SUCCESS}
+    local_integration: c5524a615be6eb58dfe7a059f57eab44a2f30398
+    assignment_reconciliation: 584a9a7381aee781e318d9fb8c657c1aaee4b628
+    local_integration_ci: {workflow_run: 32020468327, backend_job: 95358966542, backend_result: SUCCESS, frontend_job: 95358966577, frontend_result: SUCCESS}
+    testcontainers: 6537eec9087f45e5110412fd8a8d69c669669cf6
+    integration_ci: {workflow_run: 32020842753, backend_job: 95360007540, backend_result: SUCCESS, frontend_job: 95360007549, frontend_result: SUCCESS}
+    assigned_frontend: 93d15c382a1a19b8ae48cfea28a5d57524508487
+    assigned_frontend_path: frontend/frontend.lib.mgmt/src/tracks/t45-read-list-book-issue.js
+    frontend_ci: {workflow_run: 32021176199, backend_job: 95360990563, backend_result: SUCCESS, frontend_job: 95360990492, frontend_result: SUCCESS}
+    registry_checkpoint: verified
+freeze_guard: "Satisfied: all five tracks have immutable Service, Unit, local Integration, PostgreSQL 18 Testcontainers, assigned Frontend and green registry-tip CI evidence."
