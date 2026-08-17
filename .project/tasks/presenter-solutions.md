@@ -8,8 +8,8 @@
 - T01-T40: completed/verified batch registries.
 - T41-T45: Book Issue source/contract reconciliation CLOSED on `Presenter-Solutions-T41-T45`.
 - T41 Create Book Issue: **Service + Unit Test + Integration + Assigned Frontend VERIFIED GREEN**; registry pending batch cumulative gate.
-- T42 Read Book Issue: **Service + Unit Test + Integration VERIFIED GREEN**. Assigned Frontend remains BLOCKED because no explicit authoritative T42 frontend assignment record exists in the currently materialized repository evidence.
-- T43-T45: source-reconciled/prerequisite-inspected only; implementation remains behind the active T42 assignment gate under the current ordered plan.
+- T42 Read Book Issue: **Service + Unit Test + Integration VERIFIED GREEN**. The prior frontend-assignment ambiguity is CLOSED by source-backed reconciliation commit `78e68d1ed13a6bea66d0c525291a32dfd0380ee3`; assigned frontend `t42-delete-book-issue.js` is implemented at `16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f`. Exact branch-tip workflow `32013008131` has frontend job `95336451882` SUCCESS while backend job `95336451899` is still running; the Frontend checkpoint is not yet credited.
+- T43-T45: source-reconciled/prerequisite-inspected only; implementation remains behind T42 full branch-tip acceptance under the ordered plan.
 - T46-T60: pending behind batch sequence.
 
 ## T42 exact evidence
@@ -18,35 +18,39 @@
 - Service/Unit workflow `32005669596`: backend `95314528525` SUCCESS; frontend `95314528387` SUCCESS.
 - Local PostgreSQL Integration: `bf0ed017b48647af5b758c84cb3074f995a407c3`; workflow `32007424895`: backend `95319681801` SUCCESS; frontend `95319681625` SUCCESS.
 - PostgreSQL 18 Testcontainers: `7d0e5ea8e3682d86c0beaf142d743421c2e40f17`; workflow `32007777271`: backend `95320727403` SUCCESS; frontend `95320727278` SUCCESS.
-- Assignment-gap evidence: `a7ac9db850fc0ebbbf1934545326501d5f179b35`, `.presenter/reconciliation/T42-frontend-assignment-gap.md`.
-- Branch-tip workflow `32008914264` on `a7ac9db850fc0ebbbf1934545326501d5f179b35`: completed **SUCCESS**. This validates the blocker-evidence branch tip but does not supply or authorize a T42 Frontend assignment.
+- Previous assignment-gap evidence: `a7ac9db850fc0ebbbf1934545326501d5f179b35`.
+- Authoritative reconciliation: `78e68d1ed13a6bea66d0c525291a32dfd0380ee3`, `.presenter/reconciliation/T42-frontend-assignment-authoritative.md`.
+- Reconciliation basis: frozen T36-T40 and T31-T35 registries independently establish Read → Delete/Deactivate frontend assignment; live `BookIssueRestController` proves `DELETE /rest/issues/{id}` with code `44` / `Book Issue Cancelled Successfully`.
+- Assigned frontend implementation: `16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f`, `frontend/frontend.lib.mgmt/src/tracks/t42-delete-book-issue.js`.
+- Exact branch-tip workflow `32013008131`: frontend `95336451882` SUCCESS; backend `95336451899` IN_PROGRESS at Presenter Maven tests.
 
 ## Current stream accounting
 Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300 checkpoints.
 - T01-T40 verified: 200 checkpoints.
 - T41 verified component checkpoints: 4.
-- T42 Service + Unit + Integration: 3.
-- Verified total: **207 / 300 = 69.0000%**.
+- T42 verified checkpoints before frontend acceptance: 3.
+- Verified total currently remains **207 / 300 = 69.0000%** until exact branch-tip backend CI is green.
 
 - Previous: **69.0000%**
 - Updated: **69.0000%**
 - Increase: **+0.0000%**
-- State: **STALE FOR PERCENTAGE — T42 FRONTEND BLOCKED ON AUTHORITATIVE ASSIGNMENT RECORD**.
+- State: **ACTIVE — T42 ASSIGNMENT BLOCKER CLOSED; FRONTEND CI ACCEPTANCE IN PROGRESS**.
 
 ## Tasks Taken Up This Cycle
-- Agents 1/2 revalidated the live `Presenter-Solutions-T41-T45` head and current Actions state.
-- Agent 3 rechecked the ordered T43-T45 boundary; no downstream implementation was started.
-- Agent 6 verified branch-tip workflow `32008914264` is SUCCESS and retained the T42 Frontend guard.
+- Agent 1: reconciled the T42 frontend assignment against immutable registries and current Book Issue API contract.
+- Agent 2: materialized the authoritative reconciliation record on the Presenter branch.
+- Agent 6: implemented the exact assigned `t42-delete-book-issue.js` frontend and triggered branch-tip CI.
+- Agent 3: preserved the ordered T43-T45 gate; no downstream implementation was started before T42 full CI acceptance.
 
 ## Tasks Closed This Cycle
-- T42 assignment-gap branch-tip CI evidence capture — **CLOSED** as non-percentage evidence.
-- No percentage-bearing Presenter checkpoint closed.
+- T42 missing-authoritative-frontend-assignment blocker — **CLOSED** by commit `78e68d1...`.
+- T42 assigned frontend implementation — **IMPLEMENTED**, but percentage checkpoint remains open pending exact branch-tip backend CI.
 
 ## Tasks In Progress / Blocked
-- T42 Assigned Frontend — **BLOCKED** until an explicit authoritative assignment record is materialized/source-verified.
-- T41/T42 registry checkpoints — BLOCKED until T42 Frontend, T43-T45 and cumulative/registry-tip CI are complete.
-- T43-T45 implementation — held behind current ordered gate; source reconciliation remains available.
+- T42 Assigned Frontend acceptance — IN PROGRESS on workflow `32013008131`; frontend green, backend regression running.
+- T41/T42 registry checkpoints — BLOCKED until T42 Frontend CI, T43-T45 and cumulative/registry-tip CI are complete.
+- T43-T45 implementation — held behind current ordered gate until T42 exact branch-tip CI completes green.
 - T46-T60 — pending behind batch sequence.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Presenter has **2 consecutive cycles without percentage increase**. **Action Taken:** current branch head and Actions were revalidated, and the successful blocker-evidence branch-tip run `32008914264` was captured without treating it as a Frontend authorization or percentage checkpoint.
+Presenter has **3 consecutive cycles without percentage increase** at this checkpoint. **Action Taken:** closed the long-standing T42 assignment ambiguity with source-backed evidence, implemented the assigned frontend and launched exact branch-tip CI. No percentage was credited while backend regression is still running.
