@@ -23,7 +23,7 @@ No Document lane was assigned in this coordinator cycle. No Quality Gate reposit
 - Updated: **5.3889%**
 - Increase: **+0.0000%**
 - Completed stage points: **970 / 18000**
-- Cycles without increase: **20**
+- Cycles without increase: **21**
 - State: **STALE BY PERCENTAGE / UNFINISHED UPSTREAM DEPENDENCY**.
 
 ## Tasks Closed This Cycle
@@ -35,4 +35,4 @@ No Document lane was assigned in this coordinator cycle. No Quality Gate reposit
 - Approved/repository-verified rerun documents remain required before later Classroom releases can materialize.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Document Rerun is open for **25 coordinator cycles** and has **20 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** dependency state was revalidated only for Classroom gating; no Document worker was allocated, no progress was credited, and no QG/public write occurred.
+Document Rerun is open for **26 coordinator cycles** and has **21 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** dependency state was revalidated for Classroom gating only; no Document worker was allocated, no progress was credited, and no Quality Gate/public write occurred.
