@@ -1,7 +1,7 @@
 version: 1
 batch: T41-T45
 module: Book Issue
-status: OPEN_T41_COMPONENTS_VERIFIED
+status: OPEN_T41_COMPONENTS_VERIFIED_T42_SERVICE_UNIT_VERIFIED
 freeze_allowed: false
 presenter_branch: Presenter-Solutions-T41-T45
 base_verified_registry: 25581a24d5e85c9ef261f072316282a0b0431bd8
@@ -45,11 +45,24 @@ tracks:
   T42:
     operation: Read Book Issue
     source_reconciled: true
-    service: pending
-    unit_test: pending
-    integration: pending
-    testcontainers: pending
-    assigned_frontend: pending
+    service: f000d3f96d403813ed1797476b2b1a01d7ff47ef
+    unit_test: 5d76fd986ce6e7fe41121594a8114df5bf8a0fa0
+    service_unit_ci:
+      workflow_run: 32005669596
+      backend_job: 95314528525
+      backend_result: SUCCESS
+      frontend_job: 95314528387
+      frontend_result: SUCCESS
+    local_integration: bf0ed017b48647af5b758c84cb3074f995a407c3
+    local_integration_ci:
+      workflow_run: 32007424895
+      backend_job: 95319681801
+      backend_result: IN_PROGRESS
+      frontend_job: 95319681625
+      frontend_result: SUCCESS
+    testcontainers: pending_local_integration_green
+    assigned_frontend: pending_integration_green
+    registry_checkpoint: pending_batch_cumulative_ci
   T43:
     operation: Update Book Issue
     source_reconciled: true
