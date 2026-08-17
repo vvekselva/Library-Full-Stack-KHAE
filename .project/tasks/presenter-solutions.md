@@ -13,14 +13,14 @@ Do not start Integration before Service + Unit Test branch-tip CI is green. Do n
 - T32: 80%; final registry checkpoint pending T31-T35 batch.
 - T33: 80%; final registry checkpoint pending T31-T35 batch.
 - T34: **80%**; Service + Unit Test + Integration + assigned Frontend verified green; cumulative run `31982423259` SUCCESS; final batch registry checkpoint pending.
-- T35: **40% verified**; route/envelope reconciliation CLOSED; Service + Unit Test verified green in `31982423259`. Local PostgreSQL Integration `6881ec4a...` and PostgreSQL 18 Testcontainers Integration `31c51de7...` are committed; run `31982678321` is validating them, so Integration is not yet credited.
+- T35: **40% verified**; route/envelope reconciliation, Service and Unit Test are CLOSED GREEN. The live `SearchBookCopyServiceImpl` is implemented with null/blank validation, trim normalization, DAO search and DTO mapping; it is not a hard-coded STUB. Local PostgreSQL Integration `6881ec4a...` and PostgreSQL 18 Testcontainers Integration `31c51de7...` are committed, but the percentage-bearing Integration gate is FAILED.
 - T36-T60: pending unless newer verified evidence supersedes this file.
 
 ## Current four-lane allocation
 - **Agent 1:** T34 Frontend/cumulative gate — CLOSED GREEN; T34 registry-ready.
-- **Agent 2:** T35 Service — CLOSED GREEN; then advanced local PostgreSQL Integration after the gate opened.
-- **Agent 3:** T35 source/contract/interface/controller/stub reconciliation — CLOSED.
-- **Agent 6:** T35 Unit Test — CLOSED GREEN; PostgreSQL 18 Testcontainers Integration committed; future Frontend pattern inspected only, not implemented before Integration green.
+- **Agent 2:** T35 Integration diagnosis — ACTIVE; exact deterministic CI failure still requires assertion/surefire isolation before any repair.
+- **Agent 3:** T35 source/contract/interface/controller/DAO/seed reconciliation — CLOSED; current source and deterministic seed are internally aligned with the frozen contract.
+- **Agent 6:** T35 Unit Test — CLOSED GREEN; future Frontend remains BLOCKED because Integration is not green.
 
 ## Exact evidence
 ### T34
@@ -39,36 +39,34 @@ Do not start Integration before Service + Unit Test branch-tip CI is green. Do n
 - Unit Test `126fe8493f80d99ae1c5b1bcdfcaab06fb5b9823`.
 - Service/Unit verification run `31982423259`: SUCCESS.
 - Local PostgreSQL Integration `6881ec4a108fd4eb460e78b01d737b4929fc2490`.
-- PostgreSQL 18 Testcontainers Integration `31c51de7f11fc56faa56239430f62284a5c0a597`.
-- Integration run `31982678321`: IN PROGRESS at this update; no Integration credit yet.
+- PostgreSQL 18 Testcontainers Integration branch tip `31c51de7f11fc56faa56239430f62284a5c0a597`.
+- Integration run `31982678321`: frontend-build `95252157100` SUCCESS; original backend-test `95252157107` FAILURE.
+- The failed backend job was rerun without changing source. Replacement backend job `95256133626` also finished FAILURE. This closes the transient-failure hypothesis: the T35 Integration failure is deterministic on the unchanged branch tip.
+- Connector inspection confirmed the live service, DAO, mapper, deterministic `ACC-0001`–`ACC-0004` seed and T35 integration sources are structurally aligned. The connector's exposed annotation/log surface did not reveal the exact Maven/Surefire failing assertion, so no speculative code change was made.
 
 ## Current stream accounting
-- Previous: **55.0000%**
+- Previous: **56.0000%**
 - Updated: **56.0000%**
-- Increase: **+1.0000%**
-- State: **ACTIVE / VERIFIED ADVANCE; T35 INTEGRATION CI IN FLIGHT**.
+- Increase: **+0.0000%**
+- State: **STALE BY PERCENTAGE / T35 INTEGRATION DETERMINISTIC FAILURE UNDER DIAGNOSIS**.
 
 ## Tasks Taken Up This Cycle
-- T34 assigned Frontend implementation and cumulative verification.
-- T35 exact controller/route/envelope reconciliation.
-- T35 Service + focused Unit Test implementation and verification.
-- T35 local PostgreSQL + PostgreSQL 18 Testcontainers Integration implementation.
+- Reconcile the live T35 implementation, DAO, mapper, deterministic Flyway seed and both Integration tests against the frozen contract.
+- Rerun only failed backend job `95252157107` to distinguish transient CI failure from deterministic Integration failure.
+- Inspect the future Frontend boundary only; do not implement it while Integration is failed.
 
 ## Tasks Closed This Cycle
-- T34 Frontend checkpoint — CLOSED GREEN.
-- T34 cumulative registry-readiness evidence — CLOSED GREEN; track registry-ready.
-- T35 source/route/envelope reconciliation — CLOSED.
-- T35 Service checkpoint — CLOSED GREEN.
-- T35 Unit Test checkpoint — CLOSED GREEN.
-- T35 local/Testcontainers Integration source work — CLOSED as source commits; percentage-bearing Integration gate remains IN PROGRESS.
+- T35 transient-vs-deterministic CI diagnosis — CLOSED: deterministic failure proven by replacement backend job `95256133626` FAILURE on unchanged source.
+- T35 source/seed mismatch hypothesis — CLOSED: current source and deterministic seed remain aligned; no evidence supports a blind service/seed rewrite.
 
-## Tasks In Progress
-- T35 Integration workflow `31982678321`.
-- T35 Frontend — BLOCKED until Integration workflow is fully green.
+## Tasks In Progress / Blocked
+- T35 exact Integration failure isolation — IN PROGRESS; obtain the precise Maven/Surefire assertion/error before modifying source or tests.
+- T35 Integration percentage gate — FAILED / not credited.
+- T35 Frontend — BLOCKED until Integration is green.
 - T31-T35 batch freeze — BLOCKED until T35 becomes registry-ready.
 
 ## Action Taken in This Cycle
-Used the first green shared gate to credit only verified checkpoints, then immediately advanced the newly eligible T35 Integration stage. The future T35 frontend pattern was inspected during CI time but no frontend implementation was committed prematurely.
+Inspected the current T35 service/DAO/mapper/tests/seed, disproved the stale hard-coded-STUB description, and reran only the failed backend CI job. The rerun failed again on the unchanged branch tip, proving a deterministic Integration problem. Because the exposed CI annotation remained generic and the exact failing assertion was not available, no speculative patch was committed and all dependent work remains correctly blocked.
 
 ## Completion rule
-Credit T35 Integration only after workflow `31982678321` is fully green. Only then may the assigned T35 Frontend be implemented.
+Credit T35 Integration only after a repaired workflow is fully green. Only then may the assigned T35 Frontend be implemented.
