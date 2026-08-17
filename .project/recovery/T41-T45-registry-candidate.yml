@@ -1,7 +1,7 @@
 version: 1
 batch: T41-T45
 module: Book Issue
-status: OPEN_T41_COMPONENTS_VERIFIED_T42_INTEGRATION_VERIFIED
+status: OPEN_T41_COMPONENTS_VERIFIED_T42_INTEGRATION_VERIFIED_FRONTEND_ASSIGNMENT_BLOCKED
 freeze_allowed: false
 presenter_branch: Presenter-Solutions-T41-T45
 base_verified_registry: 25581a24d5e85c9ef261f072316282a0b0431bd8
@@ -13,61 +13,28 @@ tracks:
     application_codes_commit: 4268d84f03eab7e6554a741a4dd5e20260cbd0a1
     service: 6a4aa6bf5f0f47f2bac91ade0af940fb0f8549ce
     unit_test: f171bdb963bc128e8f27f63a99d6ec997ba6e240
-    service_unit_ci:
-      workflow_run: 31996615824
-      backend_job: 95289321640
-      backend_result: SUCCESS
-      frontend_job: 95289321718
-      frontend_result: SUCCESS
+    service_unit_ci: {workflow_run: 31996615824, backend_job: 95289321640, backend_result: SUCCESS, frontend_job: 95289321718, frontend_result: SUCCESS}
     local_integration: 0cdf45ea668dd6ffe8f71270f9f99a7b56484310
-    local_integration_ci:
-      workflow_run: 32002481031
-      backend_job: 95305354363
-      backend_result: SUCCESS
-      frontend_job: 95305354437
-      frontend_result: SUCCESS
+    local_integration_ci: {workflow_run: 32002481031, backend_job: 95305354363, backend_result: SUCCESS, frontend_job: 95305354437, frontend_result: SUCCESS}
     testcontainers: ac877e6b16109255fd44c39a4ecba34e5dc255fc
-    integration_ci:
-      workflow_run: 32002762781
-      backend_job: 95306166999
-      backend_result: SUCCESS
-      frontend_job: 95306166911
-      frontend_result: SUCCESS
+    integration_ci: {workflow_run: 32002762781, backend_job: 95306166999, backend_result: SUCCESS, frontend_job: 95306166911, frontend_result: SUCCESS}
     assigned_frontend: fdb3cd7d23b2919c6092c6110cc83388a30e6fe0
     assigned_frontend_path: frontend/frontend.lib.mgmt/src/tracks/t41-update-book-issue.js
-    frontend_ci:
-      workflow_run: 32003077667
-      backend_job: 95307055354
-      backend_result: SUCCESS
-      frontend_job: 95307055315
-      frontend_result: SUCCESS
+    frontend_ci: {workflow_run: 32003077667, backend_job: 95307055354, backend_result: SUCCESS, frontend_job: 95307055315, frontend_result: SUCCESS}
     registry_checkpoint: pending_batch_cumulative_ci
   T42:
     operation: Read Book Issue
     source_reconciled: true
     service: f000d3f96d403813ed1797476b2b1a01d7ff47ef
     unit_test: 5d76fd986ce6e7fe41121594a8114df5bf8a0fa0
-    service_unit_ci:
-      workflow_run: 32005669596
-      backend_job: 95314528525
-      backend_result: SUCCESS
-      frontend_job: 95314528387
-      frontend_result: SUCCESS
+    service_unit_ci: {workflow_run: 32005669596, backend_job: 95314528525, backend_result: SUCCESS, frontend_job: 95314528387, frontend_result: SUCCESS}
     local_integration: bf0ed017b48647af5b758c84cb3074f995a407c3
-    local_integration_ci:
-      workflow_run: 32007424895
-      backend_job: 95319681801
-      backend_result: SUCCESS
-      frontend_job: 95319681625
-      frontend_result: SUCCESS
+    local_integration_ci: {workflow_run: 32007424895, backend_job: 95319681801, backend_result: SUCCESS, frontend_job: 95319681625, frontend_result: SUCCESS}
     testcontainers: 7d0e5ea8e3682d86c0beaf142d743421c2e40f17
-    integration_ci:
-      workflow_run: 32007777271
-      backend_job: 95320727403
-      backend_result: SUCCESS
-      frontend_job: 95320727278
-      frontend_result: SUCCESS
-    assigned_frontend: pending_exact_assignment_source
+    integration_ci: {workflow_run: 32007777271, backend_job: 95320727403, backend_result: SUCCESS, frontend_job: 95320727278, frontend_result: SUCCESS}
+    assigned_frontend: blocked_missing_authoritative_assignment_record
+    assignment_gap_evidence_commit: a7ac9db850fc0ebbbf1934545326501d5f179b35
+    assignment_gap_evidence_path: .presenter/reconciliation/T42-frontend-assignment-gap.md
     registry_checkpoint: pending_batch_cumulative_ci
   T43:
     operation: Update Book Issue
