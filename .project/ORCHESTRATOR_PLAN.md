@@ -31,13 +31,14 @@ One primary coordinator remains responsible for dependency checks and consolidat
 | Agent 8 | Recovery / Final Integration | Registry candidate, immutable evidence capture and freeze guard | Batch freeze only after all tracks and registry-tip CI are complete |
 
 ## Current Presenter boundary
-- T01-T45: frozen/verified registries.
-- **T46-T50 Book Return batch: FROZEN / VERIFIED** at registry commit `cd03adf2280237f35f85cdced7d97f1f1a888f5e`; exact registry-tip run `32056947711` SUCCESS.
+- T01-T50: frozen/verified registries.
 - **T51-T55 Reservation batch: ACTIVE** on branch `Presenter-Solutions-T51-T55`.
-- T51 is CLOSED through Assigned Frontend with exact-green Service/Unit, local PostgreSQL Integration, PostgreSQL 18 Testcontainers Integration and frontend evidence.
-- **T52 Read Reservation is CLOSED through Assigned Frontend.** Service `b72e1008760a762d083ae670fe7a45e59c9fee1e` and Unit `4aaa035121eccb3cbdb8ddd7aa5fcdde2ed53c12` are green on run `32064377144`; local Integration `853605c6b3f7779b2301075d65cb6dd58c996d4e` is green on run `32069010602`; PostgreSQL 18 Testcontainers `f4f86e4bce81505e2119e71168648f19550e58d4` is green on run `32069419683`; Assigned Frontend `e3777b25e3dc2db829fc6676ba329454b1921a57` is green on run `32069835651`.
-- **T53 Update Reservation Service** `7b4224faa28ebad683e835f7301b12b6078ad3f2` and **Unit Test** `d1fbee463fcbac923803780e415b360fd9346eff` are implemented. Exact branch-tip run `32070287399` has frontend-build `95511738462` SUCCESS and backend-test `95511738275` IN_PROGRESS at consolidation.
-- T53 Integration must not start until run `32070287399` is fully green. T53 Assigned Frontend remains behind Integration. T54-T55 remain dependency-blocked, though source inspection is allowed independently.
+- T51 and T52 are CLOSED through Assigned Frontend.
+- **T53 Update Reservation Service** `7b4224faa28ebad683e835f7301b12b6078ad3f2` and **Unit Test** `d1fbee463fcbac923803780e415b360fd9346eff` are CLOSED / VERIFIED GREEN by exact run `32070287399`.
+- **T53 local PostgreSQL Integration** `4ac36fe1fe49132a5f24a8044b0de0538d65d66b` is VERIFIED GREEN by exact run `32070690552`.
+- **T53 PostgreSQL 18 Testcontainers Integration** `06bc35a831140793cf208effb06423aa9d4d2aeb` is implemented. Exact run `32071381507` has frontend-build `95515164698` SUCCESS and backend-test `95515164704` IN_PROGRESS at consolidation.
+- T53 combined Integration must not be credited or followed by Assigned Frontend until run `32071381507` is fully green.
+- T54 source inspection confirmed `DeleteReservationServiceImpl` remains a synthetic teaching stub; implementation remains blocked behind T53 frontend closure. T55 remains dependency-blocked.
 - T51-T55 registry freeze remains blocked until all five Reservation tracks and cumulative registry-tip CI are complete.
 
 ## Current Classroom boundary
