@@ -13,12 +13,12 @@ Do not start Integration before Service + Unit Test branch-tip CI is green. Do n
 - T32: 80%; final registry checkpoint pending T31-T35 batch.
 - T33: 80%; final registry checkpoint pending T31-T35 batch.
 - T34: **80%**; Service + Unit Test + Integration + assigned Frontend verified green; cumulative run `31982423259` SUCCESS; final batch registry checkpoint pending.
-- T35: **40% verified**; route/envelope reconciliation, Service and Unit Test are CLOSED GREEN. The live `SearchBookCopyServiceImpl` is implemented with null/blank validation, trim normalization, DAO search and DTO mapping; it is not a hard-coded STUB. Local PostgreSQL Integration `6881ec4a...` and PostgreSQL 18 Testcontainers Integration `31c51de7...` are committed, but the percentage-bearing Integration gate is FAILED.
+- T35: **40% verified**; route/envelope reconciliation, Service and Unit Test are CLOSED GREEN. The live `SearchBookCopyServiceImpl` is implemented with null/blank validation, trim normalization, DAO search and DTO mapping; it is not a hard-coded STUB. Local PostgreSQL Integration `6881ec4a...` and PostgreSQL 18 Testcontainers Integration `31c51de7...` are committed, but the percentage-bearing Integration gate remains FAILED.
 - T36-T60: pending unless newer verified evidence supersedes this file.
 
 ## Current four-lane allocation
 - **Agent 1:** T34 Frontend/cumulative gate — CLOSED GREEN; T34 registry-ready.
-- **Agent 2:** T35 Integration diagnosis — ACTIVE; exact deterministic CI failure still requires assertion/surefire isolation before any repair.
+- **Agent 2:** T35 Integration diagnosis — ACTIVE; deterministic failure proven, exact Maven/Surefire cause still not exposed by available job logs/annotations.
 - **Agent 3:** T35 source/contract/interface/controller/DAO/seed reconciliation — CLOSED; current source and deterministic seed are internally aligned with the frozen contract.
 - **Agent 6:** T35 Unit Test — CLOSED GREEN; future Frontend remains BLOCKED because Integration is not green.
 
@@ -40,9 +40,12 @@ Do not start Integration before Service + Unit Test branch-tip CI is green. Do n
 - Service/Unit verification run `31982423259`: SUCCESS.
 - Local PostgreSQL Integration `6881ec4a108fd4eb460e78b01d737b4929fc2490`.
 - PostgreSQL 18 Testcontainers Integration branch tip `31c51de7f11fc56faa56239430f62284a5c0a597`.
+- Commit `31c51de7...` changes only `SearchBookCopyTestcontainersIntegrationTest.java`; its test searches `0004`, expects exactly Book Copy ID 4 / `ACC-0004`, and expects `missing` to return an empty list.
+- Deterministic seed V002 contains Book Copy ID 4 = `ACC-0004`, AVAILABLE, and four total seeded copies `ACC-0001` through `ACC-0004`; this directly matches the Testcontainers assertion fixture.
+- Existing green Testcontainers tests use the same Spring Boot 4.1 / Testcontainers PostgreSQL 18 pattern and `org.testcontainers.postgresql.PostgreSQLContainer`, so the T35 import/container style is not uniquely divergent.
 - Integration run `31982678321`: frontend-build `95252157100` SUCCESS; original backend-test `95252157107` FAILURE.
-- The failed backend job was rerun without changing source. Replacement backend job `95256133626` also finished FAILURE. This closes the transient-failure hypothesis: the T35 Integration failure is deterministic on the unchanged branch tip.
-- Connector inspection confirmed the live service, DAO, mapper, deterministic `ACC-0001`–`ACC-0004` seed and T35 integration sources are structurally aligned. The connector's exposed annotation/log surface did not reveal the exact Maven/Surefire failing assertion, so no speculative code change was made.
+- Same-source failed-job rerun `95256133626` also FAILURE. Job steps show setup/container initialization succeeded and only `Run Presenter solution tests with PostgreSQL` failed; the connector exposes no Surefire artifact and the raw job-log endpoint returns no usable test text.
+- Therefore no source-grounded assertion-level repair can yet be justified. No speculative patch was made.
 
 ## Current stream accounting
 - Previous: **56.0000%**
@@ -51,22 +54,22 @@ Do not start Integration before Service + Unit Test branch-tip CI is green. Do n
 - State: **STALE BY PERCENTAGE / T35 INTEGRATION DETERMINISTIC FAILURE UNDER DIAGNOSIS**.
 
 ## Tasks Taken Up This Cycle
-- Reconcile the live T35 implementation, DAO, mapper, deterministic Flyway seed and both Integration tests against the frozen contract.
-- Rerun only failed backend job `95252157107` to distinguish transient CI failure from deterministic Integration failure.
-- Inspect the future Frontend boundary only; do not implement it while Integration is failed.
+- Isolate the T35 branch-tip delta and compare its Testcontainers fixture against deterministic V002 seed data.
+- Inspect failed workflow job steps, annotations/log surfaces, Testcontainers dependency shape and an existing green PostgreSQL 18 Testcontainers test.
+- Keep T35 Frontend blocked until Integration is objectively green.
 
 ## Tasks Closed This Cycle
-- T35 transient-vs-deterministic CI diagnosis — CLOSED: deterministic failure proven by replacement backend job `95256133626` FAILURE on unchanged source.
-- T35 source/seed mismatch hypothesis — CLOSED: current source and deterministic seed remain aligned; no evidence supports a blind service/seed rewrite.
+- T35 Testcontainers fixture-vs-seed mismatch hypothesis — CLOSED: test `0004` expectation and V002 ID 4 / `ACC-0004` are aligned.
+- T35 unique PostgreSQLContainer import/pattern hypothesis — CLOSED: an existing green track uses the same Spring Boot/Testcontainers PostgreSQL 18 pattern.
 
 ## Tasks In Progress / Blocked
-- T35 exact Integration failure isolation — IN PROGRESS; obtain the precise Maven/Surefire assertion/error before modifying source or tests.
+- T35 exact Integration failure isolation — IN PROGRESS; precise Maven/Surefire assertion/error is still not exposed by available CI evidence.
 - T35 Integration percentage gate — FAILED / not credited.
 - T35 Frontend — BLOCKED until Integration is green.
 - T31-T35 batch freeze — BLOCKED until T35 becomes registry-ready.
 
 ## Action Taken in This Cycle
-Inspected the current T35 service/DAO/mapper/tests/seed, disproved the stale hard-coded-STUB description, and reran only the failed backend CI job. The rerun failed again on the unchanged branch tip, proving a deterministic Integration problem. Because the exposed CI annotation remained generic and the exact failing assertion was not available, no speculative patch was committed and all dependent work remains correctly blocked.
+Narrowed the deterministic T35 failure without guessing: inspected commit `31c51de7...`, proved it adds only the T35 PostgreSQL 18 Testcontainers class, reconciled that test's `ACC-0004` expectation against V002, and compared its container pattern with a previously green Testcontainers integration class. CI step evidence confirms container/setup success and failure only inside the Maven presenter-test step, but the connector still exposes no exact Surefire failure text. No speculative source or test change was committed.
 
 ## Completion rule
-Credit T35 Integration only after a repaired workflow is fully green. Only then may the assigned T35 Frontend be implemented.
+Credit T35 Integration only after a source-grounded repair and fully green workflow. Only then may the assigned T35 Frontend be implemented.
