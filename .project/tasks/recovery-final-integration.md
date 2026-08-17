@@ -8,36 +8,41 @@ Registry evidence may be captured incrementally, but a 5-track batch must not be
 
 ## Registry coverage queue
 - T01-T30 registries: VERIFIED.
-- T31: registry-ready; cumulative run `31945620654` SUCCESS.
-- T32: registry-ready; cumulative run `31946688302` SUCCESS.
-- T33: registry-ready; cumulative run `31976478238` SUCCESS.
-- T34: registry-ready; cumulative run `31982423259` SUCCESS after Service + Unit + Integration + Frontend.
-- T35: Service + Unit verified green; local PostgreSQL and PostgreSQL 18 Testcontainers Integration committed. Run `31982678321` backend job `95252157107` FAILED; same-source rerun `95256133626` also FAILED. Deeper source/fixture reconciliation this cycle found no seed mismatch and no unique container-pattern mismatch; Integration still cannot be counted as registry evidence and Frontend remains blocked.
-- T31-T35 freeze: BLOCKED until T35 is registry-ready.
-- Later batches T36-T60: pending Presenter completion.
-- Final reconciliation/integration/freeze: blocked by upstream completion.
+- T31-T35 registry: **FROZEN / VERIFIED**.
+- Frozen registry: `.presenter/solution-registry/T31-T35.yml` at commit `83d51d4343fd79f8609e4bc73a483ce85615a276`.
+- Registry-tip verification run `31990613453`: backend `95273356638` SUCCESS; frontend `95273356652` SUCCESS.
+- Private candidate/evidence record: `.project/recovery/T31-T35-registry-candidate.yml`, now `FROZEN_VERIFIED`, 5/5 ready.
+- T36-T40 through T56-T60: pending Presenter completion.
+- Final registry reconciliation/integration/freeze: blocked by later Presenter batches plus required Document/Classroom release state.
 
-## Candidate preparation
-Private candidate: `.project/recovery/T31-T35-registry-candidate.yml`.
-
-Current ready tracks: **4/5**. `freeze_allowed: false` remains mandatory. Candidate evidence synchronized at `5f314d90b09307cfa302cdaff28d0b2a16fae030`.
+## Correctness recovery performed before freeze
+- Reopened T33/T34 Frontend evidence after detecting mismatch with the established assignment rotation.
+- T33 now uses assigned Search frontend `00f2f244e261f86805cacd35e5b05894d0fb3b46`.
+- T34 now uses assigned Create frontend `6d480c3740424bb0b456393dc1ad0eb4beb737e1`.
+- T35 Integration repaired and verified on run `31990077599`; assigned Read/List frontend `6a5b00a51abae1b077ea4ea644c03866c855ed1d` included in the frozen registry.
+- Corrected cumulative branch-tip run `31990383608` passed before freeze.
 
 ## Current stream accounting
 - Previous: **20.0000%**
 - Updated: **20.0000%**
 - Increase: **+0.0000%**
-- State: **STALE BY PERCENTAGE / FREEZE GUARD ACTIVE — 4/5 READY; T35 INTEGRATION FAILED DETERMINISTICALLY**.
+- State: **SUBSTANTIVE PROGRESS / T31-T35 REGISTRY FREEZE CLOSED; LATER BATCHES + FINAL INTEGRATION REMAIN**.
 
-## Agent 8 Action Taken in This Cycle
-- Consumed deeper Presenter evidence for T35: branch-tip delta is limited to the T35 Testcontainers class; its `ACC-0004` fixture matches V002 and its container pattern matches existing green PostgreSQL 18 tests.
-- Kept T35 out of registry-ready state because the Maven backend Integration job remains failed and no exact Surefire error is available.
-- Preserved T34 as the fourth registry-ready track and maintained `freeze_allowed=false`.
-- Did not attempt T31-T35 freeze or downstream final integration.
+The existing Recovery control plane does not define a numeric sub-allocation for an individual 5-track registry freeze, so no new percentage is invented. The concrete freeze checkpoint is recorded as completed and will feed the next defined Recovery accounting milestone.
+
+## Tasks Taken Up / Closed This Cycle
+- Correct T31-T35 candidate evidence after frontend-assignment reconciliation — CLOSED.
+- Freeze T31-T35 registry — CLOSED.
+- Registry-tip verification — CLOSED GREEN.
 
 ## Tasks In Progress / Blocked
-- T35 exact Integration failure diagnosis — upstream Presenter work in progress.
-- T31-T35 freeze — BLOCKED at 4/5 ready.
+- T36-T40 recovery evidence — BLOCKED pending Presenter implementation.
+- Later registry batches — BLOCKED by corresponding Presenter tracks.
+- Final full-registry reconciliation — BLOCKED until all Presenter batches are verified.
 - Final integration/freeze — BLOCKED by remaining Presenter, Document and Classroom prerequisites.
 
+## Agent 8 Action Taken in This Cycle
+Detected that previous T33/T34 registry-ready evidence used frontend artifacts inconsistent with the established assignment rotation, reopened those checkpoints, consumed the corrected T33/T34/T35 Presenter evidence, waited for cumulative green CI, froze `.presenter/solution-registry/T31-T35.yml`, then required and obtained a fully green registry-tip verification run before closing the batch. No dependent final-integration stage was run prematurely.
+
 ## Completion rule
-No Recovery percentage is credited before its defined registry/freeze checkpoint. Final integration cannot be declared complete until all upstream Presenter, Document and Classroom prerequisites are complete and reconciled by the primary coordinator.
+A batch may close only with exact immutable evidence and green registry-tip validation. Final integration cannot be declared complete until all remaining Presenter batches and required Document/Classroom release prerequisites are complete and reconciled.
