@@ -18,15 +18,16 @@
 - Updated: **5.3889%**
 - Increase: **+0.0000%**
 - Completed stage points: **970 / 18000**
-- Cycles without increase: **32**
+- Cycles without increase: **33**
 - State: **STALE BY PERCENTAGE / UNFINISHED UPSTREAM DEPENDENCY**.
 
 ## Tasks Closed This Cycle
-None. Dependency revalidation is not progress.
+None. Document dependency revalidation is not progress.
 
 ## Tasks In Progress / Blocked
 - T02_02-T06_02 remain GENERATING under the separate Document process; no current eight-lane worker is assigned.
 - T01_01/T01_03 identity-control transition remains unfinished and blocks Classroom Release-01.
+- T02_02/T02_03 continue to block Classroom Release-02 materialization/freeze.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Document Rerun is open for **37 coordinator cycles** and has **32 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** dependency state was re-read only for Classroom gating; no Document worker was allocated, no progress was credited, and no Quality Gate/public write occurred. State **STALE**.
+Document Rerun is open for **38 coordinator cycles** and has **33 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** dependency state was re-read only for Release-01/02 gating; no Document worker was allocated, no Document progress was credited, and no Quality Gate/public write occurred. State **STALE**.
