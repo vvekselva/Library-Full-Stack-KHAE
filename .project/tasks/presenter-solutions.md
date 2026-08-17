@@ -9,64 +9,66 @@ Do not start Integration before Service + Unit Test branch-tip CI is green. Do n
 
 ## Current verified state
 - T01-T30: completed/verified batch registries.
-- T31: 80%; Service + UT + Integration + Frontend complete; final registry checkpoint pending T31-T35 batch.
-- T32: 80%; Service + UT + Integration + Frontend complete; final registry checkpoint pending T31-T35 batch.
-- T33: 80%; Service + Unit Test/repair + Integration + Frontend verified green; final registry checkpoint pending T31-T35 batch.
-- T34: Service + Unit Test + Integration VERIFIED GREEN = 60%. Assigned Frontend implementation committed at `820ae6cf96a2fee1a688383f12db329994ea8cf7`; cumulative branch-tip run `31982423259` is not yet fully green, so Frontend remains uncredited.
-- T35: Presenter-owned route/envelope reconciliation CLOSED. Service implementation committed at `0591d97853970e83be826af8bb9fb1c19ed46b2c` and focused Unit Test at `126fe8493f80d99ae1c5b1bcdfcaab06fb5b9823`; shared branch-tip run `31982423259` remains in progress, so Service/Unit checkpoint is uncredited and Integration remains blocked.
+- T31: 80%; final registry checkpoint pending T31-T35 batch.
+- T32: 80%; final registry checkpoint pending T31-T35 batch.
+- T33: 80%; final registry checkpoint pending T31-T35 batch.
+- T34: **80%**; Service + Unit Test + Integration + assigned Frontend verified green; cumulative run `31982423259` SUCCESS; final batch registry checkpoint pending.
+- T35: **40% verified**; route/envelope reconciliation CLOSED; Service + Unit Test verified green in `31982423259`. Local PostgreSQL Integration `6881ec4a...` and PostgreSQL 18 Testcontainers Integration `31c51de7...` are committed; run `31982678321` is validating them, so Integration is not yet credited.
 - T36-T60: pending unless newer verified evidence supersedes this file.
 
 ## Current four-lane allocation
-- **Agent 1:** T34 Frontend/cumulative CI inspection — implementation exists; frontend job green, backend cumulative job still running.
-- **Agent 2:** T35 Service implementation against the frozen controller/DAO contract — implementation committed; gate waits on CI.
-- **Agent 3:** T35 source/contract/interface/controller/stub reconciliation — CLOSED; route/envelope and response contract frozen from `BookCopyRestController`.
-- **Agent 6:** T35 focused Unit Test + T31-T34 cumulative readiness — unit test committed; no registry promotion while shared CI is incomplete.
+- **Agent 1:** T34 Frontend/cumulative gate — CLOSED GREEN; T34 registry-ready.
+- **Agent 2:** T35 Service — CLOSED GREEN; then advanced local PostgreSQL Integration after the gate opened.
+- **Agent 3:** T35 source/contract/interface/controller/stub reconciliation — CLOSED.
+- **Agent 6:** T35 Unit Test — CLOSED GREEN; PostgreSQL 18 Testcontainers Integration committed; future Frontend pattern inspected only, not implemented before Integration green.
 
-## T34 exact evidence
-- Code `T34_DEACTIVATE_BOOK_COPY = "34"`; REST `DELETE /rest/book-copies/{id}`; controller success message `Book Copy Withdrawn Successfully`.
-- Service `abb23be3f9e10dd53c9bf267a3a02b7acbd3e134`; Unit Test `bc15079bf17a219283f3465083b8577e7f9da16f`.
-- Integration repair commits `325c7102ddc2e9911a4abff6e3ec0e80d7701113` and `2f2081c062585e1a59a924eff8487f5454fd9025`.
-- Integration replacement workflow `31981001820`: SUCCESS; backend `95247637400` SUCCESS; frontend `95247637355` SUCCESS.
-- Assigned frontend `frontend/frontend.lib.mgmt/src/tracks/t34-deactivate-book-copy.js` committed at `820ae6cf96a2fee1a688383f12db329994ea8cf7`. The branch router auto-discovers `tNN-*.js`, so no router edit is required.
-- Current cumulative run `31982423259`: frontend-build job `95251485072` SUCCESS; backend-test job `95251485194` still IN_PROGRESS at consolidation.
+## Exact evidence
+### T34
+- DELETE `/rest/book-copies/{id}`, code `34`.
+- Service `abb23be3...`; Unit Test `bc15079b...`.
+- Integration replacement run `31981001820`: SUCCESS.
+- Frontend `820ae6cf96a2fee1a688383f12db329994ea8cf7`.
+- Cumulative run `31982423259`: frontend `95251485072` SUCCESS; backend `95251485194` SUCCESS.
+- T34 is registry-ready pending batch freeze.
 
-## T35 frozen reconciliation evidence
-- Code `T35_SEARCH_BOOK_COPY = "35"`.
-- Controller: `GET /rest/book-copies/search?text=...`.
-- Envelope: `ApiResponse<List<BookCopyResponseDto>>`, code `35`, message `Book Copy Search Completed Successfully`.
-- Interface: `SearchBookCopyService.searchBookCopy(String text)`.
-- DAO: `BookCopyDao.search(String text)` searches `accessionNumber` using `%text%` and orders by `bookCopyId`.
-- Service replacement `0591d97853970e83be826af8bb9fb1c19ed46b2c`: rejects null/blank text with T35 invalid-input response, trims input, delegates to DAO, maps with `BookCopyDtoDoMapper`.
-- Focused Unit Test `126fe8493f80d99ae1c5b1bcdfcaab06fb5b9823`: trim/delegate/map, invalid input, valid empty result.
-- Service/Unit verification is the same branch-tip run `31982423259`; no checkpoint is credited until its backend job finishes green.
+### T35
+- GET `/rest/book-copies/search?text=...`; `ApiResponse<List<BookCopyResponseDto>>`; code `35`; message `Book Copy Search Completed Successfully`.
+- Interface `SearchBookCopyService.searchBookCopy(String text)`.
+- DAO searches `accessionNumber` with `%text%` and orders by `bookCopyId`.
+- Service `0591d97853970e83be826af8bb9fb1c19ed46b2c`.
+- Unit Test `126fe8493f80d99ae1c5b1bcdfcaab06fb5b9823`.
+- Service/Unit verification run `31982423259`: SUCCESS.
+- Local PostgreSQL Integration `6881ec4a108fd4eb460e78b01d737b4929fc2490`.
+- PostgreSQL 18 Testcontainers Integration `31c51de7f11fc56faa56239430f62284a5c0a597`.
+- Integration run `31982678321`: IN PROGRESS at this update; no Integration credit yet.
 
 ## Current stream accounting
 - Previous: **55.0000%**
-- Updated: **55.0000%**
-- Increase: **+0.0000%**
-- State: **ACTIVE / CI IN FLIGHT — SUBSTANTIVE IMPLEMENTATION COMPLETED BUT NO NEW GREEN CHECKPOINT YET**.
+- Updated: **56.0000%**
+- Increase: **+1.0000%**
+- State: **ACTIVE / VERIFIED ADVANCE; T35 INTEGRATION CI IN FLIGHT**.
 
 ## Tasks Taken Up This Cycle
-- T34 assigned Frontend identity resolution and implementation.
-- T35 route/envelope reconciliation.
-- T35 Service implementation.
-- T35 focused Unit Test implementation.
-- T34/T35 shared cumulative branch-tip validation.
+- T34 assigned Frontend implementation and cumulative verification.
+- T35 exact controller/route/envelope reconciliation.
+- T35 Service + focused Unit Test implementation and verification.
+- T35 local PostgreSQL + PostgreSQL 18 Testcontainers Integration implementation.
 
 ## Tasks Closed This Cycle
-- T35 Presenter-owned route/envelope reconciliation: CLOSED from exact controller source.
-- T34 Frontend implementation work: source commit CLOSED, but percentage-bearing Frontend/cumulative gate remains IN PROGRESS pending full CI.
-- T35 Service and Unit Test source implementation work: commits CLOSED, but percentage-bearing Service/Unit gate remains IN PROGRESS pending full CI.
+- T34 Frontend checkpoint — CLOSED GREEN.
+- T34 cumulative registry-readiness evidence — CLOSED GREEN; track registry-ready.
+- T35 source/route/envelope reconciliation — CLOSED.
+- T35 Service checkpoint — CLOSED GREEN.
+- T35 Unit Test checkpoint — CLOSED GREEN.
+- T35 local/Testcontainers Integration source work — CLOSED as source commits; percentage-bearing Integration gate remains IN PROGRESS.
 
 ## Tasks In Progress
-- Workflow `31982423259`: frontend job green; backend PostgreSQL job still running.
-- T34 Frontend/cumulative checkpoint: waiting for full run green.
-- T35 Service/Unit checkpoint: waiting for full run green.
-- T35 Integration: BLOCKED until Service/Unit gate is green.
-- T31-T35 registry batch: BLOCKED until T34/T35 are registry-ready.
+- T35 Integration workflow `31982678321`.
+- T35 Frontend — BLOCKED until Integration workflow is fully green.
+- T31-T35 batch freeze — BLOCKED until T35 becomes registry-ready.
 
 ## Action Taken in This Cycle
-Implemented eligible Presenter work instead of polling only: added the T34 assigned frontend, completed T35 controller/route/envelope freeze, replaced the T35 hard-coded STUB, added focused Unit Tests, and launched branch-tip verification. No dependent Integration or registry stage was run prematurely.
+Used the first green shared gate to credit only verified checkpoints, then immediately advanced the newly eligible T35 Integration stage. The future T35 frontend pattern was inspected during CI time but no frontend implementation was committed prematurely.
 
 ## Completion rule
-No new percentage is awarded until workflow `31982423259` is fully green. Only then may T34 Frontend be credited and T35 Integration become eligible.
+Credit T35 Integration only after workflow `31982678321` is fully green. Only then may the assigned T35 Frontend be implemented.
