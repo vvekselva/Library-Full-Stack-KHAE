@@ -23,12 +23,12 @@
 - State: **STALE — RELEASES REMAIN DOCUMENT-GATED**.
 
 ## Tasks Taken Up This Cycle
-- Agent 4 revalidated Release-01 against the current Document dependency state.
-- Agent 5 retained the exact Release-02 acceptance evidence and T02 document gate.
-- Agent 7 preserved private-only/no-public/no-Quality-Gate boundaries during the Presenter CI window.
+- Agent 4 revalidated Release-01 document identity prerequisites against the current Document queue.
+- Agent 5 retained the exact Release-02 acceptance evidence and confirmed T02 document gating remains unchanged.
+- Agent 7 revalidated the private-only promotion boundary; no public or Quality-Gate write was performed.
 
 ## Tasks Closed This Cycle
-No percentage-bearing Classroom task closed; prior green acceptance and dependency checks are not new progress.
+No percentage-bearing Classroom task closed; dependency revalidation is not progress.
 
 ## Tasks In Progress / Blocked
 - Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 identity transition.
@@ -36,4 +36,4 @@ No percentage-bearing Classroom task closed; prior green acceptance and dependen
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Classroom Release has **35 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** Agents 4/5/7 revalidated the exact Release-01/02 document gates and retained the previously green Release-02 acceptance boundary; no blocked candidate was materialized and no Public/Quality-Gate write occurred.
+Classroom Release has **36 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** Agents 4/5/7 revalidated the exact Release-01/02 document gates and preserved the previously green Release-02 acceptance boundary; no blocked candidate was materialized and no Public/Quality-Gate write occurred.
