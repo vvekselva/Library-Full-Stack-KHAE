@@ -12,19 +12,19 @@
 5. Release validation must use exact source/document identities.
 
 ## Current three-lane allocation
-- **Agent 4:** Release-01 prerequisite/evidence audit and exact selected-document identity verification; no candidate materialization before document approval/repository verification.
-- **Agent 5:** Release-02 controlled-error remediation acceptance mapping — private mapping completed; actual release prerequisite remains unmet.
-- **Agent 7:** Release manifest/checklist consistency plus private promotion-boundary verification; no public write and Presenter-only publication remains mandatory.
+- **Agent 4:** Release-01 prerequisite/evidence audit and exact selected-document identity verification — PRIVATE AUDIT CLOSED; candidate materialization remains blocked.
+- **Agent 5:** Release-02 controlled-error remediation acceptance mapping — previously CLOSED; current baseline prerequisite remains unmet and was revalidated without claiming a new release gate.
+- **Agent 7:** Release manifest/checklist consistency plus private promotion-boundary verification — PRIVATE AUDIT CLOSED; stale Release-01 document-status wording synchronized.
 
 ## Task queue
 | Task | Status | Dependency / evidence |
 |---|---|---|
 | Verify Release-00 baseline | VERIFIED | Existing verification run `31930965288` |
 | Reconcile Release-00 manifest | DONE | `951c9abb...` |
-| Prepare Release-01 selection manifest | DONE | `5fe51ba6...` |
+| Prepare Release-01 selection manifest | DONE | `5fe51ba6...`; status wording synchronized this cycle at `e4c7c7925d547223c7098f2189b95b0370fa28ec` |
 | Prepare Release-01 validation checklist | DONE | `f0a54125...` |
 | Prepare Release-01 private promotion structure | DONE | `dd71bd33...` |
-| Audit Release-01 selected document identities | ACTIVE — AGENT 4 | May inspect evidence now; materialization remains blocked |
+| Audit Release-01 selected document identities | DONE — AGENT 4 | Private audit `ec0760de4534bb6870e68527d688abc9bf29ca88`; T01_01/T01_03 repository verification still blocks materialization |
 | Materialize approved T01 rerun set | BLOCKED | T01_01/T01_03 repository verification incomplete |
 | Run/freeze Release-01 candidate | BLOCKED | Candidate materialization required |
 | Presenter publication Release-01 | PRESENTER ONLY | Automation forbidden |
@@ -32,23 +32,28 @@
 | Prepare Release-02 manifest/checklist | DONE | Private conditional structure |
 | Define Release-02 prerequisite remediation | DONE | `.project/classroom-release/Release-02-controlled-error-remediation.md`, commit `16382810ef29e68d0eac088f90b1626052c0edd9` |
 | Map Release-02 remediation acceptance evidence | DONE — AGENT 5 | `.project/classroom-release/Release-02-controlled-error-acceptance-map.md`, commit `96ba936796e6dc418764568115f52299bf4192cf` |
-| Verify manifest/checklist/promotion boundary consistency | ACTIVE — AGENT 7 | Private prerequisite-safe work only |
+| Verify manifest/checklist/promotion boundary consistency | DONE — AGENT 7 | Private audit `f22fef99b99f55f0eb3a411fc1fbad510a758637`; manifest sync `e4c7c7925d547223c7098f2189b95b0370fa28ec` |
 | Materialize/validate/freeze Release-02 | BLOCKED | Requires approved student baseline containing controlled-error layer + approved document prerequisites |
 | Presenter publication Release-02 | PRESENTER ONLY | Automation forbidden |
 
-## Release-02 acceptance result
-The private acceptance map now requires immutable evidence for the generic service exception, global REST exception handler, controlled response codes `01`-`05`, green backend verification, green frontend build, exact approved replacement baseline SHA, and release-manifest evidence. The frozen student baseline still lacks the controlled-error layer, so actual Release-02 materialization remains blocked. No Presenter implementation was copied into the student baseline and no public write occurred.
+## Current document dependency
+- T01_02 is APPROVED and repository-verified.
+- T01_01 and T01_03 are QUALITY_GATE_PASSED but still await repository materialization/re-fetch verification.
+- T02_01-T06_01 are APPROVED; T02_02-T06_02 are GENERATING; none was assigned to the current eight logical worker lanes.
 
 ## Current stream accounting
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000%**
-- State: **PRIVATE ACCEPTANCE MAPPING CLOSED; PERCENTAGE-BEARING RELEASE GATES REMAIN BLOCKED**.
+- State: **STALE BY PERCENTAGE / PRIVATE RELEASE AUDITS ADVANCED; RELEASE GATES REMAIN BLOCKED**.
 
 ## Tasks Taken Up / Closed This Cycle
-- Agent 5 acceptance mapping: TAKEN UP and CLOSED with commit `96ba936796e6dc418764568115f52299bf4192cf`.
-- Agent 4 Release-01 identity audit: IN PROGRESS, but document materialization remains dependency-blocked.
-- Agent 7 manifest/checklist/promotion-boundary verification: IN PROGRESS; no public write.
+- Agent 4 Release-01 identity audit: TAKEN UP and CLOSED at `ec0760de...`.
+- Agent 5 Release-02 acceptance-map prerequisite: revalidated; no new percentage-bearing task was claimed.
+- Agent 7 boundary consistency audit: TAKEN UP and CLOSED at `f22fef99...`; stale manifest wording synchronized at `e4c7c792...`.
+
+## Action Taken in This Cycle
+Resolved the outstanding Release-01 identity/boundary preparation rather than re-reporting the blocker. The audits prove T01_01/T01_03 still block candidate materialization, identify and correct stale T02-T06 status wording, and preserve Presenter-only publication. No public or Quality Gate write occurred.
 
 ## Completion rule
-Private audits/acceptance mapping may close independently with exact evidence, but no release percentage is credited until its defined release gate completes. No public repository write is permitted.
+Private audits may close independently with exact evidence, but no release percentage is credited until its defined release gate completes. No public repository write is permitted.
