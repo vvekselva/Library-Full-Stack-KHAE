@@ -18,13 +18,13 @@
 
 ## Current verified state
 ### Release-01
-- Exact private manifest/checklist identities remain synchronized: T01_01 `b6bb206b9c3cb1b06175a29f97c764bf3e866d9b`, T01_02 `41c746d55d44ab944ee42a4c0ab73f6c7f381607`, T01_03 `fb3e68db5526dbcb5a03732feac1da67dda11608`.
+- Exact private identities remain: T01_01 `b6bb206b9c3cb1b06175a29f97c764bf3e866d9b`, T01_02 `41c746d55d44ab944ee42a4c0ab73f6c7f381607`, T01_03 `fb3e68db5526dbcb5a03732feac1da67dda11608`.
 - T01_02 is APPROVED/repository-verified.
-- T01_01/T01_03 remain QUALITY_GATE_PASSED and still require the dedicated Document identity-control transition before release consumption.
-- Therefore Release-01 materialization/freeze remains blocked.
+- T01_01/T01_03 remain QUALITY_GATE_PASSED pending Document identity-control transition to APPROVED/REPOSITORY_VERIFIED.
+- Release-01 materialization/freeze remains blocked.
 
 ### Release-02
-- Controlled-error acceptance remains CLOSED GREEN on accepted baseline `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb`.
+- Controlled-error acceptance remains CLOSED GREEN on `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb`.
 - Acceptance run `31989985693`: backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS.
 - Remaining blocker is approved/repository-verified rerun documents plus later private candidate checks.
 
@@ -32,23 +32,20 @@
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000%**
-- State: **STALE BY PERCENTAGE / RELEASES REMAIN DOCUMENT-GATED**.
+- State: **STALE — RELEASES REMAIN DOCUMENT-GATED**.
 
 ## Tasks Taken Up This Cycle
-- Revalidate Release-01 exact document status against authoritative Document/Project controls.
-- Revalidate Release-02 accepted controlled-error baseline and remaining document dependency.
-- Recheck private/public/QG promotion boundary while Presenter T41 CI completed.
+- Revalidated Release-01 exact document identities/status while Presenter T41 Integration/Frontend CI ran.
+- Revalidated Release-02 accepted baseline and remaining document dependency.
+- Rechecked no-public/no-QG promotion boundary.
 
 ## Tasks Closed This Cycle
 - No percentage-bearing Classroom task closed this cycle.
 
 ## Tasks In Progress / Blocked
-- Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 Document identity-control transition to APPROVED/REPOSITORY_VERIFIED.
+- Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 Document identity-control transition.
 - Release-02 materialization/freeze — BLOCKED by required approved/repository-verified rerun documents.
 - Presenter publication — PRESENTER ONLY.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Release progression remains open beyond 3 completed cycles. Action Taken in This Cycle: revalidated both private release gates from exact existing evidence and preserved the no-public/no-QG boundary; no status-only check was counted as percentage progress.
-
-## Action Taken in This Cycle
-Agents 4, 5 and 7 performed dependency-safe private release verification during the Presenter CI window. No candidate was materialized because the document gates are still unsatisfied. No Public write and no Quality Gate write occurred.
+Classroom Release has **27 consecutive cycles without percentage increase**. Action Taken in This Cycle: Agents 4, 5 and 7 revalidated exact private release gates during Presenter CI wait windows and preserved the no-public/no-QG boundary. No blocked candidate was materialized and no status check was counted as progress.
