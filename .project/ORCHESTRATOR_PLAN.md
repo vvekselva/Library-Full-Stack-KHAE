@@ -33,11 +33,10 @@ One primary coordinator remains responsible for dependency checks and consolidat
 ## Current Presenter boundary
 - T01-T45: frozen/verified registries.
 - T46 Create Book Return: Service, Unit, Integration and Assigned Frontend VERIFIED GREEN; final batch registry gate waits for T46-T50 completion.
-- T47 Read Book Return: Service, Unit, Integration and Assigned Frontend VERIFIED GREEN.
-- T47 Assigned Frontend / Void Book Return UI exact evidence: implementation commit `38173db4b7dd4f89b3c8160d925551f8eb77a97a`; reverify branch-tip `cbc9fdcbfda18d644833815175672e3149d87aa4`; Actions run `32042595095` completed SUCCESS.
-- T48 Update Book Return: source reconciliation complete at `d1cc4cfeb43f06be23b52677a2d860c85935e990`; Service implementation commit `d171beb685665337dc93dabc42c612b9b64bc82b`; Unit test commit `b3f3cf070ccbb6dd017d53501439ddb1f51b8d47`.
-- T48 exact branch-tip CI `32048602233` is in progress; Service/Unit credit and Integration start remain blocked until this run is green.
-- T49-T50 remain ordered YET TO DO.
+- T47 Read Book Return: Service, Unit, Integration and Assigned Frontend VERIFIED GREEN; Assigned Frontend exact run `32042595095` SUCCESS.
+- **T48 Update Book Return: Service, Unit, Integration and Assigned Frontend VERIFIED GREEN.** Service `d171beb685665337dc93dabc42c612b9b64bc82b`; Unit `b3f3cf070ccbb6dd017d53501439ddb1f51b8d47`, run `32048602233` SUCCESS; local PostgreSQL Integration `6b8f29e02f1be30f311338a441d551e986da72ea`; PostgreSQL 18 Testcontainers `6f2f824a06782a69a913d590e1a4c2538d5ad5d6`, run `32049062043` SUCCESS; Search Book Return frontend `b21d8b03afd63debe38914e0b56ad050f86b2b21`, exact run `32049427640` SUCCESS.
+- T48 Final CI/Registry checkpoint remains part of the T46-T50 batch-final gate and is not credited separately yet.
+- **T49 is the next eligible ordered Presenter track.** T50 remains behind T49.
 
 ## Current Classroom boundary
 - Release-01 remains blocked by T01_01/T01_03 repository identity/materialization completion.
