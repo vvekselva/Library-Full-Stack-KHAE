@@ -14,9 +14,11 @@ This manifest is private preparation only. Automation must not write to the publ
 
 ## Current document eligibility
 - T01_02: APPROVED and repository verified; eligible by document gate.
-- T01_01: not yet eligible for candidate materialization; repository verification pending.
-- T01_03: not yet eligible for candidate materialization; repository verification pending.
-- T02-T06: Initial contracts are BLUEPRINT_APPROVED only; generated/approved binaries do not yet exist.
+- T01_01: QUALITY_GATE_PASSED; repository materialization/re-fetch verification pending, so not yet eligible for candidate materialization.
+- T01_03: QUALITY_GATE_PASSED; repository materialization/re-fetch verification pending, so not yet eligible for candidate materialization.
+- T02_01–T06_01: APPROVED, but outside the selected T01 Release-01 rerun set.
+- T02_02–T06_02: GENERATING with editable Private-Master sources; not eligible for release materialization.
+- T02_03–T06_03: PENDING behind same-track Progressive Guide approval.
 
 ## Candidate state
-No Release-01 candidate is frozen. Exact document identities remain placeholders until their gates close.
+No Release-01 candidate is frozen. Exact candidate artifact identities remain placeholders until every selected T01 document gate closes and immutable identities are resolved.
