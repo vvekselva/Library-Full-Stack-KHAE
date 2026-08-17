@@ -39,25 +39,37 @@ tracks:
     cumulative_verification_result: SUCCESS
     registry_ready: true
   T34:
-    readiness: INTEGRATION_CI_IN_PROGRESS
+    readiness: FRONTEND_CI_IN_PROGRESS
     contract_code: T34_DEACTIVATE_BOOK_COPY
     endpoint: "DELETE /rest/book-copies/{id}"
     service_interface: "backend/backend.lib.mgmt/src/main/java/self/learning/backend/lib/mgmt/service/DeleteBookCopyService.java"
     service_implementation: "backend/backend.lib.mgmt/src/main/java/self/learning/backend/lib/mgmt/service/impl/DeleteBookCopyServiceImpl.java"
     service_commit: abb23be3f9e10dd53c9bf267a3a02b7acbd3e134
-    unit_test: "backend/backend.lib.mgmt/src/test/java/self/learning/backend/lib/mgmt/service/impl/DeleteBookCopyServiceImplTest.java"
     unit_test_commit: bc15079bf17a219283f3465083b8577e7f9da16f
     service_unit_verification_run: 31979270908
     service_unit_verification_result: SUCCESS
-    local_postgres_integration_commit: f5c7804210431152ec40e54ca03d64a093fd9361
-    testcontainers_integration_commit: d61995c62f19152ec5fb7ab9b3c30e6e52e5ab6e
-    integration_verification_run: 31979478188
-    integration_verification_result: IN_PROGRESS
+    local_postgres_integration_repair_commit: 325c7102ddc2e9911a4abff6e3ec0e80d7701113
+    testcontainers_integration_repair_commit: 2f2081c062585e1a59a924eff8487f5454fd9025
+    integration_verification_run: 31981001820
+    integration_verification_result: SUCCESS
+    frontend_commit: 820ae6cf96a2fee1a688383f12db329994ea8cf7
+    frontend_verification_run: 31982423259
+    frontend_verification_result: IN_PROGRESS
     registry_ready: false
-    next_action: "wait for Integration CI; only on green may assigned Frontend begin"
+    next_action: "credit Frontend only after branch-tip CI is green; then capture cumulative registry evidence"
   T35:
-    readiness: BLOCKED_NOT_IMPLEMENTED
+    readiness: SERVICE_UNIT_CI_IN_PROGRESS
+    contract_code: T35_SEARCH_BOOK_COPY
+    endpoint: "GET /rest/book-copies/search?text={text}"
+    response_contract: "ApiResponse<List<BookCopyResponseDto>> code 35"
+    service_interface: "SearchBookCopyService.searchBookCopy(String text)"
+    dao_contract: "BookCopyDao.search(String text) uses %text% and orders by bookCopyId"
+    service_commit: 0591d97853970e83be826af8bb9fb1c19ed46b2c
+    unit_test_commit: 126fe8493f80d99ae1c5b1bcdfcaab06fb5b9823
+    service_unit_verification_run: 31982423259
+    service_unit_verification_result: IN_PROGRESS
     registry_ready: false
+    next_action: "on green Service/Unit gate, start Integration; do not start Integration while CI is red or incomplete"
 freeze_gate:
   rule: "All T31-T35 tracks must be registry-ready with exact immutable evidence and cumulative validation before freeze."
   current_result: BLOCKED
