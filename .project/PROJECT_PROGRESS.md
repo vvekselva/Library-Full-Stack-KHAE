@@ -10,52 +10,49 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-17 05:23 IST
+## Current Status - 2026-08-17 05:40 IST
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
-| Document Rerun | **5.3889%** | **5.3889%** | **+0.0000%** | Unfinished upstream prerequisite. T02_02-T06_02 remain GENERATING but are not part of the current eight-lane allocation. Existing state is preserved; Classroom tasks that depend on approved documents remain blocked. |
-| Presenter Solutions | **54.6667%** | **54.6667%** | **+0.0000%** | T34 Service + Unit Test remain VERIFIED GREEN. Integration workflow `31979478188` has now completed **FAILURE**: backend job `95243874899` failed specifically at `Run Presenter solution tests with PostgreSQL`; frontend job `95243874904` succeeded. T34 Frontend remains blocked. |
-| Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | Three active logical lanes are assigned only prerequisite-safe private Release-01/Release-02 audit, remediation acceptance and manifest consistency work. Materialization/freeze remains blocked by existing document/baseline prerequisites. |
-| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | Agent 8 preserves T31-T33 registry-ready evidence and records T34 as not registry-ready because Integration CI is red. T35 remains pending; `freeze_allowed=false`. |
-| **Overall** | **26.8917%** | **26.8917%** | **+0.0000%** | No new percentage-bearing gate completed during the lane reallocation checkpoint. |
+| Document Rerun | **5.3889%** | **5.3889%** | **+0.0000%** | T02_02-T06_02 remain GENERATING and are outside the current eight-lane allocation. Required document gates still block dependent Classroom materialization. |
+| Presenter Solutions | **54.6667%** | **55.0000%** | **+0.3333%** | T34 Integration recovered to VERIFIED GREEN after test/seed repair. Workflow `31981001820` passed backend PostgreSQL job `95247637400` and frontend-build job `95247637355`. T34 Frontend is now eligible but not yet credited. T35 source reconciliation remains active. |
+| Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | Agent 5 closed private Release-02 controlled-error acceptance mapping at commit `96ba936796e6dc418764568115f52299bf4192cf`; actual Release-02 remains approved-baseline-gated. Release-01 remains document-gated. |
+| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | T31-T33 remain registry-ready. T34 Integration is green but its Frontend/registry gate is incomplete; T35 remains incomplete. Ready tracks remain 3/5 and `freeze_allowed=false`. |
+| **Overall** | **26.8917%** | **27.0083%** | **+0.1166%** | Only the verified T34 Integration checkpoint is credited. Audit/status activity is not counted as percentage progress. |
 
 ## Current Execution Structure
-One primary coordinator remains active. The eight entries below are logical worker lanes; independent tool/repository work may run concurrently, but this environment does not expose eight autonomous background processes.
+One primary coordinator remains active. The eight entries below are logical worker lanes; independent repository/tool work may run concurrently, but this environment does not expose eight autonomous background processes.
 
-| Lane | Assignment | Current work | Dependency guard |
+| Lane | Assignment | Consolidated result / next work | Dependency guard |
 |---|---|---|---|
-| Primary Coordinator | Orchestration | Assign eligible work, verify CI/commit evidence, consolidate all lane results | No overall completion before consolidation |
-| Agent 1 | Presenter Solutions | T34 Integration CI failure diagnosis and exact root-cause evidence | No T34 Frontend while Integration is red |
-| Agent 2 | Presenter Solutions | T34 Integration implementation/test reconciliation against contract, DAO and PostgreSQL behavior | Repair only after evidence supports it; preserve green Service/UT behavior |
-| Agent 3 | Presenter Solutions | T35 source/contract/interface/controller/stub reconciliation | Reconciliation only until preceding track/stage gates permit implementation |
-| Agent 4 | Classroom Release Preparation | Release-01 prerequisite/evidence audit and selected document identity verification | No materialization/freeze before APPROVED + repository-verified documents |
-| Agent 5 | Classroom Release Preparation | Release-02 controlled-error remediation acceptance mapping | Private preparation only until approved student baseline satisfies prerequisite |
-| Agent 6 | Presenter Solutions | T31-T34 cumulative regression/registry readiness and T34 Frontend readiness inspection | Frontend implementation blocked until T34 Integration green |
-| Agent 7 | Classroom Release Preparation | Release manifest/checklist consistency and private promotion-boundary verification | No public write; Presenter-only publication |
-| Agent 8 | Recovery / Final Integration | T31-T35 candidate evidence and freeze guard | `freeze_allowed=false` until all five tracks are registry-ready |
+| Primary Coordinator | Orchestration | Consolidated branch/source/CI evidence and updated exact progress | No overall completion before relevant lane reconciliation |
+| Agent 1 | Presenter Solutions | T34 Integration failure diagnosis CLOSED: success tests incorrectly used seeded copy ID 2 with an ACTIVE issue | No invented repair; evidence-only diagnosis |
+| Agent 2 | Presenter Solutions | T34 local/Testcontainers repairs CLOSED; replacement CI GREEN | T34 Frontend became eligible only after green CI |
+| Agent 3 | Presenter Solutions | T35 code/interface/DAO/STUB reconciliation IN PROGRESS | Do not implement until Presenter-owned route/envelope identity is fully frozen |
+| Agent 4 | Classroom Release Preparation | Release-01 identity/prerequisite audit remains IN PROGRESS | No materialization before required document approval/repository gates |
+| Agent 5 | Classroom Release Preparation | Release-02 private acceptance mapping CLOSED | Actual release remains blocked by missing approved-baseline controlled-error layer |
+| Agent 6 | Presenter Solutions | T34 Frontend is now READY/ELIGIBLE; exact assigned frontend identity still must be resolved | Do not guess target file |
+| Agent 7 | Classroom Release Preparation | Manifest/checklist/promotion-boundary verification remains IN PROGRESS | No public write; Presenter-only publication |
+| Agent 8 | Recovery / Final Integration | Captured T34 green Integration evidence while preserving 3/5 freeze guard | `freeze_allowed=false` until T34/T35 registry-ready |
 
-## Active Evidence / Findings
-- Orchestrator allocation changed at commit `32a5d265049d58d2694ac76166cee77bdf63c3b7`.
-- T34 Service/Unit workflow `31979270908` remains SUCCESS.
-- T34 Integration workflow `31979478188` is now completed FAILURE at head `d61995c62f19152ec5fb7ab9b3c30e6e52e5ab6e`.
-- Backend job `95243874899` failed only at `Run Presenter solution tests with PostgreSQL` after container initialization, checkout and Java setup succeeded.
-- Frontend job `95243874904` is SUCCESS, so the failure boundary is backend test execution rather than frontend build.
-- T34 assigned Frontend must not start until the Integration backend failure is diagnosed, repaired if justified, and branch-tip Integration CI is green.
-- T31-T33 remain registry-ready; T34 is not registry-ready; T35 pending; batch freeze remains blocked.
-- Release-01 remains document-gated. Release-02 remains approved-student-baseline controlled-error-gated.
-- No write is permitted to the public classroom repository or the read-only Quality Gate repository.
+## Action Taken in This Cycle
+- **Presenter / T34:** Root cause established from deterministic seed and service behavior. Book Copy ID `2` has an ACTIVE Book Issue, so the service correctly rejected withdrawal. Integration success tests were changed to dependency-free ID `4`; explicit ID `2` dependency tests were added. Repair commits: `325c7102ddc2e9911a4abff6e3ec0e80d7701113` and `2f2081c062585e1a59a924eff8487f5454fd9025`. Replacement workflow `31981001820` is GREEN.
+- **Presenter / T35:** Verified service code `35`, `SearchBookCopyService.searchBookCopy(String text)`, DAO accession-number search behavior, and that the current implementation remains a hard-coded STUB. Implementation has not been prematurely credited.
+- **Classroom:** Created `.project/classroom-release/Release-02-controlled-error-acceptance-map.md` at `96ba936796e6dc418764568115f52299bf4192cf`. The private mapping is complete, but release percentage stays unchanged because the approved student-baseline prerequisite is still missing.
+- **Recovery:** Recorded the green T34 Integration evidence without marking T34 registry-ready. T34 Frontend/cumulative registry and T35 still block the T31-T35 freeze.
+- **Document:** No current lane allocated. Existing GENERATING state is preserved; no dependent promotion was attempted.
 
-## Work Division for This Execution Phase
+## Open More Than 3 Cycles / Stall Control
+- **Document Rerun:** long-running Progressive Guide expansion remains open; stream has **6 cycles without percentage increase**. Action: no current eight-lane worker allocated; dependency state preserved without false progress.
+- **Classroom Release Preparation:** upstream release-gated work remains long-running; stream has **17 cycles without percentage increase**. Action: private Release-02 acceptance map was completed, but no release percentage was inferred.
+- **Recovery / Final Integration:** T31-T35 freeze guard remains long-running; stream has **17 cycles without percentage increase**. Action: accepted T34 green Integration evidence but preserved `freeze_allowed=false` and 3/5 ready.
+- **Presenter Solutions:** not stalled; T34 Integration closed this cycle and increased the stream by **+0.3333%**.
 
-### Presenter Solutions — Agents 1, 2, 3, 6
-Independent work may proceed on failure evidence, code/test reconciliation, T35 source reconciliation and cumulative-regression readiness. Dependency-sensitive implementation remains ordered as `Service -> Unit Test -> green CI -> Integration -> green CI -> Frontend -> cumulative registry`.
-
-### Classroom Release Preparation — Agents 4, 5, 7
-Only prerequisite-safe private work may proceed concurrently: evidence audits, acceptance mapping, manifest/checklist consistency and promotion-boundary verification. No release candidate containing unapproved documents may be materialized/frozen, and no public publication may be performed by automation.
-
-### Recovery / Final Integration — Agent 8
-Capture immutable evidence incrementally and protect the freeze boundary. The T31-T35 candidate cannot be frozen while T34 Integration is red or T35 is incomplete.
+## Current Next Eligible Work
+1. Resolve the exact assigned T34 Frontend identity, then implement/test it because Integration is now green.
+2. Complete T35 Presenter-owned route/envelope reconciliation, then begin T35 Service only if the source freeze is complete.
+3. Continue private Release-01 identity audit and Release manifest consistency checks without materialization/promotion.
+4. Keep Recovery candidate evidence current; do not freeze before all five tracks are registry-ready.
 
 ## Consolidation Rule
 Do not declare the multi-lane batch or overall task complete until all relevant lanes have returned evidence and the primary coordinator has reconciled exact commit SHAs, workflow/job conclusions, task states, release prerequisites, registry readiness and percentages.
