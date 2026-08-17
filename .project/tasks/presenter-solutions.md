@@ -11,32 +11,33 @@
 - **T47 — Read Book Return — Service:** VERIFIED GREEN; Git commit `403874f217904691c630ade45cf8c2f106d57fac`.
 - **T47 — Read Book Return — Unit Test:** VERIFIED GREEN; Git commit `9043743376d63a3da0cebe53eba0c052b9805cca`; workflow `32033439368` SUCCESS.
 - **T47 — Read Book Return — Integration:** VERIFIED GREEN; local PostgreSQL commit `5bd27d5aa15f5cb0f0f1aadf4df49ff25569641c`; PostgreSQL 18 Testcontainers commit `d11043c6bd946b2841e4d0c731f5fbb896bca244`.
-- **T47 — Read Book Return — Assigned Frontend / Void Book Return UI:** implementation exists at `frontend/frontend.lib.mgmt/src/tracks/t47-delete-book-return.js`; blob `11f6b067f234fdc36779f5080e4cfe66fd338472`; implementation commit `38173db4b7dd4f89b3c8160d925551f8eb77a97a`.
-- **T47 — Assigned Frontend CI reverification:** trigger commit `cbc9fdcbfda18d644833815175672e3149d87aa4`. Workflow definition `Verify Presenter Solution Stage` confirms pushes to `Presenter-Solutions-*` run backend PostgreSQL tests and frontend Vite build. Connected Actions run retrieval is denied and combined status returns no conclusion, so the Frontend checkpoint remains uncredited.
-- **T48 — Update Book Return — Source Reconciliation:** complete at commit `d1cc4cfeb43f06be23b52677a2d860c85935e990`; implementation remains blocked until T47 Frontend closes.
+- **T47 — Read Book Return — Assigned Frontend / Void Book Return UI:** CLOSED / VERIFIED GREEN. Implementation file `frontend/frontend.lib.mgmt/src/tracks/t47-delete-book-return.js`, blob `11f6b067f234fdc36779f5080e4cfe66fd338472`, implementation commit `38173db4b7dd4f89b3c8160d925551f8eb77a97a`. Reverification trigger `cbc9fdcbfda18d644833815175672e3149d87aa4`; exact Actions run `32042595095` (`Verify Presenter Solution Stage`, run 292) completed **SUCCESS** on that exact branch-tip SHA.
+- **T48 — Update Book Return — Source Reconciliation:** complete at `d1cc4cfeb43f06be23b52677a2d860c85935e990`.
+- **T48 — Update Book Return — Service implementation:** implemented at commit `d171beb685665337dc93dabc42c612b9b64bc82b`; replaces the teaching STUB with current-row lookup, required-field validation, normalized business key/status, duplicate detection, mapper update and DAO persistence using application code `T48_UPDATE_BOOK_RETURN`.
+- **T48 — Update Book Return — Unit tests:** added at commit `b3f3cf070ccbb6dd017d53501439ddb1f51b8d47`. Exact branch-tip CI run `32048602233` exists but is currently queued/pending; Service and Unit checkpoints remain uncredited until the required green CI completes.
 
 ## Current stream accounting
 Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300 checkpoints.
-- Verified total: **232 / 300 = 77.3333%**.
+- Verified total: **233 / 300 = 77.6667%**.
 - Previous: **77.3333%**
-- Updated: **77.3333%**
-- Increase: **+0.0000%**
-- State: **STALE / BLOCKED ON T47 ASSIGNED FRONTEND CI EVIDENCE** for this cycle; no implementation progress was claimed from evidence checks alone.
+- Updated: **77.6667%**
+- Increase: **+0.3334%**
+- State: **IN PROGRESS.** T47 Assigned Frontend closed from exact green Actions evidence; T48 Service + Unit implementation is now eligible and complete in source, pending branch-tip CI verification.
 
 ## Tasks Taken Up This Cycle
-- Agent 1 re-fetched and verified the human-readable T47 component **Void Book Return UI** on the active Presenter branch.
-- Agent 2 checked exact Actions evidence through both the workflow-run and combined-status surfaces; workflow-run retrieval is denied and combined status contains no conclusion.
-- Agent 3 preserved T48 Update Book Return reconciliation only; no implementation started.
-- Agent 6 preserved the T47 → T48 ordering boundary.
+- Agent 1 retrieved the previously missing exact T47 Assigned Frontend Actions evidence and closed the Void Book Return UI checkpoint.
+- Agent 2 verified `Presenter-Solutions-T46-T50@cbc9fdcbfda18d644833815175672e3149d87aa4` against Actions run `32042595095` = SUCCESS.
+- Agent 3 used the now-open dependency boundary to implement T48 Update Book Return Service at `d171beb685665337dc93dabc42c612b9b64bc82b`.
+- Agent 6 added focused T48 Update Book Return unit tests at `b3f3cf070ccbb6dd017d53501439ddb1f51b8d47` and tracked exact branch-tip CI `32048602233`.
 
 ## Tasks Closed This Cycle
-None of the Presenter percentage-bearing checkpoints closed.
+- **T47 — Read Book Return — Assigned Frontend / Void Book Return UI — CLOSED / VERIFIED GREEN.** Evidence: implementation commit `38173db4b7dd4f89b3c8160d925551f8eb77a97a`; reverify SHA `cbc9fdcbfda18d644833815175672e3149d87aa4`; Actions run `32042595095` SUCCESS.
 
 ## Tasks In Progress / Blocked
-- **T47 — Read Book Return — Assigned Frontend / Void Book Return UI:** IN PROGRESS / BLOCKED ON EXACT GREEN CI EVIDENCE.
-- **T48 — Update Book Return — Service:** YET TO DO; blocked until T47 Assigned Frontend closes.
+- **T48 — Update Book Return — Service + Unit:** implementation/test source complete; exact branch-tip run `32048602233` is queued/pending, therefore no Service/Unit checkpoint credit yet.
+- **T48 — Integration:** YET TO DO; do not begin until Service + Unit branch-tip CI is green.
 - **T49-T50:** YET TO DO / ordered execution pending.
 - **T46-T50 Final CI / Registry:** BLOCKED until all five tracks and registry-tip CI are verified.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Presenter has **3 consecutive cycles without percentage increase**, still below the >3-cycle threshold. **Action Taken in This Cycle:** verified the actual T47 frontend artifact and workflow trigger contract, tested alternate Actions evidence surfaces, and preserved dependency ordering. No false credit was applied.
+The prior T47 Assigned Frontend evidence blocker reached its fourth coordinator cycle and was **closed this cycle** after the exact Actions run became visible. Presenter percentage therefore increased and its no-increase stall counter resets. **Action Taken in This Cycle:** closed T47 Frontend with exact CI evidence, unlocked T48, implemented its Service and unit-test source, and left downstream Integration blocked on the pending branch-tip CI.
