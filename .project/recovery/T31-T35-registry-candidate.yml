@@ -39,11 +39,10 @@ tracks:
     cumulative_verification_result: SUCCESS
     registry_ready: true
   T34:
-    readiness: FRONTEND_CI_IN_PROGRESS
+    readiness: EVIDENCE_CAPTURED_WAITING_BATCH_FREEZE
+    implementation_state: "Service + Unit Test + Integration + Frontend complete"
     contract_code: T34_DEACTIVATE_BOOK_COPY
     endpoint: "DELETE /rest/book-copies/{id}"
-    service_interface: "backend/backend.lib.mgmt/src/main/java/self/learning/backend/lib/mgmt/service/DeleteBookCopyService.java"
-    service_implementation: "backend/backend.lib.mgmt/src/main/java/self/learning/backend/lib/mgmt/service/impl/DeleteBookCopyServiceImpl.java"
     service_commit: abb23be3f9e10dd53c9bf267a3a02b7acbd3e134
     unit_test_commit: bc15079bf17a219283f3465083b8577e7f9da16f
     service_unit_verification_run: 31979270908
@@ -53,12 +52,11 @@ tracks:
     integration_verification_run: 31981001820
     integration_verification_result: SUCCESS
     frontend_commit: 820ae6cf96a2fee1a688383f12db329994ea8cf7
-    frontend_verification_run: 31982423259
-    frontend_verification_result: IN_PROGRESS
-    registry_ready: false
-    next_action: "credit Frontend only after branch-tip CI is green; then capture cumulative registry evidence"
+    cumulative_verification_run: 31982423259
+    cumulative_verification_result: SUCCESS
+    registry_ready: true
   T35:
-    readiness: SERVICE_UNIT_CI_IN_PROGRESS
+    readiness: INTEGRATION_CI_IN_PROGRESS
     contract_code: T35_SEARCH_BOOK_COPY
     endpoint: "GET /rest/book-copies/search?text={text}"
     response_contract: "ApiResponse<List<BookCopyResponseDto>> code 35"
@@ -67,11 +65,15 @@ tracks:
     service_commit: 0591d97853970e83be826af8bb9fb1c19ed46b2c
     unit_test_commit: 126fe8493f80d99ae1c5b1bcdfcaab06fb5b9823
     service_unit_verification_run: 31982423259
-    service_unit_verification_result: IN_PROGRESS
+    service_unit_verification_result: SUCCESS
+    local_postgres_integration_commit: 6881ec4a108fd4eb460e78b01d737b4929fc2490
+    testcontainers_integration_commit: 31c51de7f11fc56faa56239430f62284a5c0a597
+    integration_verification_run: 31982678321
+    integration_verification_result: IN_PROGRESS
     registry_ready: false
-    next_action: "on green Service/Unit gate, start Integration; do not start Integration while CI is red or incomplete"
+    next_action: "credit Integration only after run 31982678321 is fully green; then Frontend becomes eligible"
 freeze_gate:
   rule: "All T31-T35 tracks must be registry-ready with exact immutable evidence and cumulative validation before freeze."
   current_result: BLOCKED
-  verified_ready_tracks: 3
+  verified_ready_tracks: 4
   required_ready_tracks: 5
