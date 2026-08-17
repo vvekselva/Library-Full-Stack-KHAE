@@ -5,40 +5,38 @@
 
 ## Registry coverage queue
 - T01-T30 registries: VERIFIED.
-- T31-T35 registry: FROZEN / VERIFIED at `83d51d4343fd79f8609e4bc73a483ce85615a276`.
-- T36-T40 registry: FROZEN / VERIFIED at `25581a24d5e85c9ef261f072316282a0b0431bd8`.
-- T41-T45 registry: FROZEN / VERIFIED at `9f4f5e70b48e5eaa0b8296aa23bf19a438a0e33a`; registry-tip workflow `32021541997` SUCCESS.
-- **T46-T50 Book Return registry candidate:** OPEN / NOT FROZEN.
-- T46-T48: all four component checkpoints VERIFIED GREEN.
-- **T49:** all four component checkpoints immutable green. Service `7489980269a9507ddc563d1833ac73c38ac201d8`; Unit `df220a49b43702d0228cc4c34d4142f2d6732ae4`, run `32053727532` SUCCESS; local Integration `d2b208aabebac93365129ca4716349a1b13b622e`; Testcontainers `7c8a0036b219dc91a9ead5f17ebb2ca62ca7ca72`, run `32054104356` SUCCESS; Assigned Frontend `9fb00ca5bd812afd59b4951caf8f09e106238522`, run `32054478596` SUCCESS.
-- **T50 Service + Unit:** immutable green. Service `2cdfae779007a44ce0385142bc005b70bfa8ccc7`; Unit `47ecb5f7017de476b5358559e9f1401987630ba1`; run `32055317199` SUCCESS.
-- **T50 Integration:** immutable green. Local PostgreSQL `2b810ec531cc52a556cee45068df4e7006abd701`; PostgreSQL 18 Testcontainers `6482ea1e8fd22b15edf42276fc6f87b0c1d7dbd4`; run `32055710410` backend `95465276364` SUCCESS and frontend `95465279573` SUCCESS.
-- **T50 Assigned Frontend:** provisional until exact run is fully green. Read/List implementation `13d8eeb1079be1e30c3283d37de3d17d4b0993bd`; run `32056105743` active.
-- `freeze_allowed=false` until T50 Assigned Frontend and registry-tip CI are verified.
+- T31-T35 registry: FROZEN / VERIFIED.
+- T36-T40 registry: FROZEN / VERIFIED.
+- T41-T45 registry: FROZEN / VERIFIED.
+- **T46-T50 Book Return registry: FROZEN / VERIFIED.** Registry file `.presenter/solution-registry/T46-T50.yml`, commit `cd03adf2280237f35f85cdced7d97f1f1a888f5e`, exact registry-tip run `32056947711` SUCCESS.
+- Registry verified source before freeze: `bca4c6d1a0813a6cbaf5e35c799eebc61ca1d374`; exact verification run `32056218735` SUCCESS.
+- T46-T50 immutable component evidence is recorded inside the frozen registry.
+- `freeze_allowed=true` was satisfied for T46-T50 and the freeze was completed only after T50 Assigned Frontend and exact cumulative CI were green.
 
 ## Current stream accounting
-Recovery component weights are registry coverage 40%, selection/dependency design 20%, private workflow implementation 20%, classroom rehearsal 20%.
-- Frozen verified registry coverage remains 45 / 60 tracks = 75% of registry component because T46-T50 is not yet frozen.
-- Earned registry contribution: 75% × 40 = **30.0000 points**.
+Recovery registry component weight is 40%.
+- Frozen verified registry coverage advanced from 45 / 60 tracks to **50 / 60 tracks = 83.3333%** of registry coverage.
+- Earned registry contribution: 83.3333% × 40 = **33.3333 points**.
 - Previous: **30.0000%**
-- Updated: **30.0000%**
-- Increase: **+0.0000%**
-- Cycles without increase: **6**
-- State: **STALE BY PERCENTAGE / T46-T50 CANDIDATE OPEN**.
+- Updated: **33.3333%**
+- Increase: **+3.3333 percentage points**
+- Cycles without increase: **0**
+- State: **IN PROGRESS — T46-T50 REGISTRY CLOSED; T51-T55 NEXT CANDIDATE AFTER PRESENTER WORK.**
 
 ## Tasks Taken Up This Cycle
-- Agent 8 promoted all T49 component evidence, T50 Service/Unit, and T50 Integration to immutable green candidate evidence.
-- Agent 8 captured the T50 Read/List frontend provisionally while its exact CI remains active.
-- Agent 8 retained the batch freeze guard.
+- Agent 8 re-read the live Presenter branch and discovered the newer T46-T50 frozen registry commit.
+- Agent 8 verified exact source CI `32056218735` SUCCESS and exact registry-tip CI `32056947711` SUCCESS.
+- Agent 8 reconciled immutable T46-T50 evidence and lifted the freeze guard only after all required gates were satisfied.
 
 ## Tasks Closed This Cycle
-No Recovery percentage-bearing gate closed. Presenter component evidence advanced materially, but Recovery registry coverage is credited only after the five-track batch is frozen and verified.
+- T46-T50 Book Return solution registry freeze and verification.
+- Recovery registry coverage advanced from 45 to 50 verified tracks.
 
 ## Tasks In Progress / Blocked
-- T46-T50 registry candidate — OPEN; T50 Assigned Frontend and registry-tip verification remain incomplete.
-- T51-T60 registry batches — YET TO DO.
+- T51-T55 registry candidate — YET TO DO after Presenter establishes and implements those tracks.
+- T56-T60 registry candidate — YET TO DO.
 - Selection/dependency implementation, private recovery workflow implementation, classroom rehearsal — YET TO DO.
-- Final integration — BLOCKED by remaining Presenter, Document and Classroom prerequisites.
+- Final integration remains blocked by remaining Presenter, Document and Classroom prerequisites.
 
 ## Open More Than 3 Cycles / Agent 8 Action Taken in This Cycle
-Recovery has **6 cycles without percentage increase**. **Action Taken in This Cycle:** Agent 8 promoted T49, T50 Service/Unit and T50 Integration to immutable green evidence, recorded the T50 frontend provisionally, and retained `freeze_allowed=false`; no premature registry freeze or Recovery percentage credit was applied.
+Recovery had exceeded the stale threshold before this cycle, but verified registry progress now resets the no-increase counter to zero. **Action Taken in This Cycle:** verified the completed T46-T50 freeze and registry-tip CI and credited the registry coverage increase without bypassing any dependency.
