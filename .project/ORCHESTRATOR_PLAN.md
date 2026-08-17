@@ -3,7 +3,7 @@
 Updated for the high-parallelism Presenter/Classroom/Recovery execution phase on 2026-08-17.
 
 ## Purpose
-This file is the coordinator contract for the live dashboard and scheduled execution cycles. Every cycle must read this file, `.project/PROJECT_PROGRESS.md`, `.project/execution-cycle-monitor.yml`, and the four stream task files before selecting work.
+This file is the coordinator contract for live execution. Every cycle must read this file, `.project/PROJECT_PROGRESS.md`, `.project/execution-cycle-monitor.yml`, and the four stream task files before selecting work.
 
 ## Frozen project weights
 | Stream | Weight | Execution priority |
@@ -21,22 +21,29 @@ One primary coordinator remains responsible for dependency checks and consolidat
 | Lane | Role | Current allocation | Dependency boundary |
 |---|---|---|---|
 | Coordinator | Primary coordinator | Read live evidence, assign eligible independent work, reconcile all results | No overall/batch completion before consolidation |
-| Agent 1 | Presenter Solutions | Current Book Issue Service/contract execution; next T44 Service | Service work may start only from reconciled source/DAO/controller contract |
-| Agent 2 | Presenter Solutions | Focused Unit/Integration/Testcontainers evidence for current eligible track | Unit follows Service; Integration follows green Service/Unit branch-tip CI |
-| Agent 3 | Presenter Solutions | Source/contract and authoritative assigned-Frontend reconciliation for upcoming Book Issue tracks | Reconciliation may run independently; implementation cannot skip gates |
+| Agent 1 | Presenter Solutions | Current Presenter gate/evidence execution | Do not start a later track before the current track gate closes |
+| Agent 2 | Presenter Solutions | CI/integration evidence and branch-tip verification | Integration/front-end credit requires exact green evidence |
+| Agent 3 | Presenter Solutions | Source/contract reconciliation for the next eligible track | Reconciliation may run independently; implementation may not skip ordered gates |
 | Agent 4 | Classroom Release Preparation | Release-01 prerequisite/evidence and exact document identity audit | No materialization/freeze until selected documents are APPROVED and repository-verified |
 | Agent 5 | Classroom Release Preparation | Release-02 baseline acceptance and document prerequisite mapping | Private verification only; no public write and no freeze before prerequisites |
-| Agent 6 | Presenter Solutions | Assigned Frontend implementation and cumulative/regression CI readiness | Frontend implementation only after current track Integration CI is green |
-| Agent 7 | Classroom Release Preparation | Manifest/checklist consistency and private promotion-boundary verification | Prerequisite-free private verification only; publication Presenter-only |
-| Agent 8 | Recovery / Final Integration | T41-T45 registry candidate, immutable evidence capture and freeze guard | `freeze_allowed=false` until T41-T45 all complete plus cumulative/registry-tip CI |
+| Agent 6 | Presenter Solutions | Assigned Frontend and cumulative/regression readiness | Next-track Service begins only after current-track Frontend gate closes |
+| Agent 7 | Classroom Release Preparation | Manifest/checklist consistency and private promotion-boundary verification | Prerequisite-safe private work only; publication Presenter-only |
+| Agent 8 | Recovery / Final Integration | T46-T50 registry candidate, immutable evidence capture and freeze guard | `freeze_allowed=false` until T46-T50 and registry-tip CI are complete |
 
 ## Current Presenter boundary
-- T41 Create Book Issue: four component checkpoints VERIFIED GREEN.
-- T42 Read Book Issue: four component checkpoints VERIFIED GREEN.
-- T43 Update Book Issue: four component checkpoints VERIFIED GREEN.
-- T44 Cancel Book Issue: next eligible Service stage.
-- T45 Search Book Issue: source-reconciled, pending ordered execution.
-- T41-T45 registry/freeze remains blocked by T44-T45 plus cumulative/registry-tip CI.
+- T01-T45: frozen/verified registries.
+- T46 Create Book Return: Service, Unit, Integration and Assigned Frontend VERIFIED GREEN; final batch registry gate waits for T46-T50 completion.
+- T47 Read Book Return: Service, Unit and Integration VERIFIED GREEN.
+- T47 Assigned Frontend — human-readable component: **Void/Delete Book Return UI** — implementation exists at `frontend/frontend.lib.mgmt/src/tracks/t47-delete-book-return.js`, blob `11f6b067f234fdc36779f5080e4cfe66fd338472`; implementation commit `38173db4b7dd4f89b3c8160d925551f8eb77a97a`. Exact green Actions evidence remains unavailable through the connected Actions surface, so this checkpoint is uncredited.
+- Fresh T47 CI reverification trigger commit: `cbc9fdcbfda18d644833815175672e3149d87aa4`; workflow definition confirms all `Presenter-Solutions-*` pushes trigger backend PostgreSQL tests and frontend Vite build, but the Actions run endpoint is denied to the integration and combined commit status exposes no conclusion.
+- T48 Update Book Return: source reconciliation complete at `d1cc4cfeb43f06be23b52677a2d860c85935e990`; implementation remains blocked until T47 Assigned Frontend closes.
+- T49-T50 remain ordered YET TO DO.
+
+## Current Classroom boundary
+- Release-01 remains blocked by T01_01/T01_03 repository identity/materialization completion.
+- Release-02 application/source acceptance remains anchored at `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb` with controlled-error acceptance run `31989985693`.
+- Release-02 baseline README inconsistency was corrected privately: `BASELINE_README.md` commit `793371388d16fdefb5a7aa539927d738a5b25e41`, blob `01812dbf7c35a215cc831f7e5c767cf96ac9c7fd`. This is prerequisite cleanup, not a release-percentage gate.
+- Release-02 remains document-gated by T02_02 GENERATING and T02_03 PENDING.
 
 ## Document work during this phase
 T02_02-T06_02 remain unfinished upstream Document Rerun work, but they are not assigned one of the eight active lanes. T01_01/T01_03 identity-control transitions also remain unfinished. Classroom tasks that depend on these documents remain BLOCKED; this allocation must not bypass Document gates.
@@ -51,7 +58,7 @@ For every Presenter track:
 6. PostgreSQL 18 Testcontainers Integration;
 7. branch-tip Integration CI green;
 8. assigned Frontend;
-9. cumulative CI/registry evidence;
+9. exact green cumulative CI/registry evidence;
 10. batch registry freeze only when the full five-track batch is ready.
 
 No dependent stage may be started or credited prematurely.
@@ -59,12 +66,15 @@ No dependent stage may be started or credited prematurely.
 ## Classroom release rules
 1. Private prerequisite-free audits, manifests, checklists and promotion-boundary verification may run in parallel.
 2. Any release containing rerun documents is blocked until exact selected documents are APPROVED and repository-verified.
-3. Release-02 controlled-error acceptance must remain tied to the approved baseline evidence.
+3. Release-02 controlled-error acceptance remains tied to the accepted application/source identity; README-only corrections do not silently inherit or create new build credit.
 4. ChatGPT/automation must never write to the public classroom repository; public publication is Presenter-only.
 5. Quality Gate repository is read-only.
 
 ## Recovery rules
 Registry evidence may be captured incrementally for verified checkpoints. A five-track batch must not be frozen until every track has immutable component evidence and required cumulative CI. Final integration cannot close while Presenter, Document or Classroom prerequisites remain incomplete.
+
+## Evidence readability rule
+Every dashboard/control entry must lead with the human-readable task/component name. Commit SHAs, blob SHAs, workflow IDs and job IDs are evidence placed beside that name; raw identifiers must not substitute for the component description.
 
 ## Coordinator selection rules
 1. Read all required control/task files plus current branch and Actions evidence.
