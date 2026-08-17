@@ -9,67 +9,50 @@ Do not start Integration before Service + Unit Test branch-tip CI is green. Do n
 
 ## Current verified state
 - T01-T30: completed/verified batch registries.
-- T31: 80%; final registry checkpoint pending T31-T35 batch.
-- T32: 80%; final registry checkpoint pending T31-T35 batch.
-- T33: 80%; final registry checkpoint pending T31-T35 batch.
-- T34: **80%**; Service + Unit Test + Integration + assigned Frontend verified green; cumulative run `31982423259` SUCCESS; final batch registry checkpoint pending.
-- T35: **40% verified**; route/envelope reconciliation, Service and Unit Test are CLOSED GREEN. The live `SearchBookCopyServiceImpl` is implemented with null/blank validation, trim normalization, DAO search and DTO mapping; it is not a hard-coded STUB. Local PostgreSQL Integration `6881ec4a...` and PostgreSQL 18 Testcontainers Integration `31c51de7...` are committed, but the percentage-bearing Integration gate remains FAILED.
+- T31-T35: **100% complete and batch registry VERIFIED**.
 - T36-T60: pending unless newer verified evidence supersedes this file.
 
+## T31-T35 closure evidence
+- T35 exact Integration failure was exposed by diagnostic run `31988227342`: `SearchBookCopyIntegrationTest.shouldPreserveDaoOrderingAcrossMatchingCopies` relied on brittle fixed seed-count/terminal-ID assertions although `BookCopyDao.search` only guarantees matching accession-number rows ordered by `bookCopyId`.
+- T35 Integration repair commits: `c9ebfcf4eb7e94b374953de5ac157fae4b6633f4` and final `18c2abd065862580a3d5459e7875b21c9890634b`.
+- T35 repaired Integration run `31990077599`: backend `95271926715` SUCCESS; frontend-build `95271926679` SUCCESS.
+- Assignment-boundary reconciliation used the established 5-track rotation: Create→Update, Read→Delete, Update→Search, Delete→Create, Search→Read/List.
+- T33 incorrect Update frontend was removed and replaced by assigned Search frontend `00f2f244e261f86805cacd35e5b05894d0fb3b46` at `frontend/frontend.lib.mgmt/src/tracks/t33-search-book-copy.js`.
+- T34 incorrect Deactivate frontend was removed and replaced by assigned Create frontend `6d480c3740424bb0b456393dc1ad0eb4beb737e1` at `frontend/frontend.lib.mgmt/src/tracks/t34-create-book-copy.js`.
+- T35 assigned Read/List frontend: `6a5b00a51abae1b077ea4ea644c03866c855ed1d` at `frontend/frontend.lib.mgmt/src/tracks/t35-read-list-book-copy.js`.
+- Corrected branch-tip run `31990383608`: backend `95272723987` SUCCESS; frontend `95272723831` SUCCESS.
+- Frozen registry: `.presenter/solution-registry/T31-T35.yml`, commit `83d51d4343fd79f8609e4bc73a483ce85615a276`.
+- Registry-tip verification run `31990613453`: backend `95273356638` SUCCESS; frontend `95273356652` SUCCESS.
+
 ## Current four-lane allocation
-- **Agent 1:** T34 Frontend/cumulative gate — CLOSED GREEN; T34 registry-ready.
-- **Agent 2:** T35 Integration diagnosis — ACTIVE; deterministic failure proven, exact Maven/Surefire cause still not exposed by available job logs/annotations.
-- **Agent 3:** T35 source/contract/interface/controller/DAO/seed reconciliation — CLOSED; current source and deterministic seed are internally aligned with the frozen contract.
-- **Agent 6:** T35 Unit Test — CLOSED GREEN; future Frontend remains BLOCKED because Integration is not green.
-
-## Exact evidence
-### T34
-- DELETE `/rest/book-copies/{id}`, code `34`.
-- Service `abb23be3...`; Unit Test `bc15079b...`.
-- Integration replacement run `31981001820`: SUCCESS.
-- Frontend `820ae6cf96a2fee1a688383f12db329994ea8cf7`.
-- Cumulative run `31982423259`: frontend `95251485072` SUCCESS; backend `95251485194` SUCCESS.
-- T34 is registry-ready pending batch freeze.
-
-### T35
-- GET `/rest/book-copies/search?text=...`; `ApiResponse<List<BookCopyResponseDto>>`; code `35`; message `Book Copy Search Completed Successfully`.
-- Interface `SearchBookCopyService.searchBookCopy(String text)`.
-- DAO searches `accessionNumber` with `%text%` and orders by `bookCopyId`.
-- Service `0591d97853970e83be826af8bb9fb1c19ed46b2c`.
-- Unit Test `126fe8493f80d99ae1c5b1bcdfcaab06fb5b9823`.
-- Service/Unit verification run `31982423259`: SUCCESS.
-- Local PostgreSQL Integration `6881ec4a108fd4eb460e78b01d737b4929fc2490`.
-- PostgreSQL 18 Testcontainers Integration branch tip `31c51de7f11fc56faa56239430f62284a5c0a597`.
-- Commit `31c51de7...` changes only `SearchBookCopyTestcontainersIntegrationTest.java`; its test searches `0004`, expects exactly Book Copy ID 4 / `ACC-0004`, and expects `missing` to return an empty list.
-- Deterministic seed V002 contains Book Copy ID 4 = `ACC-0004`, AVAILABLE, and four total seeded copies `ACC-0001` through `ACC-0004`; this directly matches the Testcontainers assertion fixture.
-- Existing green Testcontainers tests use the same Spring Boot 4.1 / Testcontainers PostgreSQL 18 pattern and `org.testcontainers.postgresql.PostgreSQLContainer`, so the T35 import/container style is not uniquely divergent.
-- Integration run `31982678321`: frontend-build `95252157100` SUCCESS; original backend-test `95252157107` FAILURE.
-- Same-source failed-job rerun `95256133626` also FAILURE. Job steps show setup/container initialization succeeded and only `Run Presenter solution tests with PostgreSQL` failed; the connector exposes no Surefire artifact and the raw job-log endpoint returns no usable test text.
-- Therefore no source-grounded assertion-level repair can yet be justified. No speculative patch was made.
+- **Agent 1:** T35 Integration diagnosis/repair — CLOSED GREEN.
+- **Agent 2:** T33/T34/T35 assigned-frontend reconciliation — CLOSED GREEN.
+- **Agent 3:** T31-T35 cumulative source/contract evidence reconciliation — CLOSED.
+- **Agent 6:** T31-T35 registry freeze and branch-tip verification — CLOSED GREEN.
 
 ## Current stream accounting
 - Previous: **56.0000%**
-- Updated: **56.0000%**
-- Increase: **+0.0000%**
-- State: **STALE BY PERCENTAGE / T35 INTEGRATION DETERMINISTIC FAILURE UNDER DIAGNOSIS**.
+- Updated: **58.3333%**
+- Increase: **+2.3333%**
+- State: **PROGRESSED — T31-T35 BATCH CLOSED VERIFIED**.
 
 ## Tasks Taken Up This Cycle
-- Isolate the T35 branch-tip delta and compare its Testcontainers fixture against deterministic V002 seed data.
-- Inspect failed workflow job steps, annotations/log surfaces, Testcontainers dependency shape and an existing green PostgreSQL 18 Testcontainers test.
-- Keep T35 Frontend blocked until Integration is objectively green.
+- Extract exact T35 Maven failure and repair only the invalid Integration assertions.
+- Verify the established frontend-assignment rotation and correct T33/T34/T35 assignments before registry credit.
+- Run corrected cumulative CI, freeze the T31-T35 private registry, and run registry-tip CI.
 
 ## Tasks Closed This Cycle
-- T35 Testcontainers fixture-vs-seed mismatch hypothesis — CLOSED: test `0004` expectation and V002 ID 4 / `ACC-0004` are aligned.
-- T35 unique PostgreSQLContainer import/pattern hypothesis — CLOSED: an existing green track uses the same Spring Boot/Testcontainers PostgreSQL 18 pattern.
+- T35 Integration gate — CLOSED GREEN.
+- T33 assigned Frontend correctness — CLOSED GREEN after repair.
+- T34 assigned Frontend correctness — CLOSED GREEN after repair.
+- T35 assigned Frontend — CLOSED GREEN.
+- T31-T35 cumulative CI/registry gate — CLOSED GREEN.
 
 ## Tasks In Progress / Blocked
-- T35 exact Integration failure isolation — IN PROGRESS; precise Maven/Surefire assertion/error is still not exposed by available CI evidence.
-- T35 Integration percentage gate — FAILED / not credited.
-- T35 Frontend — BLOCKED until Integration is green.
-- T31-T35 batch freeze — BLOCKED until T35 becomes registry-ready.
+- T36-T40 Presenter work — next eligible batch; do not run any dependent stage before its source/contract prerequisites are established.
 
 ## Action Taken in This Cycle
-Narrowed the deterministic T35 failure without guessing: inspected commit `31c51de7...`, proved it adds only the T35 PostgreSQL 18 Testcontainers class, reconciled that test's `ACC-0004` expectation against V002, and compared its container pattern with a previously green Testcontainers integration class. CI step evidence confirms container/setup success and failure only inside the Maven presenter-test step, but the connector still exposes no exact Surefire failure text. No speculative source or test change was committed.
+Converted T35 from deterministic Integration failure to a fully verified batch close: diagnostic CI exposed the exact brittle assertions, source-grounded repairs removed fixed seed assumptions while preserving DAO ordering verification, the corrected frontend assignment rotation was enforced for T33-T35, branch-tip cumulative CI passed, and `.presenter/solution-registry/T31-T35.yml` was frozen and revalidated on run `31990613453`.
 
 ## Completion rule
-Credit T35 Integration only after a source-grounded repair and fully green workflow. Only then may the assigned T35 Frontend be implemented.
+Continue T36-T60 with the same dependency sequence and do not credit a batch registry before exact component identities and cumulative branch-tip verification are green.
