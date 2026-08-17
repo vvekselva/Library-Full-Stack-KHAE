@@ -14,7 +14,7 @@
 ## Current verified state
 ### Release-01
 - T01_02 remains APPROVED/repository-verified.
-- T01_01 and T01_03 remain QUALITY_GATE_PASSED with repository materialization/identity transition still pending in `.project/document-rerun-progress.yml`.
+- T01_01 and T01_03 remain QUALITY_GATE_PASSED with repository materialization/identity transition still pending.
 - Release-01 materialization/freeze remains blocked.
 
 ### Release-02
@@ -29,12 +29,12 @@
 - State: **STALE — RELEASES REMAIN DOCUMENT-GATED**.
 
 ## Tasks Taken Up This Cycle
-- Agent 4 revalidated Release-01 against the live document state.
-- Agent 5 revalidated Release-02 controlled-error acceptance plus T02 document prerequisites.
-- Agent 7 revalidated the no-public-write/no-Quality-Gate-write boundary.
+- Agent 4 revalidated Release-01 against the live Document task queue.
+- Agent 5 revalidated Release-02 controlled-error acceptance and T02 prerequisites.
+- Agent 7 revalidated the private-only/no-public/no-Quality-Gate boundary.
 
 ## Tasks Closed This Cycle
-No percentage-bearing Classroom task closed; gate checks are not counted as progress.
+No percentage-bearing Classroom task closed; dependency checks are not counted as progress.
 
 ## Tasks In Progress / Blocked
 - Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 repository materialization/identity transition.
@@ -42,4 +42,4 @@ No percentage-bearing Classroom task closed; gate checks are not counted as prog
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Classroom Release has **29 consecutive cycles without percentage increase**. **Action Taken:** Agents 4/5/7 revalidated the exact live Document prerequisites and preserved the publication boundary; no blocked candidate was materialized and no status-only check was credited as progress.
+Classroom Release has **30 consecutive cycles without percentage increase**. **Action Taken:** Agents 4/5/7 revalidated exact live document prerequisites and preserved the publication boundary; no blocked candidate was materialized and no status-only check was credited as progress.
