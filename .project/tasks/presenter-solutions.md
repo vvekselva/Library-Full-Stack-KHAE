@@ -12,14 +12,15 @@ Do not start Integration before Service + Unit Test branch-tip CI is green. Do n
 - T31: 80%; Service + UT + Integration + Frontend complete; final registry checkpoint pending T31-T35 batch.
 - T32: 80%; Service + UT + Integration + Frontend complete; final registry checkpoint pending T31-T35 batch.
 - T33: 80%; Service + Unit Test/repair + Integration + Frontend verified green; final registry checkpoint pending T31-T35 batch.
-- T34: Service + Unit Test VERIFIED GREEN = 40%. Local PostgreSQL + PostgreSQL 18 Testcontainers Integration are committed, but branch-tip workflow `31979478188` completed FAILURE. Frontend remains blocked.
-- T35-T60: pending unless newer verified evidence supersedes this file.
+- T34: Service + Unit Test VERIFIED GREEN = 40%. The prior Integration CI failure was diagnosed as test/seed misalignment and repaired on the Presenter branch. Replacement branch-tip workflow `31981001820` is still validating; no Integration percentage is credited until the backend PostgreSQL job is green. Frontend remains blocked until then.
+- T35: source/interface/DAO/STUB reconciliation is active; no implementation checkpoint is credited yet.
+- T36-T60: pending unless newer verified evidence supersedes this file.
 
 ## Current four-lane allocation
-- **Agent 1:** T34 Integration CI failure diagnosis and exact failing-test/root-cause evidence.
-- **Agent 2:** T34 Integration implementation/test reconciliation against the frozen contract, DAO state and PostgreSQL behavior; prepare/perform only evidence-supported repair.
-- **Agent 3:** T35 source/contract/interface/controller/stub reconciliation only; do not skip Service → UT → CI ordering.
-- **Agent 6:** T31-T34 cumulative regression/registry readiness and exact T34 Frontend readiness inspection; do not implement T34 Frontend while Integration is red.
+- **Agent 1:** T34 Integration CI failure diagnosis — root cause established and repair evidence captured; wait for replacement branch-tip CI conclusion.
+- **Agent 2:** T34 Integration test/seed reconciliation — repaired success-path IDs and added explicit active-issue dependency coverage; no Frontend until green CI.
+- **Agent 3:** T35 source/contract/interface/controller/stub reconciliation; current evidence proves service code/interface/DAO/STUB identity, with Presenter-owned route/envelope still to be fully frozen before implementation.
+- **Agent 6:** T31-T34 cumulative regression/registry readiness and exact T34 Frontend readiness inspection; Frontend remains blocked while replacement Integration CI is running.
 
 ## T34 exact evidence
 Frozen source reconciliation:
@@ -33,24 +34,41 @@ Verified checkpoints:
 - Unit tests `bc15079bf17a219283f3465083b8577e7f9da16f`.
 - Verification workflow `31979270908`: SUCCESS; frontend job `95243377846` SUCCESS; backend PostgreSQL job `95243377910` SUCCESS.
 
-Integration evidence:
-- Local PostgreSQL integration `f5c7804210431152ec40e54ca03d64a093fd9361`.
-- PostgreSQL 18 Testcontainers integration `d61995c62f19152ec5fb7ab9b3c30e6e52e5ab6e`.
-- Workflow `31979478188`: **FAILURE**.
-- Backend job `95243874899`: **FAILURE** specifically at `Run Presenter solution tests with PostgreSQL`; setup/container/checkout/Java steps succeeded.
-- Frontend job `95243874904`: **SUCCESS**.
+Integration failure diagnosis and repair:
+- Prior local PostgreSQL integration `f5c7804210431152ec40e54ca03d64a093fd9361` and PostgreSQL 18 Testcontainers integration `d61995c62f19152ec5fb7ab9b3c30e6e52e5ab6e` both used seeded Book Copy ID `2` as the successful withdrawal case.
+- Deterministic seed data gives Book Copy ID `2` an ACTIVE Book Issue. The verified service correctly rejects that copy through the dependency guard, so the tests were inconsistent with the frozen business rule.
+- Seeded Book Copy ID `4` is current and has no ACTIVE Book Issue; it is the correct deterministic success case.
+- Local PostgreSQL test repair commit `325c7102ddc2e9911a4abff6e3ec0e80d7701113`: success/repeat-withdrawal now use ID `4`; explicit ID `2` dependency-exists test added.
+- PostgreSQL 18 Testcontainers repair commit `2f2081c062585e1a59a924eff8487f5454fd9025`: same deterministic alignment and explicit dependency guard coverage.
+- Replacement workflow `31981001820` at head `2f2081c062585e1a59a924eff8487f5454fd9025`: frontend job `95247637355` SUCCESS; backend job `95247637400` currently IN PROGRESS at `Run Presenter solution tests with PostgreSQL`.
+
+## T35 reconciliation evidence
+- Service code: `T35_SEARCH_BOOK_COPY = "35"`.
+- Interface: `SearchBookCopyService.searchBookCopy(String text)` returning `List<BookCopyResponseDto>`.
+- `BookCopyDao.search(String text)` searches `accessionNumber` with a `%text%` pattern and orders by `bookCopyId`.
+- Current `SearchBookCopyServiceImpl` is a STUB that ignores `text` and returns hard-coded Book Copy `1 / ACC-0001 / book 1 / AVAILABLE`.
+- No T35 Service checkpoint is credited until Presenter-owned controller/route/envelope reconciliation is complete and the implementation is dependency-safe.
 
 ## Current stream accounting
 - Previous: **54.6667%**
 - Updated: **54.6667%**
 - Increase: **+0.0000%**
-- State: **T34 INTEGRATION RED — FOUR INDEPENDENT PRESENTER LANES ACTIVE WITH DEPENDENCY GUARDS**.
+- State: **T34 INTEGRATION REPAIRED / BRANCH-TIP CI PENDING; T35 RECONCILIATION ACTIVE**.
+
+## Tasks Taken Up This Cycle
+- Diagnose the exact T34 PostgreSQL Integration CI failure.
+- Reconcile and repair T34 local/Testcontainers tests against deterministic seed and dependency behavior.
+- Reconcile T35 service code, interface, DAO search behavior and current STUB boundary.
+- Inspect cumulative/Frontend readiness without bypassing the Integration gate.
+
+## Tasks Closed This Cycle
+- T34 failure diagnosis: CLOSED with source-proven test/seed mismatch.
+- T34 evidence-supported Integration test repair: CLOSED; verification remains a separate in-progress gate.
 
 ## Tasks In Progress
-- Diagnose T34 backend Integration failure.
-- Reconcile T34 Integration tests/implementation to isolate evidence-supported repair.
-- Reconcile T35 source/contract ownership without starting dependent implementation prematurely.
-- Audit cumulative-regression and T34 Frontend readiness while preserving Frontend block.
+- T34 replacement Integration workflow `31981001820` validation.
+- T35 Presenter-owned route/envelope reconciliation.
+- T31-T34 cumulative-regression / T34 Frontend readiness inspection.
 
 ## Completion rule
-No Presenter percentage is credited for T34 Integration until a branch-tip Integration workflow is fully green. T34 Frontend remains blocked until then.
+No Presenter percentage is credited for T34 Integration until the replacement branch-tip workflow is fully green. T34 Frontend remains blocked until then.
