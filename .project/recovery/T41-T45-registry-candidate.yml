@@ -35,6 +35,7 @@ tracks:
     assigned_frontend: blocked_missing_authoritative_assignment_record
     assignment_gap_evidence_commit: a7ac9db850fc0ebbbf1934545326501d5f179b35
     assignment_gap_evidence_path: .presenter/reconciliation/T42-frontend-assignment-gap.md
+    assignment_gap_branch_tip_ci: {workflow_run: 32008914264, result: SUCCESS, head_sha: a7ac9db850fc0ebbbf1934545326501d5f179b35}
     registry_checkpoint: pending_batch_cumulative_ci
   T43:
     operation: Update Book Issue
