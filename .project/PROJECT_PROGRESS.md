@@ -10,94 +10,89 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-17 04:02 UTC
+## Current Status - 2026-08-17 04:05 UTC
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
 | Document Rerun | **5.3889%** | **5.3889%** | **+0.0000%** | STALE by percentage. No current lane assigned. T01_01/T01_03 remain QUALITY_GATE_PASSED pending Document identity-control reconciliation; T02_02-T06_02 remain GENERATING. |
-| Presenter Solutions | **61.6667%** | **66.6667%** | **+5.0000%** | PROGRESSED. T36-T40 Integration, assigned Frontend and frozen registry are fully verified. |
-| Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | STALE by percentage, but private Release-01 identities and Release-02 accepted baseline controls were reconciled this cycle. |
-| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | T36-T40 Recovery batch CLOSED / FROZEN_VERIFIED. No numeric sub-allocation exists for one intermediate registry batch, so no percentage was invented. |
-| **Overall** | **29.3417%** | **31.0917%** | **+1.7500%** | Presenter percentage-bearing checkpoints closed; Classroom and Recovery also completed substantive private work. |
+| Presenter Solutions | **66.6667%** | **66.6667%** | **+0.0000%** | ACTIVE. T41-T45 Book Issue source/contract reconciliation CLOSED; T41 Service is next eligible but not yet credited. |
+| Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | STALE by percentage and still document-gated; controlled-error prerequisite remains accepted. |
+| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | T41-T45 guarded registry candidate OPEN / SOURCE_RECONCILED; `freeze_allowed=false`. |
+| **Overall** | **31.0917%** | **31.0917%** | **+0.0000%** | No percentage-bearing gate closed; dependency-safe prerequisites advanced. |
 
 ## Eight Logical Worker Lanes
 One primary coordinator; no autonomous background-agent runtime is exposed.
 
-- **Agent 1 — Presenter:** T36/T37 Integration/Frontend progression CLOSED GREEN; next eligible work is T41-T45 source reconciliation only.
-- **Agent 2 — Presenter:** T38/T39 Integration/Frontend progression CLOSED GREEN; next may inspect T41-T45 DAO/schema prerequisites.
-- **Agent 3 — Presenter:** T40 Integration/Frontend progression CLOSED GREEN; next may reconcile T41-T45 contracts/interfaces/controllers.
-- **Agent 4 — Classroom:** Release-01 exact T01 identity reconciliation CLOSED privately; candidate remains document-gated.
-- **Agent 5 — Classroom:** Release-02 accepted controlled-error baseline reconciliation CLOSED privately; candidate remains document-gated.
-- **Agent 6 — Presenter:** T36-T40 cumulative Frontend + registry-tip verification CLOSED GREEN; dependency guard moves to T41-T45.
-- **Agent 7 — Classroom:** private manifest/checklist consistency advanced; no public/QG write.
-- **Agent 8 — Recovery:** T36-T40 candidate and frozen registry CLOSED / VERIFIED; later batches remain gated.
+- **Agent 1 — Presenter:** T41/T42 Service prerequisite inspection and implementation sequence.
+- **Agent 2 — Presenter:** T43/T44 DAO/schema/business-rule prerequisite inspection.
+- **Agent 3 — Presenter:** T45 search/controller/interface/DAO reconciliation and test readiness.
+- **Agent 4 — Classroom:** Release-01 remains blocked by T01_01/T01_03 Document identity-control approval/repository-verification.
+- **Agent 5 — Classroom:** Release-02 controlled-error baseline remains accepted; documents still block materialization/freeze.
+- **Agent 6 — Presenter:** branch-tip CI/dependency guard; no Integration/Frontend before Service+Unit+green CI.
+- **Agent 7 — Classroom:** no-public/no-QG promotion guard; no eligible publication work.
+- **Agent 8 — Recovery:** T41-T45 candidate opened with false freeze guard.
 
-## Presenter Evidence
-- Service+Unit gate `31991520031`: backend `95275836101` SUCCESS; frontend `95275836078` SUCCESS.
-- Local PostgreSQL Integration gate `31991835066`: backend `95276657850` SUCCESS; frontend `95276658008` SUCCESS.
-- PostgreSQL 18 Testcontainers gate `31992068286`: backend `95277279036` SUCCESS; frontend `95277279026` SUCCESS.
-- Assigned-Frontend cumulative gate `31992429729`: backend `95278228731` SUCCESS; frontend `95278228736` SUCCESS.
-- Correct assigned Frontends: T36 Update `15697528...`; T37 Deactivate `f36e8698...`; T38 Search `7ab8f33f...`; T39 Create `cf0de629...`; T40 Read/List `aacf493c...`.
-- Frozen registry `.presenter/solution-registry/T36-T40.yml` at `25581a24d5e85c9ef261f072316282a0b0431bd8`.
-- Registry-tip run `31992660117`: backend `95278824232` SUCCESS; frontend `95278824289` SUCCESS.
-- Presenter task synchronized at `c903890cd442f2768c6b0e30a1c953e6d4a2954e`.
+## Presenter Evidence This Cycle
+- Created `Presenter-Solutions-T41-T45` from verified T36-T40 registry tip `25581a24d5e85c9ef261f072316282a0b0431bd8`.
+- Reconciliation record `.presenter/reconciliation/T41-T45-source-contract.md` commit `44a2f4df8cecacf8831f6f7ca88c0a8fa87c5b0f`.
+- Verified module: Book Issue; controller base `/rest/issues`.
+- T41 `POST /rest/issues`, code 41; T42 `GET /rest/issues/{id}`, code 42; T43 `PUT /rest/issues/{id}`, code 43; T44 `DELETE /rest/issues/{id}`, code 44; T45 `GET /rest/issues/search?text=...`, code 45.
+- `BookIssueDao` confirms ACTIVE-row semantics, normalized `issueNumber` business key, issueNumber search, and non-VOID Book Return dependency counting.
+- Inherited `CreateBookIssueServiceImpl` is a hard-coded stub (ID 1001L/request echo), so no T41 Service credit was inferred.
+- Presenter task synchronized at `ef67f6206b5600cfef02337bef30f50067ecfc3a`.
 
-## Classroom Evidence
-- Release-01 exact T01 QG path: `Documents/Student-Guides/Department/T01_Create_Department/`.
-- T01 blobs: Initial `b6bb206b...`; Progressive `41c746d5...`; Updated `fb3e68db...`; read-only QG tip `c951f0e3...`.
-- Private Release-01 manifest reconciliation `ad145529ef45126b2d3f7c3130e3ae9b78057d2f`; validation checklist reconciliation `77359328a75de11cf0932b13e83cefbb7bdfa7be`.
-- T01_01/T01_03 were not promoted: dedicated Document identity-control reconciliation remains required.
-- Accepted Release-02 baseline is `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb`.
-- Controlled-error blobs: exception `6f3475ee...`; global handler `f2b13a8e...`; acceptance run `31989985693` remains green for backend/frontend.
-- Release-02 private manifest correction `bb5679a207f99916c3c1420c6a4e2cb55db8baf5`.
-- Classroom task synchronized at `02d7a883e15619256a3d320e065bddc3d317f20d`.
+## Classroom Evidence This Cycle
+- Re-read authoritative release dependencies before any candidate materialization.
+- Release-01 remains blocked by T01_01/T01_03 Document identity-control reconciliation and APPROVED/REPOSITORY_VERIFIED status.
+- Release-02 remains blocked by required approved/repository-verified rerun documents; controlled-error acceptance remains complete.
 - No Public or Quality Gate write occurred.
 
-## Recovery Evidence
-- `.project/recovery/T36-T40-registry-candidate.yml` is now `FROZEN_VERIFIED`.
-- Candidate final verification update `4bfb98c6ee25af4bfbf9811551580854d0386669`.
-- All five T36-T40 tracks have exact Service, Unit, local Integration, Testcontainers and assigned Frontend commits captured.
-- Frozen Presenter registry `25581a24...` is green on registry-tip run `31992660117` for both backend and frontend.
-- Recovery task synchronized at `b9baa29bb8a498abfcbb5d5ef998dc803d82c1d8`.
-- T41-T60 and final integration remain dependency-gated.
+## Recovery Evidence This Cycle
+- Opened `.project/recovery/T41-T45-registry-candidate.yml` at `e5150ead237cefc456918d7b418e97429031396a`.
+- Candidate records T41-T45 as source-reconciled and all percentage-bearing component identities as pending.
+- `freeze_allowed=false` remains explicit until all five tracks have Service, Unit, local Integration, PostgreSQL 18 Testcontainers, assigned Frontend and green cumulative/registry-tip CI evidence.
+- Recovery task synchronized at `7ac28aa35007d55e412ab59ad6d9eeec044ca1dd`.
+
+## Prior Immutable Presenter Batch Evidence
+- T36-T40 frozen registry `25581a24d5e85c9ef261f072316282a0b0431bd8`.
+- Registry-tip run `31992660117`: backend `95278824232` SUCCESS; frontend `95278824289` SUCCESS.
 
 ## Tasks Taken Up
-- T36-T40 Testcontainers gate revalidation.
-- T36-T40 assigned Frontend reconciliation/validation.
-- T36-T40 frozen registry and registry-tip verification.
-- Release-01 exact T01 private manifest/checklist reconciliation.
-- Release-02 accepted controlled-error baseline reconciliation.
-- T36-T40 Recovery candidate finalization.
+- Create next Presenter branch from exact verified predecessor registry.
+- Reconcile T41-T45 Book Issue controller contracts, service interfaces and DAO semantics.
+- Detect and block false T41 Service credit from inherited hard-coded stub.
+- Open Recovery T41-T45 candidate only after immutable Presenter reconciliation.
+- Revalidate Classroom release blockers and no-public/no-QG boundaries.
 
 ## Tasks Closed
-- T36-T40 Integration checkpoints — CLOSED GREEN for all five tracks.
-- T36-T40 assigned Frontend checkpoints — CLOSED GREEN for all five tracks.
-- T36-T40 per-track final registry checkpoints — CLOSED GREEN; batch registry FROZEN / VERIFIED.
-- Release-01 exact artifact-identity placeholder cleanup — CLOSED privately; release still document-gated.
-- Release-02 stale pre-remediation baseline evidence — CLOSED privately; accepted controlled-error baseline synchronized.
-- T36-T40 Recovery registry batch — CLOSED / FROZEN_VERIFIED.
+- T41-T45 Presenter source/contract reconciliation — CLOSED.
+- T41-T45 Recovery candidate initialization/source-evidence capture — CLOSED as non-percentage prerequisite.
+- T41 inherited-stub classification — CLOSED; Service remains PENDING rather than falsely complete.
 
 ## Tasks In Progress / Blocked
-- T41-T45 Presenter batch — NEXT ELIGIBLE; source/contract reconciliation first, no premature Service credit.
-- Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 Document identity-control reconciliation and final APPROVED/REPOSITORY_VERIFIED status.
-- Release-02 materialization/freeze — BLOCKED by required approved/repository-verified rerun documents; controlled-error acceptance is complete.
-- T41-T60 Recovery registry batches — BLOCKED by matching Presenter completion.
+- T41 Service implementation — NEXT ELIGIBLE after exact DTO/mapper/related-entity rule inspection.
+- T42-T45 Service preparation — IN PROGRESS at prerequisite-inspection level; no later-stage credit.
+- Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 Document identity-control reconciliation.
+- Release-02 materialization/freeze — BLOCKED by required approved/repository-verified rerun documents.
+- T41-T45 Recovery batch freeze — BLOCKED until all Presenter checkpoints/CI are immutable and green.
+- T46-T60 Recovery batches — BLOCKED by matching Presenter completion.
 - Final integration/freeze — BLOCKED by remaining Presenter, Document and Classroom prerequisites.
 
 ## Open More Than 3 Cycles / Streams With No Increase >3 Cycles
-- **Document Rerun:** 17 cycles open; **12 no-increase cycles**. Action Taken in This Cycle: no Document worker lane allocated; Classroom-only reconciliation captured exact T01 identities without QG/Public write. T02_02-T06_02 remain GENERATING.
-- **Classroom Release Preparation:** **23 no-increase cycles**. Action Taken in This Cycle: exact T01 immutable paths/blobs were synchronized into Release-01 controls, and Release-02 stale baseline evidence was replaced with the accepted remediated baseline and green run evidence. Materialization remains document-gated.
-- **Recovery / Final Integration:** **23 no-increase cycles** by the frozen percentage field. Action Taken in This Cycle: T36-T40 candidate advanced to `FROZEN_VERIFIED`, exact registry-tip evidence captured, and final integration remained blocked rather than being prematurely closed.
-- **Presenter Solutions:** reset to 0 no-increase cycles because verified T36-T40 checkpoints increased the stream by 5.0000%.
-- **Overall:** reset to 0 no-increase cycles because overall increased by 1.7500%.
+- **Document Rerun:** 18 cycles open; **13 no-increase cycles**. Action Taken in This Cycle: no Document worker lane allocated; preserved exact dependency state and made no QG write.
+- **Classroom Release Preparation:** **24 no-increase cycles**. Action Taken in This Cycle: authoritative blockers were revalidated; no eligible materialization existed, so no public/QG write or false release credit occurred.
+- **Recovery / Final Integration:** **24 no-increase cycles** by frozen percentage field. Action Taken in This Cycle: opened exact T41-T45 source-reconciled candidate with `freeze_allowed=false`.
+- **Presenter Solutions:** 1 no-increase cycle; source reconciliation advanced but carries no checkpoint credit.
+- **Overall:** 1 no-increase cycle because no percentage-bearing checkpoint closed.
 
 ## Document Dependency State
-No Document Rerun work was assigned to the current eight lanes. T01_01/T01_03 are present and re-fetchable but remain QUALITY_GATE_PASSED pending dedicated Document identity-control reconciliation; T02_02-T06_02 remain GENERATING. Document remains 5.3889% and materially blocks Classroom promotion.
+No Document Rerun work was assigned to the current eight lanes. T01_01/T01_03 remain QUALITY_GATE_PASSED pending dedicated Document identity-control reconciliation; T02_02-T06_02 remain GENERATING. Document remains 5.3889% and materially blocks Classroom promotion.
 
 ## Next Dependency-Safe Transitions
-1. Begin T41-T45 Presenter source/contract reconciliation; do not skip Service → Unit → Integration → assigned Frontend → registry ordering.
-2. Keep Release-01/02 private candidates blocked until required document identities are APPROVED and repository-verified.
-3. Open T41-T45 Recovery evidence only as Presenter checkpoints become immutable and green; final integration remains blocked until all upstream streams are ready.
+1. Inspect T41 Book Issue DTO/mapper/related-entity constraints, then implement only the source-proven Service behavior.
+2. In parallel, inspect T42-T45 existing implementations/business-rule dependencies without skipping their Service → Unit → CI sequence.
+3. Keep Release-01/02 blocked until required Document identities are APPROVED and repository-verified.
+4. Incrementally add Recovery evidence only as Presenter checkpoints become immutable; do not freeze T41-T45 early.
 
 ## Hard Rules
 1. No ChatGPT/automation write to Public.
