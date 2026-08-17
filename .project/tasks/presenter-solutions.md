@@ -6,46 +6,39 @@
 
 ## Current verified state
 - T01-T40: completed/verified batch registries.
-- T41-T45: **FROZEN / VERIFIED** as Book Issue batch.
-- T45 Search Book Issue exact evidence:
-  - Service `92fa8905e717ff72dc13aaee450131eb943fd8f6`.
-  - Unit `9ed37bda2af21ff91ad41afc87188d3d981898f5`.
-  - Service/Unit workflow `32019458367`: backend `95355874960` SUCCESS; frontend `95355874881` SUCCESS.
-  - Local PostgreSQL Integration `c5524a615be6eb58dfe7a059f57eab44a2f30398`.
-  - Authoritative Read/List assignment reconciliation `584a9a7381aee781e318d9fb8c657c1aaee4b628`.
-  - Local Integration branch-tip workflow `32020468327`: backend `95358966542` SUCCESS; frontend `95358966577` SUCCESS.
-  - PostgreSQL 18 Testcontainers `6537eec9087f45e5110412fd8a8d69c669669cf6`; workflow `32020842753`: backend `95360007540` SUCCESS; frontend `95360007549` SUCCESS.
-  - Assigned frontend `93d15c382a1a19b8ae48cfea28a5d57524508487`, path `frontend/frontend.lib.mgmt/src/tracks/t45-read-list-book-issue.js`; workflow `32021176199`: backend `95360990563` SUCCESS; frontend `95360990492` SUCCESS.
-  - Frozen registry `9f4f5e70b48e5eaa0b8296aa23bf19a438a0e33a`; registry-tip workflow `32021541997`: backend `95362087862` SUCCESS; frontend `95362087926` SUCCESS.
-- T46-T60: pending behind batch sequence.
+- T41-T45: FROZEN / VERIFIED at registry `9f4f5e70b48e5eaa0b8296aa23bf19a438a0e33a`; registry-tip workflow `32021541997` fully SUCCESS.
+- T46-T50: new active Book Return batch branch `Presenter-Solutions-T46-T50`, created from the exact T41-T45 frozen registry head.
+- Source/contract reconciliation: CLOSED at commit `2f8960905e7ade98e7f40ba0eb3e00528a98eb07`; T46-T50 map to Create/Read/Update/Void/Search Book Return through `/rest/returns`.
+- Presenter application codes T46-T50/P10 added at `7208c0fae936f9a976d7c7ed264bd88d0f560b68`.
+- T46 Create Book Return Service implemented DAO-backed at `f577c29d80937da39872eae77e43bc48d4042c1c`.
+- T46 focused Unit tests added at `b7764e353597feaef97df23b5f30cc54eaefd8b5`.
+- Exact branch-tip workflow `32025558727` is IN_PROGRESS; frontend job `95374127657` and backend job `95374127757` are IN_PROGRESS at consolidation.
 
 ## Current stream accounting
 Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300 checkpoints.
 - Verified total: **225 / 300 = 75.0000%**.
-- Previous: **72.0000%**
+- Previous: **75.0000%**
 - Updated: **75.0000%**
-- Increase: **+3.0000%**
-- State: **ADVANCED — T45 FOUR COMPONENTS + T41-T45 REGISTRY VERIFIED**.
+- Increase: **+0.0000%**
+- State: **ACTIVE / T46 SERVICE+UNIT IMPLEMENTED, CI PENDING**.
 
 ## Tasks Taken Up This Cycle
-- Agent 1 closed T45 Service/Unit acceptance on exact green branch-tip CI.
-- Agent 2 implemented and verified local PostgreSQL plus PostgreSQL 18 Testcontainers Integration in dependency order.
-- Agent 3 source-grounded the T45 Read/List frontend assignment from frozen T35/T40 registries and the live Book Issue REST contract.
-- Agent 6 implemented the assigned Read/List frontend only after Integration was green and verified its full branch-tip regression.
-- Coordinator/Agent 8 assembled the five-track registry only after all component checkpoints were green, then waited for registry-tip CI.
+- Agent 3 reconciled the T46-T50 Book Return controller/DAO/entity/request contract and froze it privately.
+- Agent 1 implemented T46 Create Book Return from the reconciled boundary.
+- Agent 2 added focused T46 Unit tests and started exact branch-tip CI.
+- Agent 6 preserved the Frontend gate; no T46 frontend implementation was started before Integration.
 
 ## Tasks Closed This Cycle
-- T45 Service — CLOSED / VERIFIED GREEN.
-- T45 Unit Test — CLOSED / VERIFIED GREEN.
-- T45 Integration — CLOSED / VERIFIED GREEN in local PostgreSQL and PostgreSQL 18 Testcontainers.
-- T45 Assigned Frontend — CLOSED / VERIFIED GREEN.
-- T41, T42, T43, T44 and T45 Registry checkpoints — CLOSED only after workflow `32021541997` was fully green.
-- T41-T45 Presenter batch — CLOSED / FROZEN VERIFIED.
+- T46-T50 source/contract reconciliation — CLOSED as a prerequisite, non-percentage task.
+- T46 branch creation/application-code prerequisite — CLOSED as private preparation.
+- No percentage-bearing Presenter checkpoint is closed until workflow `32025558727` is fully green.
 
 ## Tasks In Progress / Blocked
-- T46-T50 source/contract reconciliation is the next dependency-safe Presenter batch entry point.
-- T46 implementation must not begin before its source/contract boundary is reconciled.
-- T51-T60 remain behind their matching batch sequence.
+- T46 Service + Unit acceptance — IN PROGRESS on workflow `32025558727`.
+- T46 Integration — BLOCKED until Service + Unit branch-tip CI is green.
+- T46 Assigned Frontend — BLOCKED until Integration CI is green.
+- T47-T50 may be source-inspected independently but must preserve their own ordered gates.
+- T46-T50 registry/freeze — BLOCKED until all five tracks and registry-tip CI are verified.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-No current Presenter percentage-bearing task is over the four-completed-cycle threshold. Presenter percentage advanced this cycle, so its no-increase counter is **0**. **Action Taken:** completed T45 from Service/Unit through local Integration, PostgreSQL 18 Testcontainers, Assigned Frontend and green registry-tip CI, then froze T41-T45 with exact immutable evidence rather than crediting intermediate status checks.
+No current Presenter percentage-bearing task is over the four-completed-cycle threshold. Presenter has one no-increase cycle after the T41-T45 freeze. **Action Taken:** created the T46-T50 branch, closed source reconciliation, implemented T46 Service and focused Unit tests, and started exact branch-tip CI without prematurely entering Integration or Frontend.
