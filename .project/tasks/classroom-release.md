@@ -13,7 +13,7 @@
 
 ## Current three-lane allocation
 - **Agent 4:** Release-01 prerequisite/evidence audit and exact selected-document identity verification; no candidate materialization before document approval/repository verification.
-- **Agent 5:** Release-02 controlled-error remediation acceptance mapping against approved student-baseline requirements; private work only while baseline prerequisite is unmet.
+- **Agent 5:** Release-02 controlled-error remediation acceptance mapping — private mapping completed; actual release prerequisite remains unmet.
 - **Agent 7:** Release manifest/checklist consistency plus private promotion-boundary verification; no public write and Presenter-only publication remains mandatory.
 
 ## Task queue
@@ -31,16 +31,24 @@
 | Verify Release-02 controlled-error prerequisite | DONE — VERIFIED MISSING | Frozen `Frontend-backend-Baseline@345d0abe...`; evidence `6ba32469...` |
 | Prepare Release-02 manifest/checklist | DONE | Private conditional structure |
 | Define Release-02 prerequisite remediation | DONE | `.project/classroom-release/Release-02-controlled-error-remediation.md`, commit `16382810ef29e68d0eac088f90b1626052c0edd9` |
-| Map Release-02 remediation acceptance evidence | ACTIVE — AGENT 5 | No freeze until approved student baseline contains verified controlled-error layer |
+| Map Release-02 remediation acceptance evidence | DONE — AGENT 5 | `.project/classroom-release/Release-02-controlled-error-acceptance-map.md`, commit `96ba936796e6dc418764568115f52299bf4192cf` |
 | Verify manifest/checklist/promotion boundary consistency | ACTIVE — AGENT 7 | Private prerequisite-safe work only |
 | Materialize/validate/freeze Release-02 | BLOCKED | Requires approved student baseline containing controlled-error layer + approved document prerequisites |
 | Presenter publication Release-02 | PRESENTER ONLY | Automation forbidden |
+
+## Release-02 acceptance result
+The private acceptance map now requires immutable evidence for the generic service exception, global REST exception handler, controlled response codes `01`-`05`, green backend verification, green frontend build, exact approved replacement baseline SHA, and release-manifest evidence. The frozen student baseline still lacks the controlled-error layer, so actual Release-02 materialization remains blocked. No Presenter implementation was copied into the student baseline and no public write occurred.
 
 ## Current stream accounting
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000%**
-- State: **THREE PRIVATE LANES ACTIVE; PERCENTAGE-BEARING RELEASE GATES REMAIN BLOCKED**.
+- State: **PRIVATE ACCEPTANCE MAPPING CLOSED; PERCENTAGE-BEARING RELEASE GATES REMAIN BLOCKED**.
+
+## Tasks Taken Up / Closed This Cycle
+- Agent 5 acceptance mapping: TAKEN UP and CLOSED with commit `96ba936796e6dc418764568115f52299bf4192cf`.
+- Agent 4 Release-01 identity audit: IN PROGRESS, but document materialization remains dependency-blocked.
+- Agent 7 manifest/checklist/promotion-boundary verification: IN PROGRESS; no public write.
 
 ## Completion rule
 Private audits/acceptance mapping may close independently with exact evidence, but no release percentage is credited until its defined release gate completes. No public repository write is permitted.
