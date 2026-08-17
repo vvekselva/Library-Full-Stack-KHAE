@@ -19,7 +19,7 @@
 
 ### Release-02
 - Controlled-error acceptance remains CLOSED GREEN on `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb`.
-- Acceptance run `31989985693`: backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS.
+- Acceptance run `31989985693` revalidated this cycle: backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS.
 - T02_01 is APPROVED, but T02_02 remains GENERATING and T02_03 remains PENDING, so Release-02 remains document-gated.
 
 ## Current stream accounting
@@ -29,12 +29,12 @@
 - State: **STALE — RELEASES REMAIN DOCUMENT-GATED**.
 
 ## Tasks Taken Up This Cycle
-- Agent 4 revalidated Release-01 against the live Document task queue.
-- Agent 5 revalidated Release-02 controlled-error acceptance and T02 prerequisites.
+- Agent 4 revalidated Release-01 against the live Document task queue and preserved the identity-control gate.
+- Agent 5 revalidated exact Release-02 controlled-error acceptance jobs and current T02 prerequisites.
 - Agent 7 preserved the private-only/no-public/no-Quality-Gate promotion boundary while Presenter work advanced independently.
 
 ## Tasks Closed This Cycle
-No percentage-bearing Classroom task closed; dependency checks are not counted as progress.
+No percentage-bearing Classroom task closed; dependency and prior-acceptance revalidation are not counted as progress.
 
 ## Tasks In Progress / Blocked
 - Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 repository materialization/identity transition.
@@ -42,4 +42,4 @@ No percentage-bearing Classroom task closed; dependency checks are not counted a
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Classroom Release has **31 consecutive cycles without percentage increase**. **Action Taken:** Agents 4/5/7 revalidated the exact Release-01/02 document prerequisites and preserved publication boundaries while independent Presenter work proceeded; no blocked candidate was materialized and no status-only check was credited as progress.
+Classroom Release has **32 consecutive cycles without percentage increase**. **Action Taken:** Agents 4/5/7 revalidated the exact Release-01/02 document prerequisites, rechecked Release-02 acceptance run `31989985693` as fully green, and preserved publication boundaries; no blocked candidate was materialized and no status-only check was credited as progress.
