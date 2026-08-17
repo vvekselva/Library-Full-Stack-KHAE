@@ -1,6 +1,6 @@
 version: 3
 repository: vvekselva/Library-Full-Stack-KHAE-Master
-updated_at: 2026-08-17T03:22:24Z
+updated_at: 2026-08-17T03:47:28Z
 
 cycle_rule:
   nominal_minutes: 15
@@ -13,81 +13,82 @@ orchestration:
   logical_worker_lanes: 8
   actual_autonomous_agent_runtime_available: false
   task_source: .project/ORCHESTRATOR_PLAN.md
-  current_lane_focus: "Agents 1,2,3,6 Presenter; Agents 4,5,7 Classroom; Agent 8 Recovery"
+  current_lane_focus: "Agents 1,2,3,6 Presenter T36-T40; Agents 4,5,7 Classroom private preparation; Agent 8 Recovery"
+  document_work_allocated_to_current_eight: false
 
 current_cycle:
-  cycle_id: C-20260817-0040
-  completed_cycle: 25
-  start: 2026-08-17T03:00:46Z
+  cycle_id: C-20260817-0041
+  completed_cycle: 26
+  start: 2026-08-17T03:28:00Z
   tasks:
     - task: Preserve Document Rerun dependency state without assigning current eight lanes
       stream: Document Rerun
       taken_up_this_cycle: false
       closed_this_cycle: false
       status: STALE_ACTIVE_EXPANSION
-      action_taken_in_this_cycle: "No Document worker lane was allocated. Preserved T01_01/T01_03 repository-verification and T02_02-T06_02 generation dependencies; no Classroom promotion was allowed through those gates."
-      evidence: "document-rerun remains 5.3889%; no Document/QG/public write"
-      consecutive_cycles_open: 15
+      action_taken_in_this_cycle: "No Document worker lane was allocated. Classroom read-only verification proved T01_01/T01_03 are materialized/re-fetchable, but Document identity-control reconciliation remains required; T02_02-T06_02 remain GENERATING."
+      evidence: "T01_01 blob b6bb206b; T01_03 blob fb3e68db; document percentage 5.3889%; no QG/public write"
+      consecutive_cycles_open: 16
       over_three_cycles: true
 
-    - task: Repair and close T35 Integration
+    - task: Implement and validate T36-T40 Membership Service + Unit Test checkpoints
       stream: Presenter Solutions
       taken_up_this_cycle: true
       closed_this_cycle: true
       status: CLOSED_GREEN
-      action_taken_in_this_cycle: "Diagnostic CI exposed brittle fixed-size/terminal-ID assertions in SearchBookCopyIntegrationTest. Repaired the test to assert the actual DAO contract: multiple matching rows remain ordered by bookCopyId."
-      evidence: "diagnostic run 31988227342; repair commits c9ebfcf4 and 18c2abd0; green run 31990077599 backend 95271926715 + frontend 95271926679"
-      consecutive_cycles_open: 4
-      over_three_cycles: true
-
-    - task: Reconcile T33-T35 assigned frontend artifacts and cumulative CI
-      stream: Presenter Solutions
-      taken_up_this_cycle: true
-      closed_this_cycle: true
-      status: CLOSED_GREEN
-      action_taken_in_this_cycle: "Detected that prior T33/T34 frontend evidence violated the established five-track assignment rotation. Reopened those checkpoints, removed the incorrect artifacts, created T33 Search, T34 Create and T35 Read/List assigned frontends, then required cumulative branch-tip CI."
-      evidence: "T33 00f2f244; T34 6d480c37; T35 6a5b00a5; run 31990383608 backend 95272723987 + frontend 95272723831 SUCCESS"
+      action_taken_in_this_cycle: "Created Presenter-Solutions-T36-T40 from the verified T31-T35 tip; reconciled Membership controller/DAO/schema contracts; replaced five hard-coded service stubs; added focused unit tests; waited for the shared branch-tip CI gate."
+      evidence: "run 31991520031; backend 95275836101 SUCCESS; frontend 95275836078 SUCCESS; head dec594e6"
       consecutive_cycles_open: 1
       over_three_cycles: false
 
-    - task: Freeze and verify T31-T35 Presenter registry
+    - task: Advance T36-T40 local PostgreSQL Integration
       stream: Presenter Solutions
       taken_up_this_cycle: true
       closed_this_cycle: true
-      status: REGISTRY_FROZEN_VERIFIED
-      action_taken_in_this_cycle: "Created .presenter/solution-registry/T31-T35.yml only after all five corrected tracks were registry-ready, then waited for registry-tip verification before closing the batch."
-      evidence: "registry commit 83d51d4343fd79f8609e4bc73a483ce85615a276; run 31990613453; backend 95273356638 SUCCESS; frontend 95273356652 SUCCESS"
+      status: LOCAL_INTEGRATION_CLOSED_GREEN
+      action_taken_in_this_cycle: "Added V016 normalized Membership business-key protection plus local PostgreSQL Integration tests for T36-T40 only after Service+Unit CI was green; waited for shared validation."
+      evidence: "run 31991835066; backend 95276657850 SUCCESS; frontend 95276658008 SUCCESS; head 57f80bb5"
       consecutive_cycles_open: 1
       over_three_cycles: false
 
-    - task: Complete Release-02 controlled-error private acceptance
+    - task: Validate T36-T40 PostgreSQL 18 Testcontainers Integration
+      stream: Presenter Solutions
+      taken_up_this_cycle: true
+      closed_this_cycle: false
+      status: IN_PROGRESS
+      action_taken_in_this_cycle: "Added PostgreSQL 18 Testcontainers coverage for all five Membership tracks only after local Integration was green. Assigned Frontend and registry remain blocked until this gate resolves."
+      evidence: "head 95fed17f; run 31992068286; frontend 95277279026 SUCCESS; backend 95277279036 IN_PROGRESS at cycle-control update"
+      consecutive_cycles_open: 1
+      over_three_cycles: false
+
+    - task: Narrow Release-01 T01 document prerequisite
       stream: Classroom Release Preparation
       taken_up_this_cycle: true
       closed_this_cycle: true
-      status: PRIVATE_ACCEPTANCE_CLOSED_GREEN
-      action_taken_in_this_cycle: "Added focused parameterized handler acceptance for response codes 01-05 on the approved private baseline and validated both backend and frontend. Controlled-error infrastructure is no longer a Release-02 blocker."
-      evidence: "acceptance test commit 24179fb905fd69f816bfeb5db0ee7206401a3ceb; run 31989985693; backend 95271686668 SUCCESS; frontend 95271686680 SUCCESS; map 27f26e59"
-      consecutive_cycles_open: 21
+      status: REFETCH_UNCERTAINTY_CLOSED
+      action_taken_in_this_cycle: "Read-only re-fetch proved all three T01 artifacts exist with immutable blobs. Did not promote T01_01/T01_03 because dedicated identity-control reconciliation remains required."
+      evidence: "audit commit 3bdf4e1383ee67d490e1ff7bf9161a80e7fe1cc8; T01_01 b6bb206b; T01_02 41c746d5; T01_03 fb3e68db"
+      consecutive_cycles_open: 22
       over_three_cycles: true
 
-    - task: Preserve Release-01/Release-02 document and public-promotion boundaries
+    - task: Preserve Release-02 and publication boundaries
       stream: Classroom Release Preparation
       taken_up_this_cycle: true
       closed_this_cycle: false
       status: STALE_RELEASE_BLOCKED_BY_DOCUMENTS
-      action_taken_in_this_cycle: "Kept Release-01 blocked by T01_01/T01_03 repository verification and Release-02 blocked by its required approved rerun documents. No public or read-only Quality Gate write occurred."
-      evidence: "no public/QG write; classroom percentage unchanged"
-      consecutive_cycles_open: 21
+      action_taken_in_this_cycle: "Revalidated that controlled-error acceptance remains green, but Release-02 still lacks required approved/repository-verified rerun documents. No public or Quality Gate write occurred."
+      evidence: "classroom percentage unchanged 33.3333%; no public/QG write"
+      consecutive_cycles_open: 22
       over_three_cycles: true
 
-    - task: Protect then close T31-T35 recovery freeze boundary
+    - task: Open and advance T36-T40 Recovery candidate
       stream: Recovery / Final Integration
       taken_up_this_cycle: true
-      closed_this_cycle: true
-      status: BATCH_FROZEN_VERIFIED
-      action_taken_in_this_cycle: "Reopened incorrect T33/T34 frontend readiness, consumed corrected Presenter evidence, waited for cumulative CI, then froze and verified the T31-T35 registry. Final integration remains blocked by later batches and Document/Classroom prerequisites."
-      evidence: "recovery candidate 39baff5e; registry 83d51d43; registry-tip run 31990613453 SUCCESS"
-      consecutive_cycles_open: 21
+      closed_this_cycle: false
+      status: SUBSTANTIVE_EVIDENCE_CAPTURE
+      action_taken_in_this_cycle: "Opened T36-T40 candidate from verified T31-T35 registry; captured exact Service/Unit and local Integration evidence; preserved freeze_allowed=false while Testcontainers, Frontend and cumulative registry are incomplete."
+      evidence: "candidate commits b76ec88f and 9593771f; Service+Unit run 31991520031 green; local Integration run 31991835066 green"
+      consecutive_cycles_open: 22
       over_three_cycles: true
 
 stream_stall_monitor:
@@ -95,43 +96,43 @@ stream_stall_monitor:
     previous_percent: 5.3889
     current_percent: 5.3889
     increase: 0.0000
-    cycles_without_increase: 10
+    cycles_without_increase: 11
     over_three_cycles: true
     reason: "T02_02-T06_02 remain GENERATING; current eight-lane allocation excludes Document work."
-    action_taken_in_this_cycle: "Preserved exact document dependency state for release gating; no Document/QG/public write."
+    action_taken_in_this_cycle: "Used Classroom dependency audit to prove T01_01/T01_03 repository re-fetch without assigning Document work; identity-control reconciliation remains."
 
   - stream: Presenter Solutions
-    previous_percent: 56.0000
-    current_percent: 58.3333
-    increase: 2.3333
+    previous_percent: 58.3333
+    current_percent: 61.6667
+    increase: 3.3334
     cycles_without_increase: 0
     over_three_cycles: false
-    reason: "T35 Integration + Frontend and the T31-T35 final registry checkpoints closed with green cumulative/registry-tip CI."
-    action_taken_in_this_cycle: "Repaired T35 Integration, corrected T33-T35 frontend assignment evidence, froze the registry and verified it."
+    reason: "Ten T36-T40 Service + Unit checkpoints closed with green branch-tip CI."
+    action_taken_in_this_cycle: "Implemented five Membership services and five focused unit suites, obtained green Service+Unit CI, then advanced local Integration to green and Testcontainers to active validation."
 
   - stream: Classroom Release Preparation
     previous_percent: 33.3333
     current_percent: 33.3333
     increase: 0.0000
-    cycles_without_increase: 21
+    cycles_without_increase: 22
     over_three_cycles: true
-    reason: "Controlled-error private acceptance is complete, but release checkpoints remain document-gated."
-    action_taken_in_this_cycle: "Proved response codes 01-05 and obtained green backend/frontend acceptance on the remediated baseline."
+    reason: "Release percentage remains document-gated."
+    action_taken_in_this_cycle: "Captured exact T01 repository blobs and narrowed Release-01 from materialization uncertainty to identity-control reconciliation; preserved Release-02/publication gates."
 
   - stream: Recovery / Final Integration
     previous_percent: 20.0000
     current_percent: 20.0000
     increase: 0.0000
-    cycles_without_increase: 21
+    cycles_without_increase: 22
     over_three_cycles: true
-    reason: "T31-T35 batch freeze is substantively complete, but the Recovery control plane defines no numeric sub-allocation for one registry batch; later batches and final integration remain."
-    action_taken_in_this_cycle: "Closed the five-track registry freeze with exact corrected evidence and registry-tip CI rather than inventing percentage credit."
+    reason: "T36-T40 evidence capture is substantive but Recovery defines no numeric sub-allocation before a completed recovery milestone."
+    action_taken_in_this_cycle: "Opened and advanced the T36-T40 candidate with exact immutable evidence while keeping freeze_allowed=false."
 
   - stream: Overall
-    previous_percent: 27.3583
-    current_percent: 28.1750
-    increase: 0.8167
+    previous_percent: 28.1750
+    current_percent: 29.3417
+    increase: 1.1667
     cycles_without_increase: 0
     over_three_cycles: false
-    reason: "Presenter percentage-bearing checkpoints closed; Classroom/Recovery performed substantive non-percentage work."
-    action_taken_in_this_cycle: "Consolidated all relevant lane results only after cumulative and registry-tip validation completed."
+    reason: "Presenter Service+Unit checkpoints closed; no undefined Classroom/Recovery credit was invented."
+    action_taken_in_this_cycle: "Consolidated verified lane results at the Service+Unit/local-Integration checkpoint while keeping the Testcontainers-dependent Integration checkpoint open."
