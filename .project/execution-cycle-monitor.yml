@@ -1,6 +1,6 @@
 version: 3
 repository: vvekselva/Library-Full-Stack-KHAE-Master
-updated_at: 2026-08-17T05:15:00+05:30
+updated_at: 2026-08-17T05:40:00+05:30
 
 cycle_rule:
   nominal_minutes: 15
@@ -16,45 +16,54 @@ orchestration:
   watchdog_cadence: hourly
 
 current_cycle:
-  cycle_id: C-20260817-0457
-  completed_cycle: 20
-  start: 2026-08-17T04:57:14+05:30
+  cycle_id: C-20260817-0531
+  completed_cycle: 21
+  start: 2026-08-17T05:31:19+05:30
   tasks:
-    - task: Materialize editable Progressive Guide sources for five Document lanes
+    - task: Preserve Document Rerun dependency state without assigning current eight lanes
       stream: Document Rerun
+      taken_up_this_cycle: false
+      closed_this_cycle: false
+      status: STALE_ACTIVE_EXPANSION
+      action_taken_in_this_cycle: "No current worker lane was allocated by design. T02_02-T06_02 remain GENERATING; dependent Classroom materialization remains blocked until required document gates complete."
+      evidence: "Existing editable source evidence preserved; no QG/public write"
+      consecutive_cycles_open: 11
+      over_three_cycles: true
+    - task: Diagnose, repair and verify T34 Deactivate Book Copy Integration
+      stream: Presenter Solutions
       taken_up_this_cycle: true
       closed_this_cycle: true
-      status: STALE_ACTIVE_EXPANSION
-      action_taken_in_this_cycle: "Created independent Private-Master editable source roots for T02_02-T06_02, each grounded to immutable Presenter registry SHAs and exact service/unit/integration/frontend paths. Held guides at GENERATING and kept _03 blocked."
-      evidence: "T02 079a0ec3; T03 4e36b130; T04 89231a43; T05 f39b8a21; T06 6d6db31a; task 7436937c; no QG write"
-      consecutive_cycles_open: 10
-      over_three_cycles: true
-    - task: Advance T34 Deactivate Book Copy through verified Service/Unit and Integration implementation
+      status: INTEGRATION_VERIFIED_GREEN
+      action_taken_in_this_cycle: "Proved the failed success tests used seeded Book Copy ID 2, which has an ACTIVE Book Issue and is correctly dependency-blocked. Repaired local/Testcontainers success paths to dependency-free ID 4, added explicit ID 2 dependency tests, then waited for branch-tip CI. Workflow 31981001820 passed backend PostgreSQL and frontend build, closing T34 Integration."
+      evidence: "repair 325c7102 + 2f2081c0; run 31981001820 SUCCESS; backend 95247637400 SUCCESS; frontend 95247637355 SUCCESS"
+      consecutive_cycles_open: 2
+      over_three_cycles: false
+    - task: Reconcile T35 Search Book Copy source boundary
       stream: Presenter Solutions
       taken_up_this_cycle: true
       closed_this_cycle: false
-      status: INTEGRATION_CI_IN_PROGRESS
-      action_taken_in_this_cycle: "Reconciled T34; implemented Service abb23be3 and Unit Test bc15079b; workflow 31979270908 passed backend+frontend, closing two checkpoints. Then implemented local PostgreSQL Integration f5c78042 and PostgreSQL 18 Testcontainers d61995c6; branch-tip workflow 31979478188 is in progress."
-      evidence: "31979270908 SUCCESS; backend 95243377910 SUCCESS; frontend 95243377846 SUCCESS; Integration f5c78042+d61995c6; run 31979478188 IN_PROGRESS"
+      status: SOURCE_RECONCILIATION_IN_PROGRESS
+      action_taken_in_this_cycle: "Verified T35 service code 35, SearchBookCopyService.searchBookCopy(String), BookCopyDao.search(text) accession-number search/order behavior, and confirmed current implementation is a hard-coded STUB. Held implementation until Presenter-owned route/envelope identity is fully resolved."
+      evidence: "ApplicationCodes + SearchBookCopyService + BookCopyDao + SearchBookCopyServiceImpl source evidence"
       consecutive_cycles_open: 1
       over_three_cycles: false
-    - task: Define Release-02 controlled-error prerequisite remediation
+    - task: Map Release-02 controlled-error acceptance evidence
       stream: Classroom Release Preparation
       taken_up_this_cycle: true
       closed_this_cycle: true
-      status: STALE_PRIVATE_REMEDIATION_COMPLETE
-      action_taken_in_this_cycle: "Converted verified-missing controlled-error prerequisite into private acceptance/remediation contract with exact responsibilities and safety gates; retained public/student-baseline write prohibition."
-      evidence: "16382810; task 025ea1b9; no public write"
-      consecutive_cycles_open: 16
+      status: STALE_PRIVATE_ACCEPTANCE_MAPPING_COMPLETE
+      action_taken_in_this_cycle: "Created private acceptance map for generic exception, global handler, response codes 01-05, backend/frontend verification, exact approved baseline SHA and manifest evidence. Actual baseline prerequisite remains missing; no public write or release promotion occurred."
+      evidence: "acceptance map 96ba9367; task update f93b71cb; no public write"
+      consecutive_cycles_open: 17
       over_three_cycles: true
-    - task: Advance T34 evidence in T31-T35 recovery candidate
+    - task: Protect T31-T35 recovery freeze boundary
       stream: Recovery / Final Integration
       taken_up_this_cycle: true
-      closed_this_cycle: true
+      closed_this_cycle: false
       status: STALE_BATCH_BLOCKED_3_OF_5_READY
-      action_taken_in_this_cycle: "Captured T34 verified Service/Unit evidence and exact local/Testcontainers Integration commits while preserving freeze_allowed=false and 3/5 ready tracks."
-      evidence: "candidate 4096b515; Recovery task ec29a7d2; Integration CI 31979478188 IN_PROGRESS"
-      consecutive_cycles_open: 16
+      action_taken_in_this_cycle: "Captured T34 repaired/green Integration evidence but did not mark T34 registry-ready because assigned Frontend and cumulative registry remain incomplete. Preserved 3/5 ready and freeze_allowed=false; recorded T35 reconciliation only."
+      evidence: "Recovery task 0ee3ffcc; T34 run 31981001820 SUCCESS; T35 still STUB"
+      consecutive_cycles_open: 17
       over_three_cycles: true
 
 stream_stall_monitor:
@@ -62,39 +71,39 @@ stream_stall_monitor:
     previous_percent: 5.3889
     current_percent: 5.3889
     increase: 0.0000
-    cycles_without_increase: 5
+    cycles_without_increase: 6
     over_three_cycles: true
-    reason: "Progressive Guides require textbook-depth expansion, Draw.io, render and QA."
-    action_taken_in_this_cycle: "Removed editable-source blocker by materializing all five source roots; expansion is now active."
+    reason: "Progressive Guides remain in GENERATING and are outside the current eight-lane allocation."
+    action_taken_in_this_cycle: "Preserved dependency state only; no Document lane was assigned, and no premature Classroom promotion occurred."
   - stream: Presenter Solutions
-    previous_percent: 54.0000
-    current_percent: 54.6667
-    increase: 0.6667
+    previous_percent: 54.6667
+    current_percent: 55.0000
+    increase: 0.3333
     cycles_without_increase: 0
     over_three_cycles: false
-    reason: "T34 Service and Unit Test completed on green branch-tip CI; Integration is implemented and under validation."
-    action_taken_in_this_cycle: "Closed two T34 checkpoints only after workflow 31979270908 passed, then started dependency-eligible Integration."
+    reason: "T34 Integration is now verified green; Frontend is the next eligible checkpoint."
+    action_taken_in_this_cycle: "Diagnosed and repaired deterministic seed/test mismatch, then credited Integration only after workflow 31981001820 passed both jobs."
   - stream: Classroom Release Preparation
     previous_percent: 33.3333
     current_percent: 33.3333
     increase: 0.0000
-    cycles_without_increase: 16
+    cycles_without_increase: 17
     over_three_cycles: true
-    reason: "Release-01 is document-gated; Release-02 is approved-student-baseline controlled-error-infrastructure-gated."
-    action_taken_in_this_cycle: "Created exact private remediation acceptance contract 16382810; no public write."
+    reason: "Release-01 remains document-gated; Release-02 remains approved-student-baseline controlled-error-gated."
+    action_taken_in_this_cycle: "Closed private Release-02 acceptance mapping with exact missing evidence requirements; did not infer release progress from audit work."
   - stream: Recovery / Final Integration
     previous_percent: 20.0000
     current_percent: 20.0000
     increase: 0.0000
-    cycles_without_increase: 16
+    cycles_without_increase: 17
     over_three_cycles: true
-    reason: "T31-T33 ready; T34 Integration CI and T35 still block batch freeze."
-    action_taken_in_this_cycle: "Captured verified T34 Service/Unit and pending Integration evidence; preserved freeze_allowed=false."
+    reason: "T31-T33 ready; T34 Frontend/registry and T35 completion still block five-track freeze."
+    action_taken_in_this_cycle: "Captured green T34 Integration evidence while preserving freeze_allowed=false and 3/5 ready."
   - stream: Overall
-    previous_percent: 26.6583
-    current_percent: 26.8917
-    increase: 0.2334
+    previous_percent: 26.8917
+    current_percent: 27.0083
+    increase: 0.1166
     cycles_without_increase: 0
     over_three_cycles: false
-    reason: "Verified T34 Service + Unit Test checkpoints increased Presenter progress."
-    action_taken_in_this_cycle: "Executed eligible work across all streams and credited only verified T34 checkpoints."
+    reason: "Verified T34 Integration checkpoint increased Presenter Solutions by 0.3333 percentage points."
+    action_taken_in_this_cycle: "Executed eligible Presenter and Classroom private work, preserved Recovery safety gate, and credited only the green T34 Integration checkpoint."
