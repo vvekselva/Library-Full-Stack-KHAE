@@ -11,8 +11,9 @@
 - **T46-T50 Book Return registry candidate:** OPEN / NOT FROZEN.
 - T46-T48: all four component checkpoints VERIFIED GREEN.
 - **T49:** Service `7489980269a9507ddc563d1833ac73c38ac201d8`; Unit `df220a49b43702d0228cc4c34d4142f2d6732ae4` with run `32053727532` SUCCESS; local Integration `d2b208aabebac93365129ca4716349a1b13b622e`; PostgreSQL 18 Testcontainers `7c8a0036b219dc91a9ead5f17ebb2ca62ca7ca72` with run `32054104356` SUCCESS; Assigned Frontend `9fb00ca5bd812afd59b4951caf8f09e106238522` with run `32054478596` SUCCESS. All four component checkpoints are immutable green candidate evidence.
-- **T50:** Service candidate `2cdfae779007a44ce0385142bc005b70bfa8ccc7`; Unit candidate `47ecb5f7017de476b5358559e9f1401987630ba1`; run `32055317199` remains IN_PROGRESS, so T50 evidence is provisional only.
-- `freeze_allowed=false` until T50 completes all component checkpoints and registry-tip CI is verified.
+- **T50 Service + Unit:** immutable green candidate evidence. Service `2cdfae779007a44ce0385142bc005b70bfa8ccc7`; Unit `47ecb5f7017de476b5358559e9f1401987630ba1`; exact run `32055317199` backend/frontend SUCCESS.
+- **T50 Integration:** provisional candidate evidence only. Local PostgreSQL `2b810ec531cc52a556cee45068df4e7006abd701`; PostgreSQL 18 Testcontainers `6482ea1e8fd22b15edf42276fc6f87b0c1d7dbd4`; run `32055710410` has frontend SUCCESS while backend remains IN_PROGRESS.
+- `freeze_allowed=false` until T50 Integration, Assigned Frontend and registry-tip CI are all verified.
 
 ## Current stream accounting
 Recovery component weights are registry coverage 40%, selection/dependency design 20%, private workflow implementation 20%, classroom rehearsal 20%.
@@ -26,17 +27,18 @@ Recovery component weights are registry coverage 40%, selection/dependency desig
 
 ## Tasks Taken Up This Cycle
 - Agent 8 promoted all verified T49 component evidence into the candidate.
-- Agent 8 captured T50 Service/Unit identities provisionally while their exact branch-tip CI remains incomplete.
+- Agent 8 promoted T50 Service/Unit to immutable green evidence after exact run `32055317199` completed SUCCESS.
+- Agent 8 captured T50 local/Testcontainers Integration identities provisionally while run `32055710410` remains incomplete.
 - Agent 8 retained the batch freeze guard.
 
 ## Tasks Closed This Cycle
-No Recovery percentage-bearing gate closed. T49 Presenter evidence became immutable within the candidate, but Recovery registry coverage is credited only after the five-track batch is frozen and verified.
+No Recovery percentage-bearing gate closed. T49 and T50 Service/Unit Presenter evidence became immutable within the candidate, but Recovery registry coverage is credited only after the five-track batch is frozen and verified.
 
 ## Tasks In Progress / Blocked
-- T46-T50 registry candidate — OPEN; T50 component completion and registry-tip verification remain incomplete.
+- T46-T50 registry candidate — OPEN; T50 Integration, Assigned Frontend and registry-tip verification remain incomplete.
 - T51-T60 registry batches — YET TO DO.
 - Selection/dependency implementation, private recovery workflow implementation, classroom rehearsal — YET TO DO.
 - Final integration — BLOCKED by remaining Presenter, Document and Classroom prerequisites.
 
 ## Open More Than 3 Cycles / Agent 8 Action Taken in This Cycle
-Recovery has **6 cycles without percentage increase**. **Action Taken in This Cycle:** Agent 8 converted T49 component evidence to immutable green candidate evidence, recorded T50 Service/Unit as provisional while run `32055317199` remains incomplete, and retained `freeze_allowed=false`; no premature registry freeze or Recovery percentage credit was applied.
+Recovery has **6 cycles without percentage increase**. **Action Taken in This Cycle:** Agent 8 converted all T49 and T50 Service/Unit evidence to immutable green candidate evidence, recorded T50 Integration provisionally while run `32055710410` remains incomplete, and retained `freeze_allowed=false`; no premature registry freeze or Recovery percentage credit was applied.
