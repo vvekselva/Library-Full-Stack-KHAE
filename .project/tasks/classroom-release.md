@@ -7,7 +7,7 @@
 ## Current verified state
 ### Release-01
 - T01_02 remains APPROVED/repository-verified.
-- T01_01 and T01_03 remain QUALITY_GATE_PASSED with repository materialization/identity transition still pending.
+- T01_01 and T01_03 remain QUALITY_GATE_PASSED with repository materialization/identity transition pending.
 - Release-01 materialization/freeze remains blocked.
 
 ### Release-02
@@ -22,9 +22,9 @@
 - State: **STALE — RELEASES REMAIN DOCUMENT-GATED**.
 
 ## Tasks Taken Up This Cycle
-- Agent 4 revalidated Release-01 document identity prerequisites.
+- Agent 4 revalidated Release-01 document identity prerequisites against the live Document task queue.
 - Agent 5 revalidated Release-02 controlled-error acceptance and document prerequisites.
-- Agent 7 revalidated private-only promotion boundaries and avoided any blocked candidate/public/QG write.
+- Agent 7 revalidated private-only promotion boundaries and confirmed no blocked candidate should be materialized.
 
 ## Tasks Closed This Cycle
 No percentage-bearing Classroom task closed; dependency revalidation is not progress.
@@ -35,4 +35,4 @@ No percentage-bearing Classroom task closed; dependency revalidation is not prog
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Classroom Release has **41 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** Agents 4/5/7 revalidated exact Release-01/02 document gates and existing green Release-02 acceptance evidence; no blocked candidate was materialized and no Public/Quality-Gate write occurred. State **STALE**.
+Classroom Release has **42 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** Agents 4/5/7 revalidated exact Release-01/02 document gates and existing green Release-02 acceptance evidence; no blocked candidate was materialized and no Public/Quality-Gate write occurred. State **STALE**.
