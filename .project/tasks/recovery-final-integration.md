@@ -11,7 +11,7 @@ Registry evidence may be captured incrementally, but a 5-track batch must not be
 - T31: registry-ready; cumulative run `31945620654` SUCCESS.
 - T32: registry-ready; cumulative run `31946688302` SUCCESS.
 - T33: registry-ready; cumulative run `31976478238` SUCCESS.
-- T34: Service + Unit Test VERIFIED GREEN. Prior Integration failure is source-diagnosed as test/seed misalignment; repaired local/Testcontainers tests are committed, but replacement branch-tip CI `31981001820` is still in progress. Not registry-ready.
+- T34: Service + Unit Test + Integration VERIFIED GREEN. Assigned Frontend and final cumulative registry evidence are still pending; not registry-ready yet.
 - T35: service code/interface/DAO/STUB reconciliation is active; implementation not yet registry-ready.
 - T31-T35 freeze: BLOCKED until T34 and T35 are registry-ready.
 - Later batches T36-T60: pending Presenter completion.
@@ -30,7 +30,10 @@ Current ready tracks: **3/5**. `freeze_allowed: false` remains mandatory.
 - Prior Integration workflow `31979478188`: FAILURE because both success tests used seeded Book Copy ID `2`, which has an ACTIVE Book Issue and is correctly blocked by the dependency guard.
 - Local PostgreSQL repair `325c7102ddc2e9911a4abff6e3ec0e80d7701113` uses dependency-free ID `4` for successful withdrawal and explicitly tests ID `2` dependency rejection.
 - PostgreSQL 18 Testcontainers repair `2f2081c062585e1a59a924eff8487f5454fd9025` applies the same deterministic alignment.
-- Replacement workflow `31981001820`: frontend job `95247637355` SUCCESS; backend PostgreSQL job `95247637400` still IN PROGRESS at the latest consolidation checkpoint.
+- Replacement workflow `31981001820`: SUCCESS.
+- Frontend-build job `95247637355`: SUCCESS.
+- Backend PostgreSQL job `95247637400`: SUCCESS.
+- T34 is still not registry-ready because its assigned Frontend and cumulative registry gate remain incomplete.
 
 ## T35 evidence boundary
 - Code `T35_SEARCH_BOOK_COPY = "35"`.
@@ -42,11 +45,11 @@ Current ready tracks: **3/5**. `freeze_allowed: false` remains mandatory.
 - Previous: **20.0000%**
 - Updated: **20.0000%**
 - Increase: **+0.0000%**
-- State: **FREEZE GUARD ACTIVE — T31-T33 READY; T34 REPAIR CI PENDING; T35 RECONCILIATION ACTIVE**.
+- State: **FREEZE GUARD ACTIVE — T31-T33 READY; T34 INTEGRATION GREEN BUT FRONTEND/REGISTRY PENDING; T35 RECONCILIATION ACTIVE**.
 
 ## Agent 8 current work
 - Preserve T31-T33 immutable registry-ready evidence.
-- Capture exact T34 failure/repair evidence without marking it registry-ready before green replacement CI and later Frontend/registry gates.
+- Capture verified T34 Integration repair and green CI without promoting T34 to registry-ready prematurely.
 - Capture T35 reconciliation evidence without inferring implementation completion.
 - Keep `freeze_allowed=false` until all five tracks are ready.
 
