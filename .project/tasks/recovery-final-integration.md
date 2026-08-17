@@ -10,8 +10,10 @@
 - T41-T45 registry: FROZEN / VERIFIED at `9f4f5e70b48e5eaa0b8296aa23bf19a438a0e33a`.
 - T46-T50: OPEN candidate.
 - T46 all four component checkpoints are immutable VERIFIED GREEN.
-- T47 Service `403874f2...` and Unit `90437433...` are now immutable VERIFIED GREEN from workflow `32033439368` SUCCESS.
-- T47 local PostgreSQL Integration `5bd27d5a...` is provisional pending verification; T48-T50 remain incomplete.
+- T47 Service `403874f2...` and Unit `90437433...` are immutable VERIFIED GREEN.
+- T47 local PostgreSQL Integration `5bd27d5a...` is now VERIFIED by workflow `32035858998` SUCCESS.
+- T47 PostgreSQL 18 Testcontainers Integration `d11043c6...` is provisional; workflow `32037600596` is queued.
+- T47 Assigned Frontend remains blocked; T48-T50 remain incomplete.
 - `freeze_allowed=false` until every T46-T50 component checkpoint and registry-tip CI is verified.
 
 ## Current stream accounting
@@ -21,17 +23,18 @@
 - State: **STALE BY FROZEN PERCENTAGE / T46-T50 CANDIDATE OPEN**.
 
 ## Tasks Taken Up This Cycle
-- Agent 8 promoted T47 Service/Unit from provisional to immutable VERIFIED evidence after exact green CI.
-- Captured T47 local Integration commit `5bd27d5a...` provisionally and retained `freeze_allowed=false`.
+- Agent 8 promoted the T47 local PostgreSQL Integration sub-stage to VERIFIED evidence after exact CI success.
+- Captured T47 Testcontainers commit `d11043c6...` provisionally and retained `freeze_allowed=false`.
 
 ## Tasks Closed This Cycle
 None at the Recovery percentage/freeze gate.
 
 ## Tasks In Progress / Blocked
-- T47 Integration evidence — provisional until exact branch-tip verification is green.
-- T46-T50 registry candidate — OPEN; T47 Integration/Frontend, T48-T50 and cumulative registry-tip verification remain incomplete.
-- T51-T60 registry batches — pending.
+- T47 Testcontainers evidence — IN PROGRESS / provisional until workflow `32037600596` is fully green.
+- T47 Assigned Frontend — BLOCKED behind T47 Integration CI.
+- T46-T50 registry candidate — OPEN; T47 remaining gates, T48-T50 and cumulative registry-tip verification remain incomplete.
+- T51-T60 registry batches — YET TO DO.
 - Final integration — BLOCKED by remaining Presenter, Document and Classroom prerequisites.
 
 ## Open More Than 3 Cycles / Agent 8 Action Taken in This Cycle
-Recovery has **39 consecutive cycles without percentage increase**. **Action Taken:** promoted T47 Service/Unit to immutable VERIFIED evidence from workflow `32033439368`, captured the new local Integration commit provisionally, and retained `freeze_allowed=false`; no incomplete checkpoint was treated as verified. State **STALE by percentage**.
+Recovery has **40 consecutive cycles without percentage increase**. **Action Taken:** promoted exact T47 local PostgreSQL Integration evidence after workflow `32035858998` SUCCESS, captured Testcontainers commit `d11043c6...` provisionally, and retained `freeze_allowed=false`; no incomplete checkpoint was treated as verified. State **STALE by percentage**.
