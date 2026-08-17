@@ -10,15 +10,15 @@ This file is the private authoritative execution dashboard. Every percentage sho
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-17 14:04 UTC
+## Current Status - 2026-08-17 14:31 UTC
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
 | Document Rerun | **5.3889%** | **5.3889%** | **+0.0000%** | **STALE.** T01 identity transitions and T02_02-T06_02 generation remain unfinished; no current eight-lane worker assigned. |
-| Presenter Solutions | **77.0000%** | **77.0000%** | **+0.0000%** | **ACTIVE.** T47 local PostgreSQL Integration is verified; PostgreSQL 18 Testcontainers workflow `32037600596` is IN PROGRESS. |
+| Presenter Solutions | **77.0000%** | **77.3333%** | **+0.3333%** | **ACTIVE.** T47 Integration is VERIFIED GREEN by workflow `32037600596`; assigned Void Book Return Frontend exists at `38173db4...` and remains uncredited pending exact CI evidence. |
 | Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE.** Release-01/02 remain document-gated; no candidate materialized. |
-| Recovery / Final Integration | **20.0000%** | **30.0000%** | **+10.0000%** | **ACCOUNTING RECONCILED.** Registry coverage corrected from stale 30/60 to verified 45/60 tracks; T46-T50 candidate remains open. |
-| **Overall** | **34.7083%** | **35.7083%** | **+1.0000%** | Increase is an evidence-backed Recovery ledger correction; no unverified Presenter checkpoint was credited. |
+| Recovery / Final Integration | **30.0000%** | **30.0000%** | **+0.0000%** | **ACTIVE CANDIDATE / NO NEW PERCENTAGE GATE.** T47 Integration evidence promoted; T46-T50 candidate remains open with `freeze_allowed=false`. |
+| **Overall** | **35.7083%** | **35.8250%** | **+0.1167%** | Increase comes only from the verified T47 Integration checkpoint; no Frontend or Recovery checkpoint is prematurely credited. |
 
 ## Status Vocabulary
 - **CLOSED** — required evidence is verified and its percentage contribution is credited.
@@ -55,9 +55,9 @@ Document Rerun has 180 documents. Each document earns stage points from 0 to 100
 | T07_01 through T60_03 | 162 | PENDING / 0 | 0 | YET TO DO | Queued behind current document execution. |
 | **Document total** | **180** |  | **970 / 18,000** |  | **5.3889%** |
 
-## 2. Presenter Solutions — 77.0000%
+## 2. Presenter Solutions — 77.3333%
 
-Presenter has 60 tracks × 5 percentage-bearing checkpoints = **300 checkpoints**. Each verified checkpoint contributes `1/300 = 0.333333...` stream percentage points. Current verified total = **231 / 300 = 77.0000%**.
+Presenter has 60 tracks × 5 percentage-bearing checkpoints = **300 checkpoints**. Each verified checkpoint contributes `1/300 = 0.333333...` stream percentage points. Current verified total = **232 / 300 = 77.3333%**.
 
 | Component(s) | Checkpoints | Closed | Open | State | Evidence / next action |
 |---|---:|---:|---:|---|---|
@@ -69,12 +69,12 @@ Presenter has 60 tracks × 5 percentage-bearing checkpoints = **300 checkpoints*
 | T46 final CI/registry | 1 | 0 | 1 | YET TO DO | Batch registry waits for T46-T50 completion. |
 | T47 Service | 1 | 1 | 0 | CLOSED | `403874f2...`; workflow `32033439368` SUCCESS. |
 | T47 Unit Test | 1 | 1 | 0 | CLOSED | `90437433...`; workflow `32033439368` SUCCESS. |
-| T47 Integration | 1 | 0 | 1 | IN PROGRESS | Local PostgreSQL `5bd27d5a...` verified by `32035858998`; PostgreSQL 18 Testcontainers `d11043c6...`, workflow `32037600596` IN PROGRESS. |
-| T47 Assigned Frontend | 1 | 0 | 1 | YET TO DO / BLOCKED | May start only after T47 Integration branch-tip CI is fully green. |
+| T47 Integration | 1 | 1 | 0 | CLOSED | Local PostgreSQL `5bd27d5a...` workflow `32035858998` SUCCESS; PostgreSQL 18 Testcontainers `d11043c6...` workflow `32037600596` SUCCESS. |
+| T47 Assigned Frontend | 1 | 0 | 1 | IN PROGRESS | Repository-backed Read→Delete/Void assignment implemented at `38173db4...`; CI conclusion not yet independently verified, so no credit. |
 | T47 final CI/registry | 1 | 0 | 1 | YET TO DO | Waits for complete T47 and T46-T50 batch readiness. |
-| T48-T50 all five checkpoints | 15 | 0 | 15 | YET TO DO | Ordered execution has not reached these tracks. |
+| T48-T50 all five checkpoints | 15 | 0 | 15 | YET TO DO | Ordered execution has not reached these tracks; T48 remains blocked until T47 Frontend closes. |
 | T51-T60 all five checkpoints | 50 | 0 | 50 | YET TO DO | Future Reservation/Fine batches. |
-| **Presenter total** | **300** | **231** | **69** |  | **77.0000%** |
+| **Presenter total** | **300** | **232** | **68** |  | **77.3333%** |
 
 ## 3. Classroom Release Preparation — 33.3333%
 
@@ -101,17 +101,15 @@ There are 3 release candidates × 5 gates = **15 equal gates**. Five gates are v
 
 ## 4. Recovery / Final Integration — 30.0000%
 
-Recovery has four weighted components. The registry-coverage component is worth 40 stream points. Verified frozen registries now cover **45 / 60 tracks = 75%**, therefore earned registry contribution is `75% × 40 = 30.0000` stream points.
+Recovery has four weighted components. The registry-coverage component is worth 40 stream points. Verified frozen registries cover **45 / 60 tracks = 75%**, therefore earned registry contribution is `75% × 40 = 30.0000` stream points.
 
 | Recovery component | Stream weight | Verified fraction | Earned points | State | Evidence / next action |
 |---|---:|---:|---:|---|---|
-| Verified solution registry coverage | 40 | 45/60 = 75% | **30.0000** | CLOSED THROUGH T45 / T46-T50 IN PROGRESS | T31-T35 `83d51d...`; T36-T40 `25581a...`; T41-T45 `9f4f5e...`, workflow `32021541997` SUCCESS. |
+| Verified solution registry coverage | 40 | 45/60 = 75% | **30.0000** | CLOSED THROUGH T45 / T46-T50 IN PROGRESS | T31-T35 `83d51d...`; T36-T40 `25581a...`; T41-T45 `9f4f5e...`, workflow `32021541997` SUCCESS. T47 Integration is now immutable candidate evidence. |
 | Selection and dependency design implementation | 20 | 0% | 0.0000 | YET TO DO | Concept exists; implementation checkpoint not verified. |
 | Private recovery workflow implementation | 20 | 0% | 0.0000 | YET TO DO | Not yet verified. |
 | Classroom rehearsal | 20 | 0% | 0.0000 | YET TO DO | Blocked by upstream Presenter/Document/Classroom readiness. |
 | **Recovery total** | **100** |  | **30.0000** |  | **30.0000%** |
-
-**Recovery reconciliation:** the previous `recovery-status.yml` was stale at 30 verified tracks even though frozen registries through T45 already existed. The correction from 20.0000% to 30.0000% is an accounting repair from immutable evidence, not a new T46-T50 freeze.
 
 # Current Eight Logical Worker Lanes
 
@@ -119,40 +117,38 @@ One primary coordinator consolidates eight logical lanes; no autonomous-agent ru
 
 | Lane | Assignment | Action This Cycle | Result |
 |---|---|---|---|
-| Agent 1 | Presenter Solutions | Re-fetched exact T47 local PostgreSQL workflow | `32035858998` SUCCESS; local sub-stage verified. |
-| Agent 2 | Presenter Solutions | Added PostgreSQL 18 Testcontainers companion test | Commit `d11043c6...`; workflow `32037600596` IN PROGRESS. |
-| Agent 3 | Presenter Solutions | Preserved ordered dependency boundary | T48 implementation not started prematurely. |
+| Agent 1 | Presenter Solutions | Re-fetched exact T47 Testcontainers workflow | `32037600596` SUCCESS; Integration gate can close. |
+| Agent 2 | Presenter Solutions | Consolidated local + Testcontainers evidence | T47 combined Integration CLOSED GREEN. |
+| Agent 3 | Presenter Solutions | Reconciled repository-backed five-track frontend rotation | T47 Read→Delete/Void; T48 remains blocked. |
 | Agent 4 | Classroom Release | Revalidated Release-01 document identities | Still blocked by T01_01/T01_03 identity transition. |
 | Agent 5 | Classroom Release | Revalidated Release-02 controlled-error/document prerequisites | Acceptance stays green; documents remain incomplete. |
-| Agent 6 | Presenter Solutions | Guarded Assigned Frontend dependency | T47 Frontend not started before Integration CI. |
+| Agent 6 | Presenter Solutions | Implemented newly eligible assigned Frontend | `t47-delete-book-return.js` at `38173db4...`; CI unverified/uncredited at consolidation. |
 | Agent 7 | Classroom Release | Checked promotion boundary | No Public or Quality-Gate write. |
-| Agent 8 | Recovery / Final Integration | Reconciled registry ledger and captured T47 evidence | Recovery corrected to 30.0000%; `freeze_allowed=false` remains. |
+| Agent 8 | Recovery / Final Integration | Promoted T47 Integration evidence and guarded freeze | Frontend captured provisionally; `freeze_allowed=false` remains. |
 
 # Tasks Taken Up
-- T47 local PostgreSQL Integration verification.
-- T47 PostgreSQL 18 Testcontainers Integration implementation and branch-tip CI.
+- T47 PostgreSQL 18 Testcontainers workflow verification and combined Integration closure.
+- T47 assigned Frontend operation reconciliation.
+- T47 Void Book Return Frontend implementation.
 - Classroom Release-01/02 dependency-safe revalidation.
-- Recovery registry-coverage accounting reconciliation through T45.
 - T46-T50 Recovery evidence capture/freeze guarding.
 
 # Tasks Closed
-- T47 local PostgreSQL Integration **sub-stage** — CLOSED GREEN by workflow `32035858998`.
-- Recovery registry-coverage ledger reconciliation through T45 — CLOSED from existing frozen registry evidence.
-- No new Presenter percentage-bearing checkpoint closed; T47 Integration remains one combined open checkpoint.
+- T47 PostgreSQL 18 Testcontainers sub-stage — CLOSED GREEN by workflow `32037600596`.
+- T47 combined Integration percentage checkpoint — CLOSED GREEN and credited.
 
 # Tasks In Progress
-- T47 PostgreSQL 18 Testcontainers Integration — commit `d11043c6bd946b2841e4d0c731f5fbb896bca244`; workflow `32037600596` IN PROGRESS.
+- T47 Assigned Frontend — implementation `38173db4b7dd4f89b3c8160d925551f8eb77a97a`; exact CI conclusion not independently available at consolidation, therefore OPEN/uncredited.
 - T46-T50 Recovery candidate evidence capture — OPEN; no freeze allowed yet.
 
 # Stale / Blocked More Than 3 Cycles
-- **Document Rerun:** 34 coordinator cycles open; **29 no-increase cycles**. **Action Taken in This Cycle:** dependency state revalidated for Classroom gating only; no Document lane assigned and no progress credited.
-- **Classroom Release Preparation:** **40 no-increase cycles**. **Action Taken in This Cycle:** Agents 4/5/7 revalidated Release-01/02 gates and existing Release-02 acceptance; no blocked candidate was materialized.
-- Presenter Solutions is not over the stall threshold; the current Integration checkpoint is actively progressing.
-- Recovery no-increase counter resets because the component-ledger correction changed verified stream percentage from 20.0000% to 30.0000%.
+- **Document Rerun:** 35 coordinator cycles open; **30 no-increase cycles**. **Action Taken in This Cycle:** dependency state revalidated for Classroom gating only; no Document lane assigned and no progress credited.
+- **Classroom Release Preparation:** **41 no-increase cycles**. **Action Taken in This Cycle:** Agents 4/5/7 revalidated Release-01/02 gates and existing Release-02 acceptance; no blocked candidate was materialized.
+- Presenter Solutions is not over the stall threshold; one verified checkpoint closed this cycle.
+- Recovery has **1 no-increase cycle** after the prior accounting reconciliation reset; Agent 8 promoted T47 Integration evidence and retained the freeze guard.
 
 # Yet To Do
-- Complete T47 Testcontainers CI; only then close T47 Integration if fully green.
-- Implement/verify T47 Assigned Frontend after Integration closes.
+- Verify T47 Assigned Frontend CI; only then close its checkpoint and unlock T48 implementation.
 - Complete T48-T50 and freeze/verify the T46-T50 registry.
 - Complete T51-T60 Presenter batches.
 - Complete T01_01/T01_03 repository identity transition.
@@ -161,13 +157,12 @@ One primary coordinator consolidates eight logical lanes; no autonomous-agent ru
 - Implement remaining Recovery components and final classroom rehearsal/integration.
 
 # Control Commits This Cycle
-- T47 Testcontainers implementation: `d11043c6bd946b2841e4d0c731f5fbb896bca244`.
-- Presenter task queue: `e1dfc34d601b78c9ead1c47c0c8f05919a04affa`.
-- Classroom task queue: `a57c6996b85ae108440698d0c65dd3a69fe2c4cc`.
-- Recovery evidence task queue: `a987bb78bda09bc4ae719de9b975173074db803e`.
-- Document task queue: `528cdc9db981404c64abef26a5921684eb032518`.
-- Recovery component ledger: `ccf88a036a5a2bf9af0ed14378b9bbd11a9775c1`.
-- Execution-cycle monitor: `e3eb2e395d78942abc265d638843db321d12d949`.
+- T47 assigned Frontend: `38173db4b7dd4f89b3c8160d925551f8eb77a97a`.
+- Presenter task queue: `690f06f46044e5ffed69c2a11c9cb001577a3c46`.
+- Classroom task queue: `61acd15330de9945f69a23cf39e1e2415f76efca`.
+- Recovery task queue: `d99a1a89b62b893198b0f723f789c3b7eb73d1f3`.
+- Document task queue: `021c77c54377bae8b2c3789ec59df56669c8f0d1`.
+- Execution-cycle monitor: `157ea0e65cf4097154ced84a6587ac9a56518c19`.
 
 # Hard Rules
 1. No ChatGPT/automation write to Public.
