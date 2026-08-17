@@ -12,7 +12,7 @@
 
 ### Release-02
 - Controlled-error acceptance remains CLOSED GREEN on `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb`.
-- Acceptance run `31989985693`: backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS.
+- Acceptance run `31989985693`: backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS, re-fetched this cycle.
 - Private validation branch `Classroom-Release-02-Acceptance-QG` remains `c43992b5829c6d02424f2770d92fdc883db28726`.
 - T02_01 is APPROVED, T02_02 remains GENERATING, and T02_03 remains PENDING.
 
@@ -24,11 +24,11 @@
 
 ## Tasks Taken Up This Cycle
 - Agent 4 revalidated Release-01 document identity prerequisites against the current Document queue.
-- Agent 5 retained the exact Release-02 acceptance evidence and confirmed T02 document gating remains unchanged.
+- Agent 5 re-fetched Release-02 acceptance run `31989985693` and confirmed both jobs remain SUCCESS while the T02 document gate remains unchanged.
 - Agent 7 revalidated the private-only promotion boundary; no public or Quality-Gate write was performed.
 
 ## Tasks Closed This Cycle
-No percentage-bearing Classroom task closed; dependency revalidation is not progress.
+No percentage-bearing Classroom task closed; dependency and acceptance revalidation are not progress.
 
 ## Tasks In Progress / Blocked
 - Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 identity transition.
@@ -36,4 +36,4 @@ No percentage-bearing Classroom task closed; dependency revalidation is not prog
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Classroom Release has **36 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** Agents 4/5/7 revalidated the exact Release-01/02 document gates and preserved the previously green Release-02 acceptance boundary; no blocked candidate was materialized and no Public/Quality-Gate write occurred.
+Classroom Release has **37 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** Agents 4/5/7 revalidated the exact Release-01/02 document gates, re-fetched the fully green Release-02 acceptance evidence, and preserved the private-only boundary; no blocked candidate was materialized and no Public/Quality-Gate write occurred.
