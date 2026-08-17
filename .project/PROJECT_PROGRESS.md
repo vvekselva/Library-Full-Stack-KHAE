@@ -10,78 +10,69 @@ This file is the private authoritative execution dashboard.
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-17 09:51 UTC
+## Current Status - 2026-08-17 10:02 UTC
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
 | Document Rerun | **5.3889%** | **5.3889%** | **+0.0000%** | **STALE.** No current eight-lane worker assigned; T01_01/T01_03 remain QUALITY_GATE_PASSED and T02_02-T06_02 remain GENERATING. |
-| Presenter Solutions | **69.0000%** | **70.6667%** | **+1.6667%** | **ADVANCED.** T42 Assigned Frontend and all four T43 component checkpoints are VERIFIED GREEN; T44 Service is next eligible. |
+| Presenter Solutions | **70.6667%** | **70.6667%** | **+0.0000%** | **ACTIVE / CI PENDING.** T44 DAO-backed Service and focused Unit Tests are committed; workflow `32017926211` frontend is green while backend PostgreSQL tests remain IN_PROGRESS. No checkpoint credited yet. |
 | Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE.** Release-01/02 remain document-gated; Release-02 acceptance CI revalidated green. |
-| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | **STALE by frozen percentage / evidence advanced.** T41-T43 component evidence is captured; T44-T45 and cumulative registry CI still block freeze. |
-| **Overall** | **31.9083%** | **32.4917%** | **+0.5834%** | Verified increase comes only from five newly closed Presenter checkpoints; status-only work received no credit. |
+| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | **STALE by frozen percentage.** T44 Service/Unit commit identities captured provisionally; `freeze_allowed=false` remains mandatory. |
+| **Overall** | **32.4917%** | **32.4917%** | **+0.0000%** | Eligible repository work executed, but no percentage-bearing gate is credited until T44 branch-tip CI completes fully green. |
 
 ## Eight Logical Worker Lanes
 One primary coordinator consolidated eight logical lanes; no autonomous agent runtime is exposed.
-- **Agent 1 — Presenter:** closed T42 frontend CI and implemented T43 Service against current-row/duplicate DAO rules.
-- **Agent 2 — Presenter:** added T43 focused Unit Tests, local PostgreSQL Integration and PostgreSQL 18 Testcontainers in ordered gates.
-- **Agent 3 — Presenter:** reconciled T43 Update → Search assigned frontend from frozen registries plus live Book Issue controller contract.
-- **Agent 6 — Presenter:** implemented the assigned T43 Search frontend only after Integration CI was green, then validated final branch-tip CI.
+- **Agent 1 — Presenter:** implemented T44 Cancel Book Issue DAO-backed Service.
+- **Agent 2 — Presenter:** added focused T44 Unit Tests and held Integration behind branch-tip CI.
+- **Agent 3 — Presenter:** independently revalidated the frozen five-track frontend assignment mapping for T44/T45; no gated implementation started.
+- **Agent 6 — Presenter:** preserved the T44 assigned-Frontend dependency guard.
 - **Agent 4 — Classroom:** revalidated Release-01 document identity prerequisites.
 - **Agent 5 — Classroom:** revalidated Release-02 acceptance run `31989985693` and T02 document prerequisites.
 - **Agent 7 — Classroom:** preserved private-only/no-public/no-QG promotion boundaries.
-- **Agent 8 — Recovery:** synchronized exact T42/T43 evidence into the T41-T45 candidate and preserved `freeze_allowed=false`.
+- **Agent 8 — Recovery:** captured provisional T44 commit/CI evidence and preserved `freeze_allowed=false`.
 - Document Rerun was not allocated to these eight lanes.
 
 ## Presenter Evidence This Cycle
-### T42 Assigned Frontend — CLOSED GREEN
-- Frontend: `16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f`.
-- Workflow `32013008131`: backend `95336451899` SUCCESS; frontend `95336451882` SUCCESS.
+### T44 Cancel Book Issue — SERVICE + UNIT IMPLEMENTED / CI PENDING
+- Baseline hard-coded cancellation stub was replaced by DAO-backed current-row cancellation with controlled invalid-input, not-found and dependency errors.
+- Service commit: `8845e4331279363d91b452397484dc30523436dc`.
+- Focused Unit Test commit: `23ab71f8e0cf1feb4bb55e29569c15adb10504cd`.
+- Workflow `32017926211` on exact Unit branch tip.
+- Frontend job `95351291538`: SUCCESS.
+- Backend PostgreSQL job `95351291439`: IN_PROGRESS at consolidation.
+- T44 Integration and Assigned Frontend remain BLOCKED until their predecessor gates are green.
 
-### T43 Update Book Issue — FOUR COMPONENT CHECKPOINTS CLOSED GREEN
-- Service: `3cd7ae2e10594bf05e8452daa140cb8c378d66c0`.
-- Unit Test: `0aa890bd66e6da270cf4df0527ce603947c4a813`.
-- Service/Unit workflow `32015802884`: backend `95344959983` SUCCESS; frontend `95344959916` SUCCESS.
-- Local PostgreSQL Integration: `c38c5d2e891767f8c388f3c252b85d126f994e16`.
-- Local Integration workflow `32016211744`: backend `95346115035` SUCCESS; frontend `95346115054` SUCCESS.
-- PostgreSQL 18 Testcontainers: `88c7a13dba4731f9c3bb95b7e8e297105ed0cfd5`.
-- Authoritative frontend assignment: `44f29090942d833bc16ab7a214255b6a1a5786d2`; assignment is Search Book Issue via `GET /rest/issues/search?text=...`.
-- Integration branch-tip workflow `32016604920`: backend `95347315707` SUCCESS; frontend `95347315698` SUCCESS.
-- Assigned frontend: `d32dad80281d62327ce27e9edd3a86c34c640bb4`, `frontend/frontend.lib.mgmt/src/tracks/t43-search-book-issue.js`.
-- Final workflow `32016956178`: backend `95348362510` SUCCESS; frontend `95348362622` SUCCESS.
-
-Presenter accounting is now **212 / 300 = 70.6667%**. T41-T43 registry checkpoints remain pending the T44-T45 and cumulative/registry-tip gate.
+Presenter accounting remains **212 / 300 = 70.6667%** because Service/Unit implementation is not credited before complete green branch-tip CI.
 
 ## Classroom Evidence This Cycle
 - Release-01: T01_02 APPROVED; T01_01/T01_03 remain QUALITY_GATE_PASSED with repository materialization/identity transition pending.
-- Release-02: baseline `24179fb905fd69f816bfeb5db0ee7206401a3ceb`; run `31989985693` revalidated with backend `95271686668` SUCCESS and frontend `95271686680` SUCCESS.
+- Release-02 acceptance run `31989985693` revalidated: backend `95271686668` SUCCESS and frontend `95271686680` SUCCESS.
 - T02_01 APPROVED; T02_02 GENERATING; T02_03 PENDING.
 - No blocked candidate was materialized.
 - No public repository write and no Quality Gate write occurred.
 
 ## Recovery Evidence This Cycle
-- T41-T45 candidate remains OPEN and now records T41, T42 and T43 with all four component checkpoints VERIFIED.
-- Candidate synchronization commit: **`8677400b2c6afdf6b0497be5fbd36c718d62aa62`**.
-- T44-T45 remain pending.
-- `freeze_allowed=false` remains mandatory until T44-T45 and cumulative/registry-tip CI are complete.
+- T41-T45 candidate remains OPEN with T41-T43 fully component-verified.
+- T44 Service `8845e433...` and Unit `23ab71f8...` identities are captured provisionally.
+- Workflow `32017926211` is not yet fully green, so T44 component evidence is not promoted to VERIFIED.
+- T45 remains pending.
+- `freeze_allowed=false` remains mandatory.
 
 ## Tasks Taken Up
-- T42 exact Assigned Frontend CI acceptance.
-- T43 Update Book Issue Service and focused Unit Tests.
-- T43 local PostgreSQL Integration and PostgreSQL 18 Testcontainers Integration.
-- T43 authoritative assigned-Frontend reconciliation and Search frontend implementation.
+- T44 Cancel Book Issue Service implementation.
+- T44 focused Unit Test implementation and branch-tip CI validation.
+- T44/T45 frontend-assignment mapping inspection without gated implementation.
 - Classroom Release-01/02 prerequisite-safe revalidation.
-- Recovery candidate synchronization and freeze guarding.
+- Recovery provisional evidence capture and freeze guarding.
 
 ## Tasks Closed
-- T42 Assigned Frontend checkpoint — CLOSED / VERIFIED GREEN.
-- T43 Service checkpoint — CLOSED / VERIFIED GREEN.
-- T43 Unit Test checkpoint — CLOSED / VERIFIED GREEN.
-- T43 Integration checkpoint — CLOSED / VERIFIED GREEN.
-- T43 Assigned Frontend checkpoint — CLOSED / VERIFIED GREEN.
-- T42/T43 Recovery component-evidence capture — CLOSED as non-percentage preparation.
+- No percentage-bearing checkpoint closed this cycle at this consolidation point.
+- Repository implementation work was substantive, but pending CI is not counted as completion.
 
 ## Tasks In Progress / Blocked
-- T44 Cancel Book Issue Service — NEXT ELIGIBLE Presenter work.
+- T44 Service + Unit Test acceptance — IN_PROGRESS on workflow `32017926211`.
+- T44 Integration — BLOCKED pending fully green Service/Unit CI.
+- T44 Assigned Frontend — BLOCKED pending green Integration CI.
 - T41-T45 registry/freeze — BLOCKED by T44-T45 and cumulative/registry-tip CI.
 - T45 Search Book Issue — source-reconciled, pending ordered execution.
 - Release-01 — BLOCKED by T01_01/T01_03 document identity-control transition.
@@ -89,28 +80,23 @@ Presenter accounting is now **212 / 300 = 70.6667%**. T41-T43 registry checkpoin
 - T46-T60 Recovery and Final Integration — BLOCKED by matching Presenter plus Document/Classroom completion.
 
 ## Open More Than 3 Cycles / Streams With No Increase >3 Cycles
-- **Document Rerun:** 26 cycles open; **21 no-increase cycles**. **Action Taken in This Cycle:** dependency state revalidated only for Classroom gating; no Document lane assigned, no progress credited. State **STALE**.
-- **Classroom Release Preparation:** **32 no-increase cycles**. **Action Taken in This Cycle:** exact Release-01/02 document gates and Release-02 acceptance CI revalidated; no blocked candidate materialized. State **STALE**.
-- **Recovery / Final Integration:** **32 no-increase cycles**. **Action Taken in This Cycle:** exact T42/T43 green evidence synchronized into candidate `8677400b...`; `freeze_allowed=false` preserved. State **STALE by percentage**.
-- **Presenter long-running T42 frontend task:** entered this cycle after more than three completed cycles and was CLOSED by workflow `32013008131`; Presenter stream no-increase counter reset to 0 after verified progress.
-- **Overall:** no-increase counter reset to 0 after verified Presenter progress.
+- **Document Rerun:** 27 cycles open; **22 no-increase cycles**. **Action Taken in This Cycle:** dependency state revalidated only for Classroom gating; no Document lane assigned, no progress credited. State **STALE**.
+- **Classroom Release Preparation:** **33 no-increase cycles**. **Action Taken in This Cycle:** exact Release-01/02 gates and Release-02 acceptance CI revalidated; no blocked candidate materialized. State **STALE**.
+- **Recovery / Final Integration:** **33 no-increase cycles**. **Action Taken in This Cycle:** T44 Service/Unit identities and CI state captured provisionally; `freeze_allowed=false` preserved. State **STALE by percentage**.
+- **Presenter Solutions:** 1 no-increase cycle; not yet over the >3-cycle threshold. **Action Taken:** T44 Service and Unit were implemented and exact branch-tip CI is running; no premature credit.
+- **Overall:** 1 no-increase cycle; not over threshold.
 
 ## Next Dependency-Safe Transition
-Begin T44 Cancel Book Issue Service from the reconciled source/controller/DAO contract. Preserve Service → focused Unit Test → green branch-tip CI before any T44 Integration. Do not freeze T41-T45 before T44-T45 and cumulative registry-tip CI are complete.
+Wait for workflow `32017926211` to become fully green. Only then may T44 local PostgreSQL Integration begin, followed by PostgreSQL 18 Testcontainers, green Integration CI, assigned Frontend and eventual cumulative registry verification. Do not freeze T41-T45 before T44-T45 and registry-tip CI are complete.
 
 ## Control Commits This Cycle
-- T43 Service: `3cd7ae2e10594bf05e8452daa140cb8c378d66c0`.
-- T43 Unit Test: `0aa890bd66e6da270cf4df0527ce603947c4a813`.
-- T43 local Integration: `c38c5d2e891767f8c388f3c252b85d126f994e16`.
-- T43 PostgreSQL 18 Testcontainers: `88c7a13dba4731f9c3bb95b7e8e297105ed0cfd5`.
-- T43 assignment reconciliation: `44f29090942d833bc16ab7a214255b6a1a5786d2`.
-- T43 assigned frontend: `d32dad80281d62327ce27e9edd3a86c34c640bb4`.
-- Recovery candidate: `8677400b2c6afdf6b0497be5fbd36c718d62aa62`.
-- Presenter task queue: `0eda58fdc409a88746d4d2d950f73e29c2d09580`.
-- Classroom task queue: `913374036dbc5b1f535ead002afc979fd96d80db`.
-- Recovery task queue: `352e0a9b84087422d70db4d2b1e1a8a19a8631be`.
-- Document dependency queue: `78c26f7ef638903a682e456d200e5eea0bab46d2`.
-- Execution-cycle monitor: `3293c701a3aa6651f83cbeb3700dbeb9b2953309`.
+- T44 Service: `8845e4331279363d91b452397484dc30523436dc`.
+- T44 Unit Test: `23ab71f8e0cf1feb4bb55e29569c15adb10504cd`.
+- Presenter task queue: `79bc02f022166070b1878bb06186442764cd51ad`.
+- Classroom task queue: `7e5092a50d12ea23206f4c6f1f9d71f02b22591f`.
+- Recovery task queue: `d821fb8d45114f1e1bb04e09fd98a56bb872b4b9`.
+- Document dependency queue: `c336361107ff543c66578b5cf477e33aa341e3d4`.
+- Execution-cycle monitor: `d455668ce0fae37ec633fd67dabccda8ebdc2234`.
 
 ## Hard Rules
 1. No ChatGPT/automation write to Public.
