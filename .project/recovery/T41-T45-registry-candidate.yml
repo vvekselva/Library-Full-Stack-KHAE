@@ -1,7 +1,7 @@
 version: 1
 batch: T41-T45
 module: Book Issue
-status: OPEN_T41_SERVICE_UNIT_VERIFIED
+status: OPEN_T41_COMPONENTS_VERIFIED
 freeze_allowed: false
 presenter_branch: Presenter-Solutions-T41-T45
 base_verified_registry: 25581a24d5e85c9ef261f072316282a0b0431bd8
@@ -19,9 +19,29 @@ tracks:
       backend_result: SUCCESS
       frontend_job: 95289321718
       frontend_result: SUCCESS
-    integration: pending
-    testcontainers: pending
-    assigned_frontend: pending
+    local_integration: 0cdf45ea668dd6ffe8f71270f9f99a7b56484310
+    local_integration_ci:
+      workflow_run: 32002481031
+      backend_job: 95305354363
+      backend_result: SUCCESS
+      frontend_job: 95305354437
+      frontend_result: SUCCESS
+    testcontainers: ac877e6b16109255fd44c39a4ecba34e5dc255fc
+    integration_ci:
+      workflow_run: 32002762781
+      backend_job: 95306166999
+      backend_result: SUCCESS
+      frontend_job: 95306166911
+      frontend_result: SUCCESS
+    assigned_frontend: fdb3cd7d23b2919c6092c6110cc83388a30e6fe0
+    assigned_frontend_path: frontend/frontend.lib.mgmt/src/tracks/t41-update-book-issue.js
+    frontend_ci:
+      workflow_run: 32003077667
+      backend_job: 95307055354
+      backend_result: SUCCESS
+      frontend_job: 95307055315
+      frontend_result: SUCCESS
+    registry_checkpoint: pending_batch_cumulative_ci
   T42:
     operation: Read Book Issue
     source_reconciled: true
