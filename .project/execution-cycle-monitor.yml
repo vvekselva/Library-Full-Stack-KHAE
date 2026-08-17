@@ -1,6 +1,6 @@
 version: 3
 repository: vvekselva/Library-Full-Stack-KHAE-Master
-updated_at: 2026-08-17T00:37:00Z
+updated_at: 2026-08-17T00:41:00Z
 
 cycle_rule:
   nominal_minutes: 15
@@ -25,34 +25,43 @@ current_cycle:
       taken_up_this_cycle: false
       closed_this_cycle: false
       status: STALE_ACTIVE_EXPANSION
-      action_taken_in_this_cycle: "No Document worker lane was allocated by design. Re-read the Document task source: T01_01/T01_03 remain repository-verification pending; T02_02-T06_02 remain GENERATING. Used those exact states to prevent premature Classroom materialization."
+      action_taken_in_this_cycle: "No Document worker lane was allocated. Revalidated T01_01/T01_03 repository-verification pending and T02_02-T06_02 GENERATING; used those states to block premature Classroom promotion."
       evidence: "document-rerun.md blob f8639ed14806c2b9935040e6292f6b74862f94ba; no QG/public write"
       consecutive_cycles_open: 12
       over_three_cycles: true
     - task: Implement and validate T34 assigned Frontend
       stream: Presenter Solutions
       taken_up_this_cycle: true
-      closed_this_cycle: false
-      status: FRONTEND_SOURCE_COMMITTED_CI_IN_PROGRESS
-      action_taken_in_this_cycle: "Resolved the auto-discovered frontend track pattern and frozen DELETE contract, created t34-deactivate-book-copy.js at commit 820ae6cf, and launched cumulative branch-tip validation. Frontend-build job 95251485072 is SUCCESS; backend-test 95251485194 remains IN_PROGRESS, so no checkpoint credit was taken."
-      evidence: "commit 820ae6cf96a2fee1a688383f12db329994ea8cf7; run 31982423259; frontend 95251485072 SUCCESS; backend 95251485194 IN_PROGRESS"
-      consecutive_cycles_open: 1
+      closed_this_cycle: true
+      status: VERIFIED_GREEN_REGISTRY_READY
+      action_taken_in_this_cycle: "Created t34-deactivate-book-copy.js and validated the cumulative branch tip."
+      evidence: "frontend 820ae6cf96a2fee1a688383f12db329994ea8cf7; run 31982423259 SUCCESS; frontend 95251485072 SUCCESS; backend 95251485194 SUCCESS"
+      consecutive_cycles_open: 0
       over_three_cycles: false
-    - task: Reconcile and implement T35 Search Book Copy Service/Unit gate
+    - task: Reconcile and implement T35 Search Book Copy Service and Unit Test
+      stream: Presenter Solutions
+      taken_up_this_cycle: true
+      closed_this_cycle: true
+      status: VERIFIED_GREEN
+      action_taken_in_this_cycle: "Frozen route/envelope, replaced the STUB, added focused unit tests and validated both in run 31982423259."
+      evidence: "service 0591d97853970e83be826af8bb9fb1c19ed46b2c; unit 126fe8493f80d99ae1c5b1bcdfcaab06fb5b9823; run 31982423259 SUCCESS"
+      consecutive_cycles_open: 0
+      over_three_cycles: false
+    - task: Implement T35 local PostgreSQL and PostgreSQL 18 Testcontainers Integration
       stream: Presenter Solutions
       taken_up_this_cycle: true
       closed_this_cycle: false
-      status: SOURCE_RECONCILED_SERVICE_UNIT_COMMITTED_CI_IN_PROGRESS
-      action_taken_in_this_cycle: "Closed exact controller/route/envelope reconciliation, replaced the hard-coded SearchBookCopyServiceImpl STUB with validated DAO/mapping behavior, added focused unit tests, and held Integration because the Service/Unit branch-tip CI is still incomplete."
-      evidence: "service 0591d97853970e83be826af8bb9fb1c19ed46b2c; unit 126fe8493f80d99ae1c5b1bcdfcaab06fb5b9823; run 31982423259 IN_PROGRESS"
-      consecutive_cycles_open: 2
+      status: INTEGRATION_CI_IN_PROGRESS
+      action_taken_in_this_cycle: "After Service/Unit CI turned green, created both Integration layers and launched run 31982678321. Frontend implementation remains blocked until this run is fully green."
+      evidence: "local 6881ec4a108fd4eb460e78b01d737b4929fc2490; Testcontainers 31c51de7f11fc56faa56239430f62284a5c0a597; run 31982678321; frontend job 95252157100 SUCCESS; backend job 95252157107 IN_PROGRESS"
+      consecutive_cycles_open: 1
       over_three_cycles: false
     - task: Audit Release-01 selected document identities and prerequisites
       stream: Classroom Release Preparation
       taken_up_this_cycle: true
       closed_this_cycle: true
       status: STALE_PRIVATE_AUDIT_COMPLETE_RELEASE_BLOCKED
-      action_taken_in_this_cycle: "Created a private identity audit proving T01_01/T01_03 repository verification remains incomplete; no candidate materialization or publication was attempted."
+      action_taken_in_this_cycle: "Created a private identity audit proving T01_01/T01_03 repository verification remains incomplete; no candidate materialization or publication attempted."
       evidence: "audit ec0760de4534bb6870e68527d688abc9bf29ca88"
       consecutive_cycles_open: 18
       over_three_cycles: true
@@ -61,17 +70,17 @@ current_cycle:
       taken_up_this_cycle: true
       closed_this_cycle: true
       status: STALE_PRIVATE_BOUNDARY_AUDIT_COMPLETE_RELEASE_BLOCKED
-      action_taken_in_this_cycle: "Reconciled Release-01/02 private controls, found stale T02-T06 status wording, recorded the boundary audit, and synchronized the private Release-01 manifest without changing eligibility or publishing."
-      evidence: "audit f22fef99b99f55f0eb3a411fc1fbad510a758637; manifest sync e4c7c7925d547223c7098f2189b95b0370fa28ec"
+      action_taken_in_this_cycle: "Reconciled private controls, found stale T02-T06 wording, recorded the boundary audit and synchronized the private manifest."
+      evidence: "audit f22fef99b99f55f0eb3a411fc1fbad510a758637; manifest e4c7c7925d547223c7098f2189b95b0370fa28ec"
       consecutive_cycles_open: 18
       over_three_cycles: true
     - task: Protect T31-T35 recovery freeze boundary
       stream: Recovery / Final Integration
       taken_up_this_cycle: true
       closed_this_cycle: false
-      status: STALE_BATCH_BLOCKED_3_OF_5_READY
-      action_taken_in_this_cycle: "Corrected stale T34 Integration evidence to replacement run 31981001820 SUCCESS, captured T34 Frontend and T35 Service/Unit commits as CI-in-flight, and preserved freeze_allowed=false with 3/5 ready."
-      evidence: "candidate sync 068b60d7a82d1afa26ebf9b7656cc1778d210ee9; recovery queue 247a66f5886ae605d75a0e3648ca793d077da57f"
+      status: STALE_BATCH_BLOCKED_4_OF_5_READY
+      action_taken_in_this_cycle: "Promoted T34 to registry-ready only after cumulative green CI, captured T35 Integration commits/run and preserved freeze_allowed=false."
+      evidence: "candidate 5f314d90b09307cfa302cdaff28d0b2a16fae030; recovery queue cbe48747d6398acbb77d12360e2edbc3f0cd1299"
       consecutive_cycles_open: 18
       over_three_cycles: true
 
@@ -82,37 +91,37 @@ stream_stall_monitor:
     increase: 0.0000
     cycles_without_increase: 7
     over_three_cycles: true
-    reason: "T02_02-T06_02 remain GENERATING; no Document lane is assigned in the current eight-lane structure."
-    action_taken_in_this_cycle: "Revalidated exact document dependency states and used them to block premature Release-01 materialization; made no Document/QG write."
+    reason: "T02_02-T06_02 remain GENERATING; current eight-lane allocation excludes Document work."
+    action_taken_in_this_cycle: "Revalidated exact document dependency states and used them to block premature Release-01 materialization; no Document/QG write."
   - stream: Presenter Solutions
     previous_percent: 55.0000
-    current_percent: 55.0000
-    increase: 0.0000
-    cycles_without_increase: 1
+    current_percent: 56.0000
+    increase: 1.0000
+    cycles_without_increase: 0
     over_three_cycles: false
-    reason: "T34 Frontend and T35 Service/Unit source work is committed, but shared branch-tip backend CI is still running."
-    action_taken_in_this_cycle: "Implemented T34 Frontend, froze T35 controller/response contract, replaced T35 STUB, added T35 unit tests, and started run 31982423259; no dependent Integration was started."
+    reason: "T34 Frontend and T35 Service/Unit gates completed; T35 Integration is now validating."
+    action_taken_in_this_cycle: "Implemented/verified T34 Frontend and T35 Service/Unit, then immediately implemented both T35 Integration layers and launched run 31982678321."
   - stream: Classroom Release Preparation
     previous_percent: 33.3333
     current_percent: 33.3333
     increase: 0.0000
     cycles_without_increase: 18
     over_three_cycles: true
-    reason: "Release-01 remains T01 repository-verification-gated; Release-02 remains approved-baseline controlled-error-gated."
-    action_taken_in_this_cycle: "Closed Agent 4 identity audit and Agent 7 boundary consistency audit, corrected stale private manifest wording, and preserved Presenter-only publication."
+    reason: "Release-01 remains T01 repository-verification-gated; Release-02 remains controlled-error-baseline-gated."
+    action_taken_in_this_cycle: "Closed Agent 4 identity audit and Agent 7 boundary audit, corrected stale private manifest wording and preserved Presenter-only publication."
   - stream: Recovery / Final Integration
     previous_percent: 20.0000
     current_percent: 20.0000
     increase: 0.0000
     cycles_without_increase: 18
     over_three_cycles: true
-    reason: "T31-T33 ready; T34 cumulative CI and T35 remaining checkpoints still block five-track freeze."
-    action_taken_in_this_cycle: "Synchronized exact T34/T35 evidence and preserved 3/5 ready with freeze_allowed=false."
+    reason: "T31-T34 are ready; T35 Integration/Frontend still block the five-track freeze."
+    action_taken_in_this_cycle: "Advanced candidate coverage from 3/5 to 4/5 after T34 cumulative green CI; captured T35 Integration as in progress and preserved freeze_allowed=false."
   - stream: Overall
     previous_percent: 27.0083
-    current_percent: 27.0083
-    increase: 0.0000
-    cycles_without_increase: 1
+    current_percent: 27.3583
+    increase: 0.3500
+    cycles_without_increase: 0
     over_three_cycles: false
-    reason: "No new percentage-bearing quality gate completed before consolidation."
-    action_taken_in_this_cycle: "Executed eligible Presenter source work plus private Classroom/Recovery evidence work, but credited no pending CI or audit-only activity."
+    reason: "Verified Presenter checkpoints completed this cycle."
+    action_taken_in_this_cycle: "Credited only T34 Frontend and T35 Service/Unit after green CI; audit/source-only and in-progress Integration work received no percentage credit."
