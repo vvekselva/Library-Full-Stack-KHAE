@@ -2,57 +2,93 @@
 
 **Stream weight:** 35%.  
 **Active logical workers:** Agents 1, 2, 3 and 6.  
-**Per-track checkpoints:** Service → Unit Test → green branch-tip CI → Integration (local PostgreSQL + PostgreSQL Testcontainers) → green Integration CI → Assigned Frontend → cumulative CI/registry gate.
-
-## Dependency rules
-Do not start Integration before Service + Unit Test branch-tip CI is green. Do not start assigned Frontend before Integration is green. Do not award registry completion until required cumulative CI/batch registry gates pass. Presenter code remains private.
+**Per-track checkpoints:** Service → Unit Test → green branch-tip CI → Integration (local PostgreSQL + PostgreSQL 18 Testcontainers) → green Integration CI → Assigned Frontend → cumulative CI/registry gate.
 
 ## Current verified state
 - T01-T30: completed/verified batch registries.
-- T31-T35: **100% complete and batch registry VERIFIED**.
-- T36-T60: pending unless newer verified evidence supersedes this file.
+- T31-T35: 100% complete; frozen registry `83d51d4343fd79f8609e4bc73a483ce85615a276` remains verified.
+- T36-T40: Membership batch ACTIVE on private branch `Presenter-Solutions-T36-T40`.
+- T41-T60: pending.
 
-## T31-T35 closure evidence
-- T35 exact Integration failure was exposed by diagnostic run `31988227342`: `SearchBookCopyIntegrationTest.shouldPreserveDaoOrderingAcrossMatchingCopies` relied on brittle fixed seed-count/terminal-ID assertions although `BookCopyDao.search` only guarantees matching accession-number rows ordered by `bookCopyId`.
-- T35 Integration repair commits: `c9ebfcf4eb7e94b374953de5ac157fae4b6633f4` and final `18c2abd065862580a3d5459e7875b21c9890634b`.
-- T35 repaired Integration run `31990077599`: backend `95271926715` SUCCESS; frontend-build `95271926679` SUCCESS.
-- Assignment-boundary reconciliation used the established 5-track rotation: Create→Update, Read→Delete, Update→Search, Delete→Create, Search→Read/List.
-- T33 incorrect Update frontend was removed and replaced by assigned Search frontend `00f2f244e261f86805cacd35e5b05894d0fb3b46` at `frontend/frontend.lib.mgmt/src/tracks/t33-search-book-copy.js`.
-- T34 incorrect Deactivate frontend was removed and replaced by assigned Create frontend `6d480c3740424bb0b456393dc1ad0eb4beb737e1` at `frontend/frontend.lib.mgmt/src/tracks/t34-create-book-copy.js`.
-- T35 assigned Read/List frontend: `6a5b00a51abae1b077ea4ea644c03866c855ed1d` at `frontend/frontend.lib.mgmt/src/tracks/t35-read-list-book-copy.js`.
-- Corrected branch-tip run `31990383608`: backend `95272723987` SUCCESS; frontend `95272723831` SUCCESS.
-- Frozen registry: `.presenter/solution-registry/T31-T35.yml`, commit `83d51d4343fd79f8609e4bc73a483ce85615a276`.
-- Registry-tip verification run `31990613453`: backend `95273356638` SUCCESS; frontend `95273356652` SUCCESS.
+## T36-T40 source/contract reconciliation
+`MembershipRestController` fixes the batch as:
+- T36 Create Membership — `POST /rest/memberships`, service code `36`.
+- T37 Read Membership — `GET /rest/memberships/{id}`, service code `37`.
+- T38 Update Membership — `PUT /rest/memberships/{id}`, service code `38`.
+- T39 Deactivate Membership — `DELETE /rest/memberships/{id}`, service code `39`.
+- T40 Search Membership — `GET /rest/memberships/search`, service code `40`.
+
+The existing Membership implementations were hard-coded stubs. `MembershipDao`, DTOs, mapper, training schema and deterministic seed were reconciled before implementation.
+
+## Service + Unit Test evidence — CLOSED GREEN
+Application code freeze commit: `6ec5d86c2c923f227653b3f513ce7fcdf9f9225c`.
+
+- T36 Service `75e731d918ab8c674ba3b6cccd169df9f553cc76`; Unit `1bf3d3eacaa34b054afe9eb1cab3254e5c1eff5a`.
+- T37 Service `17e719bf4c2e021768ee199aae9aa626d9471d53`; Unit `d91d1edbd3893e4752d662755997a081995984f2`.
+- T38 Service `2651a361f83db064f6def24a35720a8e563e7d76`; Unit `f816d48e21c8b952d7a7ab497de8caa8f5cf6677`.
+- T39 Service `a7b2c512206369b57f16127e9db30a7d0c742574`; Unit `64fda19ef203acf7c168e2d5af913b0fffb44a05`.
+- T40 Service `1f3b851cd269cbe9e87e957a4ea811bc5a02be9d`; Unit `dec594e6e321d0e9561115a7fc3cedcb54b7e2b1`.
+
+Shared branch-tip gate `31991520031`: backend `95275836101` SUCCESS; frontend `95275836078` SUCCESS.
+
+## Integration evidence
+Local PostgreSQL layer is CLOSED GREEN:
+- T36 migration `2ecabccf853bdaf7592c6bf2920da71bb2a5c448`; local Integration `2095dc27e6690bf0f1d5cf5662c0c826e59f362f`.
+- T37 local Integration `733a80d1466bb6c22469b8568a30092230d4d1b5`.
+- T38 local Integration `1a774377b860893f820ab4a55fdd567b8ac7cec8`.
+- T39 local Integration `e40d8ef43a32c85947043ad025c0b6d37e1ebff3`.
+- T40 local Integration `57f80bb5ce4c30135d2bd5f86aa1eb96c9d02297`.
+- Shared local gate `31991835066`: backend `95276657850` SUCCESS; frontend `95276658008` SUCCESS.
+
+PostgreSQL 18 Testcontainers layer has been implemented but is not yet credited:
+- T36 `dc70bccc7c863f84dcb1ac7e2cda706c9edbb44c`.
+- T37 `689635afc3a183dbee36588054977f51d1423939`.
+- T38 `39b67cf1701376448c96fcca4428d7089cca3b90`.
+- T39 `186b4aaf4e243e559a54e7096e519ee87f36c8f0`.
+- T40 `95fed17f1e9a19ae349188f5a18fba564146a6a0`.
+- Current validation `31992068286`: frontend `95277279026` SUCCESS; backend `95277279036` IN_PROGRESS at this control-file update.
+
+No T36-T40 Assigned Frontend has started; it remains dependency-blocked until the Testcontainers/Integration gate is fully green.
 
 ## Current four-lane allocation
-- **Agent 1:** T35 Integration diagnosis/repair — CLOSED GREEN.
-- **Agent 2:** T33/T34/T35 assigned-frontend reconciliation — CLOSED GREEN.
-- **Agent 3:** T31-T35 cumulative source/contract evidence reconciliation — CLOSED.
-- **Agent 6:** T31-T35 registry freeze and branch-tip verification — CLOSED GREEN.
+- **Agent 1:** T36/T37 Presenter Service, Unit and Integration progression.
+- **Agent 2:** T38/T39 Presenter Service, Unit and Integration progression.
+- **Agent 3:** T40 Presenter source/Service/Unit/Integration progression.
+- **Agent 6:** shared branch-tip CI, cumulative evidence and Frontend-readiness guard.
 
 ## Current stream accounting
-- Previous: **56.0000%**
-- Updated: **58.3333%**
-- Increase: **+2.3333%**
-- State: **PROGRESSED — T31-T35 BATCH CLOSED VERIFIED**.
+- Previous: **58.3333%**
+- Updated: **61.6667%**
+- Increase: **+3.3334%**
+- State: **PROGRESSED — T36-T40 SERVICE + UNIT CLOSED GREEN; LOCAL INTEGRATION GREEN; TESTCONTAINERS VALIDATING**.
+
+Ten percentage-bearing checkpoints closed: Service + Unit for each of T36-T40. Integration is not credited until the complete local + PostgreSQL 18 Testcontainers gate is green.
 
 ## Tasks Taken Up This Cycle
-- Extract exact T35 Maven failure and repair only the invalid Integration assertions.
-- Verify the established frontend-assignment rotation and correct T33/T34/T35 assignments before registry credit.
-- Run corrected cumulative CI, freeze the T31-T35 private registry, and run registry-tip CI.
+- Reconcile and implement T36-T40 Membership source contracts.
+- Implement five Membership Service stages and focused Unit Test suites.
+- Validate the shared Service+Unit branch tip.
+- Implement and validate five local PostgreSQL Integration tracks plus normalized Membership database key.
+- Implement five PostgreSQL 18 Testcontainers tracks and start the shared validation.
 
 ## Tasks Closed This Cycle
-- T35 Integration gate — CLOSED GREEN.
-- T33 assigned Frontend correctness — CLOSED GREEN after repair.
-- T34 assigned Frontend correctness — CLOSED GREEN after repair.
-- T35 assigned Frontend — CLOSED GREEN.
-- T31-T35 cumulative CI/registry gate — CLOSED GREEN.
+- T36 Service — CLOSED GREEN.
+- T36 Unit Test — CLOSED GREEN.
+- T37 Service — CLOSED GREEN.
+- T37 Unit Test — CLOSED GREEN.
+- T38 Service — CLOSED GREEN.
+- T38 Unit Test — CLOSED GREEN.
+- T39 Service — CLOSED GREEN.
+- T39 Unit Test — CLOSED GREEN.
+- T40 Service — CLOSED GREEN.
+- T40 Unit Test — CLOSED GREEN.
+- T36-T40 local PostgreSQL Integration implementation/validation — CLOSED GREEN as a prerequisite layer, but the percentage-bearing Integration checkpoint remains open pending Testcontainers.
 
 ## Tasks In Progress / Blocked
-- T36-T40 Presenter work — next eligible batch; do not run any dependent stage before its source/contract prerequisites are established.
+- T36-T40 PostgreSQL 18 Testcontainers validation — IN PROGRESS on run `31992068286`.
+- T36-T40 Integration checkpoint — OPEN pending complete green Testcontainers gate.
+- T36-T40 Assigned Frontend — BLOCKED by Integration.
+- T36-T40 cumulative registry — BLOCKED by Integration and Frontend.
 
 ## Action Taken in This Cycle
-Converted T35 from deterministic Integration failure to a fully verified batch close: diagnostic CI exposed the exact brittle assertions, source-grounded repairs removed fixed seed assumptions while preserving DAO ordering verification, the corrected frontend assignment rotation was enforced for T33-T35, branch-tip cumulative CI passed, and `.presenter/solution-registry/T31-T35.yml` was frozen and revalidated on run `31990613453`.
-
-## Completion rule
-Continue T36-T60 with the same dependency sequence and do not credit a batch registry before exact component identities and cumulative branch-tip verification are green.
+Opened the next Presenter batch only after T31-T35 was frozen/verified, grounded Membership service codes and DAO/schema contracts, replaced all five hard-coded Membership service stubs, added focused unit tests, waited for a fully green Service+Unit branch-tip gate, then advanced local PostgreSQL Integration. After local Integration was fully green, added PostgreSQL 18 Testcontainers coverage. No Frontend or registry work was run prematurely.
