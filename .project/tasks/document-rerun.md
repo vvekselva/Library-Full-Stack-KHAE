@@ -16,14 +16,6 @@ Every document must be source-grounded; exact student-owned package/path and Pre
 - T02_03-T06_03: PENDING behind same-track Progressive Guide approval.
 - T07-T60: queued PENDING.
 
-## Existing generation evidence
-Editable source roots remain materialized in Private Master:
-- T02 `079a0ec3dd1e1d67a79bc48ef77aa42ce04af015`
-- T03 `4e36b130881c1c5fa495173836229a820d638426`
-- T04 `89231a43f2023b1e667cc438f4347af1207e7447`
-- T05 `f39b8a21b7629c8bb7516204b9259d21ae326623`
-- T06 `6d6db31ab0e1967053097f4aa94ca3fb62de8ac4`
-
 No Document lane was assigned in this coordinator cycle. No Quality Gate repository write occurred and no under-depth draft was promoted.
 
 ## Current stream accounting
@@ -31,7 +23,7 @@ No Document lane was assigned in this coordinator cycle. No Quality Gate reposit
 - Updated: **5.3889%**
 - Increase: **+0.0000%**
 - Completed stage points: **970 / 18000**
-- Cycles without increase: **16**
+- Cycles without increase: **17**
 - State: **STALE BY PERCENTAGE / UNFINISHED UPSTREAM DEPENDENCY**.
 
 ## Tasks Closed This Cycle
@@ -43,4 +35,4 @@ No Document lane was assigned in this coordinator cycle. No Quality Gate reposit
 - Approved/repository-verified rerun documents remain required before later Classroom releases can materialize.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Document Rerun is open for **21 coordinator cycles** and has **16 consecutive cycles without percentage increase**. Action Taken in This Cycle: the coordinator revalidated only the dependency state needed by Classroom lanes, assigned no Document worker, credited no progress, and performed no QG/public write.
+Document Rerun is open for **22 coordinator cycles** and has **17 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** the coordinator revalidated only the dependency state required by Classroom lanes, assigned no Document worker, credited no progress, and performed no QG/public write.
