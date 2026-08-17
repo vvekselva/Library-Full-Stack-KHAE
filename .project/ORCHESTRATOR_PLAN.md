@@ -32,12 +32,13 @@ One primary coordinator remains responsible for dependency checks and consolidat
 
 ## Current Presenter boundary
 - T01-T45: frozen/verified registries.
-- **T46-T50 Book Return batch: FROZEN / VERIFIED** at registry commit `cd03adf2280237f35f85cdced7d97f1f1a888f5e`; exact registry-tip run `32056947711` SUCCESS. Corrected pre-freeze source `bca4c6d1a0813a6cbaf5e35c799eebc61ca1d374`, run `32056218735` SUCCESS.
-- **T51-T55 Reservation batch: ACTIVE** on branch `Presenter-Solutions-T51-T55`, created from the verified T46-T50 freeze.
-- T51-T55 source/contract reconciliation is committed at `a1570156d01f67955396f0639363c5520caafa06`.
-- Application code constants for T51-T60/P11/P12 are added at `749ec8b3105444a2dfd30c6f746a5c5d09c4999e`.
-- **T51 Create Reservation Service** implementation `42965168682f4b67450763005159685bd2a75090` and focused Unit Test `7c5de1548fc2c77c5f29a71103753732e443f4f6` are implemented; exact run `32058255359` is the Service+Unit branch-tip gate. No Integration may start until that run is fully green.
-- T52-T55 implementation remains blocked behind the ordered per-track gates; source inspection is allowed independently.
+- **T46-T50 Book Return batch: FROZEN / VERIFIED** at registry commit `cd03adf2280237f35f85cdced7d97f1f1a888f5e`; exact registry-tip run `32056947711` SUCCESS.
+- **T51-T55 Reservation batch: ACTIVE** on branch `Presenter-Solutions-T51-T55`.
+- T51 is CLOSED through Assigned Frontend with exact-green Service/Unit, local PostgreSQL Integration, PostgreSQL 18 Testcontainers Integration and frontend evidence.
+- **T52 Read Reservation is CLOSED through Assigned Frontend.** Service `b72e1008760a762d083ae670fe7a45e59c9fee1e` and Unit `4aaa035121eccb3cbdb8ddd7aa5fcdde2ed53c12` are green on run `32064377144`; local Integration `853605c6b3f7779b2301075d65cb6dd58c996d4e` is green on run `32069010602`; PostgreSQL 18 Testcontainers `f4f86e4bce81505e2119e71168648f19550e58d4` is green on run `32069419683`; Assigned Frontend `e3777b25e3dc2db829fc6676ba329454b1921a57` is green on run `32069835651`.
+- **T53 Update Reservation Service** `7b4224faa28ebad683e835f7301b12b6078ad3f2` and **Unit Test** `d1fbee463fcbac923803780e415b360fd9346eff` are implemented. Exact branch-tip run `32070287399` has frontend-build `95511738462` SUCCESS and backend-test `95511738275` IN_PROGRESS at consolidation.
+- T53 Integration must not start until run `32070287399` is fully green. T53 Assigned Frontend remains behind Integration. T54-T55 remain dependency-blocked, though source inspection is allowed independently.
+- T51-T55 registry freeze remains blocked until all five Reservation tracks and cumulative registry-tip CI are complete.
 
 ## Current Classroom boundary
 - Release-01 remains blocked by T01_01/T01_03 repository identity/materialization completion.
