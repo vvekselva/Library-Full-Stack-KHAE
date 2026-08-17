@@ -10,15 +10,15 @@ This file is the private authoritative execution dashboard. Every percentage sho
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-17 16:02 UTC
+## Current Status - 2026-08-17 17:07 UTC
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
 | Document Rerun | **5.3889%** | **5.3889%** | **+0.0000%** | **STALE.** T01 identity transitions and T02_02-T06_02 generation remain unfinished; no current eight-lane worker assigned. |
-| Presenter Solutions | **77.3333%** | **77.3333%** | **+0.0000%** | **STALE / EVIDENCE-BLOCKED THIS CYCLE.** T47 Assigned Frontend / Void Book Return UI exists and workflow triggering is confirmed, but exact green Actions evidence remains unavailable; T48 implementation remains blocked. |
-| Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE BY PERCENTAGE, SUBSTANTIVE PREREQUISITE FIX COMPLETED.** Release-02 baseline README contradiction corrected privately; Release-01/02 remain document-gated. |
-| Recovery / Final Integration | **30.0000%** | **30.0000%** | **+0.0000%** | **STALE.** T46-T50 candidate remains open with `freeze_allowed=false`; no new Recovery gate closed. |
-| **Overall** | **35.8250%** | **35.8250%** | **+0.0000%** | A real private Release-02 prerequisite defect was fixed, but no defined percentage-bearing checkpoint closed. |
+| Presenter Solutions | **77.3333%** | **77.6667%** | **+0.3334%** | **IN PROGRESS.** T47 Assigned Frontend / Void Book Return UI closed with exact green Actions evidence; T48 Service and Unit source are implemented, with branch-tip CI still in progress. |
+| Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE / DOCUMENT-GATED.** Release-01/02 prerequisites were revalidated; no materialization/publication was permitted. |
+| Recovery / Final Integration | **30.0000%** | **30.0000%** | **+0.0000%** | **STALE.** T47 frontend evidence is now immutable green, but T46-T50 remains an open candidate with `freeze_allowed=false`. |
+| **Overall** | **35.8250%** | **35.9417%** | **+0.1167%** | One defined Presenter checkpoint closed; only verified credit was applied. |
 
 ## Status Vocabulary
 - **CLOSED** — required evidence is verified and percentage contribution is credited.
@@ -42,8 +42,8 @@ This file is the private authoritative execution dashboard. Every percentage sho
 | T07_01 through T60_03 | 162 | PENDING / 0 | 0 | YET TO DO | Queued. |
 | **Document total** | **180** |  | **970 / 18,000** |  | **5.3889%** |
 
-## 2. Presenter Solutions — 77.3333%
-60 tracks × 5 percentage-bearing checkpoints = **300 checkpoints**. Current verified total = **232 / 300**.
+## 2. Presenter Solutions — 77.6667%
+60 tracks × 5 percentage-bearing checkpoints = **300 checkpoints**. Current verified total = **233 / 300**.
 
 | Human-readable component | Closed | Open | State | Technical evidence / next action |
 |---|---:|---:|---|---|
@@ -53,20 +53,21 @@ This file is the private authoritative execution dashboard. Every percentage sho
 | T47 — Read Book Return — Service | 1 | 0 | CLOSED | Git commit `403874f217904691c630ade45cf8c2f106d57fac`. |
 | T47 — Read Book Return — Unit Test | 1 | 0 | CLOSED | Git commit `9043743376d63a3da0cebe53eba0c052b9805cca`; workflow `32033439368` SUCCESS. |
 | T47 — Read Book Return — Integration | 1 | 0 | CLOSED | Local PostgreSQL commit `5bd27d5aa15f5cb0f0f1aadf4df49ff25569641c`; PostgreSQL 18 Testcontainers commit `d11043c6bd946b2841e4d0c731f5fbb896bca244`. |
-| T47 — Read Book Return — Assigned Frontend / Void Book Return UI | 0 | 1 | STALE / BLOCKED ON EVIDENCE | File `frontend/frontend.lib.mgmt/src/tracks/t47-delete-book-return.js`; blob `11f6b067f234fdc36779f5080e4cfe66fd338472`; implementation commit `38173db4b7dd4f89b3c8160d925551f8eb77a97a`; reverify trigger `cbc9fdcbfda18d644833815175672e3149d87aa4`. Exact green Actions conclusion still unavailable. |
-| T47 — Final CI / Registry | 0 | 1 | YET TO DO | Waits for Assigned Frontend plus batch readiness. |
-| T48 — Update Book Return — all five checkpoints | 0 | 5 | YET TO DO | Source reconciliation commit `d1cc4cfeb43f06be23b52677a2d860c85935e990`; Service implementation blocked until T47 Assigned Frontend closes. |
+| T47 — Read Book Return — Assigned Frontend / Void Book Return UI | 1 | 0 | **CLOSED THIS CYCLE** | Implementation `38173db4b7dd4f89b3c8160d925551f8eb77a97a`; blob `11f6b067f234fdc36779f5080e4cfe66fd338472`; exact reverify SHA `cbc9fdcbfda18d644833815175672e3149d87aa4`; Actions run `32042595095` SUCCESS. |
+| T47 — Final CI / Registry | 0 | 1 | YET TO DO | Batch final gate waits for T46-T50 completion. |
+| T48 — Update Book Return — Service | 0 | 1 | IN PROGRESS / SOURCE COMPLETE | Real service implementation commit `d171beb685665337dc93dabc42c612b9b64bc82b`; credit waits for branch-tip CI. |
+| T48 — Update Book Return — Unit Test | 0 | 1 | IN PROGRESS / SOURCE COMPLETE | Focused unit tests commit `b3f3cf070ccbb6dd017d53501439ddb1f51b8d47`; exact CI run `32048602233` in progress. |
+| T48 — Integration / Assigned Frontend / Final CI | 0 | 3 | YET TO DO | Integration must not start until Service + Unit branch-tip CI is green. |
 | T49-T50 — all checkpoints | 0 | 10 | YET TO DO | Ordered execution pending. |
 | T51-T60 — all checkpoints | 0 | 50 | YET TO DO | Future batches. |
-| **Presenter total** | **232** | **68** |  | **77.3333%** |
+| **Presenter total** | **233** | **67** |  | **77.6667%** |
 
-### Presenter evidence check this cycle
-- Active file re-fetched successfully: **T47 Void Book Return UI**, blob `11f6b067f234fdc36779f5080e4cfe66fd338472`.
-- Workflow definition `Verify Presenter Solution Stage` confirms pushes to `Presenter-Solutions-*` execute backend PostgreSQL tests and frontend Vite build.
-- Exact workflow-run retrieval for trigger commit `cbc9fdcbfda18d644833815175672e3149d87aa4` is denied by the connected GitHub integration.
-- Combined commit status returns no conclusion.
-- Local `gh` fallback is unavailable in the execution environment.
-- Result: no checkpoint credit and no T48 implementation.
+### Presenter evidence and execution this cycle
+- The previously inaccessible exact Actions evidence became available: `Verify Presenter Solution Stage` run `32042595095` on `Presenter-Solutions-T46-T50@cbc9fdcbfda18d644833815175672e3149d87aa4` completed **SUCCESS**. This closes T47 Assigned Frontend.
+- T47 closure unlocked T48 implementation under the ordered dependency contract.
+- T48 Update Book Return Service now performs current-row lookup, validation, normalization, duplicate detection, mapper update and DAO persistence at commit `d171beb685665337dc93dabc42c612b9b64bc82b`.
+- Focused T48 unit tests were added at `b3f3cf070ccbb6dd017d53501439ddb1f51b8d47`.
+- Exact branch-tip CI run `32048602233`: frontend-build is SUCCESS; backend PostgreSQL test job remains IN PROGRESS at this consolidation point. No Service/Unit checkpoint credit has been applied yet.
 
 ## 3. Classroom Release Preparation — 33.3333%
 3 release candidates × 5 equal gates = **15 gates**. Five Release-00 gates are CLOSED: `5/15 = 33.3333%`.
@@ -77,8 +78,8 @@ This file is the private authoritative execution dashboard. Every percentage sho
 | Release-01 — source/audit | STALE / BLOCKED | 0 | T01_01/T01_03 identity transition incomplete. |
 | Release-01 — freeze/build/presenter-ready | YET TO DO | 0 | Blocked by source/audit. |
 | Release-02 — application/source controlled-error baseline | PREREQUISITE ACCEPTED / NOT A RELEASE GATE CREDIT | 0 | `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb`; verification run `31989985693` previously green. |
-| Release-02 — baseline README consistency | CLOSED NON-PERCENTAGE PREREQUISITE | 0 | Corrected private `BASELINE_README.md` at commit `793371388d16fdefb5a7aa539927d738a5b25e41`, blob `01812dbf7c35a215cc831f7e5c767cf96ac9c7fd`; manifest synchronized at `fa6ef9e67d0809acc4365c38beaa46b8e79cafed`. |
-| Release-02 — source/audit release gates | STALE / BLOCKED | 0 | T02_02 GENERATING and T02_03 PENDING; exact selected approved document identities unavailable. |
+| Release-02 — baseline README consistency | CLOSED NON-PERCENTAGE PREREQUISITE | 0 | Private commit `793371388d16fdefb5a7aa539927d738a5b25e41`, blob `01812dbf7c35a215cc831f7e5c767cf96ac9c7fd`; manifest `fa6ef9e67d0809acc4365c38beaa46b8e79cafed`. |
+| Release-02 — source/audit release gates | STALE / BLOCKED | 0 | T02_02 GENERATING and T02_03 PENDING. |
 | Release-02 — freeze/build/presenter-ready | YET TO DO | 0 | Blocked by source/audit. |
 | **Classroom total** | **5 CLOSED / 10 release gates open** | **5/15** | **33.3333%** |
 
@@ -86,7 +87,7 @@ This file is the private authoritative execution dashboard. Every percentage sho
 
 | Human-readable Recovery component | Stream weight | Verified fraction | Earned points | State | Technical evidence / next action |
 |---|---:|---:|---:|---|---|
-| Verified Presenter solution registry coverage | 40 | 45/60 = 75% | **30.0000** | CLOSED THROUGH T45 / T46-T50 STALE CANDIDATE | T31-T35, T36-T40 and T41-T45 registries frozen; T47 Assigned Frontend still provisional. |
+| Verified Presenter solution registry coverage | 40 | 45/60 = 75% | **30.0000** | CLOSED THROUGH T45 / T46-T50 STALE CANDIDATE | T47 Assigned Frontend is now immutable green; T48 is provisional and T49-T50 are incomplete, so no batch freeze. |
 | Selection and dependency design implementation | 20 | 0% | 0.0000 | YET TO DO | Not verified. |
 | Private recovery workflow implementation | 20 | 0% | 0.0000 | YET TO DO | Not verified. |
 | Classroom rehearsal | 20 | 0% | 0.0000 | YET TO DO | Blocked by upstream readiness. |
@@ -96,28 +97,28 @@ This file is the private authoritative execution dashboard. Every percentage sho
 
 | Lane | Assignment | Action Taken in This Cycle | Result |
 |---|---|---|---|
-| Agent 1 | Presenter Solutions | Re-fetched **T47 Read Book Return — Void Book Return UI** | Artifact confirmed; no CI credit from re-fetch alone. |
-| Agent 2 | Presenter Solutions | Checked workflow-run and combined-status evidence surfaces for T47 reverify trigger | Exact Actions conclusion unavailable; checkpoint remains uncredited. |
-| Agent 3 | Presenter Solutions | Preserved **T48 Update Book Return — source reconciliation** | No implementation before T47 closure. |
-| Agent 4 | Classroom Release | Revalidated Release-01 document identity gate | Still blocked. |
-| Agent 5 | Classroom Release | Reconciled Release-02 controlled-error baseline and README documentation | Found README contradiction. |
-| Agent 6 | Presenter Solutions | Guarded T47 → T48 ordering | Did not start T48 Service prematurely. |
-| Agent 7 | Classroom Release | Corrected private Release-02 baseline README and manifest | CLOSED non-percentage prerequisite cleanup; no Public/QG write. |
-| Agent 8 | Recovery / Final Integration | Revalidated T46-T50 registry candidate | `freeze_allowed=false` retained. |
+| Agent 1 | Presenter Solutions | Retrieved exact T47 Assigned Frontend workflow evidence | T47 Void Book Return UI closed; run `32042595095` SUCCESS. |
+| Agent 2 | Presenter Solutions | Verified reverify SHA, branch tip and exact Actions conclusion | T47 evidence promoted from provisional to immutable green. |
+| Agent 3 | Presenter Solutions | Implemented **T48 Update Book Return Service** after T47 closure | Commit `d171beb685665337dc93dabc42c612b9b64bc82b`; source complete, CI credit pending. |
+| Agent 4 | Classroom Release | Revalidated Release-01 document identity gate | Still blocked; no materialization. |
+| Agent 5 | Classroom Release | Revalidated Release-02 document prerequisite map | T02_02 GENERATING / T02_03 PENDING. |
+| Agent 6 | Presenter Solutions | Added T48 focused unit tests and tracked branch-tip CI | Commit `b3f3cf070ccbb6dd017d53501439ddb1f51b8d47`; run `32048602233` in progress. |
+| Agent 7 | Classroom Release | Revalidated private promotion boundary | No Public/QG write; accepted baseline identities retained. |
+| Agent 8 | Recovery / Final Integration | Upgraded T47 evidence and captured T48 candidate source | `freeze_allowed=false` retained. |
 
 # Tasks Taken Up
-- **Presenter:** verify T47 Read Book Return — Assigned Frontend / Void Book Return UI and its exact CI evidence.
-- **Presenter:** preserve T48 Update Book Return reconciliation without premature implementation.
-- **Classroom:** revalidate Release-01/02 document gates.
-- **Classroom:** reconcile and correct Release-02 baseline README against accepted controlled-error infrastructure.
-- **Recovery:** revalidate T46-T50 freeze eligibility.
+- **Presenter:** close T47 Read Book Return Assigned Frontend / Void Book Return UI from exact Actions evidence.
+- **Presenter:** implement T48 Update Book Return Service and focused Unit Test after dependency closure.
+- **Presenter:** monitor exact T48 branch-tip CI; do not start Integration before green.
+- **Classroom:** revalidate Release-01/02 document gates and private promotion boundary.
+- **Recovery:** upgrade T47 immutable evidence, capture T48 candidate identities, retain freeze guard.
 
 # Tasks Closed This Cycle
-- **Release-02 baseline README consistency correction — CLOSED, non-percentage prerequisite cleanup.** Private baseline commit `793371388d16fdefb5a7aa539927d738a5b25e41`; corrected README blob `01812dbf7c35a215cc831f7e5c767cf96ac9c7fd`; private manifest commit `fa6ef9e67d0809acc4365c38beaa46b8e79cafed`.
-- No Presenter, Classroom release-gate, Recovery, Document, or Overall percentage-bearing checkpoint closed.
+- **T47 — Read Book Return — Assigned Frontend / Void Book Return UI — CLOSED / VERIFIED GREEN.** Exact Actions run `32042595095` succeeded on branch-tip SHA `cbc9fdcbfda18d644833815175672e3149d87aa4`.
+- No Document, Classroom, Recovery, or T48 percentage-bearing gate closed at the current consolidation point.
 
 # Tasks In Progress
-- **T47 — Read Book Return — Assigned Frontend / Void Book Return UI:** STALE / blocked on exact green CI evidence.
+- **T48 — Update Book Return — Service + Unit:** source complete; exact CI run `32048602233` still in progress. Integration remains blocked.
 - **T46-T50 Recovery registry candidate:** STALE / OPEN; freeze prohibited.
 - **Release-01 and Release-02 materialization:** STALE / document-gated.
 - **T02_02-T06_02 Progressive Guides:** outside current lane allocation; remain GENERATING.
@@ -125,38 +126,38 @@ This file is the private authoritative execution dashboard. Every percentage sho
 # Tasks Open More Than 3 Cycles
 | Task / Stream | Open / no-increase count | State | Action Taken in This Cycle |
 |---|---:|---|---|
-| Document Rerun dependency stream | 38 coordinator cycles open; 33 no-increase cycles | STALE | Re-read only for Classroom dependency gating; no Document worker allocated and no credit. |
-| Classroom Release Preparation | 44 no-increase cycles | STALE | Fixed the private Release-02 README contradiction while preserving Release-01/02 document gates. |
-| Recovery / Final Integration | 4 no-increase cycles | STALE | Revalidated exact T46/T47 evidence and retained `freeze_allowed=false`; no false Recovery credit. |
-
-Presenter Solutions has **3** consecutive no-increase cycles and remains below the >3-cycle stall counter, although the current T47 evidence task itself is marked STALE for this cycle because status/evidence checks did not close its defined gate.
+| Document Rerun dependency stream | 39 coordinator cycles open; 34 no-increase cycles | STALE | Re-read for Classroom dependency gating only; no Document worker allocated and no credit. |
+| T47 Assigned Frontend evidence task | Closed on its 4th coordinator cycle | **CLOSED THIS CYCLE** | Retrieved exact run `32042595095` SUCCESS and applied one Presenter checkpoint. |
+| Classroom Release Preparation | 45 no-increase cycles | STALE | Revalidated Release-01/02 exact document gates and private promotion boundary; no premature release work. |
+| Recovery / Final Integration | 5 no-increase cycles | STALE | Upgraded T47 immutable evidence, captured T48 candidate commits, retained `freeze_allowed=false`. |
 
 # Streams With No Increase More Than 3 Cycles
-- **Document Rerun — 33 cycles without increase.** Action: dependency state revalidated only; current allocation excludes Document work.
-- **Classroom Release Preparation — 44 cycles without increase.** Action: substantive private README consistency defect fixed; release percentage unchanged because documents still block release gates.
-- **Recovery / Final Integration — 4 cycles without increase.** Action: T46-T50 freeze guard revalidated; no new frozen registry.
+- **Document Rerun — 34 cycles without increase.** Action: dependency state revalidated only; current allocation excludes Document work.
+- **Classroom Release Preparation — 45 cycles without increase.** Action: Release-01/02 gates and private promotion boundary revalidated; no materialization/publication.
+- **Recovery / Final Integration — 5 cycles without increase.** Action: T47 evidence upgraded and T48 candidate captured; no new frozen registry.
+- **Presenter Solutions is no longer in a no-increase streak.** T47 Assigned Frontend closure increased the stream this cycle.
 
 # Yet To Do
-- Obtain exact green T47 Assigned Frontend CI; only then close the checkpoint and unlock T48 Service implementation.
-- Complete T48-T50 and freeze/verify the T46-T50 registry.
+- Obtain green completion for T48 Service + Unit branch-tip CI `32048602233`; only then credit those checkpoints and begin T48 Integration.
+- Complete T48 Integration, Assigned Frontend and final gate; then T49-T50 and freeze/verify T46-T50 registry.
 - Complete T51-T60 Presenter batches.
 - Complete T01_01/T01_03 repository identity transitions.
 - Complete T02_02-T06_02 Progressive Guides and downstream Updated API Contracts.
 - Materialize/verify Release-01 and Release-02 only after document prerequisites.
-- Freeze the final Release-02 candidate README identity together with the document-complete candidate and verify that candidate build.
 - Implement remaining Recovery components and final classroom rehearsal/integration.
 
 # Control Evidence This Cycle
 | Human-readable control update | Technical evidence |
 |---|---|
-| Release-02 baseline README consistency fix | Private branch commit `793371388d16fdefb5a7aa539927d738a5b25e41`; blob `01812dbf7c35a215cc831f7e5c767cf96ac9c7fd` |
-| Release-02 private manifest synchronization | Commit `fa6ef9e67d0809acc4365c38beaa46b8e79cafed` |
-| Orchestrator current-boundary refresh | Commit `a8297bd83d86184bacbc587aa19f6681e47b3c2f` |
-| Presenter Solutions task queue | Commit `1cca19b53ea5bf7932db9bdd72900d27d0f85b44` |
-| Classroom Release task queue | Commit `f2bc3aa3a760af850ffb8b09e6c698089360c79b` |
-| Recovery / Final Integration task queue | Commit `6cf91e5a378ac5bbcece41bc0e197fcd84c3325c` |
-| Document dependency task queue | Commit `f5179e2f21d10a998cc12e3d61c030569131ed62` |
-| Execution cycle monitor | Commit `4a810b041d02246a3f5dad5ae958cf01988dcf15` |
+| T47 Assigned Frontend exact green verification | Actions run `32042595095` on SHA `cbc9fdcbfda18d644833815175672e3149d87aa4` |
+| T48 Update Book Return Service implementation | Presenter branch commit `d171beb685665337dc93dabc42c612b9b64bc82b` |
+| T48 Update Book Return Unit tests | Presenter branch commit `b3f3cf070ccbb6dd017d53501439ddb1f51b8d47`; CI `32048602233` in progress |
+| Presenter Solutions task queue | Commit `5d8c8318835963b88b1afa6c13f7bcfb8a5d3847` |
+| Classroom Release task queue | Commit `3c267c8466fe4d5a128884b39d6de735a864d344` |
+| Recovery / Final Integration task queue | Commit `11af7fb24d31cb7e97742585cf9917dc93563536` |
+| Document dependency task queue | Commit `a6d613ae95e5c5db6bd2853350846e2978866cf3` |
+| Execution cycle monitor | Commit `acf7273e26aa435854df3fd3589e413442816883` |
+| Orchestrator current-boundary refresh | Commit `740ff6d5119574ec8700cf65ef487cfecf960fc6` |
 
 # Hard Rules
 1. No ChatGPT/automation write to the Public classroom repository.
