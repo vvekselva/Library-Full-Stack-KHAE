@@ -10,86 +10,90 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-17 02:06 UTC
+## Current Status - 2026-08-17 03:22 UTC
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
 | Document Rerun | **5.3889%** | **5.3889%** | **+0.0000%** | STALE by percentage. No current lane assigned. T01_01/T01_03 remain repository-verification pending; T02_02-T06_02 remain GENERATING. |
-| Presenter Solutions | **56.0000%** | **56.0000%** | **+0.0000%** | STALE by percentage. T35 Integration remains deterministically failed; fixture/seed and unique container-pattern mismatch hypotheses were eliminated, but exact Surefire failure text is still unavailable. |
-| Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | STALE by percentage, but substantive prerequisite progress occurred: Release-02 controlled-error source blocker was removed in the private approved baseline with exact Presenter blob identity. Acceptance + document gates remain. |
-| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | STALE by percentage. T31-T34 remain registry-ready = **4/5**. T35 Integration still blocks Frontend and freeze; `freeze_allowed=false`. |
-| **Overall** | **27.3583%** | **27.3583%** | **+0.0000%** | No percentage-bearing checkpoint completed. One private Classroom prerequisite blocker was removed without false release credit. |
+| Presenter Solutions | **56.0000%** | **58.3333%** | **+2.3333%** | PROGRESSED. T35 Integration + assigned Frontend closed and the corrected T31-T35 registry is frozen/verified. |
+| Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | STALE by percentage, but Release-02 controlled-error private acceptance is fully green; document release gates remain. |
+| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | Substantive progress: corrected T31-T35 registry freeze CLOSED/VERIFIED. Later batches and final integration remain blocked. No numeric sub-allocation for one registry batch is defined, so no percentage was invented. |
+| **Overall** | **27.3583%** | **28.1750%** | **+0.8167%** | Presenter percentage-bearing checkpoints closed; Classroom and Recovery also completed substantive private gates. |
 
 ## Eight Logical Worker Lanes
 One primary coordinator; no autonomous background-agent runtime is exposed.
 
-- **Agent 1 — Presenter:** T34 remains registry-ready; no dependent T35 Frontend work started.
-- **Agent 2 — Presenter:** T35 Integration diagnosis ACTIVE; branch-tip delta/fixture/seed/container-pattern analysis completed, exact Maven/Surefire failure still unavailable.
-- **Agent 3 — Presenter:** T35 source/DAO/mapper/tests/seed reconciliation CLOSED; live implementation remains source-aligned.
-- **Agent 4 — Classroom:** Release-01 prerequisite boundary preserved; materialization remains blocked by T01_01/T01_03 repository verification.
-- **Agent 5 — Classroom:** Release-02 controlled-error baseline remediation CLOSED at source-identity level; acceptance validation is next.
-- **Agent 6 — Presenter:** T35 Unit Test remains GREEN; future Frontend remains blocked until Integration is green.
-- **Agent 7 — Classroom:** Manifest/promotion boundary remains privately verified; no public write.
-- **Agent 8 — Recovery:** Kept readiness at 4/5 and preserved `freeze_allowed=false`.
+- **Agent 1 — Presenter:** T35 Integration diagnosis/repair CLOSED GREEN.
+- **Agent 2 — Presenter:** T33/T34/T35 assigned-frontend reconciliation CLOSED GREEN.
+- **Agent 3 — Presenter:** T31-T35 source/contract/cumulative evidence reconciliation CLOSED.
+- **Agent 4 — Classroom:** Release-01 boundary preserved; still document-gated.
+- **Agent 5 — Classroom:** Release-02 controlled-error acceptance CLOSED GREEN.
+- **Agent 6 — Presenter:** T31-T35 registry freeze + registry-tip CI CLOSED GREEN.
+- **Agent 7 — Classroom:** manifest/promotion boundary preserved; no public write.
+- **Agent 8 — Recovery:** T31-T35 candidate corrected, frozen and registry-tip verified; later batches remain gated.
 
 ## Presenter Evidence
-- T34 Frontend `820ae6cf96a2fee1a688383f12db329994ea8cf7`; cumulative run `31982423259` GREEN.
-- T35 contract: GET `/rest/book-copies/search?text=...`; code `35`; message `Book Copy Search Completed Successfully`.
-- T35 Service `0591d97853970e83be826af8bb9fb1c19ed46b2c`; Unit Test `126fe8493f80d99ae1c5b1bcdfcaab06fb5b9823`; both GREEN.
-- Local Integration `6881ec4a108fd4eb460e78b01d737b4929fc2490`; Testcontainers branch tip `31c51de7f11fc56faa56239430f62284a5c0a597`.
-- Run `31982678321`: frontend-build `95252157100` SUCCESS; backend-test `95252157107` FAILURE; same-source rerun `95256133626` FAILURE.
-- Commit `31c51de7...` adds only the T35 Testcontainers class. Its `0004` assertion matches V002 Book Copy ID 4 / `ACC-0004`; an existing green integration test uses the same PostgreSQL 18 Testcontainers pattern. Job steps show setup/container initialization success and failure inside the Maven presenter-test step. No usable Surefire artifact/log is exposed, so no speculative repair was made.
-- Presenter queue synchronized at `aefed4e2bce2e5a512449b7d957ebbcdab1f8890`.
+- Exact T35 failure exposed by diagnostic run `31988227342`: `SearchBookCopyIntegrationTest.shouldPreserveDaoOrderingAcrossMatchingCopies` used invalid fixed seed-count/terminal-ID assumptions.
+- T35 repair commits `c9ebfcf4...` and `18c2abd0...`; repaired Integration run `31990077599`: backend `95271926715` SUCCESS, frontend `95271926679` SUCCESS.
+- Established assignment rotation reconciled before Frontend credit: Create→Update, Read→Delete, Update→Search, Delete→Create, Search→Read/List.
+- Correct assigned frontends: T33 Search `00f2f244...`; T34 Create `6d480c37...`; T35 Read/List `6a5b00a5...`.
+- Corrected branch-tip run `31990383608`: backend `95272723987` SUCCESS; frontend `95272723831` SUCCESS.
+- Frozen registry `.presenter/solution-registry/T31-T35.yml` at `83d51d4343fd79f8609e4bc73a483ce85615a276`.
+- Registry-tip run `31990613453`: backend `95273356638` SUCCESS; frontend `95273356652` SUCCESS.
+- Presenter task synchronized at `f3100f000da4296fbfe7de9693ebefe0c54c5fcc`.
 
 ## Classroom Evidence
-- Release-01 identity audit `ec0760de4534bb6870e68527d688abc9bf29ca88`; promotion-boundary audit `f22fef99b99f55f0eb3a411fc1fbad510a758637`.
-- Release-02 Presenter reference blobs: `ApplicationServiceException.java` = `6f3475ee7996fe761333810e92490df764c9e958`; `ApplicationServiceExceptionHandler.java` = `f2b13a8e782705239a9ad821926b1f5beb1422f4`.
-- Private approved baseline remediation commits: `e7b99e90bd78564df78c8f4647da9af7a93fe0b1` and `fb2ba9963f9e38ad40b6800082e03b1ffa7b7d37`.
-- Re-fetch verification proves both baseline files now have the exact same Git blobs as Presenter reference. Previous source-level blocker is closed.
-- No workflow auto-triggered for the baseline remediation commits; build/acceptance validation is still required before Release-02 gate credit.
-- T01_02 is eligible by document gate; T01_01/T01_03 still lack repository materialization/re-fetch verification.
-- Classroom queue synchronized at `b4e9489a698ff6eea38c449a52ce3db1c5d768d9`.
+- Exact controlled-error blobs remain `6f3475ee...` and `f2b13a8e...` in `Frontend-backend-Baseline`.
+- Acceptance test `24179fb905fd69f816bfeb5db0ee7206401a3ceb` proves response codes `01` through `05` through the frozen handler/envelope.
+- Baseline acceptance run `31989985693`: backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS.
+- Acceptance map commit `27f26e59d2841b45b09ab865a836bd52fa351ec6`.
+- Release-01 remains blocked by T01_01/T01_03 repository verification; Release-02 remains blocked by required approved/repository-verified rerun documents.
+- Classroom task synchronized at `fb83f9bb3f260ead78a0bd6d43399283479f07c4`.
 - No Public or Quality Gate write occurred.
 
 ## Recovery Evidence
-- Registry candidate remains synchronized at `5f314d90b09307cfa302cdaff28d0b2a16fae030`.
-- T31/T32/T33/T34 = **4/5 registry-ready**.
-- T35 Integration is not registry evidence because both backend attempts failed.
-- Recovery queue synchronized at `e3f5e7d8a9c13113a23131c8f033cdf4ab117919`.
-- `freeze_allowed=false`; no batch freeze attempted.
+- Candidate record `.project/recovery/T31-T35-registry-candidate.yml` is now `FROZEN_VERIFIED`, commit `39baff5e939608c4fec728c5f734898b106eafc7`.
+- All five corrected tracks are registry-ready and frozen in Presenter registry commit `83d51d43...`.
+- Registry-tip validation `31990613453` is green for backend and frontend.
+- Recovery task synchronized at `970880cd87e02e98050ad465f098fe79b45896e0`.
+- T36-T60 and final integration remain dependency-gated; no premature downstream work was run.
 
 ## Tasks Taken Up
-- T35 Integration branch-tip/fixture/seed/container-pattern diagnosis.
-- Release-02 private approved-baseline controlled-error remediation and exact identity verification.
-- Release-01 dependency guard preservation.
-- Recovery T31-T35 freeze-boundary reconciliation.
+- T35 exact Integration failure extraction and source-grounded repair.
+- T33-T35 assigned-frontend correctness reconciliation.
+- T31-T35 cumulative CI, registry freeze, and registry-tip verification.
+- Release-02 private controlled-error response-code acceptance.
+- Release-01/Release-02 document/publication boundary protection.
 
 ## Tasks Closed
-- T35 Testcontainers fixture-vs-seed mismatch hypothesis — CLOSED; `ACC-0004` expectation matches deterministic V002 seed.
-- T35 unique Testcontainers pattern hypothesis — CLOSED; an existing green test uses the same PostgreSQL 18 container pattern.
-- Release-02 missing controlled-error source prerequisite — CLOSED at source-identity level; exact Presenter blobs are now materialized in `Frontend-backend-Baseline`.
+- T35 Integration — CLOSED GREEN.
+- T33/T34 incorrect frontend evidence — REOPENED, REPAIRED, CLOSED GREEN.
+- T35 assigned Frontend — CLOSED GREEN.
+- T31-T35 Presenter registry — FROZEN / VERIFIED.
+- Release-02 controlled-error private acceptance — CLOSED GREEN.
+- T31-T35 Recovery freeze boundary — CLOSED with exact corrected evidence.
 
 ## Tasks In Progress / Blocked
-- T35 exact Integration failure isolation — IN PROGRESS; precise Maven/Surefire error still required before source/test repair.
-- T35 Integration gate — FAILED / not credited.
-- T35 Frontend — BLOCKED until Integration is green.
+- T36-T40 Presenter batch — next Presenter work; source/contract prerequisites must be established before dependent stages.
 - Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 repository verification.
-- Release-02 remediated-baseline acceptance validation — READY/IN PROGRESS; release candidate still blocked by acceptance + required documents.
-- T31-T35 registry freeze — BLOCKED at 4/5 until T35 is registry-ready.
+- Release-02 materialization/freeze — BLOCKED by required approved/repository-verified rerun documents; controlled-error acceptance is no longer blocking.
+- T36-T60 Recovery registry batches — BLOCKED by matching Presenter completion.
+- Final integration/freeze — BLOCKED by remaining Presenter, Document and Classroom prerequisites.
 
 ## Open More Than 3 Cycles / Streams With No Increase >3 Cycles
-- **Document Rerun:** 14 cycles open; **9 no-increase cycles**. Action: preserved exact dependency state; no Document lane allocated and no QG/public write.
-- **Classroom Release Preparation:** **20 no-increase cycles**. Action: removed the Release-02 private baseline source blocker with exact Presenter blob materialization; percentage remains unchanged until acceptance/release gate.
-- **Recovery / Final Integration:** **20 no-increase cycles**. Action: consumed deeper T35 diagnosis, held readiness at 4/5 and preserved `freeze_allowed=false`.
-- **Presenter Solutions:** 2 no-increase cycles; not over the >3-cycle threshold. Action: eliminated two plausible T35 mismatch hypotheses without speculative repair.
-- **Overall:** 2 no-increase cycles; not over the >3-cycle threshold.
+- **Document Rerun:** 15 cycles open; **10 no-increase cycles**. Action: preserved exact dependency state; no current Document lane allocated and no QG/public write.
+- **Classroom Release Preparation:** **21 no-increase cycles**. Action: completed Release-02 private acceptance with explicit `01`-`05` proof and green backend/frontend validation; release percentage remains document-gated.
+- **Recovery / Final Integration:** **21 no-increase cycles** by the frozen percentage field. Action: closed the full T31-T35 corrected registry freeze and registry-tip validation; no undefined percentage credit was invented.
+- **Presenter Solutions:** reset to 0 no-increase cycles because verified checkpoints increased the stream by 2.3333%.
+- **Overall:** reset to 0 no-increase cycles because overall increased by 0.8167%.
 
 ## Document Dependency State
 No Document Rerun work was assigned to the current eight lanes. T01_01/T01_03 remain QUALITY_GATE_PASSED but repository-verification pending; T02_02-T06_02 remain GENERATING. Document remains 5.3889% and materially blocks Classroom promotion.
 
 ## Next Dependency-Safe Transitions
-1. Run/obtain private acceptance validation for the remediated `Frontend-backend-Baseline`; do not promote Release-02 until that and required document gates pass.
-2. Obtain the exact T35 Maven/Surefire failure before changing source/tests. Only a fully green T35 Integration may unlock Frontend and then the T31-T35 registry freeze.
+1. Begin T36-T40 Presenter work only from verified source/contract prerequisites and preserve Service → Unit → Integration → assigned Frontend → registry order.
+2. Keep Release-01/02 private candidates blocked until their required document identities are approved and repository-verified.
+3. Start T36-T40 Recovery capture only as Presenter checkpoints become immutable and green; final integration remains blocked until all upstream streams are ready.
 
 ## Hard Rules
 1. No ChatGPT/automation write to Public.
