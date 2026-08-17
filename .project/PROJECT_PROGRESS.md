@@ -10,26 +10,31 @@ This file is the private authoritative execution dashboard.
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-17 08:31 UTC
+## Current Status - 2026-08-17 09:04 UTC
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
 | Document Rerun | **5.3889%** | **5.3889%** | **+0.0000%** | **STALE.** No current eight-lane worker assigned; T01_01/T01_03 remain QUALITY_GATE_PASSED and T02_02-T06_02 remain GENERATING. |
-| Presenter Solutions | **69.0000%** | **69.0000%** | **+0.0000%** | **BLOCKED AT T42 FRONTEND ASSIGNMENT.** Service + Unit + full Integration remain green; blocker head `a7ac9db...` itself passed workflow `32008914264`, but no authoritative assigned-Frontend record exists. |
+| Presenter Solutions | **69.0000%** | **69.0000%** | **+0.0000%** | **ACTIVE AT T42 FRONTEND CI.** Authoritative assignment blocker CLOSED; `t42-delete-book-issue.js` implemented at `16e0ca2b...`; exact workflow `32013008131` frontend green, backend regression still running. |
 | Classroom Release Preparation | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE.** Release-01/02 remain document-gated. |
-| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | **STALE by frozen percentage.** T42 blocker branch-tip CI captured; T41-T45 freeze remains false. |
-| **Overall** | **31.9083%** | **31.9083%** | **+0.0000%** | No percentage-bearing checkpoint closed; no false progress credited. |
+| Recovery / Final Integration | **20.0000%** | **20.0000%** | **+0.0000%** | **STALE by frozen percentage / evidence advanced.** T42 assignment/frontend evidence captured; T41-T45 freeze remains false pending CI and T43-T45. |
+| **Overall** | **31.9083%** | **31.9083%** | **+0.0000%** | T42 assignment blocker closed and frontend implemented, but percentage withheld until exact branch-tip backend CI is green. |
 
 ## Eight Logical Worker Lanes
-- **Agents 1, 2, 3 and 6 — Presenter:** validated current T42 blocker head, Actions state and downstream dependency guard.
+- **Agent 1 — Presenter:** reconciled the T42 assignment against immutable prior registries and the live Book Issue controller contract.
+- **Agent 2 — Presenter:** materialized the authoritative assignment record at `78e68d1ed13a6bea66d0c525291a32dfd0380ee3`.
+- **Agent 3 — Presenter:** preserved the ordered T43-T45 dependency gate; no premature implementation.
+- **Agent 6 — Presenter:** implemented `frontend/frontend.lib.mgmt/src/tracks/t42-delete-book-issue.js` at `16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f` and launched exact branch-tip CI.
 - **Agents 4, 5 and 7 — Classroom:** revalidated Release-01/02 live document gates and no-public/no-QG boundaries.
-- **Agent 8 — Recovery:** captured successful branch-tip CI for immutable blocker evidence and preserved `freeze_allowed=false`.
+- **Agent 8 — Recovery:** synchronized authoritative assignment/frontend evidence into the T41-T45 candidate and preserved `freeze_allowed=false`.
 - Document Rerun was not allocated to these eight lanes.
 
 ## Presenter Evidence This Cycle
 T42 Service/Unit/Integration evidence remains green: Service `f000d3f96d403813ed1797476b2b1a01d7ff47ef`, Unit `5d76fd986ce6e7fe41121594a8114df5bf8a0fa0`, local Integration `bf0ed017b48647af5b758c84cb3074f995a407c3`, PostgreSQL 18 Testcontainers `7d0e5ea8e3682d86c0beaf142d743421c2e40f17`.
 
-The Presenter branch `Presenter-Solutions-T41-T45` still points to blocker-evidence commit `a7ac9db850fc0ebbbf1934545326501d5f179b35`. Workflow **`32008914264` completed SUCCESS** at that exact head. This validates the branch tip and immutable blocker record, but it does not materialize or authorize a T42 Frontend assignment. No guessed frontend artifact was created and T43-T45 implementation remains held behind the ordered gate.
+The previous T42 assignment gap was resolved using two independent immutable registries plus the current source contract: T36-T40 proves Read → Delete for Membership, T31-T35 proves Read → Deactivate for Book Copy, and the live `BookIssueRestController` proves `DELETE /rest/issues/{id}` with success code `44` and `Book Issue Cancelled Successfully`. The private authoritative reconciliation was committed at **`78e68d1ed13a6bea66d0c525291a32dfd0380ee3`**.
+
+The assigned frontend was then implemented at **`16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f`**. Exact branch-tip workflow **`32013008131`** is running: frontend job **`95336451882` SUCCESS**, backend job **`95336451899` IN_PROGRESS** at the Presenter Maven tests. No T42 frontend percentage checkpoint is credited until the backend job is also green.
 
 ## Classroom Evidence This Cycle
 - Release-01: T01_02 APPROVED; T01_01/T01_03 remain QUALITY_GATE_PASSED with repository materialization/identity transition pending.
@@ -39,44 +44,48 @@ The Presenter branch `Presenter-Solutions-T41-T45` still points to blocker-evide
 
 ## Recovery Evidence This Cycle
 - T41-T45 candidate remains OPEN.
-- Agent 8 added `assignment_gap_branch_tip_ci` evidence for workflow `32008914264` SUCCESS at blocker head `a7ac9db...` into `.project/recovery/T41-T45-registry-candidate.yml` at commit **`21efca563e514362de6a61a5fd8b1a41be0081e0`**.
-- T42 remains not registry-ready; `freeze_allowed=false` remains mandatory.
+- Agent 8 synchronized T42 assignment `78e68d1...` and frontend `16e0ca2...` into candidate commit **`0738467c571eda7da3a741aea95ecaa111825695`**.
+- T42 is not registry-ready until exact branch-tip backend CI is green.
+- `freeze_allowed=false` remains mandatory because T43-T45 and cumulative registry-tip CI are still incomplete.
 
 ## Tasks Taken Up
-- T42 Presenter branch-tip and Actions validation.
-- T42 assignment guard preservation and downstream dependency check.
+- T42 authoritative frontend assignment reconciliation.
+- T42 assigned frontend implementation and exact branch-tip CI.
 - Classroom Release-01/02 live document prerequisite checks.
-- Recovery branch-tip CI evidence capture and freeze guarding.
+- Recovery candidate synchronization and freeze guarding.
 
 ## Tasks Closed
-- T42 blocker branch-tip CI evidence capture — **CLOSED** as non-percentage Presenter/Recovery evidence.
-- No percentage-bearing checkpoint closed.
+- T42 missing-authoritative-frontend-assignment blocker — **CLOSED**.
+- T42 assigned frontend implementation — **IMPLEMENTED**, acceptance still pending full CI.
+- No percentage-bearing checkpoint closed yet.
 
 ## Tasks In Progress / Blocked
-- T42 Assigned Frontend — BLOCKED until an explicit authoritative assignment record is materialized/source-verified.
-- T41-T45 registry/freeze — BLOCKED by T42 Frontend, T43-T45 and cumulative/registry-tip CI.
+- T42 Assigned Frontend acceptance — IN PROGRESS on workflow `32013008131`; frontend green, backend regression running.
+- T41-T45 registry/freeze — BLOCKED by T42 full CI, T43-T45 and cumulative/registry-tip CI.
 - T43-T45 implementation — source-reconciled but held behind the current ordered gate.
 - Release-01 — BLOCKED by T01_01/T01_03 document identity-control transition.
 - Release-02 — BLOCKED by T02_02/T02_03 document completion/approval.
 - T46-T60 Recovery and Final Integration — BLOCKED by matching Presenter plus Document/Classroom completion.
 
 ## Open More Than 3 Cycles / Streams With No Increase >3 Cycles
-- **Document Rerun:** 24 cycles open; **19 no-increase cycles**. Action Taken in This Cycle: dependency state revalidated only; no Document lane assigned. State **STALE**.
-- **Classroom Release Preparation:** **30 no-increase cycles**. Action Taken in This Cycle: exact Release-01/02 document gates revalidated; no blocked candidate materialized. State **STALE**.
-- **Recovery / Final Integration:** **30 no-increase cycles**. Action Taken in This Cycle: blocker branch-tip CI synchronized into candidate at `21efca56...`; `freeze_allowed=false` preserved. State **STALE by percentage**.
-- **Presenter Solutions:** 2 no-increase cycles; Action Taken in This Cycle: validated branch-tip workflow `32008914264` SUCCESS without treating it as Frontend authorization.
-- **Overall:** 2 no-increase cycles.
+- **Document Rerun:** 25 cycles open; **20 no-increase cycles**. Action Taken in This Cycle: dependency state revalidated only; no Document lane assigned. State **STALE**.
+- **Classroom Release Preparation:** **31 no-increase cycles**. Action Taken in This Cycle: exact Release-01/02 document gates revalidated; no blocked candidate materialized. State **STALE**.
+- **Recovery / Final Integration:** **31 no-increase cycles**. Action Taken in This Cycle: authoritative T42 assignment/frontend evidence synchronized into candidate `0738467c...`; `freeze_allowed=false` preserved. State **STALE by percentage**.
+- **Presenter Solutions:** 3 no-increase cycles; Action Taken in This Cycle: assignment blocker closed, frontend implemented, exact branch-tip CI running.
+- **Overall:** 3 no-increase cycles.
 
 ## Next Dependency-Safe Transition
-Materialize or source-verify an explicit authoritative T42 frontend assignment record in the private repository. Only then implement and CI-verify that assigned frontend. Do not infer solely from historical filename rotation. Under the current ordered plan, T43 implementation remains behind this gate.
+Wait for backend job `95336451899` on workflow `32013008131`. If green, credit T42 Assigned Frontend and advance Presenter to 208/300 = 69.3333%, then begin T43 Service work. If failed, diagnose the exact failing test before any code change. Do not start T43 while this gate is unresolved.
 
 ## Control Commits This Cycle
-- Recovery candidate CI capture: `21efca563e514362de6a61a5fd8b1a41be0081e0`.
-- Presenter task queue: `0fb8a6fafd92ae7f852a55efe13d576974e91d02`.
-- Classroom task queue: `eed121f36fa6dd49de227cb21b67e169cfd292d3`.
-- Recovery task queue: `85e9bac557479c8c939d08a5de0d1d223cf72122`.
-- Document dependency queue: `8cfd92d253a9a3a7d390a57b6a9d0b032ab9b08e`.
-- Execution-cycle monitor: `bb7f9c6fe1c09bd056f8a9d0e8a7d4da6115c064`.
+- T42 authoritative assignment: `78e68d1ed13a6bea66d0c525291a32dfd0380ee3`.
+- T42 assigned frontend: `16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f`.
+- Recovery candidate capture: `0738467c571eda7da3a741aea95ecaa111825695`.
+- Presenter task queue: `c700bb4e8c769a1c45489e8dbe70c975d7874dce`.
+- Classroom task queue: `54dbc9946ae5375cdc4247af40627fcdddb6e574`.
+- Recovery task queue: `bab716652d0c53e37ab10671649ffae2ef4e75a8`.
+- Document dependency queue: `a0e72ab96a909406e905dc75aa11b4f6b000f94c`.
+- Execution-cycle monitor: `6c60126f185e8c6087ac5c9f57d8b63cfe6620d9`.
 
 ## Hard Rules
 1. No ChatGPT/automation write to Public.
