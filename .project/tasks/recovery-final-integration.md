@@ -12,7 +12,7 @@ Registry evidence may be captured incrementally, but a 5-track batch must not be
 - T32: registry-ready; cumulative run `31946688302` SUCCESS.
 - T33: registry-ready; cumulative run `31976478238` SUCCESS.
 - T34: registry-ready; cumulative run `31982423259` SUCCESS after Service + Unit + Integration + Frontend.
-- T35: Service + Unit verified green; local PostgreSQL and PostgreSQL 18 Testcontainers Integration committed. Run `31982678321` backend job `95252157107` FAILED; failed-job rerun `95256133626` also FAILED on unchanged source. Integration is not registry evidence and Frontend remains blocked.
+- T35: Service + Unit verified green; local PostgreSQL and PostgreSQL 18 Testcontainers Integration committed. Run `31982678321` backend job `95252157107` FAILED; same-source rerun `95256133626` also FAILED. Deeper source/fixture reconciliation this cycle found no seed mismatch and no unique container-pattern mismatch; Integration still cannot be counted as registry evidence and Frontend remains blocked.
 - T31-T35 freeze: BLOCKED until T35 is registry-ready.
 - Later batches T36-T60: pending Presenter completion.
 - Final reconciliation/integration/freeze: blocked by upstream completion.
@@ -29,10 +29,10 @@ Current ready tracks: **4/5**. `freeze_allowed: false` remains mandatory. Candid
 - State: **STALE BY PERCENTAGE / FREEZE GUARD ACTIVE — 4/5 READY; T35 INTEGRATION FAILED DETERMINISTICALLY**.
 
 ## Agent 8 Action Taken in This Cycle
-- Consumed the final status of T35 run `31982678321` rather than treating in-flight CI as registry evidence.
-- Recorded original backend failure `95252157107` and same-source failed-job rerun `95256133626` FAILURE.
-- Preserved T34 as the fourth registry-ready track and did not promote T35.
-- Preserved `freeze_allowed=false`; no batch freeze or downstream final integration was attempted.
+- Consumed deeper Presenter evidence for T35: branch-tip delta is limited to the T35 Testcontainers class; its `ACC-0004` fixture matches V002 and its container pattern matches existing green PostgreSQL 18 tests.
+- Kept T35 out of registry-ready state because the Maven backend Integration job remains failed and no exact Surefire error is available.
+- Preserved T34 as the fourth registry-ready track and maintained `freeze_allowed=false`.
+- Did not attempt T31-T35 freeze or downstream final integration.
 
 ## Tasks In Progress / Blocked
 - T35 exact Integration failure diagnosis — upstream Presenter work in progress.
