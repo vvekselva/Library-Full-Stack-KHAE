@@ -7,9 +7,9 @@
 - T01-T50 registries: VERIFIED, including T46-T50 Book Return registry `cd03adf2280237f35f85cdced7d97f1f1a888f5e` with run `32056947711` SUCCESS.
 - **T51-T55 Reservation candidate: OPEN / NOT FREEZABLE.**
 - T51 and T52 are immutable VERIFIED through Assigned Frontend.
-- T53 Service, Unit and combined Integration remain immutable VERIFIED.
-- **T53 Assigned Frontend** `591f7a4637aa05da9f772be12c8e4a758fd1ffc5` is now immutable VERIFIED by exact run `32074084838`: frontend-build `95523355215` SUCCESS and backend-test `95523355233` SUCCESS.
-- T54 Service `3f8ebd45cf15c48418a9552fa09811612ddc7100` and Unit `1e37f0f25ba9765eb23caca8af23eb1ad5c942ca` are captured provisionally only; exact branch-tip CI has not yet been exposed as green.
+- T53 Service, Unit, combined Integration and Assigned Frontend are immutable VERIFIED.
+- T54 Service `3f8ebd45cf15c48418a9552fa09811612ddc7100` and Unit `1e37f0f25ba9765eb23caca8af23eb1ad5c942ca` remain provisional only.
+- Fresh T54 exact-CI evidence-marker branch tip: `06721881820a09f40668ba985176ee02d8ec39f4`; this does not promote T54 evidence by itself.
 - T54 Integration/Frontend and T55 remain dependency ordered.
 - `freeze_allowed=false` for T51-T55 until every Presenter component checkpoint and cumulative registry-tip CI is green.
 
@@ -20,17 +20,16 @@ Recovery registry component weight is 40%.
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000 percentage points**
-- Cycles without increase: **7**
+- Cycles without increase: **8**
 - State: **STALE BY PERCENTAGE / CANDIDATE EVIDENCE ADVANCING — T51-T55 FREEZE BLOCKED.**
 
 ## Tasks Taken Up This Cycle
-- Agent 8 promoted exact-green T53 Assigned Frontend evidence into immutable Reservation-batch candidate evidence after run `32074084838` completed fully SUCCESS.
-- Agent 8 captured T54 Service and Unit identities provisionally while exact branch-tip CI remains unverified.
+- Agent 8 revalidated immutable T51-T53 evidence and provisional T54 Service/Unit identities.
+- Agent 8 recorded the fresh T54 CI evidence-marker branch tip `06721881820a09f40668ba985176ee02d8ec39f4` without promoting it as completion evidence.
 - Agent 8 revalidated frozen coverage at 50/60 and retained `freeze_allowed=false`; no partial registry freeze was invented.
 
 ## Tasks Closed This Cycle
-- T53 Assigned Frontend Recovery evidence capture — CLOSED as immutable candidate evidence.
-- This evidence capture does not increase Recovery percentage until the complete T51-T55 registry is legitimately frozen.
+None. Evidence revalidation and CI triggering do not increase Recovery percentage until the complete T51-T55 registry is legitimately frozen.
 
 ## Tasks In Progress / Blocked
 - T51-T55 registry candidate — OPEN; not freezable.
@@ -40,4 +39,4 @@ Recovery registry component weight is 40%.
 - Final integration remains blocked by remaining Presenter, Document and Classroom prerequisites.
 
 ## Open More Than 3 Cycles / Agent 8 Action Taken in This Cycle
-Recovery has **7 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** promoted T53 Assigned Frontend exact-green evidence, captured T54 Service/Unit provisionally, and retained `freeze_allowed=false`; the stream remains correctly **STALE by percentage** rather than crediting an unfinished registry.
+Recovery has **8 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** revalidated immutable T51-T53 evidence, retained T54 Service/Unit as provisional, recorded the fresh exact-CI marker tip, and retained `freeze_allowed=false`; the stream remains correctly **STALE by percentage** rather than crediting an unfinished registry.
