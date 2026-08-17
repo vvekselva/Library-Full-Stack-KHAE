@@ -23,8 +23,8 @@
 
 ## Tasks Taken Up This Cycle
 - Agent 4 revalidated Release-01 document identity prerequisites.
-- Agent 5 revalidated Release-02 acceptance and document prerequisites.
-- Agent 7 preserved private-only promotion boundaries.
+- Agent 5 revalidated Release-02 controlled-error acceptance and document prerequisites.
+- Agent 7 revalidated private-only promotion boundaries and avoided any blocked candidate/public/QG write.
 
 ## Tasks Closed This Cycle
 No percentage-bearing Classroom task closed; dependency revalidation is not progress.
@@ -35,4 +35,4 @@ No percentage-bearing Classroom task closed; dependency revalidation is not prog
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Classroom Release has **39 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** Agents 4/5/7 revalidated exact Release-01/02 document gates and existing green Release-02 acceptance evidence; no blocked candidate was materialized and no Public/Quality-Gate write occurred. State **STALE**.
+Classroom Release has **40 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** Agents 4/5/7 revalidated exact Release-01/02 document gates and existing green Release-02 acceptance evidence; no blocked candidate was materialized and no Public/Quality-Gate write occurred. State **STALE**.
