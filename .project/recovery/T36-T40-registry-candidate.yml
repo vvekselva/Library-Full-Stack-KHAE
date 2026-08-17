@@ -1,0 +1,59 @@
+registry_candidate_version: 1
+batch: T36-T40
+module: Membership
+state: OPEN_SERVICE_UNIT_VALIDATION
+freeze_allowed: false
+created_from_presenter_branch: Presenter-Solutions-T36-T40
+base_verified_registry: T31-T35
+base_verified_registry_commit: 83d51d4343fd79f8609e4bc73a483ce85615a276
+
+tracks:
+  T36:
+    operation: Create Membership
+    service_commit: 75e731d918ab8c674ba3b6cccd169df9f553cc76
+    unit_test_commit: 1bf3d3eacaa34b054afe9eb1cab3254e5c1eff5a
+    service_unit_ci: PENDING
+    integration: BLOCKED
+    assigned_frontend: BLOCKED
+    registry_ready: false
+  T37:
+    operation: Read Membership
+    service_commit: 17e719bf4c2e021768ee199aae9aa626d9471d53
+    unit_test_commit: d91d1edbd3893e4752d662755997a081995984f2
+    service_unit_ci: PENDING
+    integration: BLOCKED
+    assigned_frontend: BLOCKED
+    registry_ready: false
+  T38:
+    operation: Update Membership
+    service_commit: 2651a361f83db064f6def24a35720a8e563e7d76
+    unit_test_commit: f816d48e21c8b952d7a7ab497de8caa8f5cf6677
+    service_unit_ci: PENDING
+    integration: BLOCKED
+    assigned_frontend: BLOCKED
+    registry_ready: false
+  T39:
+    operation: Deactivate Membership
+    service_commit: a7b2c512206369b57f16127e9db30a7d0c742574
+    unit_test_commit: 64fda19ef203acf7c168e2d5af913b0fffb44a05
+    service_unit_ci: PENDING
+    integration: BLOCKED
+    assigned_frontend: BLOCKED
+    registry_ready: false
+  T40:
+    operation: Search Membership
+    service_commit: 1f3b851cd269cbe9e87e957a4ea811bc5a02be9d
+    unit_test_commit: dec594e6e321d0e9561115a7fc3cedcb54b7e2b1
+    service_unit_ci: PENDING
+    integration: BLOCKED
+    assigned_frontend: BLOCKED
+    registry_ready: false
+
+current_validation:
+  workflow_run_id: 31991520031
+  head_sha: dec594e6e321d0e9561115a7fc3cedcb54b7e2b1
+  status: IN_PROGRESS
+
+freeze_guard:
+  reason: "No track may become registry-ready before green Service+Unit CI, Integration CI, assigned Frontend and cumulative batch verification."
+  final_integration_allowed: false
