@@ -12,34 +12,32 @@
 - T47 Read Book Return Service: VERIFIED at `403874f217904691c630ade45cf8c2f106d57fac`.
 - T47 focused Unit tests: VERIFIED at `9043743376d63a3da0cebe53eba0c052b9805cca`.
 - Exact T47 Service/Unit workflow `32033439368`: completed SUCCESS.
-- T47 local PostgreSQL Integration: VERIFIED by workflow `32035858998` on commit `5bd27d5aa15f5cb0f0f1aadf4df49ff25569641c`.
-- T47 PostgreSQL 18 Testcontainers Integration added at `d11043c6bd946b2841e4d0c731f5fbb896bca244`.
-- Exact Testcontainers branch-tip workflow `32037600596`: QUEUED at consolidation time; therefore the single T47 Integration checkpoint remains OPEN and earns no percentage yet.
+- T47 local PostgreSQL Integration: VERIFIED by workflow `32035858998` on `5bd27d5aa15f5cb0f0f1aadf4df49ff25569641c`.
+- T47 PostgreSQL 18 Testcontainers Integration: VERIFIED by workflow `32037600596` SUCCESS on `d11043c6bd946b2841e4d0c731f5fbb896bca244`.
+- T47 Integration percentage checkpoint: CLOSED GREEN.
+- T47 assigned Frontend: Delete/Void Book Return, implemented at `38173db4b7dd4f89b3c8160d925551f8eb77a97a`; CI conclusion is not yet independently available through the connected run-list surface, so the Frontend checkpoint remains OPEN.
 
 ## Current stream accounting
 Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300 checkpoints.
-- Verified total: **231 / 300 = 77.0000%**.
+- Verified total: **232 / 300 = 77.3333%**.
 - Previous: **77.0000%**
-- Updated: **77.0000%**
-- Increase: **+0.0000%**
-- State: **ACTIVE — T47 INTEGRATION IN PROGRESS**.
+- Updated: **77.3333%**
+- Increase: **+0.3333%**
+- State: **ACTIVE — T47 FRONTEND VALIDATION IN PROGRESS**.
 
 ## Tasks Taken Up This Cycle
-- Agents 1/2 consumed workflow `32035858998` and verified the T47 local PostgreSQL Integration evidence.
-- Agent 2 created the newly eligible PostgreSQL 18 Testcontainers companion test at `d11043c6...`.
-- Agent 3 preserved T47/T48 ordering and did not start T48 implementation.
-- Agent 6 kept T47 Assigned Frontend blocked until exact Integration CI is fully green.
+- Agents 1/2 consumed exact workflow `32037600596` and closed the combined T47 Integration checkpoint only after Testcontainers CI became SUCCESS.
+- Agent 3 reconciled the repository-backed five-track frontend rotation and preserved T48 implementation ordering.
+- Agent 6 created only the newly eligible T47 Delete/Void Book Return frontend at `38173db4...` after Integration closed.
 
 ## Tasks Closed This Cycle
-- T47 local PostgreSQL Integration sub-stage — CLOSED GREEN by workflow `32035858998`.
-- No percentage-bearing Presenter checkpoint closed because the Integration checkpoint requires both local PostgreSQL and PostgreSQL 18 Testcontainers plus green branch-tip CI.
+- T47 PostgreSQL 18 Testcontainers sub-stage — CLOSED GREEN by workflow `32037600596`.
+- T47 combined Integration checkpoint — CLOSED GREEN; Presenter percentage credited by exactly one checkpoint.
 
 ## Tasks In Progress / Blocked
-- T47 PostgreSQL 18 Testcontainers Integration — IN PROGRESS at `d11043c6...`; workflow `32037600596` queued.
-- T47 Integration percentage checkpoint — IN PROGRESS; no credit until workflow `32037600596` is fully green.
-- T47 Assigned Frontend — BLOCKED until Integration CI is fully green.
-- T48-T50 — YET TO DO / pending ordered execution.
+- T47 Assigned Frontend — implementation exists at `38173db4...`; verification remains IN PROGRESS / uncredited until exact CI evidence is available and green.
+- T48-T50 — YET TO DO / pending ordered execution; T48 implementation must not start until T47 Frontend closes.
 - T46-T50 registry/freeze — BLOCKED until all five tracks and registry-tip CI are verified.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-No current Presenter percentage-bearing task is over the four-completed-cycle threshold. **Action Taken:** verified local PostgreSQL Integration from exact CI, created only the newly eligible PostgreSQL 18 Testcontainers companion test, and left Frontend/T48 blocked until the Integration gate closes.
+No current Presenter percentage-bearing task is over the four-completed-cycle threshold. **Action Taken:** closed T47 Integration from exact SUCCESS evidence, opened only the newly eligible assigned Frontend, and kept T48 blocked pending Frontend verification.
