@@ -34,16 +34,17 @@ One primary coordinator remains responsible for dependency checks and consolidat
 - T01-T50: frozen/verified registries.
 - **T51-T55 Reservation batch: ACTIVE** on branch `Presenter-Solutions-T51-T55`.
 - T51 and T52 are CLOSED through Assigned Frontend.
-- **T53 Update Reservation Service** `7b4224faa28ebad683e835f7301b12b6078ad3f2` and **Unit Test** `d1fbee463fcbac923803780e415b360fd9346eff` are CLOSED / VERIFIED GREEN by exact run `32070287399`.
-- **T53 local PostgreSQL Integration** `4ac36fe1fe49132a5f24a8044b0de0538d65d66b` is VERIFIED GREEN by exact run `32070690552`.
-- **T53 PostgreSQL 18 Testcontainers Integration** `06bc35a831140793cf208effb06423aa9d4d2aeb` is implemented. Exact run `32071381507` has frontend-build `95515164698` SUCCESS and backend-test `95515164704` IN_PROGRESS at consolidation.
-- T53 combined Integration must not be credited or followed by Assigned Frontend until run `32071381507` is fully green.
-- T54 source inspection confirmed `DeleteReservationServiceImpl` remains a synthetic teaching stub; implementation remains blocked behind T53 frontend closure. T55 remains dependency-blocked.
+- T53 Service, Unit, combined Integration and Assigned Frontend are CLOSED / VERIFIED GREEN.
+- **T54 Cancel Reservation Service** `3f8ebd45cf15c48418a9552fa09811612ddc7100` and **focused Unit Test** `1e37f0f25ba9765eb23caca8af23eb1ad5c942ca` are implemented but remain uncredited until exact green branch-tip Actions evidence is available.
+- Fresh exact-CI marker / Presenter branch head is `06721881820a09f40668ba985176ee02d8ec39f4`; connected exact-commit workflow discovery currently exposes no push-run result for this commit.
+- T54 Integration must not start until Service+Unit exact branch-tip CI is fully green; T54 Assigned Frontend remains blocked behind combined Integration.
+- **T55 Search Reservation source/contract reconciliation is complete as a non-percentage prerequisite.** Exact boundary: `GET /rest/reservations/search?text=...` → `SearchReservationService.searchReservation(String text)` → `ReservationDao.search(text)` ordered by `reservationId` → `ReservationDtoDoMapper.toResponse(...)`. Current `SearchReservationServiceImpl` is a synthetic hard-coded stub.
+- T55 implementation remains blocked behind ordered T54 completion.
 - T51-T55 registry freeze remains blocked until all five Reservation tracks and cumulative registry-tip CI are complete.
 
 ## Current Classroom boundary
 - Release-01 remains blocked by T01_01/T01_03 repository identity/materialization completion.
-- Release-02 application/source acceptance remains anchored at `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb` with run `31989985693` SUCCESS.
+- Release-02 application/source acceptance remains anchored at `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb` with accepted run `31989985693` green.
 - Release-02 remains document-gated by T02_02 GENERATING and T02_03 PENDING.
 
 ## Document work during this phase
