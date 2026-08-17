@@ -26,21 +26,21 @@ One primary coordinator remains responsible for dependency checks and consolidat
 | Agent 3 | Presenter Solutions | Source/contract reconciliation for the next eligible track | Reconciliation may run independently; implementation may not skip ordered gates |
 | Agent 4 | Classroom Release Preparation | Release-01 prerequisite/evidence and exact document identity audit | No materialization/freeze until selected documents are APPROVED and repository-verified |
 | Agent 5 | Classroom Release Preparation | Release-02 baseline acceptance and document prerequisite mapping | Private verification only; no public write and no freeze before prerequisites |
-| Agent 6 | Presenter Solutions | Assigned Frontend and cumulative/regression readiness | Next-track Service begins only after current-track Frontend gate closes |
+| Agent 6 | Presenter Solutions | Assigned Frontend and cumulative/regression readiness | Frontend begins only after Integration is green |
 | Agent 7 | Classroom Release Preparation | Manifest/checklist consistency and private promotion-boundary verification | Prerequisite-safe private work only; publication Presenter-only |
 | Agent 8 | Recovery / Final Integration | T46-T50 registry candidate, immutable evidence capture and freeze guard | `freeze_allowed=false` until T46-T50 and registry-tip CI are complete |
 
 ## Current Presenter boundary
 - T01-T45: frozen/verified registries.
-- T46 Create Book Return: Service, Unit, Integration and Assigned Frontend VERIFIED GREEN; final batch registry gate waits for T46-T50 completion.
-- T47 Read Book Return: Service, Unit, Integration and Assigned Frontend VERIFIED GREEN; Assigned Frontend exact run `32042595095` SUCCESS.
-- **T48 Update Book Return: Service, Unit, Integration and Assigned Frontend VERIFIED GREEN.** Service `d171beb685665337dc93dabc42c612b9b64bc82b`; Unit `b3f3cf070ccbb6dd017d53501439ddb1f51b8d47`, run `32048602233` SUCCESS; local PostgreSQL Integration `6b8f29e02f1be30f311338a441d551e986da72ea`; PostgreSQL 18 Testcontainers `6f2f824a06782a69a913d590e1a4c2538d5ad5d6`, run `32049062043` SUCCESS; Search Book Return frontend `b21d8b03afd63debe38914e0b56ad050f86b2b21`, exact run `32049427640` SUCCESS.
-- T48 Final CI/Registry checkpoint remains part of the T46-T50 batch-final gate and is not credited separately yet.
-- **T49 is the next eligible ordered Presenter track.** T50 remains behind T49.
+- T46-T48: Service, Unit, Integration and Assigned Frontend VERIFIED GREEN; registry checkpoints await batch-final gate.
+- **T49 Void Book Return: Service, Unit, Integration and Assigned Frontend VERIFIED GREEN.** Service `7489980269a9507ddc563d1833ac73c38ac201d8`; Unit `df220a49b43702d0228cc4c34d4142f2d6732ae4`, run `32053727532` SUCCESS; local Integration `d2b208aabebac93365129ca4716349a1b13b622e`; PostgreSQL 18 Testcontainers `7c8a0036b219dc91a9ead5f17ebb2ca62ca7ca72`, run `32054104356` SUCCESS; Create Book Return frontend `9fb00ca5bd812afd59b4951caf8f09e106238522`, run `32054478596` SUCCESS.
+- **T50 Search Book Return: Service + Unit VERIFIED GREEN.** Service `2cdfae779007a44ce0385142bc005b70bfa8ccc7`; Unit `47ecb5f7017de476b5358559e9f1401987630ba1`; run `32055317199` backend/frontend SUCCESS.
+- T50 local PostgreSQL Integration `2b810ec531cc52a556cee45068df4e7006abd701` and PostgreSQL 18 Testcontainers `6482ea1e8fd22b15edf42276fc6f87b0c1d7dbd4` are implemented; exact run `32055710410` is active. T50 Assigned Frontend remains blocked until this Integration run is fully green.
+- T46-T50 registry/freeze remains blocked until T50 Assigned Frontend and exact registry-tip CI complete.
 
 ## Current Classroom boundary
 - Release-01 remains blocked by T01_01/T01_03 repository identity/materialization completion.
-- Release-02 application/source acceptance remains anchored at `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb` with controlled-error acceptance run `31989985693`.
+- Release-02 application/source acceptance remains anchored at `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb` with controlled-error acceptance run `31989985693` SUCCESS.
 - Release-02 baseline README consistency remains corrected privately at commit `793371388d16fdefb5a7aa539927d738a5b25e41`, blob `01812dbf7c35a215cc831f7e5c767cf96ac9c7fd`; this is prerequisite cleanup, not release-gate credit.
 - Release-02 remains document-gated by T02_02 GENERATING and T02_03 PENDING.
 
