@@ -2,50 +2,51 @@
 
 **Stream weight:** 10% — SUPPORTING.  
 **Active logical workers:** Agents 4, 5 and 7.  
-**Public repository publication:** Presenter-only/manual. ChatGPT/automation must not write to the public classroom repository.
+**Public publication:** Presenter-only/manual. No ChatGPT/automation write is permitted to the public classroom repository.
 
 ## Dependency rules
-1. Release preparation may advance independently when it does not require unapproved documents.
-2. A release stage that includes rerun documents must not be promoted before those documents are APPROVED and repository-verified in Private Master.
-3. Do not create a public publication commit from ChatGPT/automation.
-4. Before Release-02, generic controlled-error infrastructure required by student exercises must be present in the approved student baseline and exact-source identity plus acceptance behavior must be verified.
-5. Release validation must use exact source/document identities.
+1. Private release preparation may advance independently only where it does not consume unapproved documents.
+2. Any release including rerun documents remains blocked until the required documents are APPROVED and repository-verified.
+3. No automated public publication commit.
+4. Release validation must use exact source/document identities.
+5. Quality Gate is read-only.
 
 ## Current three-lane allocation
-- **Agent 4:** Release-01 prerequisite/evidence audit — CLOSED; candidate materialization remains blocked by T01_01/T01_03 repository verification.
-- **Agent 5:** Release-02 controlled-error prerequisite + private acceptance — CLOSED GREEN.
-- **Agent 7:** Release manifest/checklist/promotion-boundary audit — CLOSED; no public write.
+- **Agent 4:** Release-01 T01 document prerequisite/re-fetch audit.
+- **Agent 5:** Release-02 controlled-error acceptance / remaining document-gate revalidation.
+- **Agent 7:** release manifest/promotion boundary and no-public-write guard.
 
-## Release-02 acceptance evidence
-- Exact Presenter-owned `ApplicationServiceException` blob in approved baseline: `6f3475ee7996fe761333810e92490df764c9e958`.
-- Exact Presenter-owned `ApplicationServiceExceptionHandler` blob in approved baseline: `f2b13a8e782705239a9ad821926b1f5beb1422f4`.
-- Added private acceptance test commit `24179fb905fd69f816bfeb5db0ee7206401a3ceb`, explicitly proving frozen controlled response codes `01`, `02`, `03`, `04`, and `05` through the Presenter-owned handler/envelope.
-- Baseline acceptance run `31989985693`: backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS.
-- Acceptance map synchronized at `.project/classroom-release/Release-02-controlled-error-acceptance-map.md`, commit `27f26e59d2841b45b09ab865a836bd52fa351ec6`.
-
-## Current document dependency
-- T01_02 is APPROVED and repository-verified.
-- T01_01 and T01_03 are QUALITY_GATE_PASSED but still await repository materialization/re-fetch verification.
-- T02_01-T06_01 are APPROVED; T02_02-T06_02 remain GENERATING; none is assigned to the current eight logical worker lanes.
+## Current verified state
+- Release-02 controlled-error private acceptance remains CLOSED GREEN on run `31989985693`.
+- T01_02 remains APPROVED and repository-verified.
+- This cycle directly re-fetched the complete T01 three-document set from the read-only `Document-Rerun-QG` branch:
+  - `T01_01_Initial_API_Contract.docx` blob `b6bb206b9c3cb1b06175a29f97c764bf3e866d9b`.
+  - `T01_02_Progressive_Development_Guide.docx` blob `41c746d55d44ab944ee42a4c0ab73f6c7f381607`.
+  - `T01_03_Updated_API_Contract.docx` blob `fb3e68db5526dbcb5a03732feac1da67dda11608`.
+- Private audit evidence: `.project/classroom-release/Release-01-T01-re-fetch-audit-2026-08-17.md`, commit `3bdf4e1383ee67d490e1ff7bf9161a80e7fe1cc8`.
+- The blocker is therefore narrowed: T01_01/T01_03 are materialized and re-fetchable, but the Document control process still needs the dedicated identity-control reconciliation required before APPROVED status. Presence alone was not treated as approval.
+- T02_01-T06_01 remain APPROVED; T02_02-T06_02 remain GENERATING and were not assigned to the current eight logical lanes.
 
 ## Current stream accounting
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000%**
-- State: **STALE BY PERCENTAGE / RELEASE-02 CONTROLLED-ERROR ACCEPTANCE CLOSED; DOCUMENT RELEASE GATES REMAIN**.
+- State: **STALE BY PERCENTAGE / SUBSTANTIVE PRIVATE DEPENDENCY NARROWING**.
 
-## Tasks Taken Up / Closed This Cycle
-- Release-02 remediated baseline backend/frontend acceptance — CLOSED GREEN.
-- Explicit response-code `01`-`05` proof — CLOSED GREEN.
-- Release-01 document and public-promotion boundaries — preserved; no public or Quality Gate write.
+No release percentage is credited because no release materialization/freeze checkpoint completed.
+
+## Tasks Taken Up This Cycle
+- Re-fetch Release-01 T01 document identities from the read-only QG branch.
+- Revalidate Release-02 remaining prerequisites after controlled-error acceptance.
+- Preserve private/public promotion boundaries.
+
+## Tasks Closed This Cycle
+- Release-01 uncertainty that T01_01/T01_03 were absent from repository materialization — CLOSED; both are directly re-fetchable with immutable blob identities.
 
 ## Tasks In Progress / Blocked
-- Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 repository verification.
-- Release-02 materialization/freeze — BLOCKED by required approved/repository-verified rerun documents; controlled-error infrastructure is no longer a blocker.
+- Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 identity-control reconciliation/APPROVED status.
+- Release-02 materialization/freeze — BLOCKED by required approved/repository-verified rerun documents.
 - Presenter publication — PRESENTER ONLY.
 
 ## Action Taken in This Cycle
-Closed the private Release-02 controlled-error acceptance gate rather than stopping at source identity. The exact Presenter classes are in the approved baseline, a focused parameterized acceptance test proves response codes `01`-`05`, and run `31989985693` is green for both backend and frontend. No release percentage is credited because required document/promotion checkpoints remain incomplete. No public classroom or read-only Quality Gate write occurred.
-
-## Completion rule
-Private source/acceptance work may close independently, but no release percentage is credited until the defined release checkpoint with all required approved documents is complete. No public repository write is permitted.
+Used the Presenter CI wait window for a read-only QG re-fetch rather than a status-only poll. The exact T01_01/T01_02/T01_03 repository blobs were captured in a private audit, narrowing Release-01's blocker to identity-control reconciliation. No Public write and no Quality Gate write occurred.
