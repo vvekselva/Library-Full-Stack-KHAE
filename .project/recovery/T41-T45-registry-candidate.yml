@@ -1,7 +1,7 @@
 version: 1
 batch: T41-T45
 module: Book Issue
-status: OPEN_T41_COMPONENTS_VERIFIED_T42_FRONTEND_IMPLEMENTED_CI_PENDING
+status: OPEN_T41_T42_T43_COMPONENTS_VERIFIED_T44_T45_PENDING
 freeze_allowed: false
 presenter_branch: Presenter-Solutions-T41-T45
 base_verified_registry: 25581a24d5e85c9ef261f072316282a0b0431bd8
@@ -36,16 +36,24 @@ tracks:
     assignment_reconciliation_path: .presenter/reconciliation/T42-frontend-assignment-authoritative.md
     assigned_frontend: 16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f
     assigned_frontend_path: frontend/frontend.lib.mgmt/src/tracks/t42-delete-book-issue.js
-    frontend_ci: {workflow_run: 32013008131, result: PENDING, head_sha: 16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f}
+    frontend_ci: {workflow_run: 32013008131, backend_job: 95336451899, backend_result: SUCCESS, frontend_job: 95336451882, frontend_result: SUCCESS}
     registry_checkpoint: pending_batch_cumulative_ci
   T43:
     operation: Update Book Issue
     source_reconciled: true
-    service: pending
-    unit_test: pending
-    integration: pending
-    testcontainers: pending
-    assigned_frontend: pending
+    service: 3cd7ae2e10594bf05e8452daa140cb8c378d66c0
+    unit_test: 0aa890bd66e6da270cf4df0527ce603947c4a813
+    service_unit_ci: {workflow_run: 32015802884, backend_job: 95344959983, backend_result: SUCCESS, frontend_job: 95344959916, frontend_result: SUCCESS}
+    local_integration: c38c5d2e891767f8c388f3c252b85d126f994e16
+    local_integration_ci: {workflow_run: 32016211744, backend_job: 95346115035, backend_result: SUCCESS, frontend_job: 95346115054, frontend_result: SUCCESS}
+    testcontainers: 88c7a13dba4731f9c3bb95b7e8e297105ed0cfd5
+    assignment_reconciliation: 44f29090942d833bc16ab7a214255b6a1a5786d2
+    assignment_reconciliation_path: .presenter/reconciliation/T43-frontend-assignment-authoritative.md
+    integration_ci: {workflow_run: 32016604920, backend_job: 95347315707, backend_result: SUCCESS, frontend_job: 95347315698, frontend_result: SUCCESS}
+    assigned_frontend: d32dad80281d62327ce27e9edd3a86c34c640bb4
+    assigned_frontend_path: frontend/frontend.lib.mgmt/src/tracks/t43-search-book-issue.js
+    frontend_ci: {workflow_run: 32016956178, backend_job: 95348362510, backend_result: SUCCESS, frontend_job: 95348362622, frontend_result: SUCCESS}
+    registry_checkpoint: pending_batch_cumulative_ci
   T44:
     operation: Cancel Book Issue
     source_reconciled: true
