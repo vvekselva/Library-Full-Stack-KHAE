@@ -1,7 +1,7 @@
 version: 1
 batch: T41-T45
 module: Book Issue
-status: OPEN_T41_COMPONENTS_VERIFIED_T42_INTEGRATION_VERIFIED_FRONTEND_ASSIGNMENT_BLOCKED
+status: OPEN_T41_COMPONENTS_VERIFIED_T42_FRONTEND_IMPLEMENTED_CI_PENDING
 freeze_allowed: false
 presenter_branch: Presenter-Solutions-T41-T45
 base_verified_registry: 25581a24d5e85c9ef261f072316282a0b0431bd8
@@ -32,10 +32,11 @@ tracks:
     local_integration_ci: {workflow_run: 32007424895, backend_job: 95319681801, backend_result: SUCCESS, frontend_job: 95319681625, frontend_result: SUCCESS}
     testcontainers: 7d0e5ea8e3682d86c0beaf142d743421c2e40f17
     integration_ci: {workflow_run: 32007777271, backend_job: 95320727403, backend_result: SUCCESS, frontend_job: 95320727278, frontend_result: SUCCESS}
-    assigned_frontend: blocked_missing_authoritative_assignment_record
-    assignment_gap_evidence_commit: a7ac9db850fc0ebbbf1934545326501d5f179b35
-    assignment_gap_evidence_path: .presenter/reconciliation/T42-frontend-assignment-gap.md
-    assignment_gap_branch_tip_ci: {workflow_run: 32008914264, result: SUCCESS, head_sha: a7ac9db850fc0ebbbf1934545326501d5f179b35}
+    assignment_reconciliation: 78e68d1ed13a6bea66d0c525291a32dfd0380ee3
+    assignment_reconciliation_path: .presenter/reconciliation/T42-frontend-assignment-authoritative.md
+    assigned_frontend: 16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f
+    assigned_frontend_path: frontend/frontend.lib.mgmt/src/tracks/t42-delete-book-issue.js
+    frontend_ci: {workflow_run: 32013008131, result: PENDING, head_sha: 16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f}
     registry_checkpoint: pending_batch_cumulative_ci
   T43:
     operation: Update Book Issue
