@@ -8,36 +8,37 @@
 - T01-T50: completed/frozen/verified batch registries.
 - **T51-T55 Reservation batch: ACTIVE** on `Presenter-Solutions-T51-T55`.
 - T51 and T52 are CLOSED through Assigned Frontend with exact-green evidence.
-- T53 Service `7b4224faa28ebad683e835f7301b12b6078ad3f2` and Unit `d1fbee463fcbac923803780e415b360fd9346eff` remain CLOSED / VERIFIED GREEN by run `32070287399`.
-- T53 local PostgreSQL Integration `4ac36fe1fe49132a5f24a8044b0de0538d65d66b` remains VERIFIED GREEN by run `32070690552`.
-- **T53 PostgreSQL 18 Testcontainers Integration** `06bc35a831140793cf208effb06423aa9d4d2aeb` is now VERIFIED GREEN: exact run `32071381507`, frontend-build `95515164698` SUCCESS and backend-test `95515164704` SUCCESS.
-- **T53 combined Integration — CLOSED / VERIFIED GREEN.**
-- **T53 Assigned Frontend — IMPLEMENTED** at `591f7a4637aa05da9f772be12c8e4a758fd1ffc5` as `frontend/frontend.lib.mgmt/src/tracks/t53-update-reservation.js` using `PUT /rest/reservations/{id}` and the frozen `ReservationUpdateRequestDto` contract.
-- Exact T53 Assigned Frontend run `32074084838`: frontend-build `95523355215` SUCCESS; backend-test `95523355233` IN_PROGRESS at consolidation. Assigned Frontend remains uncredited until both jobs are green.
-- T54 source reconciliation confirms `DeleteReservationServiceImpl` remains a teaching stub returning synthetic Reservation data and `CANCELLED`; implementation is held behind T53 Assigned Frontend exact-green CI.
+- T53 Service, Unit and combined Integration remain CLOSED / VERIFIED GREEN.
+- **T53 Assigned Frontend — CLOSED / VERIFIED GREEN.** Commit `591f7a4637aa05da9f772be12c8e4a758fd1ffc5`; exact run `32074084838`; frontend-build `95523355215` SUCCESS and backend-test `95523355233` SUCCESS.
+- T54 source/DAO/controller/application-code reconciliation is complete.
+- **T54 Service — IMPLEMENTED / CI UNVERIFIED** at `3f8ebd45cf15c48418a9552fa09811612ddc7100` using current-row lookup, Book Issue dependency guard, `CANCELLED` status and `T54_CANCEL_RESERVATION` controlled errors.
+- **T54 focused Unit Test — IMPLEMENTED / CI UNVERIFIED** at `1e37f0f25ba9765eb23caca8af23eb1ad5c942ca` covering success, dependency rejection, not-found and invalid IDs.
+- Exact branch tip is `1e37f0f25ba9765eb23caca8af23eb1ad5c942ca`; the connected commit-status surface exposes no completed Actions result yet, so T54 Service/Unit remain uncredited.
+- T55 source-only readiness was inspected during the CI visibility window; no T55 implementation was started.
 
 ## Current stream accounting
 Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300 checkpoints.
-- Previous: **86.6667%**.
-- Updated: **87.0000%**.
+- Previous: **87.0000%**.
+- Updated: **87.3333%**.
 - Increase: **+0.3333 percentage points**.
-- Verified total: **261 / 300**.
-- State: **IN PROGRESS — T53 COMBINED INTEGRATION CLOSED; ASSIGNED FRONTEND IMPLEMENTED / EXACT CI ACTIVE.**
+- Verified total: **262 / 300**.
+- State: **IN PROGRESS — T53 FRONTEND CLOSED; T54 SERVICE/UNIT IMPLEMENTED, EXACT CI REQUIRED BEFORE CREDIT OR INTEGRATION.**
 
 ## Tasks Taken Up This Cycle
-- Agents 1/2 revalidated exact T53 PostgreSQL 18 run `32071381507` and verified both jobs SUCCESS, closing the combined Integration checkpoint.
-- Agent 6 inspected `ReservationRestController` and `ReservationUpdateRequestDto`, then implemented the now-eligible T53 Assigned Frontend at `591f7a4637aa05da9f772be12c8e4a758fd1ffc5`.
-- Exact branch-tip workflow `32074084838` was started automatically; frontend build is SUCCESS while backend PostgreSQL tests remain IN_PROGRESS at consolidation.
-- Agent 3 used the CI window to reconcile T54 only and confirmed the existing `DeleteReservationServiceImpl` is still a synthetic teaching stub. No T54 implementation was started prematurely.
+- Agents 1/2 revalidated T53 Assigned Frontend exact run `32074084838` and closed the checkpoint after both backend and frontend jobs were SUCCESS.
+- Agents 1/2 reconciled the T54 controller, DAO, mapper, application code and established delete-service conventions, then implemented T54 Service and focused Unit tests in dependency order.
+- Agent 3 used the CI visibility window for T55 source-only readiness inspection; no dependent T55 write was made.
+- Agent 6 retained the frontend boundary; no T54 Assigned Frontend work may start before the full T54 Integration gate is green.
 
 ## Tasks Closed This Cycle
-- **T53 combined Integration — CLOSED / VERIFIED GREEN** by exact PostgreSQL 18 run `32071381507`, combined with the previously green local PostgreSQL run `32070690552`.
+- **T53 Assigned Frontend — CLOSED / VERIFIED GREEN** by exact run `32074084838`.
 
 ## Tasks In Progress / Blocked
-- T53 Assigned Frontend — IMPLEMENTED / exact CI IN PROGRESS at run `32074084838`; frontend SUCCESS, backend IN_PROGRESS.
-- T54 Service — READY BY SOURCE RECONCILIATION but BLOCKED until T53 Assigned Frontend exact CI is fully green.
-- T54-T55 remaining checkpoints — YET TO DO / dependency ordered.
+- T54 Service + Unit — IMPLEMENTED at `3f8ebd45...` / `1e37f0f2...`; exact branch-tip CI conclusion is not yet exposed, so both checkpoints remain UNVERIFIED / UNCREDITED.
+- T54 Integration — BLOCKED until T54 Service/Unit exact branch-tip CI is fully green.
+- T54 Assigned Frontend — BLOCKED until combined Integration is green.
+- T55 implementation — BLOCKED behind T54 ordered completion; source-only readiness inspection is allowed.
 - T51-T55 cumulative final CI/registry checkpoint — BLOCKED until all five Reservation tracks close.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Presenter is not stalled by the >3-cycle rule. **Action Taken in This Cycle:** closed T53 combined Integration from exact-green PostgreSQL 18 evidence, implemented the dependency-eligible T53 Assigned Frontend, and stopped at its active exact branch-tip CI without starting T54 prematurely.
+Presenter is not stalled by the >3-cycle rule. **Action Taken in This Cycle:** closed T53 Assigned Frontend from exact-green CI, executed newly eligible T54 Service and Unit repository work, and stopped before Integration because the exact T54 branch-tip CI conclusion is not yet available.
