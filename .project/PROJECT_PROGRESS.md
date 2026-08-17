@@ -10,15 +10,15 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-17 20:16 UTC
+## Current Status - 2026-08-17 21:24 UTC
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
 | **Document Rerun** | **5.3889%** | **5.3889%** | **+0.0000%** | **STALE BY PERCENTAGE / UNFINISHED UPSTREAM DEPENDENCY.** No Document lane allocated. T01_01/T01_03 identity transition remains pending; T02_02-T06_02 remain GENERATING. |
-| **Presenter Solutions** | **84.0000%** | **84.6667%** | **+0.6667%** | **IN PROGRESS.** T51 combined Integration and Assigned Frontend are exact-green and closed. T52 Read Reservation Service `b72e1008...` and Unit `4aaa0351...` are implemented; exact run `32064377144` has frontend-build SUCCESS while backend PostgreSQL tests remain IN_PROGRESS, so T52 receives no credit yet. |
+| **Presenter Solutions** | **84.6667%** | **86.0000%** | **+1.3333%** | **IN PROGRESS.** T52 Read Reservation closed through Service, Unit, combined Integration and Assigned Frontend with exact-green CI. T53 Update Reservation Service `7b4224fa...` and Unit `d1fbee46...` are implemented; exact run `32070287399` has frontend SUCCESS while backend PostgreSQL tests remain IN_PROGRESS, so T53 remains uncredited. |
 | **Classroom Release Preparation** | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE / DOCUMENT-GATED.** Release-01 remains T01 identity-gated; Release-02 accepted baseline CI remains green but T02_02/T02_03 block materialization. |
-| **Recovery / Final Integration** | **33.3333%** | **33.3333%** | **+0.0000%** | **IN PROGRESS BY EVIDENCE / NO PERCENTAGE INCREASE.** Frozen registry coverage remains 50/60. All T51 evidence through Assigned Frontend is immutable VERIFIED; T52 Service/Unit is provisional; `freeze_allowed=false` for T51-T55. |
-| **Overall** | **38.4917%** | **38.7250%** | **+0.2333%** | Two percentage-bearing Presenter checkpoints closed: T51 combined Integration and T51 Assigned Frontend. T52 remains uncredited at active CI. |
+| **Recovery / Final Integration** | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE BY PERCENTAGE / CANDIDATE OPEN.** Frozen registry coverage remains 50/60. T52 evidence through Assigned Frontend is immutable VERIFIED; T53 Service/Unit is provisional; `freeze_allowed=false` for T51-T55. |
+| **Overall** | **38.7250%** | **39.1917%** | **+0.4667%** | Four percentage-bearing T52 Presenter checkpoints closed through Assigned Frontend. T53 is active but uncredited at exact Service+Unit CI. |
 
 ## Coordinator / Logical Worker Lanes
 One primary coordinator is active. The eight entries are logical worker lanes; this environment does not expose eight autonomous background subagent processes.
@@ -26,38 +26,41 @@ One primary coordinator is active. The eight entries are logical worker lanes; t
 | Lane | Assignment | Current work | Evidence/state |
 |---|---|---|---|
 | Primary Coordinator | Orchestration | Dependency checks, Actions verification, evidence consolidation | ACTIVE |
-| Agent 1 | Presenter Solutions | T52 focused Unit / Service+Unit gate | Unit `4aaa0351...`; exact CI active |
-| Agent 2 | Presenter Solutions | T51 Testcontainers exact verification | run `32062007125` SUCCESS; Integration closed |
-| Agent 3 | Presenter Solutions | T52 Read Reservation Service | `b72e1008...`; hard-coded stub replaced after T51 frontend closure |
+| Agent 1 | Presenter Solutions | T53 Unit / Service+Unit exact gate | Unit `d1fbee46...`; exact run `32070287399` active |
+| Agent 2 | Presenter Solutions | T52 Integration exact verification | local run `32069010602` and PostgreSQL 18 run `32069419683` SUCCESS; Integration closed |
+| Agent 3 | Presenter Solutions | T53 Update Reservation Service | `7b4224fa...`; echo stub replaced only after T52 frontend closure |
 | Agent 4 | Classroom Release | Release-01 prerequisite validation | T01 identity-gated |
-| Agent 5 | Classroom Release | Release-02 baseline/document validation | accepted baseline CI remains green; document-gated |
-| Agent 6 | Presenter Solutions | T51 Assigned Frontend | `acd31c24...`; run `32063711271` fully SUCCESS / closed |
-| Agent 7 | Classroom Release | Private promotion-boundary validation | no blocked materialization/public write |
-| Agent 8 | Recovery / Final Integration | T51-T55 candidate evidence | T51 immutable through frontend; T52 provisional; freeze blocked |
+| Agent 5 | Classroom Release | Release-02 baseline/document validation | run `31989985693` still fully SUCCESS; document-gated |
+| Agent 6 | Presenter Solutions | T52 Assigned Frontend | `e3777b25...`; run `32069835651` fully SUCCESS / closed |
+| Agent 7 | Classroom Release | Private promotion-boundary validation | no blocked materialization/public/QG write |
+| Agent 8 | Recovery / Final Integration | T51-T55 candidate evidence | T52 immutable through frontend; T53 provisional; freeze blocked |
 
 No Document Rerun work is allocated to these eight lanes.
 
 ## Tasks Taken Up This Cycle
 - Re-read all required orchestration, progress, cycle-monitor and stream task controls before selecting work.
-- Re-fetched exact T51 PostgreSQL 18 Testcontainers workflow `32062007125` and verified it fully green; with already-green local PostgreSQL Integration `32061289513`, this closed the T51 combined Integration checkpoint.
-- Implemented T51 Assigned Frontend Create Reservation at `acd31c24bee6b44cd642030b7a422f2dae474b9b` only after Integration became green; exact run `32063711271` completed with frontend-build `95490626303` SUCCESS and backend-test `95490626360` SUCCESS.
-- During the T51 CI wait, inspected T52 Read Reservation source and confirmed the existing implementation was a hard-coded teaching stub. Only after T51 frontend became fully green, replaced it with the real DAO/mapper/error-handling implementation at `b72e1008760a762d083ae670fe7a45e59c9fee1e`.
-- Added focused T52 unit coverage at `4aaa035121eccb3cbdb8ddd7aa5fcdde2ed53c12` for success, not-found/inactive, and null-ID/no-persistence behavior.
-- Started/observed exact T52 Service+Unit workflow `32064377144`; frontend-build `95492836166` is SUCCESS while backend-test `95492836476` remains IN_PROGRESS. T52 Integration was not started prematurely.
-- Revalidated Release-01/02 document gates and preserved the private-only publication boundary.
-- Promoted all exact-green T51 evidence into Recovery as immutable candidate evidence and captured T52 Service/Unit provisionally while preserving `freeze_allowed=false`.
+- Re-fetched exact T52 Service+Unit workflow `32064377144` and verified frontend-build `95492836166` SUCCESS plus backend-test `95492836476` SUCCESS, closing T52 Service and Unit.
+- Implemented T52 local PostgreSQL Integration at `853605c6b3f7779b2301075d65cb6dd58c996d4e`; exact run `32069010602` completed with frontend-build `95507668104` SUCCESS and backend-test `95507668089` SUCCESS.
+- Only after the local Integration gate became green, implemented T52 PostgreSQL 18 Testcontainers Integration at `f4f86e4bce81505e2119e71168648f19550e58d4`; exact run `32069419683` completed with frontend-build `95508968545` SUCCESS and backend-test `95508968535` SUCCESS, closing combined Integration.
+- Only after Integration became green, implemented T52 Assigned Frontend Read Reservation at `e3777b25e3dc2db829fc6676ba329454b1921a57`; exact run `32069835651` completed with frontend-build `95510304238` SUCCESS and backend-test `95510304081` SUCCESS.
+- During T52 wait windows, source-inspected T53 Update Reservation and confirmed the existing implementation remained a teaching echo stub. No dependent implementation was started before T52 frontend closure.
+- After T52 frontend became fully green, replaced the T53 echo stub with persistence/validation/normalized duplicate handling at `7b4224faa28ebad683e835f7301b12b6078ad3f2` and added focused Unit coverage at `d1fbee463fcbac923803780e415b360fd9346eff`.
+- Started/observed exact T53 Service+Unit workflow `32070287399`; frontend-build `95511738462` is SUCCESS while backend-test `95511738275` remains IN_PROGRESS. T53 Integration was not started prematurely.
+- Agents 4/5/7 revalidated Release-01/02 prerequisites, reconfirmed accepted Release-02 baseline run `31989985693` fully green, and preserved the private-only promotion boundary.
+- Agent 8 promoted all exact-green T52 evidence through Assigned Frontend into immutable Recovery candidate evidence, captured T53 Service/Unit provisionally, and retained `freeze_allowed=false`.
 
 ## Tasks Closed This Cycle
-- **T51 PostgreSQL 18 Testcontainers Integration — CLOSED / VERIFIED GREEN.** Exact run `32062007125` SUCCESS.
-- **T51 combined Integration checkpoint — CLOSED / VERIFIED GREEN.** Presenter checkpoint 253/300.
-- **T51 Assigned Frontend — CLOSED / VERIFIED GREEN.** Exact run `32063711271` SUCCESS; Presenter checkpoint 254/300.
-- **T51 Integration and Assigned Frontend Recovery evidence captures — CLOSED as immutable candidate evidence.** No Recovery percentage credit until registry freeze.
+- **T52 Read Reservation Service — CLOSED / VERIFIED GREEN.** Exact Service+Unit run `32064377144` SUCCESS.
+- **T52 Read Reservation Unit Test — CLOSED / VERIFIED GREEN.** Exact Service+Unit run `32064377144` SUCCESS.
+- **T52 Read Reservation combined Integration — CLOSED / VERIFIED GREEN.** Local run `32069010602` and PostgreSQL 18 Testcontainers run `32069419683` SUCCESS.
+- **T52 Read Reservation Assigned Frontend — CLOSED / VERIFIED GREEN.** Exact run `32069835651` SUCCESS.
+- **T52 Recovery evidence through Assigned Frontend — CLOSED as immutable candidate evidence.** No Recovery percentage credit until legitimate T51-T55 registry freeze.
 
 ## Tasks Still In Progress / Blocked
-- T52 Read Reservation Service+Unit: implemented; exact workflow `32064377144` remains active with frontend SUCCESS and backend PostgreSQL tests running. No T52 percentage credit yet.
-- T52 Integration: BLOCKED until exact Service+Unit CI is fully green.
-- T52 Assigned Frontend: BLOCKED behind Integration.
-- T53-T55: YET TO DO / dependency ordered.
+- T53 Update Reservation Service+Unit: IMPLEMENTED; exact workflow `32070287399` remains active with frontend SUCCESS and backend PostgreSQL tests running. No T53 percentage credit yet.
+- T53 Integration: BLOCKED until exact Service+Unit CI `32070287399` is fully green.
+- T53 Assigned Frontend: BLOCKED behind Integration.
+- T54-T55: YET TO DO / dependency ordered.
 - Release-01: BLOCKED by T01_01/T01_03 identity-control transition.
 - Release-02: BLOCKED by T02_02 approval/repository verification and T02_03 completion despite accepted baseline CI remaining green.
 - T51-T55 Recovery registry: OPEN / NOT FREEZABLE; `freeze_allowed=false`.
@@ -66,28 +69,32 @@ No Document Rerun work is allocated to these eight lanes.
 ## Tasks / Streams Open More Than 3 Cycles
 | Task / Stream | Cycles | State | Action Taken in This Cycle |
 |---|---:|---|---|
-| Document Rerun | 44 open cycles; 39 no-increase cycles | **STALE** | Re-read T01/T02 dependency state for Classroom gating only; no Document lane allocated and no false progress credited. |
-| Classroom Release | 50 no-increase cycles | **STALE** | Revalidated Release-01/02 exact document gates and preserved the private promotion boundary; no materialization/public/QG write. |
+| Document Rerun | 45 open cycles; 40 no-increase cycles | **STALE** | Re-read T01/T02 dependency state for Classroom gating only; no Document lane allocated and no false progress credited. |
+| Classroom Release | 51 no-increase cycles | **STALE** | Revalidated Release-01/02 exact document gates, reconfirmed accepted baseline CI, and preserved private promotion boundary; no materialization/public/QG write. |
+| Recovery / Final Integration | 4 no-increase cycles | **STALE BY PERCENTAGE / CANDIDATE OPEN** | Promoted exact-green T52 evidence through Assigned Frontend, captured T53 Service/Unit provisionally, and retained `freeze_allowed=false`; no incomplete registry credit. |
 
-Presenter is not stalled; it closed two percentage-bearing checkpoints and advanced T52 to its exact Service+Unit CI boundary. Recovery is at three no-increase cycles and remains below the strict >3-cycle threshold of four completed cycles.
+Presenter is not stalled; it closed four percentage-bearing checkpoints this cycle and advanced T53 to its exact Service+Unit CI boundary.
 
 ## Streams With No Increase More Than 3 Cycles
-- **Document Rerun — 39 cycles:** dependency-only revalidation; T01 identity work and T02-T06 generation remain unfinished outside the current eight lanes.
-- **Classroom Release — 50 cycles:** exact release prerequisites remain document-gated; accepted Release-02 baseline remains green but is insufficient for materialization.
+- **Document Rerun — 40 cycles:** dependency-only revalidation; T01 identity work and T02-T06 generation remain unfinished outside the current eight lanes.
+- **Classroom Release — 51 cycles:** exact release prerequisites remain document-gated; accepted Release-02 baseline remains green but is insufficient for materialization.
+- **Recovery / Final Integration — 4 cycles:** candidate evidence advanced through T52, but frozen coverage remains 50/60 because the T51-T55 registry is not yet eligible to freeze.
 
 ## Execution Evidence
 - T51-T55 source/contract reconciliation: `a1570156d01f67955396f0639363c5520caafa06`.
-- T51 Service: `42965168682f4b67450763005159685bd2a75090`; Unit: `7c5de1548fc2c77c5f29a71103753732e443f4f6`; run `32058255359` SUCCESS.
-- T51 local PostgreSQL Integration: `31e35f5d2c86fd6b5e5f9739eaf7a50822aed736`; run `32061289513` SUCCESS.
-- T51 PostgreSQL 18 Testcontainers: `8ddc0ce070c0968007c95bf889bebc81efd4050f`; exact run `32062007125` SUCCESS.
-- T51 Assigned Frontend Create Reservation: `acd31c24bee6b44cd642030b7a422f2dae474b9b`; exact run `32063711271`; frontend-build `95490626303` SUCCESS; backend-test `95490626360` SUCCESS.
-- T52 Read Reservation Service: `b72e1008760a762d083ae670fe7a45e59c9fee1e`; Unit: `4aaa035121eccb3cbdb8ddd7aa5fcdde2ed53c12`; exact run `32064377144`; frontend-build `95492836166` SUCCESS; backend-test `95492836476` IN_PROGRESS at consolidation.
+- T51 remains closed through Assigned Frontend; final registry checkpoint remains batch-final blocked.
+- T52 Service: `b72e1008760a762d083ae670fe7a45e59c9fee1e`; Unit: `4aaa035121eccb3cbdb8ddd7aa5fcdde2ed53c12`; exact run `32064377144` SUCCESS.
+- T52 local PostgreSQL Integration: `853605c6b3f7779b2301075d65cb6dd58c996d4e`; exact run `32069010602` SUCCESS.
+- T52 PostgreSQL 18 Testcontainers Integration: `f4f86e4bce81505e2119e71168648f19550e58d4`; exact run `32069419683` SUCCESS.
+- T52 Assigned Frontend Read Reservation: `e3777b25e3dc2db829fc6676ba329454b1921a57`; exact run `32069835651`; frontend-build `95510304238` SUCCESS; backend-test `95510304081` SUCCESS.
+- T53 Update Reservation Service: `7b4224faa28ebad683e835f7301b12b6078ad3f2`; Unit: `d1fbee463fcbac923803780e415b360fd9346eff`; exact run `32070287399`; frontend-build `95511738462` SUCCESS; backend-test `95511738275` IN_PROGRESS at consolidation.
 - Release-02 acceptance: run `31989985693`; backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS.
-- Presenter task control update: `52da0e82ae1faa8d719d932ddb890d59787d89e1`.
-- Classroom task control update: `db61f10fcb24fa375c5d96edb1f15728b0bea662`.
-- Recovery task control update: `89e73c143dcc4092127abdbaec3b5325450099ac`.
-- Document dependency control update: `4d908a66f43d5d5bbaf90a9a309856081e2134d3`.
-- Execution-cycle monitor update: `538c28d1ae0f756185d703d6207008ba0be59b7c`.
+- Presenter task control update: `f246ef124ad08e82fe0c8289c4c98268041e0503`.
+- Classroom task control update: `8f3646d7403d000a3466bc3df787d3845e0e6879`.
+- Recovery task control update: `b7dccc04e38cdc40810ea7e5c9cc5f22c7ad14aa`.
+- Document dependency control update: `c7383ce387185f47080fc73c8fce1c3742979542`.
+- Execution-cycle monitor update: `091fcfd68410d96a3a33c18217a796351b81ad5d`.
+- Orchestration-plan boundary update: `fc13c43b06e7b0fc04b71eba8294d9687779a1c7`.
 - No write was made to the public classroom repository or the read-only Quality Gate repository.
 
 ## Hard Rules
