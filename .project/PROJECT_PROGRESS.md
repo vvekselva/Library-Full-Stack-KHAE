@@ -10,62 +10,67 @@ Private authoritative execution dashboard. Human-readable component names lead t
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Consolidated Status — 2026-08-17 17:18 UTC
+## Consolidated Status — 2026-08-17 18:21 UTC
 
 | Stream | Previous | Updated | Increase | State |
 |---|---:|---:|---:|---|
 | Document Rerun | 5.3889% | **5.3889%** | +0.0000% | **STALE** — upstream document generation/identity work remains unfinished; no current eight-lane worker assigned. |
-| Presenter Solutions | 77.3333% | **79.0000%** | **+1.6667%** | **IN PROGRESS** — T47 Assigned Frontend plus T48 Service, Unit, Integration and Assigned Frontend closed with exact green CI. |
+| Presenter Solutions | 79.0000% | **81.0000%** | **+2.0000%** | **IN PROGRESS** — T49 closed through Assigned Frontend; T50 Service + Unit green; T50 Integration active. |
 | Classroom Release Preparation | 33.3333% | **33.3333%** | +0.0000% | **STALE / DOCUMENT-GATED** — Release-01/02 prerequisites remain blocked. |
-| Recovery / Final Integration | 30.0000% | **30.0000%** | +0.0000% | **STALE / CANDIDATE OPEN** — T47/T48 evidence immutable, but T46-T50 cannot freeze before T49-T50. |
-| **Overall** | **35.8250%** | **36.4083%** | **+0.5833%** | Verified progress only; no blocked-stream credit. |
+| Recovery / Final Integration | 30.0000% | **30.0000%** | +0.0000% | **STALE / CANDIDATE OPEN** — T49 and T50 Service/Unit evidence captured, but T46-T50 cannot freeze before T50 Integration/Frontend/registry-tip CI. |
+| **Overall** | **36.4083%** | **37.1083%** | **+0.7000%** | Verified progress only; no blocked-stream credit. |
 
 ## Presenter Checkpoint Ledger
-Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300. Previous verified total **232/300**; updated **237/300**.
+Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300. Previous verified total **237/300**; updated **243/300**.
 
 | Component closed this cycle | Exact evidence |
 |---|---|
-| T47 Read Book Return — Assigned Frontend / Void Book Return UI | Implementation `38173db4b7dd4f89b3c8160d925551f8eb77a97a`; reverify SHA `cbc9fdcbfda18d644833815175672e3149d87aa4`; Actions `32042595095` SUCCESS. |
-| T48 Update Book Return — Service | `d171beb685665337dc93dabc42c612b9b64bc82b`; proving Service/Unit Actions `32048602233` SUCCESS. |
-| T48 Update Book Return — Unit Test | `b3f3cf070ccbb6dd017d53501439ddb1f51b8d47`; Actions `32048602233` backend-test + frontend-build SUCCESS. |
-| T48 Update Book Return — Integration | Local PostgreSQL `6b8f29e02f1be30f311338a441d551e986da72ea`; PostgreSQL 18 Testcontainers `6f2f824a06782a69a913d590e1a4c2538d5ad5d6`; Actions `32049062043` backend-test + frontend-build SUCCESS. |
-| T48 Update Book Return — Assigned Frontend / Search Book Return UI | `frontend/frontend.lib.mgmt/src/tracks/t48-search-book-return.js`; commit `b21d8b03afd63debe38914e0b56ad050f86b2b21`; Actions `32049427640` backend-test + frontend-build SUCCESS. |
+| T49 Void Book Return — Service | Implementation `7489980269a9507ddc563d1833ac73c38ac201d8`; Service/Unit proving Actions `32053727532` SUCCESS. |
+| T49 Void Book Return — Unit Test | `df220a49b43702d0228cc4c34d4142f2d6732ae4`; Actions `32053727532` SUCCESS. |
+| T49 Void Book Return — Integration | Local PostgreSQL `d2b208aabebac93365129ca4716349a1b13b622e`; PostgreSQL 18 Testcontainers `7c8a0036b219dc91a9ead5f17ebb2ca62ca7ca72`; Actions `32054104356` SUCCESS. |
+| T49 Void Book Return — Assigned Frontend / Create Book Return UI | `frontend/frontend.lib.mgmt/src/tracks/t49-create-book-return.js`; commit `9fb00ca5bd812afd59b4951caf8f09e106238522`; Actions `32054478596` SUCCESS. |
+| T50 Search Book Return — Service | `2cdfae779007a44ce0385142bc005b70bfa8ccc7`; Actions `32055317199` backend/frontend SUCCESS. |
+| T50 Search Book Return — Unit Test | `47ecb5f7017de476b5358559e9f1401987630ba1`; Actions `32055317199` backend job `95464008925` SUCCESS and frontend job `95464008521` SUCCESS. |
 
-T48 Final CI/Registry checkpoint is **not credited** because it belongs to the T46-T50 batch-final gate. **T49 is the next eligible Presenter track; T50 remains ordered behind T49.**
+T49 Final CI/Registry checkpoint is **not credited** because it belongs to the T46-T50 batch-final gate. T50 Integration is **IN PROGRESS** at local PostgreSQL `2b810ec531cc52a556cee45068df4e7006abd701` + PostgreSQL 18 Testcontainers `6482ea1e8fd22b15edf42276fc6f87b0c1d7dbd4`; run `32055710410` has frontend job `95465279573` SUCCESS while backend job `95465276364` remains IN_PROGRESS. T50 Assigned Frontend and all T46-T50 registry checkpoints remain blocked.
 
 ## Eight Logical Worker Lanes — Action Taken This Cycle
 | Lane | Assignment | Action Taken | Result |
 |---|---|---|---|
-| Agent 1 | Presenter | Recovered exact T47 frontend Actions evidence | T47 Assigned Frontend CLOSED. |
-| Agent 2 | Presenter | Verified exact T47/T48 branch-tip Actions conclusions | All credited Presenter checkpoints have exact green evidence. |
-| Agent 3 | Presenter | Implemented T48 service; after Service/Unit green, added local PostgreSQL integration | T48 Service + Integration source completed in order. |
+| Agent 1 | Presenter | Recovered exact T49 Service/Unit and component evidence; verified T50 Service/Unit gate | T49 Service/Unit and T50 Service/Unit CLOSED. |
+| Agent 2 | Presenter | Recovered T49 Integration evidence and advanced T50 Integration after Service/Unit became green | T49 Integration CLOSED; T50 Integration active. |
+| Agent 3 | Presenter | Reconciled live branch advancement and T50 Search contract/integration boundary | T50 source/contract boundary confirmed; no dependency skipped. |
 | Agent 4 | Classroom | Revalidated Release-01 document identities | Still blocked; no materialization. |
-| Agent 5 | Classroom | Revalidated Release-02 document prerequisites | T02_02 GENERATING; T02_03 PENDING. |
-| Agent 6 | Presenter | Added T48 Unit, PostgreSQL 18 Testcontainers, then Search Book Return frontend after Integration green | T48 closed through Assigned Frontend. |
+| Agent 5 | Classroom | Revalidated Release-02 exact accepted baseline and document prerequisites | Run `31989985693` SUCCESS; T02_02 GENERATING / T02_03 PENDING. |
+| Agent 6 | Presenter | Recovered T49 assigned frontend CI; reconciled T50 future Read/List frontend against `GET /rest/returns` | T49 Frontend CLOSED; T50 frontend deliberately held behind Integration. |
 | Agent 7 | Classroom | Revalidated private promotion boundary | No Public or Quality-Gate write. |
-| Agent 8 | Recovery | Captured immutable T47/T48 candidate evidence | `freeze_allowed=false` retained. |
+| Agent 8 | Recovery | Promoted T49 and T50 Service/Unit evidence; captured T50 Integration provisionally | `freeze_allowed=false` retained. |
 
 These are logical parallel worker lanes; no autonomous-agent runtime is claimed.
 
 ## Tasks Taken Up
-- T47 Assigned Frontend exact verification.
-- T48 Update Book Return Service and Unit Test.
-- T48 local PostgreSQL and PostgreSQL 18 Testcontainers Integration.
-- T48 Search Book Return assigned frontend.
-- Release-01/02 prerequisite revalidation and private promotion-boundary verification.
+- T49 Void Book Return Service/Unit exact verification.
+- T49 local PostgreSQL + PostgreSQL 18 Testcontainers Integration exact verification.
+- T49 Create Book Return assigned frontend exact verification.
+- T50 Search Book Return Service + Unit exact branch-tip CI acceptance.
+- T50 local PostgreSQL + PostgreSQL 18 Testcontainers Integration execution/CI.
+- T50 Read/List frontend source-only reconciliation against `GET /rest/returns`.
+- Release-01/02 prerequisite revalidation and Release-02 accepted-baseline re-fetch.
 - T46-T50 Recovery candidate evidence consolidation.
 
 ## Tasks Closed
-- T47 Assigned Frontend / Void Book Return UI.
-- T48 Service.
-- T48 Unit Test.
-- T48 Integration.
-- T48 Assigned Frontend / Search Book Return UI.
+- T49 Service.
+- T49 Unit Test.
+- T49 Integration.
+- T49 Assigned Frontend / Create Book Return UI.
+- T50 Service.
+- T50 Unit Test.
 
-No Document, Classroom, Recovery percentage-bearing gate or T46-T50 batch-final registry gate closed.
+No Document, Classroom, Recovery percentage-bearing gate, T50 Integration/Frontend, or T46-T50 batch-final registry gate closed.
 
 ## Tasks In Progress / Next Eligible
-- **Presenter:** T49 is next eligible; T48 Final CI/Registry remains batch-blocked until T49-T50 are complete.
+- **Presenter:** T50 Integration run `32055710410` is active; frontend build is green, backend PostgreSQL tests remain running. T50 Assigned Frontend is blocked until Integration is fully green.
+- **Presenter after Integration:** source reconciliation establishes Read/List Book Return via `GET /rest/returns`; implementation must wait for exact green Integration evidence.
 - **Recovery:** T46-T50 candidate remains OPEN with `freeze_allowed=false`.
 - **Classroom:** Release-01 materialization blocked by T01_01/T01_03 identity transition; Release-02 blocked by T02_02/T02_03.
 - **Document dependency:** T02_02-T06_02 remain GENERATING outside the current eight-lane allocation.
@@ -73,24 +78,24 @@ No Document, Classroom, Recovery percentage-bearing gate or T46-T50 batch-final 
 ## Tasks Open More Than 3 Cycles / Stalled-Task Actions
 | Task / stream | Stall count | State | Action Taken in This Cycle |
 |---|---:|---|---|
-| Document Rerun dependency stream | 39 coordinator cycles open; 34 no-increase cycles | STALE | Re-read T01/T02 dependency state only for Classroom gating; no Document worker allocated and no false credit. |
-| T47 Assigned Frontend evidence blocker | Reached 4 cycles | **CLOSED THIS CYCLE** | Recovered exact run `32042595095` SUCCESS and closed the checkpoint. |
-| Classroom Release Preparation | 45 no-increase cycles | STALE | Agents 4/5/7 revalidated Release-01/02 exact document gates and private promotion boundary; no premature materialization/publication. |
-| Recovery / Final Integration | 5 no-increase cycles | STALE | Agent 8 converted T47/T48 candidate evidence to immutable green where verified and retained `freeze_allowed=false`. |
+| Document Rerun dependency stream | 40 coordinator cycles open; 35 no-increase cycles | STALE | Re-read T01/T02 dependency state only for Classroom gating; no Document worker allocated and no false credit. |
+| Classroom Release Preparation | 46 no-increase cycles | STALE | Agents 4/5/7 revalidated Release-01/02 exact document gates, accepted Release-02 baseline run and private promotion boundary; no premature materialization/publication. |
+| Recovery / Final Integration | 6 no-increase cycles | STALE | Agent 8 converted T49 and T50 Service/Unit evidence to immutable green candidate evidence, captured T50 Integration provisionally and retained `freeze_allowed=false`. |
 
 ## Streams With No Increase More Than 3 Cycles
-- **Document Rerun — 34 cycles:** remains STALE; action was dependency revalidation only, per allocation constraint.
-- **Classroom Release — 45 cycles:** remains STALE; action was exact prerequisite/promotion-boundary revalidation.
-- **Recovery — 5 cycles:** remains STALE by percentage; action was immutable candidate-evidence capture without premature freeze.
-- **Presenter:** no longer stalled; percentage increased this cycle and its no-increase counter resets to zero.
+- **Document Rerun — 35 cycles:** remains STALE; action was dependency revalidation only, per allocation constraint.
+- **Classroom Release — 46 cycles:** remains STALE; action was exact prerequisite/accepted-baseline/promotion-boundary revalidation.
+- **Recovery — 6 cycles:** remains STALE by percentage; action was immutable/provisional candidate-evidence capture without premature freeze.
+- **Presenter:** not stalled; percentage increased this cycle and its no-increase counter resets to zero.
+- **Overall:** not stalled; percentage increased from exact verified Presenter checkpoints only.
 
 ## Control-Plane Evidence Updated This Cycle
-- Presenter task queue: commit `e00c97832df831050d7749bf30f0da38c75ddea2`.
-- Recovery task queue: commit `876cba8c63bf4967cadff8f9484ad4bb9fa5e91a`.
-- Document dependency task queue: commit `a6d613ae95e5c5db6bd2853350846e2978866cf3`.
-- Classroom task queue: commit `3c267c8466fe4d5a128884b39d6de735a864d344`.
-- Execution-cycle monitor: commit `a80fe9ce830bb5ee713765b5bf0003e428d7d3ba`.
-- Orchestrator next-boundary update: commit `eb6653adf6bef3880d2833cc036707d8ce039ebc`.
+- Orchestrator plan: commit `452d0b9fee40d76c434500c5651de7f57754b9b0`.
+- Presenter task queue: commit `02d30cbb09164c01c7fbe65ace7c07d5991e3739`.
+- Classroom task queue: commit `4247dbfee25c176356503091099e78d6fcbba9af`.
+- Recovery task queue: commit `ba980b51350980fa04a7a23213547bc509f665c1`.
+- Document dependency task queue: commit `19ef5d0465787fd89c41ba9ce3320cad9ebb9c1a`.
+- Execution-cycle monitor: commit `b7a81b3f84f7f8b7fb18e57b68c252c80d604b84`.
 
 ## Hard Boundary Confirmation
-No write was made to the public classroom repository. No write was made to the read-only Quality Gate repository. Dependent Presenter gates were executed only after their preceding exact green CI gate completed.
+No write was made to the public classroom repository. No write was made to the read-only Quality Gate repository. Presenter dependent gates were executed only after their preceding exact green CI gate completed; T50 Assigned Frontend remains blocked while Integration backend CI is incomplete.
