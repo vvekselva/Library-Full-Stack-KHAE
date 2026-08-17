@@ -10,15 +10,15 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-17 21:24 UTC
+## Current Status - 2026-08-17 21:31 UTC
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
-| **Document Rerun** | **5.3889%** | **5.3889%** | **+0.0000%** | **STALE BY PERCENTAGE / UNFINISHED UPSTREAM DEPENDENCY.** No Document lane allocated. T01_01/T01_03 identity transition remains pending; T02_02-T06_02 remain GENERATING. |
-| **Presenter Solutions** | **84.6667%** | **86.0000%** | **+1.3333%** | **IN PROGRESS.** T52 Read Reservation closed through Service, Unit, combined Integration and Assigned Frontend with exact-green CI. T53 Update Reservation Service `7b4224fa...` and Unit `d1fbee46...` are implemented; exact run `32070287399` has frontend SUCCESS while backend PostgreSQL tests remain IN_PROGRESS, so T53 remains uncredited. |
-| **Classroom Release Preparation** | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE / DOCUMENT-GATED.** Release-01 remains T01 identity-gated; Release-02 accepted baseline CI remains green but T02_02/T02_03 block materialization. |
-| **Recovery / Final Integration** | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE BY PERCENTAGE / CANDIDATE OPEN.** Frozen registry coverage remains 50/60. T52 evidence through Assigned Frontend is immutable VERIFIED; T53 Service/Unit is provisional; `freeze_allowed=false` for T51-T55. |
-| **Overall** | **38.7250%** | **39.1917%** | **+0.4667%** | Four percentage-bearing T52 Presenter checkpoints closed through Assigned Frontend. T53 is active but uncredited at exact Service+Unit CI. |
+| **Document Rerun** | **5.3889%** | **5.3889%** | **+0.0000%** | **STALE.** No Document lane allocated. T01_01/T01_03 identity transition remains pending; T02_02-T06_02 remain GENERATING. |
+| **Presenter Solutions** | **86.0000%** | **86.6667%** | **+0.6667%** | **IN PROGRESS.** T53 Service and Unit are exact-green; local PostgreSQL Integration is green; PostgreSQL 18 Testcontainers commit `06bc35a8...` is on exact run `32071381507` with frontend SUCCESS and backend IN_PROGRESS, so combined Integration remains uncredited. |
+| **Classroom Release Preparation** | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE / DOCUMENT-GATED.** Release-01 remains T01 identity-gated; Release-02 remains T02_02/T02_03 gated. |
+| **Recovery / Final Integration** | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE BY PERCENTAGE / CANDIDATE OPEN.** Frozen registry coverage remains 50/60. T53 Service/Unit and local Integration evidence are immutable VERIFIED; PostgreSQL 18 evidence is provisional; `freeze_allowed=false`. |
+| **Overall** | **39.1917%** | **39.4250%** | **+0.2333%** | Two percentage-bearing T53 Presenter checkpoints closed; combined Integration remains behind the active PostgreSQL 18 gate. |
 
 ## Coordinator / Logical Worker Lanes
 One primary coordinator is active. The eight entries are logical worker lanes; this environment does not expose eight autonomous background subagent processes.
@@ -26,75 +26,65 @@ One primary coordinator is active. The eight entries are logical worker lanes; t
 | Lane | Assignment | Current work | Evidence/state |
 |---|---|---|---|
 | Primary Coordinator | Orchestration | Dependency checks, Actions verification, evidence consolidation | ACTIVE |
-| Agent 1 | Presenter Solutions | T53 Unit / Service+Unit exact gate | Unit `d1fbee46...`; exact run `32070287399` active |
-| Agent 2 | Presenter Solutions | T52 Integration exact verification | local run `32069010602` and PostgreSQL 18 run `32069419683` SUCCESS; Integration closed |
-| Agent 3 | Presenter Solutions | T53 Update Reservation Service | `7b4224fa...`; echo stub replaced only after T52 frontend closure |
+| Agent 1 | Presenter Solutions | T53 Service+Unit exact verification | run `32070287399` fully SUCCESS; Service+Unit closed |
+| Agent 2 | Presenter Solutions | T53 Integration evidence | local run `32070690552` SUCCESS; PostgreSQL 18 run `32071381507` active |
+| Agent 3 | Presenter Solutions | T53 Integration + T54 source reconciliation | local integration verified; T54 `DeleteReservationServiceImpl` confirmed teaching stub |
 | Agent 4 | Classroom Release | Release-01 prerequisite validation | T01 identity-gated |
-| Agent 5 | Classroom Release | Release-02 baseline/document validation | run `31989985693` still fully SUCCESS; document-gated |
-| Agent 6 | Presenter Solutions | T52 Assigned Frontend | `e3777b25...`; run `32069835651` fully SUCCESS / closed |
+| Agent 5 | Classroom Release | Release-02 baseline/document validation | document-gated |
+| Agent 6 | Presenter Solutions | T53 Assigned Frontend readiness | BLOCKED until combined Integration is exact-green |
 | Agent 7 | Classroom Release | Private promotion-boundary validation | no blocked materialization/public/QG write |
-| Agent 8 | Recovery / Final Integration | T51-T55 candidate evidence | T52 immutable through frontend; T53 provisional; freeze blocked |
+| Agent 8 | Recovery / Final Integration | T51-T55 candidate evidence | T53 green evidence promoted; PostgreSQL 18 provisional; freeze blocked |
 
 No Document Rerun work is allocated to these eight lanes.
 
 ## Tasks Taken Up This Cycle
 - Re-read all required orchestration, progress, cycle-monitor and stream task controls before selecting work.
-- Re-fetched exact T52 Service+Unit workflow `32064377144` and verified frontend-build `95492836166` SUCCESS plus backend-test `95492836476` SUCCESS, closing T52 Service and Unit.
-- Implemented T52 local PostgreSQL Integration at `853605c6b3f7779b2301075d65cb6dd58c996d4e`; exact run `32069010602` completed with frontend-build `95507668104` SUCCESS and backend-test `95507668089` SUCCESS.
-- Only after the local Integration gate became green, implemented T52 PostgreSQL 18 Testcontainers Integration at `f4f86e4bce81505e2119e71168648f19550e58d4`; exact run `32069419683` completed with frontend-build `95508968545` SUCCESS and backend-test `95508968535` SUCCESS, closing combined Integration.
-- Only after Integration became green, implemented T52 Assigned Frontend Read Reservation at `e3777b25e3dc2db829fc6676ba329454b1921a57`; exact run `32069835651` completed with frontend-build `95510304238` SUCCESS and backend-test `95510304081` SUCCESS.
-- During T52 wait windows, source-inspected T53 Update Reservation and confirmed the existing implementation remained a teaching echo stub. No dependent implementation was started before T52 frontend closure.
-- After T52 frontend became fully green, replaced the T53 echo stub with persistence/validation/normalized duplicate handling at `7b4224faa28ebad683e835f7301b12b6078ad3f2` and added focused Unit coverage at `d1fbee463fcbac923803780e415b360fd9346eff`.
-- Started/observed exact T53 Service+Unit workflow `32070287399`; frontend-build `95511738462` is SUCCESS while backend-test `95511738275` remains IN_PROGRESS. T53 Integration was not started prematurely.
-- Agents 4/5/7 revalidated Release-01/02 prerequisites, reconfirmed accepted Release-02 baseline run `31989985693` fully green, and preserved the private-only promotion boundary.
-- Agent 8 promoted all exact-green T52 evidence through Assigned Frontend into immutable Recovery candidate evidence, captured T53 Service/Unit provisionally, and retained `freeze_allowed=false`.
+- Re-fetched exact T53 Service+Unit run `32070287399`; backend-test `95511738275` and frontend-build `95511738462` are SUCCESS, closing T53 Service and Unit.
+- Found T53 local PostgreSQL Integration already present at `4ac36fe1fe49132a5f24a8044b0de0538d65d66b`; exact run `32070690552` completed with backend-test `95513019814` SUCCESS and frontend-build `95513019782` SUCCESS. No duplicate integration file was created.
+- Only after local Integration was verified green, added T53 PostgreSQL 18 Testcontainers Integration at `06bc35a831140793cf208effb06423aa9d4d2aeb`; exact run `32071381507` has frontend-build `95515164698` SUCCESS while backend-test `95515164704` remains IN_PROGRESS.
+- During the CI window, source-inspected T54 Delete/Cancel Reservation; `DeleteReservationServiceImpl` remains a synthetic teaching stub. No T54 implementation was started because T53 has not closed through Assigned Frontend.
+- Agents 4/5/7 revalidated Classroom prerequisites and preserved the private-only promotion boundary.
+- Agent 8 promoted T53 exact-green Service/Unit and local Integration evidence into immutable candidate evidence and retained `freeze_allowed=false`.
 
 ## Tasks Closed This Cycle
-- **T52 Read Reservation Service — CLOSED / VERIFIED GREEN.** Exact Service+Unit run `32064377144` SUCCESS.
-- **T52 Read Reservation Unit Test — CLOSED / VERIFIED GREEN.** Exact Service+Unit run `32064377144` SUCCESS.
-- **T52 Read Reservation combined Integration — CLOSED / VERIFIED GREEN.** Local run `32069010602` and PostgreSQL 18 Testcontainers run `32069419683` SUCCESS.
-- **T52 Read Reservation Assigned Frontend — CLOSED / VERIFIED GREEN.** Exact run `32069835651` SUCCESS.
-- **T52 Recovery evidence through Assigned Frontend — CLOSED as immutable candidate evidence.** No Recovery percentage credit until legitimate T51-T55 registry freeze.
+- **T53 Update Reservation Service — CLOSED / VERIFIED GREEN.** Exact run `32070287399` SUCCESS.
+- **T53 Update Reservation Unit Test — CLOSED / VERIFIED GREEN.** Exact run `32070287399` SUCCESS.
+- **T53 local PostgreSQL Integration evidence — VERIFIED GREEN.** Exact run `32070690552` SUCCESS; no separate Presenter percentage credit because Integration is one combined checkpoint requiring PostgreSQL 18 evidence too.
 
 ## Tasks Still In Progress / Blocked
-- T53 Update Reservation Service+Unit: IMPLEMENTED; exact workflow `32070287399` remains active with frontend SUCCESS and backend PostgreSQL tests running. No T53 percentage credit yet.
-- T53 Integration: BLOCKED until exact Service+Unit CI `32070287399` is fully green.
-- T53 Assigned Frontend: BLOCKED behind Integration.
-- T54-T55: YET TO DO / dependency ordered.
+- T53 PostgreSQL 18 Testcontainers Integration: IMPLEMENTED; exact run `32071381507` backend still IN_PROGRESS.
+- T53 combined Integration: IN PROGRESS / uncredited until exact run `32071381507` is fully green.
+- T53 Assigned Frontend: BLOCKED behind combined Integration.
+- T54-T55: YET TO DO / dependency ordered; source inspection only is allowed while blocked.
 - Release-01: BLOCKED by T01_01/T01_03 identity-control transition.
-- Release-02: BLOCKED by T02_02 approval/repository verification and T02_03 completion despite accepted baseline CI remaining green.
+- Release-02: BLOCKED by T02_02 approval/repository verification and T02_03 completion.
 - T51-T55 Recovery registry: OPEN / NOT FREEZABLE; `freeze_allowed=false`.
 - Final integration remains blocked by remaining Presenter, Document and Classroom prerequisites.
 
 ## Tasks / Streams Open More Than 3 Cycles
 | Task / Stream | Cycles | State | Action Taken in This Cycle |
 |---|---:|---|---|
-| Document Rerun | 45 open cycles; 40 no-increase cycles | **STALE** | Re-read T01/T02 dependency state for Classroom gating only; no Document lane allocated and no false progress credited. |
-| Classroom Release | 51 no-increase cycles | **STALE** | Revalidated Release-01/02 exact document gates, reconfirmed accepted baseline CI, and preserved private promotion boundary; no materialization/public/QG write. |
-| Recovery / Final Integration | 4 no-increase cycles | **STALE BY PERCENTAGE / CANDIDATE OPEN** | Promoted exact-green T52 evidence through Assigned Frontend, captured T53 Service/Unit provisionally, and retained `freeze_allowed=false`; no incomplete registry credit. |
+| Document Rerun | 46 open cycles; 41 no-increase cycles | **STALE** | Re-read T01/T02 dependency state for Classroom gating only; no Document lane allocated and no false progress credited. |
+| Classroom Release | 52 no-increase cycles | **STALE** | Revalidated Release-01/02 exact document gates and preserved private promotion boundary; no materialization/public/QG write. |
+| Recovery / Final Integration | 5 no-increase cycles | **STALE BY PERCENTAGE / CANDIDATE OPEN** | Promoted T53 exact-green Service/Unit and local Integration evidence, captured PostgreSQL 18 provisionally, and retained `freeze_allowed=false`. |
 
-Presenter is not stalled; it closed four percentage-bearing checkpoints this cycle and advanced T53 to its exact Service+Unit CI boundary.
+Presenter is not stalled; it closed two percentage-bearing checkpoints and advanced T53 Integration in dependency order.
 
 ## Streams With No Increase More Than 3 Cycles
-- **Document Rerun — 40 cycles:** dependency-only revalidation; T01 identity work and T02-T06 generation remain unfinished outside the current eight lanes.
-- **Classroom Release — 51 cycles:** exact release prerequisites remain document-gated; accepted Release-02 baseline remains green but is insufficient for materialization.
-- **Recovery / Final Integration — 4 cycles:** candidate evidence advanced through T52, but frozen coverage remains 50/60 because the T51-T55 registry is not yet eligible to freeze.
+- **Document Rerun — 41 cycles:** dependency-only revalidation; unfinished upstream work remains outside the current eight lanes.
+- **Classroom Release — 52 cycles:** exact release prerequisites remain document-gated.
+- **Recovery / Final Integration — 5 cycles:** candidate evidence advanced, but frozen coverage remains 50/60 because the T51-T55 registry is not yet eligible to freeze.
 
 ## Execution Evidence
-- T51-T55 source/contract reconciliation: `a1570156d01f67955396f0639363c5520caafa06`.
-- T51 remains closed through Assigned Frontend; final registry checkpoint remains batch-final blocked.
-- T52 Service: `b72e1008760a762d083ae670fe7a45e59c9fee1e`; Unit: `4aaa035121eccb3cbdb8ddd7aa5fcdde2ed53c12`; exact run `32064377144` SUCCESS.
-- T52 local PostgreSQL Integration: `853605c6b3f7779b2301075d65cb6dd58c996d4e`; exact run `32069010602` SUCCESS.
-- T52 PostgreSQL 18 Testcontainers Integration: `f4f86e4bce81505e2119e71168648f19550e58d4`; exact run `32069419683` SUCCESS.
-- T52 Assigned Frontend Read Reservation: `e3777b25e3dc2db829fc6676ba329454b1921a57`; exact run `32069835651`; frontend-build `95510304238` SUCCESS; backend-test `95510304081` SUCCESS.
-- T53 Update Reservation Service: `7b4224faa28ebad683e835f7301b12b6078ad3f2`; Unit: `d1fbee463fcbac923803780e415b360fd9346eff`; exact run `32070287399`; frontend-build `95511738462` SUCCESS; backend-test `95511738275` IN_PROGRESS at consolidation.
-- Release-02 acceptance: run `31989985693`; backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS.
-- Presenter task control update: `f246ef124ad08e82fe0c8289c4c98268041e0503`.
-- Classroom task control update: `8f3646d7403d000a3466bc3df787d3845e0e6879`.
-- Recovery task control update: `b7dccc04e38cdc40810ea7e5c9cc5f22c7ad14aa`.
-- Document dependency control update: `c7383ce387185f47080fc73c8fce1c3742979542`.
-- Execution-cycle monitor update: `091fcfd68410d96a3a33c18217a796351b81ad5d`.
-- Orchestration-plan boundary update: `fc13c43b06e7b0fc04b71eba8294d9687779a1c7`.
+- T53 Service: `7b4224faa28ebad683e835f7301b12b6078ad3f2`; Unit: `d1fbee463fcbac923803780e415b360fd9346eff`; run `32070287399` SUCCESS.
+- T53 local PostgreSQL Integration: `4ac36fe1fe49132a5f24a8044b0de0538d65d66b`; run `32070690552`; backend `95513019814` SUCCESS; frontend `95513019782` SUCCESS.
+- T53 PostgreSQL 18 Testcontainers Integration: `06bc35a831140793cf208effb06423aa9d4d2aeb`; run `32071381507`; frontend `95515164698` SUCCESS; backend `95515164704` IN_PROGRESS at consolidation.
+- T54 source reconciliation: `DeleteReservationServiceImpl` remains synthetic stub; no implementation started.
+- Presenter task control update: `c641b313ae39dd189e58158c9631250559e2927e`.
+- Classroom task control update: `1cf04b1ad3679482bbcbb2e92293f92ee5f5a028`.
+- Recovery task control update: `e18728a2b116cd8c463427604765ebe4dadbb31f`.
+- Document dependency control update: `976717b8b111d37bee2478666fcff2c0e75116c6`.
+- Execution-cycle monitor update: `d97617bb76edf0dcf5fe555eb9e71a8ca6329ed9`.
 - No write was made to the public classroom repository or the read-only Quality Gate repository.
 
 ## Hard Rules
