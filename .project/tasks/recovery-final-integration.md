@@ -7,12 +7,13 @@
 - T01-T30 registries: VERIFIED.
 - T31-T35 registry: FROZEN / VERIFIED at `83d51d4343fd79f8609e4bc73a483ce85615a276`.
 - T36-T40 registry: FROZEN / VERIFIED at `25581a24d5e85c9ef261f072316282a0b0431bd8`.
-- T41-T45 registry: FROZEN / VERIFIED at `9f4f5e70b48e5eaa0b8296aa23bf19a438a0e33a`, registry-tip workflow `32021541997` SUCCESS.
-- T46-T50: OPEN candidate.
-- T46 all four component checkpoints are immutable VERIFIED GREEN.
-- T47 Service, Unit, local PostgreSQL Integration and PostgreSQL 18 Testcontainers Integration are immutable VERIFIED GREEN.
-- T47 Assigned Frontend remains provisional. Branch artifact blob is `11f6b067f234fdc36779f5080e4cfe66fd338472`; fresh CI reverification trigger commit is `cbc9fdcbfda18d644833815175672e3149d87aa4`.
-- T48 source reconciliation `d1cc4cfeb43f06be23b52677a2d860c85935e990` remains preparation evidence only.
+- T41-T45 registry: FROZEN / VERIFIED at `9f4f5e70b48e5eaa0b8296aa23bf19a438a0e33a`; registry-tip workflow `32021541997` SUCCESS.
+- **T46-T50 Book Return registry candidate:** OPEN.
+- **T46 — Create Book Return:** all four component checkpoints immutable VERIFIED GREEN.
+- **T47 — Read Book Return:** Service, Unit and Integration immutable VERIFIED GREEN.
+- **T47 — Assigned Frontend / Void Book Return UI:** provisional; branch artifact blob `11f6b067f234fdc36779f5080e4cfe66fd338472`, implementation commit `38173db4b7dd4f89b3c8160d925551f8eb77a97a`, fresh reverification trigger `cbc9fdcbfda18d644833815175672e3149d87aa4`; exact green Actions conclusion remains unavailable.
+- **T48 — Update Book Return:** source reconciliation `d1cc4cfeb43f06be23b52677a2d860c85935e990` is preparation evidence only.
+- T49-T50 remain incomplete.
 - `freeze_allowed=false` until every T46-T50 component checkpoint and registry-tip CI is verified.
 
 ## Current stream accounting
@@ -23,10 +24,11 @@ Recovery component weights are: registry coverage 40%, selection/dependency desi
 - Previous: **30.0000%**
 - Updated: **30.0000%**
 - Increase: **+0.0000%**
-- State: **T46-T50 CANDIDATE OPEN / NO NEW RECOVERY PERCENTAGE GATE**.
+- State: **STALE / T46-T50 CANDIDATE OPEN** this cycle because no Recovery percentage-bearing gate closed.
 
 ## Tasks Taken Up This Cycle
-- Agent 8 revalidated the T46-T50 candidate and captured the fresh T47 CI reverification trigger as provisional evidence only.
+- Agent 8 revalidated immutable T46/T47 evidence, the T47 frontend provisional state, and the T46-T50 freeze guard.
+- Agent 8 recorded the Release-02 README correction as Classroom prerequisite cleanup only; it does not change Recovery registry coverage or final-integration readiness.
 
 ## Tasks Closed This Cycle
 No Recovery percentage-bearing gate closed.
@@ -39,4 +41,4 @@ No Recovery percentage-bearing gate closed.
 - Final integration — BLOCKED by remaining Presenter, Document and Classroom prerequisites.
 
 ## Open More Than 3 Cycles / Agent 8 Action Taken in This Cycle
-Recovery has **3 cycles without percentage increase**, below the >3-cycle threshold. **Action Taken:** captured fresh branch-tip T47 verification-trigger evidence and retained `freeze_allowed=false`; no false Recovery credit was applied.
+Recovery now has **4 cycles without percentage increase**, which crosses the >3-cycle stale threshold. **Action Taken in This Cycle:** Agent 8 revalidated the exact human-readable T46/T47 component evidence, retained `freeze_allowed=false`, and recorded the Classroom README cleanup without inventing Recovery credit. State **STALE** until a Recovery percentage-bearing gate closes.
