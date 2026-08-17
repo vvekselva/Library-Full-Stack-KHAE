@@ -8,49 +8,42 @@
 - T01-T40: completed/verified batch registries.
 - T41-T45: Book Issue source/contract reconciliation CLOSED on `Presenter-Solutions-T41-T45`.
 - T41 Create Book Issue: **Service + Unit Test + Integration + Assigned Frontend VERIFIED GREEN**; registry pending batch cumulative gate.
-- T42 Read Book Issue: **Service + Unit Test + Integration VERIFIED GREEN**. The prior frontend-assignment ambiguity is CLOSED by source-backed reconciliation commit `78e68d1ed13a6bea66d0c525291a32dfd0380ee3`; assigned frontend `t42-delete-book-issue.js` is implemented at `16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f`. Exact branch-tip workflow `32013008131` has frontend job `95336451882` SUCCESS while backend job `95336451899` is still running; the Frontend checkpoint is not yet credited.
-- T43-T45: source-reconciled/prerequisite-inspected only; implementation remains behind T42 full branch-tip acceptance under the ordered plan.
+- T42 Read Book Issue: **Service + Unit Test + Integration + Assigned Frontend VERIFIED GREEN**. Frontend `16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f`; workflow `32013008131`: backend `95336451899` SUCCESS, frontend `95336451882` SUCCESS.
+- T43 Update Book Issue: **Service + Unit Test + Integration + Assigned Frontend VERIFIED GREEN**. Service `3cd7ae2e10594bf05e8452daa140cb8c378d66c0`; Unit `0aa890bd66e6da270cf4df0527ce603947c4a813`; Service/Unit workflow `32015802884`: backend `95344959983` SUCCESS, frontend `95344959916` SUCCESS. Local PostgreSQL Integration `c38c5d2e891767f8c388f3c252b85d126f994e16`; workflow `32016211744`: backend `95346115035` SUCCESS, frontend `95346115054` SUCCESS. PostgreSQL 18 Testcontainers `88c7a13dba4731f9c3bb95b7e8e297105ed0cfd5`; authoritative frontend assignment `44f29090942d833bc16ab7a214255b6a1a5786d2`; Integration branch-tip workflow `32016604920`: backend `95347315707` SUCCESS, frontend `95347315698` SUCCESS. Assigned frontend `d32dad80281d62327ce27e9edd3a86c34c640bb4`, `t43-search-book-issue.js`; workflow `32016956178`: backend `95348362510` SUCCESS, frontend `95348362622` SUCCESS.
+- T44-T45: source-reconciled only; implementation remains pending behind the ordered sequence.
 - T46-T60: pending behind batch sequence.
-
-## T42 exact evidence
-- Service: `f000d3f96d403813ed1797476b2b1a01d7ff47ef`.
-- Unit Test: `5d76fd986ce6e7fe41121594a8114df5bf8a0fa0`.
-- Service/Unit workflow `32005669596`: backend `95314528525` SUCCESS; frontend `95314528387` SUCCESS.
-- Local PostgreSQL Integration: `bf0ed017b48647af5b758c84cb3074f995a407c3`; workflow `32007424895`: backend `95319681801` SUCCESS; frontend `95319681625` SUCCESS.
-- PostgreSQL 18 Testcontainers: `7d0e5ea8e3682d86c0beaf142d743421c2e40f17`; workflow `32007777271`: backend `95320727403` SUCCESS; frontend `95320727278` SUCCESS.
-- Previous assignment-gap evidence: `a7ac9db850fc0ebbbf1934545326501d5f179b35`.
-- Authoritative reconciliation: `78e68d1ed13a6bea66d0c525291a32dfd0380ee3`, `.presenter/reconciliation/T42-frontend-assignment-authoritative.md`.
-- Reconciliation basis: frozen T36-T40 and T31-T35 registries independently establish Read → Delete/Deactivate frontend assignment; live `BookIssueRestController` proves `DELETE /rest/issues/{id}` with code `44` / `Book Issue Cancelled Successfully`.
-- Assigned frontend implementation: `16e0ca2b1e512a19f15d2b8b13c7e5ae345a6a4f`, `frontend/frontend.lib.mgmt/src/tracks/t42-delete-book-issue.js`.
-- Exact branch-tip workflow `32013008131`: frontend `95336451882` SUCCESS; backend `95336451899` IN_PROGRESS at Presenter Maven tests.
 
 ## Current stream accounting
 Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300 checkpoints.
 - T01-T40 verified: 200 checkpoints.
 - T41 verified component checkpoints: 4.
-- T42 verified checkpoints before frontend acceptance: 3.
-- Verified total currently remains **207 / 300 = 69.0000%** until exact branch-tip backend CI is green.
+- T42 verified component checkpoints: 4.
+- T43 verified component checkpoints: 4.
+- Verified total: **212 / 300 = 70.6667%**.
 
 - Previous: **69.0000%**
-- Updated: **69.0000%**
-- Increase: **+0.0000%**
-- State: **ACTIVE — T42 ASSIGNMENT BLOCKER CLOSED; FRONTEND CI ACCEPTANCE IN PROGRESS**.
+- Updated: **70.6667%**
+- Increase: **+1.6667%**
+- State: **ADVANCED — T42 FRONTEND AND ALL FOUR T43 COMPONENT CHECKPOINTS VERIFIED GREEN**.
 
 ## Tasks Taken Up This Cycle
-- Agent 1: reconciled the T42 frontend assignment against immutable registries and current Book Issue API contract.
-- Agent 2: materialized the authoritative reconciliation record on the Presenter branch.
-- Agent 6: implemented the exact assigned `t42-delete-book-issue.js` frontend and triggered branch-tip CI.
-- Agent 3: preserved the ordered T43-T45 gate; no downstream implementation was started before T42 full CI acceptance.
+- Agent 1: validated T42 exact frontend CI, then implemented T43 DAO-backed Update Book Issue Service.
+- Agent 2: added focused T43 Unit Tests, local PostgreSQL Integration and PostgreSQL 18 Testcontainers Integration in dependency order.
+- Agent 3: reconciled the authoritative T43 assigned frontend identity from frozen registries plus the live Book Issue controller contract.
+- Agent 6: implemented `t43-search-book-issue.js` only after Integration CI was green and validated the final branch-tip workflow.
 
 ## Tasks Closed This Cycle
-- T42 missing-authoritative-frontend-assignment blocker — **CLOSED** by commit `78e68d1...`.
-- T42 assigned frontend implementation — **IMPLEMENTED**, but percentage checkpoint remains open pending exact branch-tip backend CI.
+- T42 Assigned Frontend checkpoint — **CLOSED / VERIFIED GREEN** on workflow `32013008131`.
+- T43 Service checkpoint — **CLOSED / VERIFIED GREEN**.
+- T43 Unit Test checkpoint — **CLOSED / VERIFIED GREEN**.
+- T43 Integration checkpoint — **CLOSED / VERIFIED GREEN** after local PostgreSQL + PostgreSQL 18 Testcontainers evidence and workflow `32016604920`.
+- T43 Assigned Frontend checkpoint — **CLOSED / VERIFIED GREEN** on workflow `32016956178`.
 
 ## Tasks In Progress / Blocked
-- T42 Assigned Frontend acceptance — IN PROGRESS on workflow `32013008131`; frontend green, backend regression running.
-- T41/T42 registry checkpoints — BLOCKED until T42 Frontend CI, T43-T45 and cumulative/registry-tip CI are complete.
-- T43-T45 implementation — held behind current ordered gate until T42 exact branch-tip CI completes green.
+- T41-T43 registry checkpoints — BLOCKED until T44-T45 plus cumulative/registry-tip CI are complete.
+- T44 Cancel Book Issue Service — next eligible Presenter implementation stage.
+- T45 Search Book Issue — pending behind ordered batch execution.
 - T46-T60 — pending behind batch sequence.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Presenter has **3 consecutive cycles without percentage increase** at this checkpoint. **Action Taken:** closed the long-standing T42 assignment ambiguity with source-backed evidence, implemented the assigned frontend and launched exact branch-tip CI. No percentage was credited while backend regression is still running.
+The prior T42 frontend task entered this cycle after more than three completed cycles and was **CLOSED** by exact workflow `32013008131` becoming fully green. Presenter percentage advanced this cycle, so the stream no-increase counter resets to zero. **Action Taken:** closed T42 frontend acceptance, implemented and verified T43 Service/Unit/Integration/Frontend in strict dependency order, and withheld registry credit until T44-T45 and cumulative CI exist.
