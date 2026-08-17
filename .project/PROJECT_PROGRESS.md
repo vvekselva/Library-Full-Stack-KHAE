@@ -1,79 +1,105 @@
 # KHAE Full Stack - Live Project Progress
 
-Private authoritative execution dashboard. Human-readable component names lead technical evidence.
+This file is the private, authoritative execution dashboard for the KHAE Full Stack classroom preparation project.
 
 ## Frozen Progress Formula
-- Document Rerun: 45%
-- Presenter Solutions: 35%
-- Classroom Release Preparation: 10%
-- Recovery / Final Integration: 10%
+- Document rerun: 45%
+- Presenter solutions: 35%
+- Classroom release preparation: 10%
+- Recovery and final integration: 10%
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Consolidated Status — 2026-08-17 19:06 UTC
+## Current Status - 2026-08-17 19:38 UTC
 
-| Stream | Previous | Updated | Increase | State |
+| Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
-| Document Rerun | 5.3889% | **5.3889%** | +0.0000% | **STALE** — no current eight-lane worker assigned; upstream document generation/identity work remains unfinished. |
-| Presenter Solutions | 81.3333% | **83.3333%** | **+2.0000%** | **IN PROGRESS** — T46-T50 frozen/verified; T51 Reservation Service+Unit implemented, exact CI active and uncredited. |
-| Classroom Release Preparation | 33.3333% | **33.3333%** | +0.0000% | **STALE / DOCUMENT-GATED**. |
-| Recovery / Final Integration | 30.0000% | **33.3333%** | **+3.3333%** | **IN PROGRESS** — T46-T50 registry frozen and verified; 50/60 tracks covered. |
-| **Overall** | **37.2250%** | **38.2583%** | **+1.0333%** | Verified progress only. |
+| **Document Rerun** | **5.3889%** | **5.3889%** | **+0.0000%** | **STALE BY PERCENTAGE / UNFINISHED UPSTREAM DEPENDENCY.** No Document lane allocated. T01_01/T01_03 identity transition remains pending; T02_02-T06_02 remain GENERATING. |
+| **Presenter Solutions** | **83.3333%** | **84.0000%** | **+0.6667%** | **IN PROGRESS.** T51 Create Reservation Service + Unit are VERIFIED GREEN on workflow `32058255359`. Newly unlocked local PostgreSQL Integration commit `31e35f5d...` is validating on workflow `32061289513`; frontend is green and backend PostgreSQL Maven tests remain IN_PROGRESS. |
+| **Classroom Release Preparation** | **33.3333%** | **33.3333%** | **+0.0000%** | **STALE / DOCUMENT-GATED.** Release-01 remains T01 identity-gated; Release-02 accepted baseline CI remains green but T02_02/T02_03 block materialization. |
+| **Recovery / Final Integration** | **33.3333%** | **33.3333%** | **+0.0000%** | **IN PROGRESS BY EVIDENCE / NO PERCENTAGE INCREASE.** Frozen registry coverage remains 50/60. T51 Service/Unit evidence is immutable VERIFIED; T51 local Integration is provisional; `freeze_allowed=false` for T51-T55. |
+| **Overall** | **38.2583%** | **38.4917%** | **+0.2334%** | Verified increase comes only from the two newly closed T51 Presenter checkpoints. Active Integration and prerequisite revalidation are not credited. |
 
-## Presenter Checkpoint Ledger
-Presenter uses 300 percentage-bearing checkpoints. Previous verified total **244/300**; updated **250/300**.
+## Coordinator / Logical Worker Lanes
+One primary coordinator is active. The eight entries are logical worker lanes; this environment does not expose eight autonomous background subagent processes.
 
-| Component closed this cycle | Exact evidence |
-|---|---|
-| T50 Assigned Frontend / Read-List Book Return | Implementation `13d8eeb1079be1e30c3283d37de3d17d4b0993bd`; corrected source `bca4c6d1a0813a6cbaf5e35c799eebc61ca1d374`; exact run `32056218735` SUCCESS. |
-| T46-T50 Book Return registry checkpoints | Registry commit `cd03adf2280237f35f85cdced7d97f1f1a888f5e`; exact registry-tip run `32056947711` SUCCESS. Five registry checkpoints closed. |
-
-The earlier T50 run `32056105743` was discovered to have ended CANCELLED rather than remaining active. Its cancelled backend job was restarted for diagnostic continuity, but no credit was based on that run. Credit comes from the newer exact corrected run `32056218735` and the later registry-tip run `32056947711`.
-
-## New Presenter Work Opened
-- New private branch: `Presenter-Solutions-T51-T55`, based on verified T46-T50 freeze.
-- T51-T55 module identified from source as **Reservation** (`/rest/reservations`, response codes 51-55).
-- Source/contract reconciliation: `a1570156d01f67955396f0639363c5520caafa06`.
-- Presenter application codes T51-T60/P11/P12: `749ec8b3105444a2dfd30c6f746a5c5d09c4999e`.
-- T51 Create Reservation Service: `42965168682f4b67450763005159685bd2a75090`.
-- T51 focused Unit Test: `7c5de1548fc2c77c5f29a71103753732e443f4f6`.
-- Exact run `32058255359`: frontend-build SUCCESS; backend PostgreSQL Maven job IN_PROGRESS at consolidation. T51 Service/Unit remain **uncredited** until full green.
-- T51 Integration and Assigned Frontend were **not** started prematurely.
-
-## Eight Logical Worker Lanes — Action Taken This Cycle
-| Lane | Assignment | Action Taken | Result |
+| Lane | Assignment | Current work | Evidence/state |
 |---|---|---|---|
-| Agent 1 | Presenter | Corrected stale T50 run state; implemented T51 Create Reservation Service after reconciliation | T46-T50 closed; T51 Service implemented, pending CI credit. |
-| Agent 2 | Presenter | Re-ran cancelled T50 backend job for diagnosis; added T51 focused Unit Test and watched exact gate | T51 Service+Unit CI active. |
-| Agent 3 | Presenter | Reconciled next source module and created T51-T55 Reservation contract | T51 legally unlocked. |
-| Agent 4 | Classroom | Revalidated Release-01 identities | Still blocked. |
-| Agent 5 | Classroom | Revalidated Release-02 baseline/documents | Document blockers remain. |
-| Agent 6 | Presenter | Verified corrected T50 frontend evidence; held T51 frontend behind Integration | Dependency boundary preserved. |
-| Agent 7 | Classroom | Revalidated private promotion boundary | No Public/QG write. |
-| Agent 8 | Recovery | Verified frozen T46-T50 registry and registry-tip CI | Recovery coverage advanced to 50/60. |
+| Primary Coordinator | Orchestration | Dependency checks, Actions verification, evidence consolidation | ACTIVE |
+| Agent 1 | Presenter Solutions | T51 Service/Unit acceptance and Integration boundary | Service+Unit CLOSED GREEN |
+| Agent 2 | Presenter Solutions | T51 local PostgreSQL Integration | `31e35f5d...`; run `32061289513` ACTIVE |
+| Agent 3 | Presenter Solutions | T52 source-only readiness inspection | Read stub confirmed; no premature implementation |
+| Agent 4 | Classroom Release | Release-01 prerequisite validation | T01 identity-gated |
+| Agent 5 | Classroom Release | Release-02 baseline/document validation | acceptance run `31989985693` fully SUCCESS; document-gated |
+| Agent 6 | Presenter Solutions | T51 Assigned Frontend readiness | BLOCKED until complete Integration gate is green |
+| Agent 7 | Classroom Release | Private promotion-boundary validation | no blocked materialization/public write |
+| Agent 8 | Recovery / Final Integration | T51-T55 candidate evidence | Service/Unit VERIFIED; Integration provisional; freeze blocked |
 
-These are logical worker lanes; no autonomous-agent runtime is claimed.
+No Document Rerun work is allocated to these eight lanes.
 
-## Tasks Taken Up
-T50 exact frontend correction/verification; T46-T50 registry verification; T51-T55 Reservation source reconciliation; T51 Service and Unit implementation/CI; Release-01/02 prerequisite revalidation; Recovery registry consolidation.
+## Tasks Taken Up This Cycle
+- Re-read all required orchestration, progress, cycle-monitor and stream task controls before selecting work.
+- Revalidated exact T51 Service+Unit workflow `32058255359`; backend PostgreSQL and frontend jobs are both SUCCESS.
+- Credited T51 Service `42965168682f4b67450763005159685bd2a75090` and Unit `7c5de1548fc2c77c5f29a71103753732e443f4f6` only after that full gate became green.
+- Implemented source-grounded T51 local PostgreSQL Integration at `31e35f5d2c86fd6b5e5f9739eaf7a50822aed736`, covering persisted normalization and duplicate normalized business-key behavior against deterministic seed data.
+- Started/observed exact Integration workflow `32061289513`; frontend job `95482928993` is SUCCESS while backend job `95482928870` remains IN_PROGRESS in Presenter PostgreSQL tests.
+- Inspected T52 Read Reservation source boundary: current service remains a hard-coded stub; REST contract is `GET /rest/reservations/{id}`. No T52 implementation was started.
+- Re-fetched Release-02 acceptance workflow `31989985693`: backend `95271686668` SUCCESS and frontend `95271686680` SUCCESS; document gates still prevent release materialization.
+- Promoted T51 Service/Unit into the Recovery candidate as immutable evidence and captured Integration provisionally while preserving `freeze_allowed=false`.
 
-## Tasks Closed
-T50 Assigned Frontend; five T46-T50 registry checkpoints; T46-T50 Presenter batch; T46-T50 Recovery registry freeze.
+## Tasks Closed This Cycle
+- **T51 Service checkpoint — CLOSED / VERIFIED GREEN.** Workflow `32058255359` SUCCESS.
+- **T51 Unit Test checkpoint — CLOSED / VERIFIED GREEN.** Workflow `32058255359` SUCCESS.
+- **T51 Service/Unit Recovery evidence capture — CLOSED as immutable candidate evidence.** No Recovery percentage credit until registry freeze.
 
-## Tasks In Progress
-T51 Create Reservation Service+Unit exact CI `32058255359`; Release-01/02 document-gated preparation; remaining Document work outside the eight lanes.
+## Tasks Still In Progress / Blocked
+- T51 local PostgreSQL Integration: workflow `32061289513` backend test still running; no Integration percentage credit yet.
+- T51 PostgreSQL 18 Testcontainers Integration: BLOCKED until local Integration CI is fully green.
+- T51 Assigned Frontend: BLOCKED until complete Integration CI is green.
+- T52-T55: source inspection may proceed independently; dependent implementation remains ordered and has not started.
+- Release-01: BLOCKED by T01_01/T01_03 identity-control transition.
+- Release-02: BLOCKED by T02_02 approval/repository verification and T02_03 completion despite accepted baseline CI remaining green.
+- T51-T55 Recovery registry: OPEN / NOT FREEZABLE; T52-T55 remain incomplete.
+- Final integration remains blocked by remaining Presenter, Document and Classroom prerequisites.
 
-## Tasks Open More Than 3 Cycles / Action Taken in This Cycle
-| Task / stream | Stall count | State | Action Taken in This Cycle |
+## Tasks / Streams Open More Than 3 Cycles
+| Task / Stream | Cycles | State | Action Taken in This Cycle |
 |---|---:|---|---|
-| Document Rerun | 41 cycles open; 36 no-increase | STALE | Revalidated T01/T02 dependencies only; no Document lane or false credit. |
-| Classroom Release | 47 no-increase | STALE | Revalidated Release-01/02 exact gates and private promotion boundary; no materialization/publication. |
+| Document Rerun | 42 open cycles; 37 no-increase cycles | **STALE** | Re-read T01/T02 dependency state for Classroom gating only; no Document lane allocated and no false progress credited. |
+| Classroom Release | 48 no-increase cycles | **STALE** | Revalidated Release-01/02 exact gates, re-fetched accepted Release-02 backend/frontend green CI, and preserved the private promotion boundary; no materialization/public/QG write. |
+
+Presenter is not stalled because T51 Service+Unit closed this cycle. Recovery is at one no-increase cycle after its prior verified T46-T50 registry increase.
 
 ## Streams With No Increase More Than 3 Cycles
-Document Rerun — 36; Classroom Release — 47. Presenter, Recovery and Overall reset to zero because verified percentage progress occurred.
+- **Document Rerun — 37 cycles:** dependency-only revalidation; T01 identity work and T02-T06 generation remain unfinished outside the current eight lanes.
+- **Classroom Release — 48 cycles:** exact release prerequisites remain document-gated; accepted Release-02 baseline remains green but is insufficient for materialization.
 
-## Control-Plane Evidence Updated This Cycle
-Orchestrator `0989bbc6e6df64173ff185fefe20ac287c108ae1`; Presenter queue `7642b7ad4779747c159e20d78f344e565a40e561`; Classroom queue `1a1b6700deeb23153e135dd743e6131265f3ccb5`; Recovery queue `4a07d6c2d4b60ee0aa0bfcc7e56b4775ee6243c0`; Document queue `5bc3b4ef08d0bfa6487af1dae2bfd577a4eb2c87`; execution monitor `c267d698958625e4cf960c3a5752a8d9086d99e9`.
+## Execution Evidence
+- T51-T55 source/contract reconciliation: `a1570156d01f67955396f0639363c5520caafa06`.
+- Presenter Reservation/Fine application codes: `749ec8b3105444a2dfd30c6f746a5c5d09c4999e`.
+- T51 Service: `42965168682f4b67450763005159685bd2a75090`.
+- T51 Unit Test: `7c5de1548fc2c77c5f29a71103753732e443f4f6`.
+- T51 Service+Unit verification: workflow `32058255359` SUCCESS.
+- T51 local PostgreSQL Integration: `31e35f5d2c86fd6b5e5f9739eaf7a50822aed736`; workflow `32061289513` ACTIVE; frontend `95482928993` SUCCESS; backend `95482928870` IN_PROGRESS at consolidation.
+- Release-02 acceptance: workflow `31989985693`; backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS.
+- Presenter task control: `7a89a1675c416ab139d1cc7ac19d508c4e773c52`.
+- Classroom task control: `b6acfdff548e29463a3f5f28136b4d46331da926`.
+- Recovery task control: `f76d4b39729eaa9a476475d978270e0c3a61b701`.
+- Document dependency control: `2a8ce5f9259e1a8401149f9d4a9410dac4ddef1d`.
+- Execution-cycle monitor: `bc55d363cf97788f57e38f859395499fb4e1cdd3`.
+- No write was made to the public classroom repository or the read-only Quality Gate repository.
 
-## Hard Boundary Confirmation
-No write was made to the public classroom repository or the read-only Quality Gate repository. No T51 Integration or Assigned Frontend work was started before its preceding exact green gate.
+## Hard Rules
+1. No ChatGPT/automation write to Public.
+2. No ChatGPT/automation write to the read-only Quality Gate repository.
+3. All project control/dashboard changes are committed only to Private Master.
+4. Documents must satisfy content, visual and repository gates before approval/promotion.
+5. Presenter solution code remains private.
+6. Public publication is performed by the Presenter.
+7. Percentages use genuinely completed stages/checkpoints; pending gates remain explicit.
+8. `.project/PROJECT_PROGRESS.md` is the human live dashboard.
+9. `.project/execution-cycle-monitor.yml` is the machine source for cycle aging/stall state.
+10. `.project/ORCHESTRATOR_PLAN.md` plus `.project/tasks/*.md` are the execution queues.
+11. Every stalled task row states Action Taken in This Cycle.
+12. No dependent task may run prematurely.
+13. Multi-lane results must be consolidated before completion is declared.
