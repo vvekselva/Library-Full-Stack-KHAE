@@ -18,12 +18,8 @@
 - Service/Unit workflow `32005669596`: backend `95314528525` SUCCESS; frontend `95314528387` SUCCESS.
 - Local PostgreSQL Integration: `bf0ed017b48647af5b758c84cb3074f995a407c3`; workflow `32007424895`: backend `95319681801` SUCCESS; frontend `95319681625` SUCCESS.
 - PostgreSQL 18 Testcontainers: `7d0e5ea8e3682d86c0beaf142d743421c2e40f17`; workflow `32007777271`: backend `95320727403` SUCCESS; frontend `95320727278` SUCCESS.
-- Latest Actions inspection confirms run `32007777271` remains completed/SUCCESS at the current verified T42 Integration head.
-
-## T42 frontend assignment reconciliation
-Private evidence commit `a7ac9db850fc0ebbbf1934545326501d5f179b35` adds `.presenter/reconciliation/T42-frontend-assignment-gap.md` on `Presenter-Solutions-T41-T45`.
-
-The reconciliation explicitly checked the T41-T45 source-contract record, frontend track directory, Presenter control/progress records and current Document Rerun blueprints. Result: the repository contains `t41-update-book-issue.js`, but no T42 frontend artifact or explicit T42 frontend-assignment record. Historical five-track rotation is therefore **not** treated as authorization to create a guessed file.
+- Assignment-gap evidence: `a7ac9db850fc0ebbbf1934545326501d5f179b35`, `.presenter/reconciliation/T42-frontend-assignment-gap.md`.
+- Branch-tip workflow `32008914264` on `a7ac9db850fc0ebbbf1934545326501d5f179b35`: completed **SUCCESS**. This validates the blocker-evidence branch tip but does not supply or authorize a T42 Frontend assignment.
 
 ## Current stream accounting
 Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300 checkpoints.
@@ -38,13 +34,12 @@ Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300 checkpoints.
 - State: **STALE FOR PERCENTAGE — T42 FRONTEND BLOCKED ON AUTHORITATIVE ASSIGNMENT RECORD**.
 
 ## Tasks Taken Up This Cycle
-- Exhaustively reconciled the currently materialized private repository sources for an authoritative T42 frontend assignment.
-- Persisted the negative finding/guard in a dedicated Presenter reconciliation artifact rather than repeatedly guessing/searching in later cycles.
-- Revalidated T42 Integration workflow success and preserved all green checkpoints.
-- Kept T43-T45 at prerequisite/source level under the current ordered plan.
+- Agents 1/2 revalidated the live `Presenter-Solutions-T41-T45` head and current Actions state.
+- Agent 3 rechecked the ordered T43-T45 boundary; no downstream implementation was started.
+- Agent 6 verified branch-tip workflow `32008914264` is SUCCESS and retained the T42 Frontend guard.
 
 ## Tasks Closed This Cycle
-- T42 frontend-assignment repository reconciliation — **CLOSED WITH BLOCKER EVIDENCE** (non-percentage prerequisite).
+- T42 assignment-gap branch-tip CI evidence capture — **CLOSED** as non-percentage evidence.
 - No percentage-bearing Presenter checkpoint closed.
 
 ## Tasks In Progress / Blocked
@@ -54,4 +49,4 @@ Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300 checkpoints.
 - T46-T60 — pending behind batch sequence.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Presenter percentage did not increase this cycle. **Action Taken:** converted the ambiguous T42 frontend assignment into an immutable, source-grounded blocker record (`a7ac9db...`) and synchronized it into Recovery evidence; no guessed frontend artifact or premature downstream checkpoint was credited.
+Presenter has **2 consecutive cycles without percentage increase**. **Action Taken:** current branch head and Actions were revalidated, and the successful blocker-evidence branch-tip run `32008914264` was captured without treating it as a Frontend authorization or percentage checkpoint.
