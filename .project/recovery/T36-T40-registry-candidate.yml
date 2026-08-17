@@ -1,7 +1,7 @@
-registry_candidate_version: 3
+registry_candidate_version: 4
 batch: T36-T40
 module: Membership
-state: ASSIGNED_FRONTEND_VALIDATING
+state: FROZEN_REGISTRY_TIP_VALIDATING
 freeze_allowed: false
 created_from_presenter_branch: Presenter-Solutions-T36-T40
 base_verified_registry: T31-T35
@@ -28,6 +28,14 @@ integration_gate:
   testcontainers_frontend_job_id: 95277279026
   testcontainers_frontend: SUCCESS
 
+assigned_frontend_gate:
+  workflow_run_id: 31992429729
+  head_sha: aacf493cacc0f3853e1a71e36e02d2a0417568fd
+  backend_job_id: 95278228731
+  backend: SUCCESS
+  frontend_job_id: 95278228736
+  frontend: SUCCESS
+
 tracks:
   T36:
     operation: Create Membership
@@ -39,8 +47,8 @@ tracks:
     integration: PASS
     assigned_frontend: Update Membership
     assigned_frontend_commit: 156975281f08d92abf82479580c84aef450a864a
-    frontend_ci: IN_PROGRESS
-    registry_ready: false
+    frontend_ci: PASS
+    registry_ready: true
   T37:
     operation: Read Membership
     service_commit: 17e719bf4c2e021768ee199aae9aa626d9471d53
@@ -50,8 +58,8 @@ tracks:
     integration: PASS
     assigned_frontend: Deactivate Membership
     assigned_frontend_commit: f36e86980ebf92ceb64c51c96e1aa847350728e4
-    frontend_ci: IN_PROGRESS
-    registry_ready: false
+    frontend_ci: PASS
+    registry_ready: true
   T38:
     operation: Update Membership
     service_commit: 2651a361f83db064f6def24a35720a8e563e7d76
@@ -61,8 +69,8 @@ tracks:
     integration: PASS
     assigned_frontend: Search Membership
     assigned_frontend_commit: 7ab8f33f7f36072ad67a516e8df34c6053305f44
-    frontend_ci: IN_PROGRESS
-    registry_ready: false
+    frontend_ci: PASS
+    registry_ready: true
   T39:
     operation: Deactivate Membership
     service_commit: a7b2c512206369b57f16127e9db30a7d0c742574
@@ -72,8 +80,8 @@ tracks:
     integration: PASS
     assigned_frontend: Create Membership
     assigned_frontend_commit: cf0de629f75052b90dab84b5fdae8c1dc4f4e267
-    frontend_ci: IN_PROGRESS
-    registry_ready: false
+    frontend_ci: PASS
+    registry_ready: true
   T40:
     operation: Search Membership
     service_commit: 1f3b851cd269cbe9e87e957a4ea811bc5a02be9d
@@ -83,17 +91,19 @@ tracks:
     integration: PASS
     assigned_frontend: Read/List Membership
     assigned_frontend_commit: aacf493cacc0f3853e1a71e36e02d2a0417568fd
-    frontend_ci: IN_PROGRESS
-    registry_ready: false
+    frontend_ci: PASS
+    registry_ready: true
 
-current_validation:
-  workflow_run_id: 31992429729
-  head_sha: aacf493cacc0f3853e1a71e36e02d2a0417568fd
-  backend_job_id: 95278228731
+frozen_registry:
+  path: .presenter/solution-registry/T36-T40.yml
+  commit: 25581a24d5e85c9ef261f072316282a0b0431bd8
+  verified_source_sha_recorded_in_registry: aacf493cacc0f3853e1a71e36e02d2a0417568fd
+  registry_tip_validation_run_id: 31992660117
+  backend_job_id: 95278824232
   backend: IN_PROGRESS
-  frontend_job_id: 95278228736
-  frontend: IN_PROGRESS
+  frontend_job_id: 95278824289
+  frontend: SUCCESS
 
 freeze_guard:
-  reason: "Integration is green, but no track may become registry-ready before assigned Frontend cumulative CI and registry-tip verification are green."
+  reason: "All five tracks are registry-ready and the frozen registry exists, but the registry-tip backend validation is still in progress. Keep the batch unverified until both registry-tip jobs are SUCCESS."
   final_integration_allowed: false
