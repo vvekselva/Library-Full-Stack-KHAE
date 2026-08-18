@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library Deployment Activity</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <main class="container">
+    <header>
+      <p class="eyebrow">Frontend + Backend + PostgreSQL Deployment</p>
+      <h1>Library Management</h1>
+      <div class="status-row">
+        <span id="backend-status" class="status pending">Checking backend…</span>
+        <code id="api-base"></code>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2 id="form-title">Add Book</h2>
+      <form id="book-form">
+        <input type="hidden" id="book-id" />
+        <label>Title<input id="title" maxlength="200" required /></label>
+        <label>Author<input id="author" maxlength="160" required /></label>
+        <label>ISBN<input id="isbn" maxlength="32" required /></label>
+        <label>Available Copies<input id="availableCopies" type="number" min="0" value="1" required /></label>
+        <div class="actions">
+          <button type="submit" id="save-button">Save Book</button>
+          <button type="button" id="cancel-button" class="secondary" hidden>Cancel Edit</button>
+        </div>
+      </form>
+      <p id="message" class="message" aria-live="polite"></p>
+    </section>
+
+    <section class="card">
+      <div class="table-heading">
+        <h2>Books</h2>
+        <button id="refresh-button" class="secondary">Refresh</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+          <tr><th>ID</th><th>Title</th><th>Author</th><th>ISBN</th><th>Copies</th><th>Actions</th></tr>
+          </thead>
+          <tbody id="book-rows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
