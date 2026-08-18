@@ -1,10 +1,12 @@
-version: 30
+version: 31
 repository: vvekselva/Library-Full-Stack-KHAE-Master
-updated_at: 2026-08-18T20:10:53+05:30
+updated_at: 2026-08-18T20:31:38+05:30
 orchestration:
   coordinator: primary
   logical_worker_lanes: 8
   actual_autonomous_agent_runtime_available: false
+  watchdog_project_progress_write_allowed: false
+  project_progress_write_authority: "MANUAL_COORDINATOR_ONLY"
   current_lane_focus: "4 Presenter / 3 Classroom / 1 Recovery; Document dependency only"
   document_work_allocated_to_current_eight: false
   allocation:
@@ -16,81 +18,81 @@ orchestration:
     agent_6: "Presenter Solutions — frontend/cumulative-regression readiness"
     agent_7: "Classroom Release — manifest/checklist/promotion-boundary guard"
     agent_8: "Recovery / Final Integration — T56-T60 evidence/cumulative/freeze guard"
+watchdog_policy:
+  project_progress_path: ".project/PROJECT_PROGRESS.md"
+  mode: READ_ONLY
+  allowed_updates:
+    - ".project/execution-cycle-monitor.yml"
+    - ".project/tasks/document-rerun.md"
+    - ".project/tasks/presenter-solutions.md"
+    - ".project/tasks/classroom-release.md"
+    - ".project/tasks/recovery-final-integration.md"
+  forbidden_action: "Any WATCHDOG_COORDINATOR cycle modifying or committing .project/PROJECT_PROGRESS.md"
+  manual_exception: "Only an explicitly requested manual coordinator/manual consolidation run may update .project/PROJECT_PROGRESS.md"
 current_cycle:
   cycle_id: C-20260818-WATCHDOG-0104
   trigger: WATCHDOG_COORDINATOR
   status: SUBSTANTIVE_PROGRESS_T59_FRONTEND_CI_RUNNING
   tasks:
-    - task: "Restore requested watchdog lane allocation"
+    - task: "Watchdog dashboard write policy"
       stream: Orchestration
-      status: CLOSED
+      status: CLOSED_POLICY_UPDATED
       closed_this_cycle: true
-      evidence: "ORCHESTRATOR_PLAN commit 4c644ff3aadc69b9f8c112c98bb47c174e192ea2"
-      action_taken_in_this_cycle: "Restored 4 Presenter / 3 Classroom / 1 Recovery and removed Document work from Agents 1-8."
+      evidence: "ORCHESTRATOR_PLAN commit 3e4eda1082afdafbc318b0d09d2fb6564bcf30c5"
+      action_taken_in_this_cycle: "Future watchdog cycles must leave .project/PROJECT_PROGRESS.md unchanged; only manual coordinator runs may update it."
     - task: "T59 PostgreSQL 18 Testcontainers + combined Integration"
       stream: Presenter Solutions
       status: CLOSED_VERIFIED
       closed_this_cycle: true
       evidence: "commit 405a9b95b407c26b2bddeab4913075ea916928bb; workflow 32149025207; backend 95749924520 SUCCESS; frontend 95749924404 SUCCESS"
-      action_taken_in_this_cycle: "Implemented DeleteFineTestcontainersIntegrationTest against postgres:18 and waited for exact green CI before closing combined Integration."
     - task: "T59 Assigned Frontend"
       stream: Presenter Solutions
       status: IMPLEMENTED_CI_IN_PROGRESS
       closed_this_cycle: false
       evidence: "commit de5fe904dbcbf74ea8ec5465c2ee68946f2e0cba; workflow 32149651752; frontend 95752030456 SUCCESS; backend 95752030445 IN_PROGRESS"
-      action_taken_in_this_cycle: "Implemented t59-delete-fine.js only after combined Integration turned green; exact backend regression CI remains active."
     - task: "T60 Search Fine contract/test readiness"
       stream: Presenter Solutions
       status: SOURCE_READY_IMPLEMENTATION_BLOCKED
       closed_this_cycle: false
-      evidence: "GET /rest/fines/search?text=... -> SearchFineService.searchFine(String) -> FineDao.search(text); current SearchFineServiceImpl is synthetic"
-      action_taken_in_this_cycle: "Revalidated exact boundary during CI windows without starting T60 before T59 frontend closure."
     - task: "Classroom Release-01/02 readiness"
       stream: Classroom Release Preparation
       status: STALE_DOCUMENT_GATED
       closed_this_cycle: false
-      action_taken_in_this_cycle: "Agents 4/5/7 retained private preflights/prerequisite matrices/promotion guard; no blocked materialization or public/QG write."
     - task: "Recovery T56-T60 registry candidate"
       stream: Recovery / Final Integration
       status: OPEN_NOT_FREEZABLE
       closed_this_cycle: false
-      action_taken_in_this_cycle: "Promoted T59 combined Integration immutable, captured frontend provisional, retained freeze_allowed=false."
     - task: "Document dependency state"
       stream: Document Rerun
       status: STALE_STRUCTURAL_NO_LANE
       closed_this_cycle: false
-      action_taken_in_this_cycle: "Reported exact T01/T02 blockers only; no Document lane and no false progress credit."
 stream_stall_monitor:
   - stream: Document Rerun
     previous_percent: 5.3889
     current_percent: 5.3889
     increase: 0.0000
     over_three_cycles: true
-    action_taken_in_this_cycle: "Dependency-only reconciliation under explicit no-Document allocation."
   - stream: Presenter Solutions
     previous_percent: 96.3333
     current_percent: 96.6667
     increase: 0.3334
     over_three_cycles: false
-    action_taken_in_this_cycle: "Closed T59 Testcontainers/combined Integration from exact green evidence and immediately implemented Assigned Frontend; exact CI active."
   - stream: Classroom Release Preparation
     previous_percent: 33.3333
     current_percent: 33.3333
     increase: 0.0000
     over_three_cycles: true
-    action_taken_in_this_cycle: "Three lanes retained prerequisite-safe private readiness; no polling counted as progress."
   - stream: Recovery / Final Integration
     previous_percent: 36.6667
     current_percent: 36.6667
     increase: 0.0000
     over_three_cycles: true
-    action_taken_in_this_cycle: "Promoted T59 combined Integration and captured frontend provisional while preserving freeze_allowed=false."
   - stream: Overall
     previous_percent: 43.1417
     current_percent: 43.2584
     increase: 0.1167
     over_three_cycles: false
-    action_taken_in_this_cycle: "Weighted increase comes from the newly verified T59 combined Integration checkpoint; frontend remains uncredited while backend CI is active."
 safety:
   public_classroom_write: FORBIDDEN
   quality_gate_write: FORBIDDEN
+  watchdog_project_progress_write: FORBIDDEN
