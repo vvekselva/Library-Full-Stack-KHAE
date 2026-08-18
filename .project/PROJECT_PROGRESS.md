@@ -10,54 +10,46 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-18 18:43 IST
+## Current Status - 2026-08-18 19:04 IST
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
 | Document Rerun | 5.3889% | **5.3889%** | +0.0000% | **STALE / STRUCTURAL UPSTREAM DEPENDENCY.** No current worker lane; T01 identity and T02 document gates still block Classroom releases. |
-| Presenter Solutions | 93.6667% | **95.6667%** | **+2.0000%** | **IN PROGRESS.** T57 and T58 are closed through Assigned Frontend; T59 Service+Unit are implemented and exact CI is running. |
+| Presenter Solutions | 95.6667% | **96.3333%** | **+0.6666%** | **IN PROGRESS.** T59 Void Fine Service and Unit are now exact-green verified; local PostgreSQL Integration is the next eligible gate. |
 | Classroom Release Preparation | 33.3333% | **33.3333%** | +0.0000% | **STALE / WAITING_ON_DOCUMENT.** Private preflights are complete; no new prerequisite-safe release step is eligible. |
-| Recovery / Final Integration | 36.6667% | **36.6667%** | +0.0000% | **IN PROGRESS.** T56-T58 full-track evidence is immutable; T59 Service+Unit provisional; Fine registry not freezable. |
-| **Overall** | 42.2083% | **42.9084%** | **+0.7001%** | Weighted progress comes only from six newly verified Presenter checkpoints; T59 remains uncredited pending CI. |
+| Recovery / Final Integration | 36.6667% | **36.6667%** | +0.0000% | **IN PROGRESS.** T56-T58 full-track evidence immutable; T59 Service+Unit now green; Fine registry not freezable. |
+| **Overall** | 42.9084% | **43.1417%** | **+0.2333%** | Weighted progress comes from two newly verified Presenter checkpoints. |
 
 ## Active logical lanes
-- Agent 1 — Presenter: verified T57 PostgreSQL 18 and Assigned Frontend exact-green evidence.
-- Agent 2 — Presenter: reconciled and verified T58 Service, Unit, local PostgreSQL and PostgreSQL 18 exact-green evidence.
-- Agent 3 — Presenter: implemented the now-eligible T59 DAO-backed Void Fine Service after T58 frontend became green.
+- Agent 1 — Presenter: closed T59 Void Fine Service from exact green CI.
+- Agent 2 — Presenter: closed T59 Unit and opened local PostgreSQL Integration boundary.
+- Agent 3 — Presenter: T60 source/test readiness only; no implementation before T59 closes.
 - Agent 4 — Classroom: Release-01 `WAITING_ON_DOCUMENT`.
 - Agent 5 — Classroom: Release-02 `WAITING_ON_DOCUMENT`.
-- Agent 6 — Presenter: verified T58 Assigned Frontend exact-green, added focused T59 Unit tests, and exposed exact workflow `32140581974`.
-- Agent 7 — Classroom: retained private promotion-boundary guard; no public/QG write.
-- Agent 8 — Recovery: promoted T58 frontend evidence, captured T59 Service+Unit provisionally, retained `freeze_allowed=false`.
+- Agent 6 — Presenter: retains Assigned Frontend guard until combined Integration is green.
+- Agent 7 — Classroom: retains private promotion-boundary guard; no publication action.
+- Agent 8 — Recovery: promotes T59 Service+Unit evidence and retains `freeze_allowed=false`.
 - Document Rerun receives no current lane.
 
 These are logical worker lanes; no autonomous-agent runtime is exposed.
 
 ## Tasks Taken Up This Cycle
-- Re-read `.project/ORCHESTRATOR_PLAN.md`, this dashboard, execution monitor, and all four stream task queues before selecting work.
-- Verified T57 PostgreSQL 18 workflow `32137441585` fully green and T57 Assigned Frontend workflow `32137927917` SUCCESS.
-- Reconciled T58 Service `2751c57b...`, Unit `347a12ae...`, local PostgreSQL `4ab9be05...`, PostgreSQL 18 `d138966e...`, and verified workflows `32138416049`, `32138864524`, `32139497763` all green.
-- Verified T58 Assigned Frontend `871f7028f6f531dc2a76cda113ce71ee7f45af54` workflow `32140053352` fully green: backend `95720320953` SUCCESS; frontend `95720321102` SUCCESS.
-- Implemented T59 Void Fine Service at `f91ce659af7ffe216ca3de41829d9f5f24607e16` with current-record lookup, posted-payment dependency protection, VOID persistence, mapper response and frozen T59 codes.
-- Added focused T59 Unit Test at `7c8106658610f6fce2543dad13bb1b24e498cdc1` covering success, dependency rejection, missing/already-void Fine and invalid IDs.
-- Exact T59 Service+Unit workflow `32140581974` is IN_PROGRESS at consolidation. No T59 Integration or T60 implementation was started prematurely.
-- Classroom lanes retained completed private preflights and exact document gates; Recovery promoted exact-green evidence only; Document status was propagated without allocating a lane.
+- Re-read all required orchestration, progress, execution-monitor and stream task files.
+- Fetched exact T59 workflow `32140581974` jobs.
+- Verified backend `95722051001` SUCCESS and frontend `95722051071` SUCCESS.
+- Closed T59 Service and Unit checkpoints.
+- Opened T59 local PostgreSQL Integration as the next eligible Presenter gate; no later T59/T60 stage was credited prematurely.
+- Retained Classroom and Document dependency boundaries and Recovery freeze guard.
 
 ## Tasks Closed This Cycle
-- **T57 Read Fine combined Integration — CLOSED / VERIFIED GREEN.**
-- **T57 Read Fine Assigned Frontend — CLOSED / VERIFIED GREEN.**
-- **T58 Update Fine Service — CLOSED / VERIFIED GREEN.**
-- **T58 Update Fine Unit Test — CLOSED / VERIFIED GREEN.**
-- **T58 Update Fine combined Integration — CLOSED / VERIFIED GREEN.**
-- **T58 Update Fine Assigned Frontend — CLOSED / VERIFIED GREEN.**
+- **T59 Void Fine Service — CLOSED / VERIFIED GREEN.**
+- **T59 Void Fine Unit Test — CLOSED / VERIFIED GREEN.**
 
 ## Tasks In Progress / Blocked
-- T59 Void Fine Service — IMPLEMENTED / CI ACTIVE at `f91ce659...`.
-- T59 Void Fine Unit Test — IMPLEMENTED / CI ACTIVE at `7c810665...`; workflow `32140581974` IN_PROGRESS.
-- T59 local PostgreSQL Integration — BLOCKED until Service+Unit exact CI is fully green.
+- T59 local PostgreSQL Integration — NEXT ELIGIBLE / IN PROGRESS EXECUTION BOUNDARY.
 - T59 PostgreSQL 18 / combined Integration / Assigned Frontend — BLOCKED behind ordered prerequisites.
-- T60 Search Fine implementation — BLOCKED until T59 closes.
-- T56-T60 registry/freeze — BLOCKED until all five Fine tracks and registry-tip CI close.
+- T60 implementation — BLOCKED until T59 closes through Assigned Frontend.
+- T56-T60 cumulative registry/freeze — BLOCKED until all five Fine tracks and registry-tip CI close.
 - Release-01 — BLOCKED by T01_01/T01_03 identity transition.
 - Release-02 — BLOCKED by T02_02 final approval/repository verification and T02_03.
 - Document T02_02-T06_02 remain unfinished; no lane assigned.
@@ -66,24 +58,20 @@ These are logical worker lanes; no autonomous-agent runtime is exposed.
 | Task / Stream | State | Action Taken in This Cycle |
 |---|---|---|
 | Document Rerun | **STALE / structural upstream dependency (>3 cycles)** | No lane allocated under the authoritative allocation; exact T01/T02 blockers propagated only and no status-check progress credited. |
-| Release-01 materialization/freeze | **BLOCKED >3 cycles** | Agent 4 retained completed private preflight and exact T01 identity gate, then remained `WAITING_ON_DOCUMENT`; no premature materialization. |
-| Release-02 materialization/freeze | **BLOCKED >3 cycles** | Agent 5 retained accepted baseline/private preflight and exact T02_02/T02_03 gates, then remained `WAITING_ON_DOCUMENT`. |
-| Classroom Release | **STALE / WAITING_ON_DOCUMENT (>3 cycles)** | Agents 4/5/7 performed no repeated unchanged polling; no blocked candidate, public write, or Quality Gate write was attempted. |
-
-Presenter is not stale because six weighted checkpoints closed and newly eligible T59 Service+Unit work was immediately executed. Recovery cannot gain percentage until the complete Fine registry freeze becomes eligible.
+| Release-01 materialization/freeze | **BLOCKED >3 cycles** | Retained completed private preflight and exact T01 identity gate; remained `WAITING_ON_DOCUMENT`; no premature materialization. |
+| Release-02 materialization/freeze | **BLOCKED >3 cycles** | Retained accepted baseline/private preflight and exact T02_02/T02_03 gates; remained `WAITING_ON_DOCUMENT`. |
+| Classroom Release | **STALE / WAITING_ON_DOCUMENT (>3 cycles)** | No repeated unchanged polling; no blocked candidate or publication action attempted. |
 
 ## Streams With No Increase More Than 3 Cycles
 - **Document Rerun:** unchanged at 5.3889%; structural upstream blocker with no lane. Action: exact dependency reporting only; no progress credit.
-- **Classroom Release:** unchanged at 33.3333%; Release-01/02 remain document-gated. Action: `WAITING_ON_DOCUMENT`, no repeated polling/public/QG write.
+- **Classroom Release:** unchanged at 33.3333%; Release-01/02 remain document-gated. Action: `WAITING_ON_DOCUMENT`, no repeated polling.
 
 ## Control evidence
-- T57 Testcontainers workflow `32137441585` SUCCESS; T57 frontend workflow `32137927917` SUCCESS.
-- T58 Unit workflow `32138416049` SUCCESS; local Integration workflow `32138864524` SUCCESS; Testcontainers workflow `32139497763` SUCCESS.
-- T58 frontend `871f7028...`; workflow `32140053352`; backend `95720320953` SUCCESS; frontend `95720321102` SUCCESS.
-- T59 Service `f91ce659af7ffe216ca3de41829d9f5f24607e16`; Unit `7c8106658610f6fce2543dad13bb1b24e498cdc1`; workflow `32140581974` IN_PROGRESS.
-- Presenter task control: `0127ccf84caf0407c22e727bbbfaa1c560401e93`.
-- Recovery task control: `bcaf5c720df760975803a566aef1c069b2f2902a`.
-- Execution monitor: `89353721f0eee9d7faea94f374528bb8b2676023`.
+- T59 Service `f91ce659af7ffe216ca3de41829d9f5f24607e16`.
+- T59 Unit `7c8106658610f6fce2543dad13bb1b24e498cdc1`.
+- T59 workflow `32140581974`; backend `95722051001` SUCCESS; frontend `95722051071` SUCCESS.
+- Presenter task control update: `f52166b801abb91b0c35f58a95b07cd48d70fc3f`.
+- Execution monitor update: `1eba28b3112d8c453c9a53ef23c85cf12b9c4494`.
 
 ## Safety
 - No write to the public classroom repository.
