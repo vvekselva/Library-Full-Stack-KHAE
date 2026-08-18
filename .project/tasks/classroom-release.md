@@ -25,9 +25,9 @@
 - State: **STALE / DOCUMENT-GATED — NO NEW PREREQUISITE-SAFE RELEASE STEP**.
 
 ## Actions this cycle
-- Agent 4: confirmed Release-01 remains blocked after its private preflight; no materialization attempted.
-- Agent 5: confirmed Release-02 remains blocked by T02_02/T02_03; accepted baseline remains unchanged.
-- Agent 7: retained the private promotion boundary; no public or Quality Gate write.
+- Agent 4: retained Release-01 private readiness and stopped at the unchanged T01 identity gate.
+- Agent 5: retained Release-02 accepted baseline and stopped at T02_02/T02_03 document gates.
+- Agent 7: revalidated the private promotion boundary; no public or Quality Gate write.
 
 ## Tasks closed
 None this cycle. Status checks alone are not release progress.
@@ -38,4 +38,4 @@ None this cycle. Status checks alone are not release progress.
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
 ## >3-cycle stalled action
-Classroom remains beyond three no-increase cycles. **Action Taken in This Cycle:** the already-complete private preflights were retained and the lanes stopped at the exact document prerequisites; no repeated check was represented as progress and no blocked candidate/public/QG write was performed.
+Classroom remains beyond three no-increase cycles. **Action Taken in This Cycle:** preserved completed private preflights and stopped at the exact unresolved document prerequisites; no blocked materialization, public write, or Quality Gate write was attempted.
