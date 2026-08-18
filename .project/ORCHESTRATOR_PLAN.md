@@ -1,6 +1,6 @@
 # KHAE Full Stack — Orchestrator Plan
 
-Updated 2026-08-18 for the active manual stale-recovery allocation requested by the coordinator.
+Updated 2026-08-18 for the active stale-recovery allocation and single-writer dashboard architecture.
 
 ## Purpose
 One primary coordinator controls eight logical worker lanes. No autonomous-agent runtime is assumed. The connected Private Master repository is the execution source of truth.
@@ -9,46 +9,70 @@ One primary coordinator controls eight logical worker lanes. No autonomous-agent
 | Stream | Weight | Current execution allocation |
 |---|---:|---|
 | Document Rerun | 45% | ACTIVE — FOUR LANES |
-| Presenter Solutions | 35% | ACTIVE — TWO LANES |
-| Classroom Release Preparation | 10% | ACTIVE — ONE LANE |
+| Presenter Solutions | 35% | COMPLETE — TWO LANES RELEASED FROM IMPLEMENTATION |
+| Classroom Release Preparation | 10% | ACTIVE — ONE EVENT-DRIVEN LANE |
 | Recovery / Final Integration | 10% | ACTIVE — ONE LANE |
 
-`Overall = Documents*0.45 + Presenter*0.35 + ClassroomRelease*0.10 + Recovery*0.10`
+`Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomRelease*0.10 + Recovery*0.10`
 
 ## Primary coordinator + eight logical worker lanes
 | Lane | Role | Immediate responsibility | Dependency boundary |
 |---|---|---|---|
 | Coordinator | Primary coordinator | Read live evidence, enforce gates, wake blocked lanes only on prerequisite change, consolidate results | No batch completion before consolidation |
-| Agent 1 | Presenter Solutions | T59/T60 final Presenter critical path | No dependent Presenter gate prematurely |
-| Agent 2 | Presenter Solutions | T59 frontend verification then T60 ordered pipeline | T60 must not overtake T59 closure |
+| Agent 1 | Presenter Solutions | COMPLETE / no remaining Presenter implementation | Do not invent new Presenter work |
+| Agent 2 | Presenter Solutions | COMPLETE / no remaining Presenter CI gate | Do not invent new Presenter work |
 | Agent 3 | Document Rerun | T02 priority: T02_02 completion/QA/approval, then T02_03 when eligible | No _03 before _02 required gates |
 | Agent 4 | Document Rerun | T03 independent generation/render/QA progression | Preserve document QA ordering |
 | Agent 5 | Document Rerun | T04 independent generation/render/QA progression | Preserve document QA ordering |
-| Agent 6 | Document Rerun | T05/T06 progression plus T01 identity blocker when dependency-safe | Quality Gate repository remains read-only |
+| Agent 6 | Document Rerun | T05/T06 progression plus T01 final approval transition when dependency-safe | Quality Gate repository remains read-only |
 | Agent 7 | Classroom Release Preparation | Event-driven Release-01/02 private readiness and promotion preparation | Wake on Document prerequisite change; no public write without authorization |
-| Agent 8 | Recovery / Final Integration | T56-T60 registry evidence, cumulative regression, final-integration preparation and freeze guard | Freeze only after full batch + registry-tip CI |
+| Agent 8 | Recovery / Final Integration | Final project integration readiness after Presenter completion | Final project freeze waits for Document/Classroom prerequisites |
 
 ## Stale-recovery rule
-Document Rerun is an active structural-blocker recovery target. Agents 3-6 attack independent document work in parallel. Classroom is reduced to one event-driven lane because its private preflights are complete and release materialization remains Document-gated. Recovery uses one lane for cumulative/final-integration readiness instead of unchanged polling.
+Document Rerun is the active structural-blocker recovery target. Agents 3-6 attack independent document work in parallel. Classroom uses one event-driven lane because its private preflights are complete and release materialization remains Document-gated. Recovery uses one lane for cumulative/final-integration readiness instead of unchanged polling.
 
-## Current Presenter critical path
-T01-T55 are frozen/verified. T56-T60 Fine is the active final Presenter batch on `Presenter-Solutions-T56-T60`. Presenter remains on the ordered final path T59 -> T60 -> final T56-T60 registry. Presenter sequence remains source/contract -> Service -> Unit -> exact green CI -> local PostgreSQL Integration -> PostgreSQL 18 Testcontainers -> green combined Integration -> Assigned Frontend -> cumulative registry evidence -> batch freeze.
+## Presenter state
+Presenter Solutions is complete at 300/300 checkpoints with all 60 Presenter registries frozen and verified. No new Presenter implementation work should be created unless the user explicitly changes scope.
 
 ## Document critical path
-Highest priority is T02 because it directly gates Release-02. Drive T02_02 through completion, editable Draw.io, DOCX render, Content QA, Technical QA, Diagram QA, visual/accessibility QA and repository verification before approval, then begin T02_03 only when eligible. T03-T06 may progress independently. Resolve T01_01/T01_03 identity transition when dependency-safe because it gates Release-01.
+Highest priority is T02 because it directly gates Release-02. Drive T02_02 through completion, editable Draw.io, DOCX render, Content QA, Technical QA, Diagram QA, visual/accessibility QA and repository verification before approval, then begin T02_03 only when eligible. T03-T06 may progress independently. T01_01/T01_03 are repository-verified and now require their final APPROVED transition before Release-01 becomes eligible.
 
 ## Classroom rules
-Agent 7 is event-driven. Do not repeatedly poll unchanged Document blockers. Release-01 remains blocked by T01 identity completion. Release-02 remains blocked by T02_02 final approval/repository verification and T02_03. Never write to the public classroom repository unless promotion is explicitly authorized. Quality Gate repository is read-only.
+Agent 7 is event-driven. Do not repeatedly poll unchanged Document blockers. Release-01 waits for final T01_01/T01_03 approval. Release-02 remains blocked by T02_02 final approval/repository verification and T02_03. Never write to the public classroom repository unless promotion is explicitly authorized. Quality Gate repository is read-only.
 
 ## Recovery rules
-Agent 8 captures newly verified immutable Presenter evidence, prepares cumulative regression/final integration, and guards freeze eligibility. `freeze_allowed=false` for T56-T60 until the full Fine batch is complete with registry-tip CI.
+Agent 8 captures final immutable evidence and prepares cumulative/final integration. All Presenter registries are frozen; final project integration waits on remaining Document and Classroom prerequisites.
 
-## Watchdog write policy
-- Any future `WATCHDOG_COORDINATOR` cycle must treat `.project/PROJECT_PROGRESS.md` as **READ-ONLY**.
-- Watchdog cycles must **not create, replace, modify, touch, or commit** `.project/PROJECT_PROGRESS.md`, even when substantive work or percentages change.
-- Watchdog evidence may be recorded in `.project/execution-cycle-monitor.yml` and the appropriate stream task files only.
-- `.project/PROJECT_PROGRESS.md` may be changed only by an explicitly requested **manual coordinator/manual consolidation run**, not by an automatic/watchdog run.
-- A watchdog must report that the dashboard is intentionally unchanged rather than synchronizing it.
+## PROJECT_PROGRESS single-writer policy
+`.project/PROJECT_PROGRESS.md` is the single human-facing authoritative dashboard.
+
+The only writer is **`PROJECT_PROGRESS_SYNCHRONIZER`** implemented by:
+- `scripts/project_progress_sync.py`
+- `.github/workflows/project-progress-sync.yml`
+- specification: `.project/PROJECT_PROGRESS_SYNC_SPEC.md`
+
+### Mandatory write rules
+- Worker lanes must never edit `.project/PROJECT_PROGRESS.md` directly.
+- Watchdog/coordinator cycles must never edit `.project/PROJECT_PROGRESS.md` directly.
+- Manual coordinator cycles must never edit `.project/PROJECT_PROGRESS.md` directly.
+- Workers/coordinators write only the authoritative input evidence files.
+- After an authoritative input commit, `PROJECT_PROGRESS_SYNCHRONIZER` regenerates the dashboard and commits it if changed.
+- The synchronizer must use human-readable task names first and technical IDs only as adjacent evidence.
+- The synchronizer must not invent percentages, stale counters, approvals, CI success, or evidence.
+- If inputs conflict, publish the last verifiable values and mark synchronizer status `DEGRADED` with the unresolved item.
+
+### Synchronizer authoritative inputs
+1. `.project/execution-cycle-monitor.yml`
+2. `.project/tasks/document-rerun.md`
+3. `.project/tasks/presenter-solutions.md`
+4. `.project/tasks/classroom-release.md`
+5. `.project/tasks/recovery-final-integration.md`
+6. `.project/ORCHESTRATOR_PLAN.md`
+
+### Synchronizer output
+- `.project/PROJECT_PROGRESS.md`
+
+The dashboard workflow triggers on changes to authoritative inputs and may also be run manually with `workflow_dispatch`. A dashboard-only commit does not retrigger itself.
 
 ## Stale policy
 - A status check is an action, not progress.
@@ -71,9 +95,9 @@ Rules:
 - Reset the counter to 0 when the relevant task/stream closes or records a genuine percentage-bearing progress gate, according to that task/stream's stale definition.
 - `Stale Since Cycle` must preserve the first cycle ID of the current uninterrupted stale run.
 - Do not replace the number with vague labels such as `>3 cycles`; always show the exact persisted count.
-- If a historical exact count cannot be proven from repository evidence, mark it `UNKNOWN_PENDING_RECONCILIATION` rather than inventing a number; reconcile it on the next explicit manual coordinator run.
-- Watchdog cycles must persist these counters in `.project/execution-cycle-monitor.yml` and may mirror them into stream task files, but must still leave `.project/PROJECT_PROGRESS.md` unchanged.
-- Manual coordinator/consolidation runs must copy the exact persisted counts into the **Tasks / Streams Open More Than 3 Cycles and Action Taken** table in `.project/PROJECT_PROGRESS.md`.
+- If a historical exact count cannot be proven from repository evidence, mark it `UNKNOWN_PENDING_RECONCILIATION` rather than inventing a number.
+- Watchdog/manual coordinator cycles persist these counters in `.project/execution-cycle-monitor.yml` and may mirror them into stream task files.
+- `PROJECT_PROGRESS_SYNCHRONIZER` copies the persisted values into the generated dashboard.
 
 ## Safety and consolidation
-Never write to the public classroom repository or read-only Quality Gate repository unless explicitly authorized. A task closes only with its defined evidence. Manual coordinator/consolidation runs update stream task files, `.project/execution-cycle-monitor.yml`, and `.project/PROJECT_PROGRESS.md`. Watchdog cycles follow the separate read-only dashboard policy above.
+Never write to the public classroom repository or read-only Quality Gate repository unless explicitly authorized. A task closes only with its defined evidence. Coordinator/watchdog cycles update stream task files and `.project/execution-cycle-monitor.yml`; the dedicated synchronizer alone updates `.project/PROJECT_PROGRESS.md`.
