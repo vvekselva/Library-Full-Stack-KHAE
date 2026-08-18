@@ -2,7 +2,7 @@
 
 **Stream weight:** 45% — PRIMARY UPSTREAM DEPENDENCY.  
 **Task model:** 60 tracks × 3 documents = 180 document tasks.  
-**Current eight-lane allocation:** NONE under the Presenter/Classroom/Recovery allocation.
+**Current eight-lane allocation:** NONE under the authoritative 4 Presenter / 3 Classroom / 1 Recovery allocation.
 
 ## Current dependency state
 - T01_01: QUALITY_GATE_PASSED; repository materialization/re-fetch/identity transition pending.
@@ -22,7 +22,7 @@
 - State: **STALE / STRUCTURAL UPSTREAM DEPENDENCY — NO CURRENT WORKER LANE**.
 
 ## Tasks closed this cycle
-None. No Document work was allocated under the authoritative 4 Presenter / 3 Classroom / 1 Recovery plan.
+None. Document work was not allocated to Agents 1-8 in this cycle.
 
 ## In progress / blocked
 - T02_02-T06_02 remain unfinished.
@@ -30,4 +30,4 @@ None. No Document work was allocated under the authoritative 4 Presenter / 3 Cla
 - T02_02/T02_03 block Classroom Release-02.
 
 ## >3-cycle stalled action
-Document Rerun remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** exact dependency state was propagated because it materially gates Classroom. No worker lane was assigned, no status inspection was counted as progress, and no write was made to the Quality Gate or public classroom repositories.
+Document Rerun remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** the coordinator propagated the exact dependency state because it materially gates Classroom, but assigned no Document worker lane and credited no progress from status inspection. No write was made to the Quality Gate or public classroom repositories.
