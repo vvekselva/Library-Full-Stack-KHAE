@@ -1,0 +1,59 @@
+name: PROJECT_PROGRESS Synchronizer
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.project/execution-cycle-monitor.yml'
+      - '.project/tasks/document-rerun.md'
+      - '.project/tasks/presenter-solutions.md'
+      - '.project/tasks/classroom-release.md'
+      - '.project/tasks/recovery-final-integration.md'
+      - '.project/ORCHESTRATOR_PLAN.md'
+      - '.project/PROJECT_PROGRESS_SYNC_SPEC.md'
+      - 'scripts/project_progress_sync.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: project-progress-synchronizer-main
+  cancel-in-progress: false
+
+jobs:
+  synchronize-dashboard:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout private master
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install synchronizer dependency
+        run: python -m pip install --disable-pip-version-check pyyaml
+
+      - name: Generate authoritative dashboard
+        run: python scripts/project_progress_sync.py
+
+      - name: Commit dashboard only when changed
+        shell: bash
+        run: |
+          if git diff --quiet -- .project/PROJECT_PROGRESS.md; then
+            echo 'PROJECT_PROGRESS.md already synchronized.'
+            exit 0
+          fi
+
+          git config user.name 'PROJECT_PROGRESS_SYNCHRONIZER'
+          git config user.email 'project-progress-synchronizer@users.noreply.github.com'
+          git add .project/PROJECT_PROGRESS.md
+          git commit -m 'project: synchronize authoritative progress dashboard'
+          git push origin HEAD:main
