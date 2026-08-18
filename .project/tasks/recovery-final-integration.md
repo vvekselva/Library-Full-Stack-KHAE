@@ -10,29 +10,29 @@
 - T56-T60 Fine candidate is the active final registry batch.
 - T56 Service `da2641d8ab...` and Unit `5ed2d15a...` remain exact-green verified through workflow `32116884487`.
 - T56 local PostgreSQL Integration `0a0e6a5b...` is exact-green through workflow `32119570698`.
-- T56 PostgreSQL 18 Testcontainers Integration `7946476c...` is now exact-green through workflow `32124520224`: backend `95672018748` SUCCESS; frontend `95672018766` SUCCESS.
-- T56 combined Integration is therefore immutable VERIFIED evidence.
-- T56 assigned Create Fine frontend `361fbb18272e9d79bec5d9975281c465eeb4c210` is provisional: workflow `32127222354` frontend passed but backend was cancelled; cancelled backend was explicitly rerun and remains in progress at consolidation.
-- T57 source/contract reconciliation `072cf119...` is prerequisite evidence only and carries no registry credit.
-- `freeze_allowed=false` remains mandatory for T56-T60.
+- T56 PostgreSQL 18 Testcontainers Integration `7946476c...` is exact-green through workflow `32124520224`; T56 combined Integration is immutable VERIFIED evidence.
+- T56 assigned Create Fine frontend `361fbb18272e9d79bec5d9975281c465eeb4c210` is now immutable VERIFIED evidence: workflow `32127222354`, retry backend `95680667205` SUCCESS and frontend `95680668410` SUCCESS.
+- T57 source/contract reconciliation `072cf119...` remains prerequisite evidence only.
+- T57 Service `9bd85388...` and focused Unit Test `f0c4afc4...` are provisional evidence while exact workflow `32129629331` remains PENDING.
+- `freeze_allowed=false` remains mandatory for T56-T60 until all five Fine tracks and registry-tip CI close.
 
 ## Current stream accounting
 - Previous: **36.6667%**
 - Updated: **36.6667%**
 - Increase: **+0.0000 percentage points**
-- State: **IN PROGRESS — T56 INTEGRATION VERIFIED; FRONTEND EVIDENCE PROVISIONAL; FINE BATCH NOT FREEZABLE**.
+- State: **IN PROGRESS — T56 FULL TRACK VERIFIED; T57 PROVISIONAL; FINE BATCH NOT FREEZABLE**.
 
 ## Action this cycle
-Agent 8 promoted the complete T56 Integration evidence to immutable VERIFIED state, captured the T56 frontend commit and retry workflow provisionally, captured T57 reconciliation as non-percentage readiness evidence, and retained `freeze_allowed=false`.
+Agent 8 promoted the T56 assigned Frontend evidence from provisional to immutable VERIFIED, captured T57 Service+Unit provisionally with their exact pending workflow, revalidated frozen coverage at 55/60, and retained `freeze_allowed=false`.
 
 ## Tasks closed
-- T56 combined Integration evidence promotion — CLOSED non-percentage Recovery substage.
+- T56 Assigned Frontend evidence promotion — CLOSED non-percentage Recovery substage.
 
 ## In progress / blocked
-- T56 Assigned Frontend evidence — provisional until exact full regression is green.
+- T57 Service+Unit evidence — provisional until workflow `32129629331` is fully green.
 - T56-T60 Fine registry candidate — OPEN / not freezable.
 - T57-T60 component evidence — dependency ordered.
-- Final integration remains blocked by the Fine Presenter batch plus Document/Classroom prerequisites.
+- Final integration remains blocked by the remaining Fine Presenter tracks plus Document/Classroom prerequisites.
 
 ## >3-cycle stalled action
-Recovery percentage remains unchanged because no complete T56-T60 registry freeze is eligible. Action taken this cycle: promoted newly verified combined Integration evidence, captured the frontend retry provisionally, and retained the freeze guard instead of attempting a premature partial freeze.
+Recovery percentage remains unchanged because no complete T56-T60 registry freeze is eligible. Action taken this cycle: promoted newly verified T56 frontend evidence, captured T57 evidence provisionally, and retained the freeze guard instead of attempting a premature partial freeze.
