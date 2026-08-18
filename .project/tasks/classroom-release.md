@@ -12,24 +12,18 @@
 
 ### Release-02
 - Controlled-error acceptance remains anchored at `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb`.
-- Exact accepted workflow `31989985693` remains the accepted green boundary: backend-test `95271686668` SUCCESS and frontend-build `95271686680` SUCCESS.
-- T02_01 remains APPROVED, T02_02 remains GENERATING, and T02_03 remains PENDING.
-- No document-complete private release candidate exists, so no freeze/build/presenter-ready gate may run.
-
-## Current anti-stale lane action
-- Agent 7 alone owns prerequisite-safe private Classroom work.
-- When independent private preparation is exhausted, state becomes `WAITING_ON_DOCUMENT` rather than repeating unchanged polling.
-- Agents 4 and 5 have been reallocated to Document Rerun by the newer user-authorized anti-stale plan.
+- Accepted workflow `31989985693` remains the private green boundary: backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS.
+- T02_01 remains APPROVED; T02_02 is still GENERATING; T02_03 remains PENDING.
+- T02_02 now has substantive editable-source expansion evidence at `aadfb12ed03aeac68135727816874cc48d953bf3`, but it is not yet approved/repository-verified as a final guide.
 
 ## Current stream accounting
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000%**
-- Cycles without increase: **57**
-- State: **STALE / WAITING_ON_DOCUMENT after prerequisite-safe private work is exhausted**.
+- State: **STRUCTURAL BLOCKER DOWNSTREAM / WAITING_ON_DOCUMENT**.
 
-## Tasks Closed This Scheduled Cycle
-None. Dependency revalidation is not release progress.
+## Tasks Closed This Cycle
+None. Upstream document generation progress does not itself close a Classroom release gate.
 
 ## Tasks In Progress / Blocked
 - Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 identity transition.
@@ -37,5 +31,5 @@ None. Dependency revalidation is not release progress.
 - Final Release-02 candidate README/build identity — YET TO DO after a document-complete private candidate exists.
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
-## Open More Than 3 Cycles / Action Taken
-Classroom Release has **57 consecutive cycles without percentage increase**. **Action Taken:** the anti-stale plan reduced Classroom from three lanes to one and moved Agents 4–6 toward the upstream Document bottleneck. Agent 7 preserves private release readiness and then waits on Documents instead of repeating unchanged polling. No premature materialization, public write, or Quality Gate write occurred.
+## Open More Than 3 Cycles / Action Taken in This Cycle
+Classroom remains beyond the stale threshold. **Action Taken in This Cycle:** Agent 7 did not repeat the same release prerequisite poll. The lane is explicitly `WAITING_ON_DOCUMENT` while upstream Agent 4 advanced T02_02 at `aadfb12e...`. No premature materialization, public write, or Quality Gate write occurred.
