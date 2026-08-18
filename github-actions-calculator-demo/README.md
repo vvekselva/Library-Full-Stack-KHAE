@@ -1,79 +1,10 @@
 # Calculator Spring Boot WAR - Beginner GitHub Actions CI/CD Tutorial
 
-This project is intentionally small so a first-time reader can understand what GitHub Actions does before looking at a larger application.
+This project is intentionally small so a reader who has never used GitHub Actions can understand the complete path from Java source code to a deployed WAR.
 
-## 1. What are GitHub Actions?
+## 1. The application
 
-GitHub Actions is GitHub's automation system. A repository contains a YAML file under `.github/workflows/`. GitHub reads that file and runs the instructions when a configured event happens, such as a push, pull request, or manual run.
-
-For this demo, the important words are:
-
-| Term | Beginner meaning |
-|---|---|
-| **Workflow** | The complete automation process written in one YAML file. |
-| **Event** | What starts the workflow, for example `push`. |
-| **Job** | A major stage of work, for example `test-and-build`. |
-| **Runner** | The computer that executes a job. |
-| **Step** | One instruction inside a job. |
-| **Action** | A reusable step created by GitHub or another provider. |
-| **Artifact** | A file produced by a job and saved by GitHub, such as `calculator.war`. |
-| **CI** | Continuous Integration: automatically test and build every change. |
-| **CD** | Continuous Delivery/Deployment: move a tested build to a target environment. |
-
-The complete flow in this demo is:
-
-```text
-Developer changes Java code
-          |
-          v
-      git push
-          |
-          v
-GitHub sees the push event
-          |
-          v
-.github/workflows/calculator-war-ci-cd.yml
-          |
-          v
-GitHub-hosted Ubuntu runner
-          |
-          +--> Checkout source
-          +--> Install Java 21
-          +--> Run unit tests
-          +--> Build calculator.war
-          +--> Upload calculator.war as an artifact
-                         |
-                         v
-              Self-hosted Windows runner
-                         |
-                         v
-                  Tomcat webapps
-                         |
-                         v
-                calculator.war deployed
-```
-
-## 2. Application design
-
-The main Spring component is `Calculator`.
-
-It has four dependencies:
-
-```text
-                     Calculator
-                         |
-        +----------------+----------------+
-        |                |                |
-        v                v                v
-AdditionService   SubtractionService   MultiplicationService
-                         |
-                         +----------------------+
-                                                |
-                                                v
-                                         DivisionService
-```
-
-Conceptually the dependency structure is:
+The main Spring component is `Calculator`. It has four constructor-injected dependencies:
 
 ```text
 Calculator
@@ -83,32 +14,73 @@ Calculator
   -> DivisionService
 ```
 
-`Calculator` delegates each operation to the correct service. This makes it useful for demonstrating dependency injection and unit testing.
+`Calculator` does not perform the arithmetic itself. It delegates each operation to the correct service. That makes it a clear example for dependency injection and isolated unit testing.
 
-## 3. Why the Calculator unit test uses mocks
+The HTTP controller is included only so that, after deployment to Tomcat, the application can be verified from a browser.
 
-A **unit test** should test one unit independently.
+## 2. What are GitHub Actions?
 
-If we test `Calculator.add(10, 5)`, we want to know whether `Calculator` called `AdditionService` correctly. We do not need to test the real addition algorithm at the same time.
-
-Mockito replaces the real dependencies with mock objects:
+GitHub Actions is GitHub's automation system. Instructions are written in YAML files under:
 
 ```text
-                 Unit Test
-                    |
-                    v
-                Calculator
-                    |
-       +------------+-------------+
-       |            |             |
-       v            v             v
- Mock Addition   Mock Subtract   Mock Multiply
-                    |
-                    v
-               Mock Division
+.github/workflows/
 ```
 
-Example from `CalculatorTest`:
+When an event such as a `push` happens, GitHub reads the matching workflow and sends its jobs to runners for execution.
+
+### Beginner vocabulary
+
+| Term | Meaning |
+|---|---|
+| **Workflow** | The complete automation process written in a YAML file. |
+| **Event** | What starts the workflow, for example a push. |
+| **Job** | A major stage such as test/build or deploy. |
+| **Runner** | The computer that executes a job. |
+| **Step** | One instruction inside a job. |
+| **Action** | A reusable step such as checkout or upload-artifact. |
+| **Artifact** | A file created by a job and stored by GitHub, such as `calculator.war`. |
+| **CI** | Continuous Integration: automatically test and build changes. |
+| **CD** | Continuous Delivery/Deployment: deliver the tested build to a target system. |
+
+For this demo:
+
+```text
+Developer
+   |
+   | git push
+   v
+GitHub Repository
+   |
+   v
+GitHub Actions workflow
+   |
+   v
+GitHub-hosted Ubuntu runner
+   |
+   +-- Checkout source
+   +-- Install Java 21
+   +-- Run unit tests
+   +-- Build calculator.war
+   +-- Upload calculator.war
+              |
+              v
+       Tested WAR artifact
+              |
+              v
+ Windows self-hosted runner
+              |
+              v
+        Tomcat webapps
+              |
+              v
+      calculator.war
+```
+
+## 3. Unit testing the Calculator
+
+`CalculatorTest` uses Mockito mocks for all four dependencies.
+
+Example:
 
 ```java
 when(additionService.add(10, 5)).thenReturn(15.0);
@@ -119,16 +91,15 @@ assertEquals(15.0, result);
 verify(additionService).add(10, 5);
 ```
 
-This proves two things:
+This proves that the `Calculator` delegates to the expected dependency without starting Spring and without using the real service implementation.
 
-1. `Calculator` returns the value supplied by `AdditionService`.
-2. `Calculator` actually calls the expected dependency.
+The test also uses `verifyNoInteractions(...)` to prove that unrelated services were not called.
 
-The test also verifies that the other three dependencies were not called.
+`DivisionServiceTest` separately tests the real division logic, including the divide-by-zero rule.
 
-## 4. Building a WAR
+## 4. Build a WAR locally
 
-The Maven project uses:
+The Maven project contains:
 
 ```xml
 <packaging>war</packaging>
@@ -140,15 +111,7 @@ and:
 <finalName>calculator</finalName>
 ```
 
-Therefore Maven creates:
-
-```text
-target/calculator.war
-```
-
-The application class extends `SpringBootServletInitializer`, which allows the Spring Boot application to be initialized by an external servlet container such as Tomcat.
-
-Local commands:
+Run:
 
 ```bash
 cd github-actions-calculator-demo
@@ -156,27 +119,23 @@ mvn clean test
 mvn package
 ```
 
-After a successful package operation:
+A successful build creates:
 
 ```text
-github-actions-calculator-demo/
-└── target/
-    └── calculator.war
+target/calculator.war
 ```
 
-## 5. The GitHub Actions workflow file
+`CalculatorApplication` extends `SpringBootServletInitializer`, allowing the WAR to be initialized by an external Tomcat server.
 
-The workflow is stored here:
+## 5. Workflow file
+
+The workflow is:
 
 ```text
 .github/workflows/calculator-war-ci-cd.yml
 ```
 
-GitHub automatically discovers YAML workflow files in `.github/workflows/`.
-
-### Event - when does the workflow run?
-
-The workflow contains:
+For the current training branch, a push affecting this demo starts the workflow automatically:
 
 ```yaml
 on:
@@ -185,197 +144,158 @@ on:
       - FrontEnd-Backend-DB-Deployment
 ```
 
-Meaning:
+So the beginner mental model is:
 
 ```text
-Push to FrontEnd-Backend-DB-Deployment
-                 |
-                 v
-         Start the workflow
+Save code
+   |
+Commit
+   |
+Push
+   |
+GitHub Actions starts automatically
 ```
 
-A pull request can also start the CI part, and `workflow_dispatch` allows a person to start it manually from the GitHub Actions screen.
+The workflow also contains `workflow_dispatch` for future manual execution. GitHub requires a manually dispatched workflow to exist on the repository's default branch. While this workflow exists only on `FrontEnd-Backend-DB-Deployment`, use push-triggered runs. If the workflow is later merged to the default branch, the **Run workflow** button can be used and a branch can be selected.
 
-## 6. CI Job - unit test and build the WAR
+## 6. CI job: test first, then build
 
-The first job is:
+The first job runs on a GitHub-hosted machine:
 
 ```yaml
-jobs:
-  test-and-build:
-    runs-on: ubuntu-latest
+runs-on: ubuntu-latest
 ```
-
-`ubuntu-latest` means GitHub provides a temporary Ubuntu virtual machine for the job.
 
 ### Step 1 - Checkout
 
 ```yaml
-- name: Checkout source code
-  uses: actions/checkout@v4
+- uses: actions/checkout@v4
 ```
 
-The runner starts empty. Checkout places the repository source code on the runner.
+The runner is a fresh machine. Checkout copies the repository files into that runner.
 
-### Step 2 - Install Java
+### Step 2 - Java setup
 
 ```yaml
-- name: Install Java 21 and enable Maven cache
-  uses: actions/setup-java@v4
+- uses: actions/setup-java@v4
   with:
     distribution: temurin
     java-version: '21'
     cache: maven
 ```
 
-Now the runner has the required JDK and Maven dependency caching is enabled.
+This selects Java 21 and enables Maven dependency caching.
 
 ### Step 3 - Unit tests
 
 ```yaml
-- name: Run unit tests
-  run: mvn --batch-mode --no-transfer-progress clean test
+run: mvn --batch-mode --no-transfer-progress clean test
 ```
 
-Maven compiles the application and runs the JUnit tests.
-
-If a test fails:
+If any unit test fails, the job fails and the later build/deployment path does not proceed successfully.
 
 ```text
-Unit test FAILS
-      |
-      v
-GitHub Action job FAILS
-      |
-      X
-WAR build does not continue successfully to deployment
+Unit Test PASS -> continue
+Unit Test FAIL -> stop
 ```
 
-This is the quality gate.
-
-### Step 4 - Build the WAR
-
-Only after the test step passes:
+### Step 4 - Build WAR
 
 ```yaml
-- name: Build WAR only after tests pass
-  run: mvn --batch-mode --no-transfer-progress package -DskipTests
+run: mvn --batch-mode --no-transfer-progress package -DskipTests
 ```
 
-The result is:
+Tests are skipped only in this second command because they were already executed explicitly in the previous step.
+
+The workflow then verifies that this file exists:
 
 ```text
-target/calculator.war
+github-actions-calculator-demo/target/calculator.war
 ```
 
-Tests are skipped during this second Maven command only because the tests were already executed in the previous explicit test step.
+### Step 5 - Upload artifact
 
-### Step 5 - Save the WAR as an artifact
-
-```yaml
-- name: Upload tested WAR as workflow artifact
-  uses: actions/upload-artifact@v4
-```
-
-The artifact is named:
+The tested WAR is uploaded as a GitHub Actions artifact named:
 
 ```text
 calculator-war
 ```
 
-The important principle is:
+This is important because deployment downloads the exact WAR created after successful tests. The deployment machine does not rebuild the source code.
 
 ```text
-SOURCE CODE
-    |
-    v
-UNIT TEST
-    |
-    v
-BUILD
-    |
-    v
-TESTED WAR ARTIFACT
+Source
+  |
+Unit Tests
+  |
+WAR Build
+  |
+calculator-war artifact
+  |
+Deployment
 ```
 
-Deployment downloads this exact WAR. It does not compile another copy on the deployment machine.
-
-## 7. What is a runner?
-
-A runner is simply a computer that performs the workflow instructions.
-
-This demo deliberately uses two kinds of runner.
+## 7. Why two runners are used
 
 ### GitHub-hosted runner
-
-Used for CI:
 
 ```yaml
 runs-on: ubuntu-latest
 ```
 
-GitHub creates and manages this machine. It is used to test and build the application.
+Used for CI. GitHub provides the temporary machine for test/build work.
 
 ### Self-hosted runner
-
-Used for deployment:
 
 ```yaml
 runs-on: [self-hosted, windows, x64, calculator-deploy]
 ```
 
-This is a Windows computer that you control. It can be the actual computer where Tomcat is installed.
-
-This creates a very easy-to-understand deployment architecture:
+Used for deployment. This is a Windows machine controlled by you, normally the same system where Tomcat is installed.
 
 ```text
 GitHub Cloud
     |
     | sends deployment job
     v
-Your Windows Computer
-(Self-hosted runner)
+Windows deployment machine
     |
     v
 Tomcat
-    |
-    v
-calculator.war
 ```
 
-## 8. Prepare the Windows deployment system
+## 8. Prepare the target Windows system
 
-Install on the destination computer:
+Install:
 
-- Java compatible with your Tomcat/Spring Boot application
+- Java compatible with the Spring Boot application
 - Apache Tomcat 10.1.x
-- GitHub self-hosted runner
+- GitHub Actions self-hosted runner
 
-Assume Tomcat is installed at:
+Example Tomcat installation:
 
 ```text
 C:\apache-tomcat-10.1
 ```
 
-The deployment destination is:
+The workflow deploys to:
 
 ```text
 C:\apache-tomcat-10.1\webapps\calculator.war
 ```
 
-Tomcat deploys the WAR with the application context:
+Tomcat uses the WAR filename as the context path:
 
 ```text
 /calculator
 ```
 
-## 9. Register the Windows computer as a self-hosted GitHub runner
+## 9. Register the target machine as a self-hosted runner
 
-In GitHub:
+In the GitHub repository open:
 
 ```text
-Repository
- -> Settings
+Settings
  -> Actions
  -> Runners
  -> New self-hosted runner
@@ -384,29 +304,28 @@ Repository
 Choose:
 
 ```text
-Operating system: Windows
-Architecture: x64
+Windows
+x64
 ```
 
-GitHub displays commands specific to your repository. Run those commands on the destination Windows machine.
+GitHub displays repository-specific installation and registration commands. Run those commands on the target Windows machine.
 
-When configuring the runner, make sure it has the custom label:
+Give the runner the custom label:
 
 ```text
 calculator-deploy
 ```
 
-The runner must appear in GitHub as **Idle** before it can accept a deployment job.
+For a permanent deployment system, run the GitHub runner as a Windows service so it reconnects automatically after Windows restarts.
 
-For a long-running deployment machine, configure the runner to run as a Windows service so it starts automatically when Windows starts.
+Before deployment, GitHub should show the runner as online/idle.
 
-## 10. Configure repository variables
+## 10. Configure GitHub repository variables
 
-Go to:
+Open:
 
 ```text
-Repository
- -> Settings
+Settings
  -> Secrets and variables
  -> Actions
  -> Variables
@@ -414,120 +333,117 @@ Repository
 
 Create:
 
-### Variable 1
+### `CALCULATOR_TOMCAT_HOME`
 
 ```text
-Name: CALCULATOR_TOMCAT_HOME
-Value: C:\apache-tomcat-10.1
+C:\apache-tomcat-10.1
 ```
 
-### Variable 2
+### `CALCULATOR_HEALTH_URL`
+
+Recommended:
 
 ```text
-Name: CALCULATOR_HEALTH_URL
-Value: http://localhost:8080/calculator/api/calculator/health
+http://localhost:8080/calculator/api/calculator/health
 ```
 
-The health URL is optional but recommended because the workflow can verify that Tomcat actually deployed the application.
+This allows the deployment job to verify that Tomcat actually started the application.
 
-### Variable 3 - enable automatic deployment after a push
+### `CALCULATOR_DEPLOY_ENABLED`
+
+Initially use:
 
 ```text
-Name: CALCULATOR_DEPLOY_ENABLED
-Value: true
+false
 ```
 
-Leave this variable unset or set it to `false` while you are only demonstrating CI.
+This lets students learn CI without requiring a deployment computer.
+
+When the self-hosted runner and Tomcat are ready, change it to:
+
+```text
+true
+```
+
+Now a successful push can continue to the deployment job.
 
 ## 11. Deployment job
 
-The deployment job waits for the CI job:
+The deployment job contains:
 
 ```yaml
 needs: test-and-build
 ```
 
-Therefore:
+Therefore it cannot start until the CI job has succeeded.
+
+The deployment sequence is:
 
 ```text
-Tests/build FAILED -> deployment cannot start
-Tests/build PASSED -> deployment becomes eligible
+Test/build job PASS
+       |
+       v
+Download calculator-war artifact
+       |
+       v
+Remove old calculator deployment
+       |
+       v
+Copy calculator.war to Tomcat webapps
+       |
+       v
+Tomcat deploys WAR
+       |
+       v
+Optional HTTP health check
 ```
 
-The deployment job downloads the tested artifact:
+The old `calculator.war` and exploded `calculator` directory are removed before the new WAR is copied.
 
-```yaml
-uses: actions/download-artifact@v4
-```
+## 12. First classroom demonstration - CI only
 
-Then PowerShell copies:
+Keep:
 
 ```text
-calculator.war
+CALCULATOR_DEPLOY_ENABLED=false
 ```
 
-into:
+Make a small source change and push it.
+
+Open:
 
 ```text
-<TOMCAT_HOME>\webapps\calculator.war
+Repository -> Actions
 ```
 
-Before copying, the old `calculator.war` and old exploded `calculator` application directory are removed.
-
-## 12. First classroom run - CI only
-
-Start with deployment disabled.
-
-Make a small code change and push it:
-
-```bash
-git add .
-git commit -m "calculator demo change"
-git push
-```
-
-Then open:
-
-```text
-GitHub Repository -> Actions
-```
-
-Select:
+Open the run for:
 
 ```text
 Calculator WAR - Test, Build and Deploy
 ```
 
-Show students the first job:
-
-```text
-1 - Unit Test and Build WAR
-```
-
-Open each step and show:
+Show the students these steps:
 
 ```text
 Checkout source code
 Install Java 21
 Run unit tests
 Build WAR
-Verify WAR
-Upload artifact
+Verify WAR was created
+Upload tested WAR as workflow artifact
 ```
 
-At this stage the student sees that GitHub Actions is simply automating commands that could have been typed manually.
+At this stage, explain that GitHub Actions is simply executing the same commands that a developer could run manually.
 
-## 13. Deliberately make a test fail
+## 13. Demonstrate a failed quality gate
 
-For teaching, temporarily change an expected result in `CalculatorTest`.
-
-For example change:
+Temporarily change this correct assertion in `CalculatorTest`:
 
 ```java
 assertEquals(15.0, result);
 ```
 
-to:
+to an incorrect value:
 
 ```java
 assertEquals(99.0, result);
@@ -535,22 +451,20 @@ assertEquals(99.0, result);
 
 Commit and push.
 
-Expected pipeline:
+Expected result:
 
 ```text
 Checkout       PASS
 Java setup     PASS
 Unit tests     FAIL
-WAR build      NOT REACHED
+WAR build      NOT EXECUTED
 Artifact       NOT CREATED
 Deployment     NOT EXECUTED
 ```
 
-This demonstrates the purpose of CI better than only showing a successful workflow.
+Restore the correct assertion and push again.
 
-Restore the correct test and push again.
-
-Expected pipeline:
+Expected result:
 
 ```text
 Checkout       PASS
@@ -560,63 +474,46 @@ WAR build      PASS
 Artifact       PASS
 ```
 
-## 14. Deploy to Tomcat
+This is the clearest way to demonstrate why CI is valuable.
 
-After the self-hosted runner is installed and the repository variables are configured, either:
+## 14. Enable deployment
 
-### Automatic deployment
-
-Set:
+After Tomcat and the self-hosted runner are ready, set:
 
 ```text
 CALCULATOR_DEPLOY_ENABLED=true
 ```
 
-Then every successful push affecting this demo can proceed to deployment.
+Push a change to the demo.
 
-### Manual deployment
-
-Open:
+A successful workflow now becomes:
 
 ```text
-GitHub -> Actions -> Calculator WAR - Test, Build and Deploy -> Run workflow
-```
-
-Enable:
-
-```text
-Deploy the tested WAR to the configured Windows Tomcat system = true
-```
-
-Then run the workflow.
-
-The sequence becomes:
-
-```text
-GitHub-hosted runner
-    |
-    +-- unit tests
-    +-- WAR build
-    +-- upload artifact
-            |
-            v
+GitHub-hosted Ubuntu runner
+       |
+       +-- Unit tests
+       +-- WAR build
+       +-- Upload artifact
+                 |
+                 v
 Windows self-hosted runner
-    |
-    +-- download same artifact
-    +-- remove previous deployment
-    +-- copy calculator.war to Tomcat
-    +-- optional HTTP health check
+       |
+       +-- Download exact tested WAR
+       +-- Copy WAR into Tomcat
+       +-- Verify health URL
 ```
+
+If this workflow is later present on the repository default branch, `workflow_dispatch` can also be used to run it manually with the `deploy` input.
 
 ## 15. Verify the deployed application
 
-Health endpoint:
+Health:
 
 ```text
 http://localhost:8080/calculator/api/calculator/health
 ```
 
-Expected response:
+Expected:
 
 ```json
 {"status":"UP"}
@@ -654,34 +551,26 @@ http://localhost:8080/calculator/api/calculator/divide?first=10&second=5
 
 ## 16. CI/CD in one sentence
 
-For this application:
-
 ```text
 CI = automatically prove the Calculator code works and create calculator.war.
-CD = take that already-tested calculator.war and place it on the Tomcat system.
+CD = move that exact tested calculator.war to the Tomcat system.
 ```
 
-## 17. Important teaching distinction
-
-Do not describe GitHub Actions as a server that permanently runs the application.
-
-GitHub Actions is the **automation mechanism**.
+GitHub Actions is not the permanent application server. It automates the work and then finishes. Tomcat is the system that continues hosting the application for users.
 
 ```text
 GitHub Actions
       |
-      | builds and moves software
+      | test / build / deploy
       v
-Target System / Tomcat
+Tomcat Server
       |
-      | permanently hosts application
+      | continues running
       v
-Users access application
+Application Users
 ```
 
-The target Tomcat server continues running after the GitHub Actions job finishes.
-
-## 18. Demo files
+## 17. Files in the demonstration
 
 ```text
 github-actions-calculator-demo/
@@ -699,24 +588,24 @@ github-actions-calculator-demo/
     │       └── DivisionService.java
     └── test/java/com/khae/calculator/
         ├── CalculatorTest.java
-        └── service/DivisionServiceTest.java
+        └── service/
+            └── DivisionServiceTest.java
 
 .github/workflows/
 └── calculator-war-ci-cd.yml
 ```
 
-## 19. Recommended classroom order
+## 18. Recommended teaching order
 
-1. Explain the Java classes and dependency graph.
+1. Explain `Calculator` and its four dependencies.
 2. Run `CalculatorTest` locally.
-3. Explain why mocks replace the dependencies.
-4. Run `mvn package` locally and show `calculator.war`.
-5. Explain workflow, event, job, runner, step, and artifact.
-6. Push the source and watch CI run.
-7. Intentionally break one unit test and show the failed pipeline.
-8. Fix the test and show the green pipeline.
+3. Explain Mockito mocks and why Spring is not started for this unit test.
+4. Run `mvn package` locally and show `target/calculator.war`.
+5. Explain workflow, event, job, runner, step, action, artifact, CI, and CD.
+6. Push the source and watch the GitHub-hosted runner execute CI.
+7. Deliberately fail one test and show that the WAR/deployment path is blocked.
+8. Correct the test and show the successful artifact.
 9. Configure the Windows self-hosted runner.
-10. Deploy the tested WAR to Tomcat.
-11. Open the calculator URLs in a browser.
-
-This order makes GitHub Actions an extension of commands the reader already understands rather than introducing YAML first.
+10. Set `CALCULATOR_DEPLOY_ENABLED=true`.
+11. Push again and watch the tested WAR move to Tomcat.
+12. Open the calculator URLs in a browser.
