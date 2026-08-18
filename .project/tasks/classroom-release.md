@@ -22,15 +22,15 @@
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000%**
-- State: **STALE / DOCUMENT-GATED — NO NEW PREREQUISITE-SAFE RELEASE STEP**.
+- State: **STALE / WAITING_ON_DOCUMENT — NO NEW PREREQUISITE-SAFE RELEASE STEP**.
 
 ## Actions this cycle
-- Agent 4: revalidated Release-01 private readiness and retained the exact T01 identity/materialization blocker; no materialization attempted.
-- Agent 5: revalidated Release-02 accepted baseline/preflight and retained the T02_02 final-approval/repository-verification plus T02_03 blockers.
-- Agent 7: retained the promotion-boundary guard; no public classroom or Quality Gate write.
+- Agent 4: retained the completed Release-01 preflight and exact T01 identity/materialization blockers; no materialization attempted.
+- Agent 5: retained the accepted Release-02 baseline/preflight and exact T02_02 final-approval/repository-verification plus T02_03 blockers.
+- Agent 7: retained the promotion-boundary guard and stopped rather than repeating unchanged polling; no public classroom or Quality Gate write.
 
 ## Tasks closed
-None this cycle. Dependency revalidation is not release progress.
+None this cycle. Dependency revalidation/status checks are not release progress.
 
 ## In progress / blocked
 - Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 identity transition.
@@ -38,4 +38,4 @@ None this cycle. Dependency revalidation is not release progress.
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
 ## >3-cycle stalled action
-Classroom remains beyond three no-increase cycles. **Action Taken in This Cycle:** revalidated the already-complete private preflights, confirmed no new prerequisite-safe release work became eligible while Presenter CI was active, and stopped at the exact unresolved Document prerequisites with no public or Quality Gate write.
+Classroom remains beyond three no-increase cycles. **Action Taken in This Cycle:** all independent private preflights were already complete, so Agents 4/5/7 stopped at the unchanged Document prerequisites instead of manufacturing progress from polling. State is explicitly `WAITING_ON_DOCUMENT`; no materialization, public write, or Quality Gate write occurred.
