@@ -9,16 +9,15 @@
 - T01_02: APPROVED; repository verification complete.
 - T01_03: QUALITY_GATE_PASSED; repository materialization/re-fetch/identity transition pending.
 - T02_01-T06_01: APPROVED.
-- T02_02-T06_02: rerun candidates are repository-materialized but **not final-approved**; outstanding work is rendered-document visual/accessibility QA, final content/technical spot-check, and approved-artifact identity/hash verification.
+- T02_02-T06_02: rerun candidates are repository-materialized but **not final-approved**; outstanding work remains rendered-document visual/accessibility QA, final content/technical spot-check, and approved-artifact identity/hash verification.
 - T02_03-T06_03: PENDING behind same-track Progressive Guide approval.
 - T07-T60: queued PENDING.
 
-## Repository materialization evidence created this cycle
-- T02 audit: `Document-Rerun-QG@a021babacee922fa400c2ba0de037ca65b498d60`; candidate DOCX blob `aa450d585b405f1e8974534392705aafa4e993a2`.
-- T03 audit: `Document-Rerun-QG@ff248fae5655c58ca2b11e846be25beb8a335006`; candidate DOCX blob `56bb0a7d61936cd8eb3a4e446f315f7b02441b55`.
-- T04 audit: `Document-Rerun-QG@21e73d7ed3b6a541d9fdb44690aa074fae521e9a`; candidate DOCX blob `bc4ea52ff6c2caffb31c283b173609b78bab7a2a`.
-- T05 audit: `Document-Rerun-QG@fb478c71d143a9fcf962f119010fd7e11e6a3b5c`; candidate DOCX blob `abb008de95d62079fe7d12172f84a6d33b85ceef`.
-- T06 audit: `Document-Rerun-QG@86d073d7de6c511defff95192a116f8556c45fa9`; candidate DOCX blob `fcaddddc428cfaf436b9bc13822ce360a0594646`.
+## Repository candidate identity evidence
+- T02_02 was re-fetched from `Document-Rerun-QG` and still resolves to blob `aa450d585b405f1e8974534392705aafa4e993a2`, matching the materialization audit.
+- T03_02 was re-fetched and still resolves to blob `56bb0a7d61936cd8eb3a4e446f315f7b02441b55`, matching the materialization audit.
+- T04_02 was re-fetched and still resolves to blob `bc4ea52ff6c2caffb31c283b173609b78bab7a2a`, matching the materialization audit.
+- T05/T06 materialization evidence remains retained from the prior audit; no final QA approval is claimed in this watchdog cycle.
 
 ## Current stream accounting
 - Previous: **5.3889%**
@@ -28,16 +27,16 @@
 - State: **STRUCTURAL BLOCKER — ACTIVE CORRECTION; MATERIALIZATION CONFIRMED, FINAL QA REMAINS**.
 
 ## Current lane actions
-- Agent 3: T02 priority; repository candidate identity confirmed; next gate final render/visual/accessibility/identity verification, then T02_03.
-- Agent 4: T03 candidate identity confirmed; next final QA/verification gate.
-- Agent 5: T04 candidate identity confirmed; next final QA/verification gate.
-- Agent 6: T05 and T06 candidate identities confirmed; T01 identity blocker retained for safe recovery.
+- Agent 3: T02 exact candidate identity revalidated; final visual/accessibility/content/technical QA remains the approval gate.
+- Agent 4: T03 exact candidate identity revalidated; final QA remains.
+- Agent 5: T04 exact candidate identity revalidated; final QA remains.
+- Agent 6: T05/T06 progression and safe T01 identity recovery retained; no Quality Gate write.
 
 ## Tasks closed this cycle
-- T02-T06 repository materialization audit substages — CLOSED, non-percentage. These audits do not equal document approval.
+- T02-T04 repository re-fetch/identity revalidation substages — CLOSED, non-percentage. These do not equal final document approval.
 
 ## >3-cycle stalled action
-Document Rerun remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** four Document lanes were restored per the authoritative orchestration plan and replaced passive status polling with exact candidate DOCX/blob materialization audits. No final approval or percentage was invented.
+Document Rerun remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** four Document lanes remained allocated; T02-T04 exact candidate identities were re-fetched and matched the recorded audit blobs, replacing passive polling with concrete repository verification. Final rendered QA remains outstanding, so no percentage was invented.
 
 ## Safety
 - No write to the public Classroom repository.
