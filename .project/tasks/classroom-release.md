@@ -1,8 +1,8 @@
 # Classroom Release Preparation Task Queue
 
 **Stream weight:** 10% — SUPPORTING.  
-**Active logical workers:** Agents 4, 5 and 7 under the current watchdog allocation.  
-**Public publication:** Presenter-only/manual. No ChatGPT/automation write is permitted to the public classroom repository.
+**Authoritative active logical worker:** Agent 7 only, event-driven under the current `ORCHESTRATOR_PLAN.md`.  
+**Public publication:** Presenter-only/manual. No automation write is permitted to the public classroom repository.
 
 ## Current verified state
 ### Release-01
@@ -14,29 +14,18 @@
 ### Release-02
 - Accepted application/source baseline: `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb`.
 - Accepted workflow `31989985693`: backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS.
-- T02_01 APPROVED; T02_02 is not final-approved/repository-verified; T02_03 remains pending behind T02_02.
-- Private materialization preflight `1c811dd37b8f60ded8a427301804cb9ba029406e` and promotion guard `4e0ab65d4744da7bc461512bbc1ba66cb1d5af0a` remain complete.
-- No document-complete private candidate is eligible.
+- T02_01 APPROVED. T02_02 candidate materialization is now explicitly audited, but final rendered QA/identity verification is still outstanding; T02_03 remains blocked behind T02_02 approval.
+- Private preflight/promotion guard remains complete.
 
 ## Current stream accounting
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000%**
-- State: **STALE / DOCUMENT-GATED — THREE PREREQUISITE-SAFE PRIVATE LANES**.
+- State: **STALE / WAITING_ON_DOCUMENT — EVENT-DRIVEN**.
 
-## Current lane actions
-- Agent 4: retains Release-01 identity/prerequisite matrix and private materialization readiness; no blocked materialization.
-- Agent 5: retains Release-02 accepted baseline/document prerequisite matrix and private materialization readiness.
-- Agent 7: retains manifest/checklist consistency and private promotion-boundary guard; no publication action.
-- These lanes may perform prerequisite-safe private verification but must not count unchanged polling as progress.
+## Action Taken in This Cycle
+Agent 7 consumed the new T02 materialization-audit evidence but retained the final document gate. No candidate was prematurely materialized or frozen, and no public or Quality Gate write occurred.
 
-## Tasks closed
-None. No eligible release gate has opened.
-
-## In progress / blocked
-- Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 identity transition.
-- Release-02 materialization/freeze — BLOCKED by T02_02 final approval/repository verification and T02_03 completion.
-- Public publication — PRESENTER ONLY / NOT EXECUTED.
-
-## >3-cycle stalled action
-Classroom remains beyond three no-increase cycles. **Action Taken in This Cycle:** the three lanes retained exact private preflights, release identity checks and promotion boundaries while preserving document blockers; no blocked candidate materialization, public write, Quality Gate write, or false progress was recorded.
+## Blocked
+- Release-01: T01_01/T01_03 identity transition.
+- Release-02: T02_02 final QA/identity verification + T02_03 completion.
