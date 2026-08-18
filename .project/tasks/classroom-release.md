@@ -1,7 +1,7 @@
 # Classroom Release Preparation Task Queue
 
 **Stream weight:** 10% — SUPPORTING.  
-**Active logical workers:** Agents 4, 5 and 7.  
+**Active logical worker:** Agent 7 under the current anti-stale allocation.  
 **Public publication:** Presenter-only/manual. No ChatGPT/automation write is permitted to the public classroom repository.
 
 ## Current verified state
@@ -16,19 +16,19 @@
 - T02_01 remains APPROVED, T02_02 remains GENERATING, and T02_03 remains PENDING.
 - No document-complete private release candidate exists, so no freeze/build/presenter-ready gate may run.
 
+## Current anti-stale lane action
+- Agent 7 alone owns prerequisite-safe private Classroom work.
+- When independent private preparation is exhausted, state becomes `WAITING_ON_DOCUMENT` rather than repeating unchanged polling.
+- Agents 4 and 5 have been reallocated to Document Rerun by the newer user-authorized anti-stale plan.
+
 ## Current stream accounting
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000%**
 - Cycles without increase: **57**
-- State: **STALE BY PERCENTAGE — RELEASES REMAIN DOCUMENT-GATED**.
+- State: **STALE / WAITING_ON_DOCUMENT after prerequisite-safe private work is exhausted**.
 
-## Tasks Taken Up This Cycle
-- Agent 4 revalidated Release-01 document identity prerequisites against the current Document queue.
-- Agent 5 revalidated the Release-02 accepted baseline/evidence boundary and confirmed no document-complete candidate is eligible.
-- Agent 7 revalidated the private promotion boundary; no blocked candidate was materialized and no public/Quality-Gate write was made.
-
-## Tasks Closed This Cycle
+## Tasks Closed This Scheduled Cycle
 None. Dependency revalidation is not release progress.
 
 ## Tasks In Progress / Blocked
@@ -37,5 +37,5 @@ None. Dependency revalidation is not release progress.
 - Final Release-02 candidate README/build identity — YET TO DO after a document-complete private candidate exists.
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
-## Open More Than 3 Cycles / Action Taken in This Cycle
-Classroom Release has **57 consecutive cycles without percentage increase**. **Action Taken in This Cycle:** Agents 4/5/7 revalidated Release-01/02 document gates and the accepted private Release-02 evidence boundary, and preserved the private promotion boundary; no premature materialization, public write, or Quality Gate write occurred. State remains **STALE by percentage**.
+## Open More Than 3 Cycles / Action Taken
+Classroom Release has **57 consecutive cycles without percentage increase**. **Action Taken:** the anti-stale plan reduced Classroom from three lanes to one and moved Agents 4–6 toward the upstream Document bottleneck. Agent 7 preserves private release readiness and then waits on Documents instead of repeating unchanged polling. No premature materialization, public write, or Quality Gate write occurred.
