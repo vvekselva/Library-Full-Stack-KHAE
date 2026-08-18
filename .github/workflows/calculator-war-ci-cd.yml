@@ -1,0 +1,140 @@
+name: Calculator WAR - Test, Build and Deploy
+
+on:
+  push:
+    branches:
+      - FrontEnd-Backend-DB-Deployment
+    paths:
+      - 'github-actions-calculator-demo/**'
+      - '.github/workflows/calculator-war-ci-cd.yml'
+  pull_request:
+    branches:
+      - FrontEnd-Backend-DB-Deployment
+    paths:
+      - 'github-actions-calculator-demo/**'
+      - '.github/workflows/calculator-war-ci-cd.yml'
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Deploy the tested WAR to the configured Windows Tomcat system'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: calculator-war-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PROJECT_DIR: github-actions-calculator-demo
+
+jobs:
+  test-and-build:
+    name: 1 - Unit Test and Build WAR
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Install Java 21 and enable Maven cache
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: ${{ env.PROJECT_DIR }}/pom.xml
+
+      - name: Run unit tests
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: mvn --batch-mode --no-transfer-progress clean test
+
+      - name: Build WAR only after tests pass
+        working-directory: ${{ env.PROJECT_DIR }}
+        run: mvn --batch-mode --no-transfer-progress package -DskipTests
+
+      - name: Verify WAR was created
+        shell: bash
+        run: |
+          test -f "${PROJECT_DIR}/target/calculator.war"
+          ls -lh "${PROJECT_DIR}/target/calculator.war"
+
+      - name: Upload tested WAR as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: calculator-war
+          path: ${{ env.PROJECT_DIR }}/target/calculator.war
+          if-no-files-found: error
+
+  deploy-to-windows-tomcat:
+    name: 2 - Deploy WAR to Windows Tomcat
+    needs: test-and-build
+    if: >-
+      (github.event_name == 'push' && vars.CALCULATOR_DEPLOY_ENABLED == 'true') ||
+      (github.event_name == 'workflow_dispatch' && inputs.deploy == true)
+    runs-on: [self-hosted, windows, x64, calculator-deploy]
+
+    steps:
+      - name: Download the exact WAR that passed CI
+        uses: actions/download-artifact@v4
+        with:
+          name: calculator-war
+          path: deploy-artifact
+
+      - name: Copy WAR into Tomcat webapps
+        shell: powershell
+        run: |
+          $tomcatHome = '${{ vars.CALCULATOR_TOMCAT_HOME }}'
+
+          if ([string]::IsNullOrWhiteSpace($tomcatHome)) {
+            throw 'Repository variable CALCULATOR_TOMCAT_HOME is not configured.'
+          }
+
+          $webapps = Join-Path $tomcatHome 'webapps'
+          $targetWar = Join-Path $webapps 'calculator.war'
+          $explodedFolder = Join-Path $webapps 'calculator'
+          $sourceWar = Join-Path $env:GITHUB_WORKSPACE 'deploy-artifact\calculator.war'
+
+          if (-not (Test-Path $webapps)) {
+            throw "Tomcat webapps folder not found: $webapps"
+          }
+
+          if (Test-Path $explodedFolder) {
+            Remove-Item $explodedFolder -Recurse -Force
+          }
+
+          if (Test-Path $targetWar) {
+            Remove-Item $targetWar -Force
+          }
+
+          Copy-Item $sourceWar $targetWar -Force
+          Write-Host "Deployed WAR to $targetWar"
+
+      - name: Optional deployed application health check
+        shell: powershell
+        run: |
+          $healthUrl = '${{ vars.CALCULATOR_HEALTH_URL }}'
+
+          if ([string]::IsNullOrWhiteSpace($healthUrl)) {
+            Write-Host 'CALCULATOR_HEALTH_URL is not configured; skipping HTTP health verification.'
+            exit 0
+          }
+
+          for ($attempt = 1; $attempt -le 12; $attempt++) {
+            try {
+              $response = Invoke-WebRequest -Uri $healthUrl -UseBasicParsing -TimeoutSec 10
+              if ($response.StatusCode -eq 200) {
+                Write-Host "Deployment verified: $healthUrl"
+                exit 0
+              }
+            }
+            catch {
+              Write-Host "Health check attempt $attempt failed; waiting for Tomcat deployment..."
+            }
+            Start-Sleep -Seconds 5
+          }
+
+          throw "Application did not become healthy at $healthUrl"
