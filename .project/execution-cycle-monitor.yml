@@ -1,6 +1,6 @@
-version: 31
+version: 32
 repository: vvekselva/Library-Full-Stack-KHAE-Master
-updated_at: 2026-08-18T20:31:38+05:30
+updated_at: 2026-08-18T20:34:49+05:30
 orchestration:
   coordinator: primary
   logical_worker_lanes: 8
@@ -29,6 +29,20 @@ watchdog_policy:
     - ".project/tasks/recovery-final-integration.md"
   forbidden_action: "Any WATCHDOG_COORDINATOR cycle modifying or committing .project/PROJECT_PROGRESS.md"
   manual_exception: "Only an explicitly requested manual coordinator/manual consolidation run may update .project/PROJECT_PROGRESS.md"
+stale_cycle_accounting_policy:
+  enabled: true
+  exact_count_required: true
+  dashboard_table_required_columns:
+    - "Task / Stream"
+    - "State"
+    - "Total Stale Cycles"
+    - "Stale Since Cycle"
+    - "Action Taken in This Cycle"
+  increment_rule: "Increment by exactly 1 for each completed coordinator/watchdog cycle in the same uninterrupted stale run."
+  reset_rule: "Reset to 0 only when the relevant task/stream closes or records a genuine progress gate according to its stale definition."
+  unknown_history_rule: "Use UNKNOWN_PENDING_RECONCILIATION when an exact historical count cannot be proven from repository evidence; never invent a count."
+  watchdog_persistence: ".project/execution-cycle-monitor.yml and stream task files"
+  manual_dashboard_copy: "Manual coordinator/consolidation must copy persisted exact counts into .project/PROJECT_PROGRESS.md"
 current_cycle:
   cycle_id: C-20260818-WATCHDOG-0104
   trigger: WATCHDOG_COORDINATOR
@@ -40,6 +54,12 @@ current_cycle:
       closed_this_cycle: true
       evidence: "ORCHESTRATOR_PLAN commit 3e4eda1082afdafbc318b0d09d2fb6564bcf30c5"
       action_taken_in_this_cycle: "Future watchdog cycles must leave .project/PROJECT_PROGRESS.md unchanged; only manual coordinator runs may update it."
+    - task: "Exact stale-cycle reporting policy"
+      stream: Orchestration
+      status: CLOSED_POLICY_UPDATED
+      closed_this_cycle: true
+      evidence: "ORCHESTRATOR_PLAN commit ae0c6fa9ef303beafbb7214422bde943a5821c1d"
+      action_taken_in_this_cycle: "Added mandatory exact Total Stale Cycles and Stale Since Cycle persistence/reporting."
     - task: "T59 PostgreSQL 18 Testcontainers + combined Integration"
       stream: Presenter Solutions
       status: CLOSED_VERIFIED
@@ -72,26 +92,36 @@ stream_stall_monitor:
     current_percent: 5.3889
     increase: 0.0000
     over_three_cycles: true
+    total_stale_cycles: UNKNOWN_PENDING_RECONCILIATION
+    stale_since_cycle: UNKNOWN_PENDING_RECONCILIATION
   - stream: Presenter Solutions
     previous_percent: 96.3333
     current_percent: 96.6667
     increase: 0.3334
     over_three_cycles: false
+    total_stale_cycles: 0
+    stale_since_cycle: null
   - stream: Classroom Release Preparation
     previous_percent: 33.3333
     current_percent: 33.3333
     increase: 0.0000
     over_three_cycles: true
+    total_stale_cycles: UNKNOWN_PENDING_RECONCILIATION
+    stale_since_cycle: UNKNOWN_PENDING_RECONCILIATION
   - stream: Recovery / Final Integration
     previous_percent: 36.6667
     current_percent: 36.6667
     increase: 0.0000
     over_three_cycles: true
+    total_stale_cycles: UNKNOWN_PENDING_RECONCILIATION
+    stale_since_cycle: UNKNOWN_PENDING_RECONCILIATION
   - stream: Overall
     previous_percent: 43.1417
     current_percent: 43.2584
     increase: 0.1167
     over_three_cycles: false
+    total_stale_cycles: 0
+    stale_since_cycle: null
 safety:
   public_classroom_write: FORBIDDEN
   quality_gate_write: FORBIDDEN
