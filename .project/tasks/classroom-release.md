@@ -1,7 +1,7 @@
 # Classroom Release Preparation Task Queue
 
 **Stream weight:** 10% — SUPPORTING.  
-**Active logical workers:** Agents 4, 5 and 7.  
+**Active logical worker:** Agent 7 only under the current stale-recovery allocation.  
 **Public publication:** Presenter-only/manual. No ChatGPT/automation write is permitted to the public classroom repository.
 
 ## Current verified state
@@ -22,16 +22,15 @@
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000%**
-- State: **STALE / WAITING_ON_DOCUMENT — NO NEW PREREQUISITE-SAFE RELEASE STEP**.
+- State: **STALE / WAITING_ON_DOCUMENT — EVENT-DRIVEN SINGLE LANE**.
 
-## Actions this cycle
-- Agent 4 retained Release-01 at `WAITING_ON_DOCUMENT`; no materialization was attempted while T01 identities remain unresolved.
-- Agent 5 retained Release-02 at `WAITING_ON_DOCUMENT`; accepted baseline/private preflight remain valid and T02_02/T02_03 remain the blockers.
-- Agent 7 retained the private promotion-boundary guard; no public classroom or Quality Gate write was performed.
-- No repeated unchanged status check was counted as release progress.
+## Current lane action
+- Agent 7 retains Release-01/02 private readiness and promotion boundary.
+- Agent 7 wakes on a relevant Document prerequisite change instead of repeatedly polling unchanged blockers.
+- No blocked materialization/publication action is performed.
 
 ## Tasks closed
-None. No eligible release gate opened this cycle.
+None. No eligible release gate has opened.
 
 ## In progress / blocked
 - Release-01 materialization/freeze — BLOCKED by T01_01/T01_03 identity transition.
@@ -39,4 +38,4 @@ None. No eligible release gate opened this cycle.
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
 ## >3-cycle stalled action
-Classroom remains beyond three no-increase cycles. **Action Taken in This Cycle:** Agents 4/5/7 remained explicitly `WAITING_ON_DOCUMENT` after completed private preflights; no repeated polling, blocked candidate materialization, public write, or Quality Gate write occurred.
+Classroom remains beyond three no-increase cycles. **Action Taken:** reduced execution capacity to one event-driven lane and reallocated the freed capacity upstream to Document Rerun; no repeated unchanged polling, blocked materialization, public write, or Quality Gate write.
