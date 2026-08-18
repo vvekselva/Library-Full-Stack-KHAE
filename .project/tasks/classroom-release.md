@@ -14,7 +14,8 @@
 - Controlled-error acceptance remains anchored at `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb`.
 - Accepted workflow `31989985693` remains the private green boundary: backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS.
 - T02_01 remains APPROVED; T02_02 is still GENERATING; T02_03 remains PENDING.
-- T02_02 now has substantive editable-source expansion evidence at `aadfb12ed03aeac68135727816874cc48d953bf3`, but it is not yet approved/repository-verified as a final guide.
+- T02_02 now has the expanded source plus all four editable Draw.io assets, including commits `54514c0a...`, `1b0551b1...`, `63ff5392...`, and `79450c2f...`.
+- Those generation substages do not yet satisfy T02_02 approval/repository verification.
 
 ## Current stream accounting
 - Previous: **33.3333%**
@@ -32,4 +33,4 @@ None. Upstream document generation progress does not itself close a Classroom re
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-Classroom remains beyond the stale threshold. **Action Taken in This Cycle:** Agent 7 did not repeat the same release prerequisite poll. The lane is explicitly `WAITING_ON_DOCUMENT` while upstream Agent 4 advanced T02_02 at `aadfb12e...`. No premature materialization, public write, or Quality Gate write occurred.
+Classroom remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** Agent 7 stayed `WAITING_ON_DOCUMENT` instead of repeating an unchanged release poll while Agents 4–6 advanced T02_02/T03_02/T05_02 upstream. No premature materialization, public write, or Quality Gate write occurred.
