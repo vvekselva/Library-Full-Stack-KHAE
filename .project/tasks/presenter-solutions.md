@@ -1,7 +1,7 @@
 # Presenter Solutions Task Queue
 
 **Stream weight:** 35%.  
-**Active logical workers:** Agents 1, 2, 3 and 6.  
+**Active logical workers:** Agents 1, 2 and 3 under the current anti-stale allocation.  
 **Per-track checkpoints:** Service → Unit Test → green branch-tip CI → Integration (local PostgreSQL + PostgreSQL 18 Testcontainers) → green Integration CI → Assigned Frontend → cumulative CI/registry gate.
 
 ## Current verified state
@@ -11,7 +11,7 @@
 - T53 Service, Unit, combined Integration and Assigned Frontend are CLOSED / VERIFIED GREEN.
 - **T54 Service — IMPLEMENTED / CI UNVERIFIED** at `3f8ebd45cf15c48418a9552fa09811612ddc7100`.
 - **T54 focused Unit Test — IMPLEMENTED / CI UNVERIFIED** at `1e37f0f25ba9765eb23caca8af23eb1ad5c942ca`.
-- Exact T54 CI marker / branch tip remains `06721881820a09f40668ba985176ee02d8ec39f4`; branch inspection on this cycle confirmed the same head.
+- Exact T54 CI marker / branch tip remains `06721881820a09f40668ba985176ee02d8ec39f4`; branch inspection confirmed the same head.
 - `.github/workflows/presenter-solution-build.yml` on the Presenter branch is configured for `push` on `Presenter-Solutions-*` plus `workflow_dispatch`, with PostgreSQL-backed backend-test and Vite frontend-build jobs.
 - Connected exact-commit workflow discovery exposes only pull-request-triggered runs and returns no run for this push commit; combined commit status also exposes no statuses. Exact green Actions completion evidence therefore remains unavailable through the connected surfaces.
 - T54 Service/Unit remain uncredited; Integration and Assigned Frontend remain BLOCKED.
@@ -27,11 +27,11 @@ Presenter uses 60 tracks × 5 percentage-bearing checkpoints = 300 checkpoints.
 - Cycles without increase: **3**.
 - State: **IN PROGRESS / T54 CI EVIDENCE STALLED — no dependent implementation authorized.**
 
-## Tasks Taken Up This Cycle
-- Agent 1 revalidated `Presenter-Solutions-T51-T55` at exact branch head `06721881820a09f40668ba985176ee02d8ec39f4`.
-- Agent 2 inspected the Presenter Actions workflow definition and queried exact commit status/workflow discovery; no exact green push-run evidence is exposed for the branch tip.
-- Agent 3 retained the already-completed T55 source/contract reconciliation as readiness only; T55 implementation was not started.
-- Agent 6 retained the T54/T55 frontend dependency guard; no Integration or frontend work started prematurely.
+## Current anti-stale lane actions
+- Agent 1: obtain exact T54 Service+Unit CI evidence; no Integration before green.
+- Agent 2: prepare/execute T54 Integration + PostgreSQL 18 Testcontainers only when Agent 1 gate opens, then continue ordered Presenter work.
+- Agent 3: retain T55 source/test preparation and execute T55 only after ordered T54 completion.
+- Agent 6 has been reallocated to Document Rerun by the newer user-authorized anti-stale plan and is no longer a Presenter lane.
 
 ## Tasks Closed This Cycle
 None. CI/status inspection does not close a percentage-bearing checkpoint.
@@ -45,4 +45,4 @@ None. CI/status inspection does not close a percentage-bearing checkpoint.
 - T51-T55 cumulative final CI/registry checkpoint — BLOCKED until all five Reservation tracks close.
 
 ## Open More Than 3 Cycles / Action Taken in This Cycle
-The **T54 exact Service+Unit CI evidence task has now remained open for 4 completed coordinator cycles** and is therefore stalled under the project rule. **Action Taken in This Cycle:** Agents 1/2 reconfirmed the exact branch tip, inspected the workflow trigger/job definition, queried exact commit workflow discovery and combined status, and preserved the dependency stop because no exact green run is observable. Presenter as a stream is at **3 consecutive cycles without percentage increase**, so it has not yet crossed the stream-level >3-cycle stale threshold.
+The **T54 exact Service+Unit CI evidence task has remained open for 4 completed coordinator cycles** and is stalled under the project rule. **Action Taken in This Cycle:** exact branch tip, workflow trigger/job definition, commit workflow discovery and combined status were revalidated; the dependency stop was preserved because no exact green run is observable. Presenter as a stream is at **3 consecutive cycles without percentage increase**, below the stream-level >3-cycle stale threshold.
