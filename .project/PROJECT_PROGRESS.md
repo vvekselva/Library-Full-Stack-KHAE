@@ -10,43 +10,42 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-18 14:34 IST
+## Current Status - 2026-08-18 15:28 IST
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
 | Document Rerun | 5.3889% | **5.3889%** | +0.0000% | **STALE / STRUCTURAL UPSTREAM DEPENDENCY.** No current worker lane; T01 identity and T02 document gates still block Classroom releases. |
-| Presenter Solutions | 91.6667% | **92.3333%** | **+0.6666%** | **IN PROGRESS.** T56 Service and Unit are exact-green verified; local PostgreSQL Integration is now running. |
+| Presenter Solutions | 92.3333% | **92.3333%** | +0.0000% | **IN PROGRESS.** T56 local PostgreSQL Integration is exact-green; PostgreSQL 18 Testcontainers is implemented and awaiting observable exact CI. |
 | Classroom Release Preparation | 33.3333% | **33.3333%** | +0.0000% | **STALE / WAITING_ON_DOCUMENT.** Private preflights are complete; no new prerequisite-safe release step is eligible. |
-| Recovery / Final Integration | 36.6667% | **36.6667%** | +0.0000% | **IN PROGRESS.** T56 Service/Unit evidence promoted; local Integration provisional; Fine batch not freezable. |
-| **Overall** | 41.5083% | **41.7417%** | **+0.2334%** | Two weighted Presenter checkpoints closed; next ordered Integration gate is active. |
+| Recovery / Final Integration | 36.6667% | **36.6667%** | +0.0000% | **IN PROGRESS.** T56 local Integration evidence promoted; PostgreSQL 18 evidence provisional; Fine batch not freezable. |
+| **Overall** | 41.7417% | **41.7417%** | **+0.0000%** | Substantive dependency-eligible work advanced; no atomic weighted checkpoint closed. |
 
 ## Active logical lanes
-- Agent 1 — Presenter: T56 Service exact-green closure.
-- Agent 2 — Presenter: T56 Unit exact-green closure and local PostgreSQL Integration execution.
-- Agent 3 — Presenter: T57 Read Fine source reconciliation only; implementation remains blocked until T56 closes through frontend.
+- Agent 1 — Presenter: retain T56 Service exact-green evidence and dependency guard.
+- Agent 2 — Presenter: local PostgreSQL Integration closure and PostgreSQL 18 Testcontainers execution.
+- Agent 3 — Presenter: T57-T60 Fine source/test reconciliation only; implementation remains ordered.
 - Agent 4 — Classroom: Release-01 WAITING_ON_DOCUMENT.
 - Agent 5 — Classroom: Release-02 WAITING_ON_DOCUMENT.
-- Agent 6 — Presenter: T56 Assigned Frontend/cumulative regression readiness behind Integration.
+- Agent 6 — Presenter: T56 Assigned Frontend/cumulative regression readiness behind combined Integration.
 - Agent 7 — Classroom: private promotion-boundary guard; no public/QG write.
 - Agent 8 — Recovery: promote verified T56 evidence provisionally; `freeze_allowed=false`.
 - Document Rerun receives no current lane.
 
 ## Tasks Taken Up This Cycle
-- Re-read orchestration plan, dashboard, execution monitor and all stream task files.
-- Verified workflow `32116884487` fully SUCCESS: backend `95648294457` SUCCESS and frontend `95648294580` SUCCESS.
-- Closed T56 Create Fine Service and focused Unit Test only after exact green CI.
-- Added T56 local PostgreSQL Integration at `0a0e6a5b9e9b1eba3a8e4e09390066bb099e3c6e`.
-- Started exact Integration workflow `32119570698`; frontend `95656693187` SUCCESS, backend `95656693165` IN_PROGRESS in PostgreSQL-backed tests at consolidation.
-- Reconciled T57 Read Fine source only; implementation remains ordered.
-- Retained Classroom private preflights and Recovery freeze guard.
+- Re-read the orchestration plan, dashboard, execution monitor and all four stream task queues before selecting work.
+- Verified workflow `32119570698` fully SUCCESS: backend `95656693165` SUCCESS and frontend `95656693187` SUCCESS.
+- Closed the T56 local PostgreSQL Integration subgate only after exact green CI.
+- Added T56 PostgreSQL 18 Testcontainers Integration at `7946476c6b0852e2ad2e193f52213a3130ec90b4` using `postgres:18`, Spring Boot `@ServiceConnection`, persistence verification and duplicate-number rejection.
+- Re-fetched `CreateFineTestcontainersIntegrationTest.java` from branch `Presenter-Solutions-T56-T60` to verify repository materialization.
+- Checked the connected exact commit-status surface for `7946476c...`; no completed CI result was observable at consolidation, so no combined Integration credit was applied.
+- Retained Classroom private preflights and Recovery freeze guard; no Document lane allocated.
 
 ## Tasks Closed This Cycle
-- **T56 Create Fine Service — CLOSED / VERIFIED GREEN.**
-- **T56 Create Fine Unit Test — CLOSED / VERIFIED GREEN.**
+- **T56 local PostgreSQL Integration subgate — CLOSED / VERIFIED GREEN.** This is a non-percentage subgate; combined Integration remains atomic until PostgreSQL 18 exact CI is green.
 
 ## Tasks In Progress / Blocked
-- T56 local PostgreSQL Integration — IN PROGRESS; exact workflow `32119570698`.
-- T56 PostgreSQL 18 Testcontainers — BLOCKED until local Integration CI fully green.
+- T56 PostgreSQL 18 Testcontainers — IMPLEMENTED / CI PENDING at `7946476c6b0852e2ad2e193f52213a3130ec90b4`.
+- T56 combined Integration — BLOCKED until PostgreSQL 18 exact CI is green.
 - T56 Assigned Frontend — BLOCKED behind combined Integration.
 - T57-T60 implementation — source inspection allowed; implementation ordered behind prior track completion.
 - T56-T60 registry/freeze — BLOCKED until all five Fine tracks and registry-tip CI close.
@@ -62,7 +61,7 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 | Release-02 materialization/freeze | **BLOCKED >3 cycles** | Retained accepted baseline/private preflight and exact T02_02/T02_03 gates. |
 | Classroom Release | **STALE / WAITING_ON_DOCUMENT (>3 cycles)** | Independent private work is complete; no repeated unchanged polling and no public/QG write. |
 
-Presenter and Recovery are not stale because verified Presenter checkpoints and immutable Recovery evidence advanced this cycle.
+Presenter and Recovery are not marked stale because dependency-eligible repository/evidence work advanced this cycle, even though no percentage-bearing atomic checkpoint closed.
 
 ## Streams With No Increase More Than 3 Cycles
 - **Document Rerun:** unchanged at 5.3889%; structural upstream blocker with no lane. Action: report exact dependency only; no progress credit.
@@ -73,12 +72,13 @@ Presenter and Recovery are not stale because verified Presenter checkpoints and 
 - T56 Service: `da2641d8ab02091ea8ea5c9fe3a20664adec648c`.
 - T56 Unit: `5ed2d15a35e693e906e6319480fa11a200a16ecc`.
 - T56 Service+Unit workflow: `32116884487`; backend `95648294457` SUCCESS; frontend `95648294580` SUCCESS.
-- T56 local PostgreSQL Integration: `0a0e6a5b9e9b1eba3a8e4e09390066bb099e3c6e`; workflow `32119570698`; frontend `95656693187` SUCCESS; backend `95656693165` IN_PROGRESS.
-- Presenter task control: `5228a0265e193888c0a2a0cfc5dd88fb846a3bce`.
-- Classroom task control: `c579aef1145a0c293cd611f12c812de54e2b9546`.
-- Recovery task control: `4cc42ec5b71b645a928c04dceb16ab21a867d04f`.
-- Document task control: `efe660a569dd6e6259324031e9a2bf865ca5f87b`.
-- Execution monitor: `40916bdf62aac9bfd5f7c37cae7538c09e2461cb`.
+- T56 local PostgreSQL Integration: `0a0e6a5b9e9b1eba3a8e4e09390066bb099e3c6e`; workflow `32119570698`; backend `95656693165` SUCCESS; frontend `95656693187` SUCCESS.
+- T56 PostgreSQL 18 Testcontainers Integration: `7946476c6b0852e2ad2e193f52213a3130ec90b4`; exact CI pending/undiscovered at consolidation.
+- Presenter task control: `79845715a2fe40cc888795e3ed58ae6146ad80d3`.
+- Classroom task control: `989c93be4152d5d7378baf5b282b5b2ddccb8240`.
+- Recovery task control: `a1ce9672fa2a0a8f2c86bd3503f635c6c70d07b9`.
+- Document task control: `da0ccbd2948388c5bffc580af4f25f71237e30f3`.
+- Execution monitor: `7607749c2589134566dc69556e8bd46f69f9b3ba`.
 
 ## Safety
 - No write to the public classroom repository.
