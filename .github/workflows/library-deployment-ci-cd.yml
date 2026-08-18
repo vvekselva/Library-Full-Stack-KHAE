@@ -1,0 +1,248 @@
+name: Library Deployment CI/CD
+
+on:
+  push:
+    branches:
+      - FrontEnd-Backend-DB-Deployment
+    paths:
+      - 'library-deployment-activity/**'
+      - '.github/workflows/library-deployment-ci-cd.yml'
+  pull_request:
+    branches:
+      - FrontEnd-Backend-DB-Deployment
+    paths:
+      - 'library-deployment-activity/**'
+      - '.github/workflows/library-deployment-ci-cd.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: library-deployment-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  BACKEND_DIR: library-deployment-activity/backend
+  FRONTEND_DIR: library-deployment-activity/frontend
+  BACKEND_IMAGE: ghcr.io/${{ github.repository_owner }}/library-deployment-backend
+  FRONTEND_IMAGE: ghcr.io/${{ github.repository_owner }}/library-deployment-frontend
+
+jobs:
+  backend-ci:
+    name: Backend CI + PostgreSQL + Flyway
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: library_ci
+          POSTGRES_USER: library_ci
+          POSTGRES_PASSWORD: library_ci_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U library_ci -d library_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+          cache-dependency-path: ${{ env.BACKEND_DIR }}/pom.xml
+
+      - name: Build and test backend
+        working-directory: ${{ env.BACKEND_DIR }}
+        env:
+          DB_URL: jdbc:postgresql://localhost:5432/library_ci
+          DB_USERNAME: library_ci
+          DB_PASSWORD: library_ci_password
+          APP_CORS_ALLOWED_ORIGINS: http://localhost:5173
+        run: mvn --batch-mode --no-transfer-progress clean verify
+
+      - name: Start backend for Flyway and API smoke test
+        working-directory: ${{ env.BACKEND_DIR }}
+        env:
+          DB_URL: jdbc:postgresql://localhost:5432/library_ci
+          DB_USERNAME: library_ci
+          DB_PASSWORD: library_ci_password
+          APP_CORS_ALLOWED_ORIGINS: http://localhost:5173
+          PORT: 8080
+        run: |
+          java -jar target/library-deployment-backend-1.0.0.jar > backend.log 2>&1 &
+          echo $! > backend.pid
+
+          for attempt in {1..30}; do
+            if curl --fail --silent http://localhost:8080/rest/health > health.json; then
+              break
+            fi
+            sleep 2
+          done
+
+          if ! curl --fail --silent http://localhost:8080/rest/health; then
+            echo 'Backend did not become healthy.'
+            cat backend.log
+            exit 1
+          fi
+
+          echo
+          echo 'Verifying Flyway seed data through the REST API...'
+          curl --fail --silent http://localhost:8080/rest/books | tee books.json
+          grep -q 'Clean Code' books.json
+          grep -q 'Effective Java' books.json
+
+      - name: Upload backend log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-ci-log
+          path: ${{ env.BACKEND_DIR }}/backend.log
+          if-no-files-found: ignore
+
+  frontend-ci:
+    name: Frontend CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install frontend dependencies
+        working-directory: ${{ env.FRONTEND_DIR }}
+        run: npm install
+
+      - name: Build Vite frontend
+        working-directory: ${{ env.FRONTEND_DIR }}
+        env:
+          VITE_API_BASE_URL: http://localhost:8080/rest
+        run: npm run build
+
+      - name: Upload frontend build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: library-frontend-dist
+          path: ${{ env.FRONTEND_DIR }}/dist
+
+  docker-build-check:
+    name: Docker Build Validation
+    runs-on: ubuntu-latest
+    needs:
+      - backend-ci
+      - frontend-ci
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Validate backend Docker image build
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ env.BACKEND_DIR }}
+          push: false
+          tags: library-deployment-backend:ci
+          cache-from: type=gha,scope=library-backend
+          cache-to: type=gha,mode=max,scope=library-backend
+
+      - name: Validate frontend Docker image build
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ env.FRONTEND_DIR }}
+          push: false
+          tags: library-deployment-frontend:ci
+          build-args: |
+            VITE_API_BASE_URL=http://localhost:8080/rest
+          cache-from: type=gha,scope=library-frontend
+          cache-to: type=gha,mode=max,scope=library-frontend
+
+  publish-images:
+    name: CD - Publish Docker Images to GHCR
+    if: github.event_name == 'push' && github.ref == 'refs/heads/FrontEnd-Backend-DB-Deployment'
+    runs-on: ubuntu-latest
+    needs:
+      - backend-ci
+      - frontend-ci
+      - docker-build-check
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate backend image metadata
+        id: backend-meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.BACKEND_IMAGE }}
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix=sha-
+
+      - name: Build and publish backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ env.BACKEND_DIR }}
+          push: true
+          tags: ${{ steps.backend-meta.outputs.tags }}
+          labels: ${{ steps.backend-meta.outputs.labels }}
+          cache-from: type=gha,scope=library-backend
+          cache-to: type=gha,mode=max,scope=library-backend
+
+      - name: Generate frontend image metadata
+        id: frontend-meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.FRONTEND_IMAGE }}
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix=sha-
+
+      - name: Build and publish frontend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ env.FRONTEND_DIR }}
+          push: true
+          tags: ${{ steps.frontend-meta.outputs.tags }}
+          labels: ${{ steps.frontend-meta.outputs.labels }}
+          build-args: |
+            VITE_API_BASE_URL=${{ vars.VITE_API_BASE_URL || 'http://localhost:8080/rest' }}
+          cache-from: type=gha,scope=library-frontend
+          cache-to: type=gha,mode=max,scope=library-frontend
+
+      - name: Publish summary
+        run: |
+          {
+            echo '## Library Deployment Delivery'
+            echo
+            echo 'Both Docker images were published to GitHub Container Registry after all CI gates passed.'
+            echo
+            echo '- Backend: `${{ env.BACKEND_IMAGE }}:latest`'
+            echo '- Frontend: `${{ env.FRONTEND_IMAGE }}:latest`'
+            echo '- Immutable revision tag: `sha-${GITHUB_SHA::7}`'
+          } >> "$GITHUB_STEP_SUMMARY"
