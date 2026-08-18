@@ -1,0 +1,55 @@
+version: 1
+batch: T56-T60
+module: Fine
+status: FROZEN_VERIFIED
+freeze_allowed: true
+presenter_branch: Presenter-Solutions-T56-T60
+verified_registry_commit: 6b0ccbf651f08391ce3ea26e2b3b6f0cfcbaa13e
+registry_tip_ci:
+  workflow_run: 32161119311
+  backend_job: 95789994136
+  backend_result: SUCCESS
+  frontend_job: 95789994155
+  frontend_result: SUCCESS
+tracks:
+  T56:
+    operation: Create Fine
+    service: da2641d8ab02091ea8ea5c9fe3a20664adec648c
+    unit_test: 5ed2d15a35e693e906e6319480fa11a200a16ecc
+    local_integration: 0a0e6a5b9e9b1eba3a8e4e09390066bb099e3c6e
+    testcontainers: 7946476c6b0852e2ad2e193f52213a3130ec90b4
+    assigned_frontend: 361fbb18272e9d79bec5d9975281c465eeb4c210
+    registry_checkpoint: verified
+  T57:
+    operation: Read Fine
+    service: 9bd85388dab1996a1e413113cfbe9f5a260f648a
+    unit_test: f0c4afc4d8011553e22f09931e8aab74d7fbe84d
+    local_integration: d3eca97d0ba983095db6707356e56380bd8139a7
+    testcontainers: 202ee18bc34c687a2d2aaacaf9ad00e895a05eff
+    assigned_frontend: 659345e9482d065e498f99f60ac3a9a60f9701d9
+    registry_checkpoint: verified
+  T58:
+    operation: Update Fine
+    service: 2751c57b738ffa631a30e4ff8d073541a248614a
+    unit_test: 347a12ae9b55d87184ccfd2ed8d265e71cdfb3cb
+    local_integration: 4ab9be0519c0aff468ba1799909ff9840d98c803
+    testcontainers: d138966e50de81f53056906ddecbef4f61e2cef8
+    assigned_frontend: 871f7028f6f531dc2a76cda113ce71ee7f45af54
+    registry_checkpoint: verified
+  T59:
+    operation: Void Fine
+    service: f91ce659af7ffe216ca3de41829d9f5f24607e16
+    unit_test: 7c8106658610f6fce2543dad13bb1b24e498cdc1
+    local_integration: babd253a662f0f3b6e8802a0cd6febd5ffa770e4
+    testcontainers: 405a9b95b407c26b2bddeab4913075ea916928bb
+    assigned_frontend: de5fe904dbcbf74ea8ec5465c2ee68946f2e0cba
+    registry_checkpoint: verified
+  T60:
+    operation: Search Fine
+    service: f243255e6c9f6f439ef9c3a70e6f72559c8f9b85
+    unit_test: d580303b073c357e0dc2473c620c0d727f3656d5
+    local_integration: 66af4a45d395418d3ec4d966ca953ae9e8186cc5
+    testcontainers: 0aa9bae015666f8d35cd84d36342c3801138a8fd
+    assigned_frontend: ca8557d90df29d1d77de39568276547c4effbc4a
+    registry_checkpoint: verified
+freeze_guard: "Satisfied: all five Fine tracks have immutable Service, Unit, local PostgreSQL Integration, PostgreSQL 18 Testcontainers, assigned Frontend and green registry-tip CI evidence."
