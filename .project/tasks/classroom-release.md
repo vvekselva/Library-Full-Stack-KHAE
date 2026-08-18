@@ -25,9 +25,9 @@
 - State: **STALE / WAITING_ON_DOCUMENT — NO NEW PREREQUISITE-SAFE RELEASE STEP**.
 
 ## Actions this cycle
-- Agent 4: retained Release-01 at `WAITING_ON_DOCUMENT`; T01 identity blocker remains exact and no materialization was attempted.
-- Agent 5: retained Release-02 at `WAITING_ON_DOCUMENT`; accepted baseline/private preflight remain valid and T02_02/T02_03 remain the exact blockers.
-- Agent 7: retained private manifest/promotion-boundary guard; no public classroom or Quality Gate write performed.
+- Agent 4 retained Release-01 at `WAITING_ON_DOCUMENT`; no materialization was attempted while T01 identities remain unresolved.
+- Agent 5 retained Release-02 at `WAITING_ON_DOCUMENT`; accepted baseline/private preflight remain valid and T02_02/T02_03 remain the blockers.
+- Agent 7 retained the private promotion-boundary guard; no public classroom or Quality Gate write was performed.
 - No repeated unchanged status check was counted as release progress.
 
 ## Tasks closed
@@ -39,4 +39,4 @@ None. No eligible release gate opened this cycle.
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
 ## >3-cycle stalled action
-Classroom remains beyond three no-increase cycles. **Action Taken in This Cycle:** all independent private preflights are already complete, so Agents 4/5/7 remained explicitly `WAITING_ON_DOCUMENT`; no repeated polling, blocked candidate materialization, public write, or Quality Gate write occurred.
+Classroom remains beyond three no-increase cycles. **Action Taken in This Cycle:** Agents 4/5/7 remained explicitly `WAITING_ON_DOCUMENT` after completed private preflights; no repeated polling, blocked candidate materialization, public write, or Quality Gate write occurred.
