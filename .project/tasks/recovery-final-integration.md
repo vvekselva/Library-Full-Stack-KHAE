@@ -5,27 +5,34 @@
 
 ## Registry coverage queue
 - T01-T55 registries remain VERIFIED/FROZEN.
-- Frozen registry coverage remains **55 / 60 tracks**.
-- T56-T60 Fine candidate is the active final registry batch.
-- T56-T59 are immutable VERIFIED through Assigned Frontend.
-- T60 Service, Unit, local PostgreSQL Integration and PostgreSQL 18 / combined Integration are now immutable VERIFIED evidence. Combined Integration workflow `32156012347` completed fully SUCCESS: frontend `95773288231`; backend `95773288451`.
-- T60 Assigned Frontend `ca8557d90df29d1d77de39568276547c4effbc4a` is provisional while workflow `32157886355` completes; frontend `95779406635` SUCCESS, backend `95779406408` IN_PROGRESS at consolidation.
-- `freeze_allowed=false` remains mandatory until T60 Assigned Frontend closes and the T56-T60 registry-tip CI is fully green.
+- **T56-T60 Fine registry is now FROZEN_VERIFIED.**
+- Verified Presenter registry commit: `6b0ccbf651f08391ce3ea26e2b3b6f0cfcbaa13e`.
+- Registry-tip workflow `32161119311`: backend `95789994136` SUCCESS; frontend `95789994155` SUCCESS.
+- T60 Assigned Frontend `ca8557d90df29d1d77de39568276547c4effbc4a` is immutable VERIFIED under workflow `32157886355`: backend `95779406408` SUCCESS; frontend `95779406635` SUCCESS.
+- Recovery candidate `.project/recovery/T56-T60-registry-candidate.yml` is FROZEN_VERIFIED at control commit `a255d3510ac8a588f384742da5f36b7bda56be37`.
+- **Frozen registry coverage is now 60 / 60 tracks.**
+- `freeze_allowed=true` was satisfied for the Fine batch only after the registry-tip CI was fully green.
 
 ## Current stream accounting
-- Previous: **36.6667%**
-- Updated: **36.6667%**
-- Increase: **+0.0000 percentage points**
-- State: **ACTIVE FINAL-INTEGRATION PREPARATION — T60 COMBINED INTEGRATION IMMUTABLE; ASSIGNED FRONTEND PROVISIONAL; FINAL FINE REGISTRY NOT FREEZABLE**.
+Recovery registry component weight is 40%.
+- Previous: **36.6667%**.
+- Updated: **40.0000%**.
+- Increase: **+3.3333 percentage points**.
+- State: **IN PROGRESS — ALL PRESENTER REGISTRIES FROZEN; FINAL PROJECT INTEGRATION STILL DOCUMENT/CLASSROOM-GATED**.
 
 ## Action Taken in This Cycle
-Agent 8 promoted T60 PostgreSQL 18 / combined Integration to immutable evidence only after exact workflow `32156012347` completed SUCCESS, captured the newly implemented Assigned Frontend provisionally, and preserved the all-or-nothing Fine registry freeze guard.
+Agent 8 consumed the newly exact-green T60 Assigned Frontend evidence, waited for the immutable T56-T60 registry commit to receive fully green registry-tip CI, then froze the final Fine registry. No partial registry credit was used.
+
+## Tasks closed
+- T60 Assigned Frontend Recovery evidence promotion — CLOSED.
+- T56-T60 Fine registry candidate — CLOSED / FROZEN_VERIFIED.
+- Presenter registry coverage T01-T60 — CLOSED at 60/60 tracks.
 
 ## In progress / blocked
-- T60 Assigned Frontend — provisional while backend `95779406408` remains IN_PROGRESS.
-- T56-T60 Fine registry candidate — OPEN / not freezable until frontend exact-green and registry-tip CI closes.
+- Final project integration remains blocked by Document Rerun completion and the dependent Classroom Release gates.
+- No Presenter registry work remains.
 
 ## Stale-cycle tracking
-- Total stale cycles: **UNKNOWN_PENDING_RECONCILIATION**.
-- Stale since cycle: **UNKNOWN_PENDING_RECONCILIATION**.
-- Exact historical count is not inferred; manual reconciliation is required before a numeric total is published.
+- Total stale cycles: **0**.
+- Stale since cycle: **null**.
+- The previous stale run resets because this cycle closed a genuine percentage-bearing Recovery registry gate.
