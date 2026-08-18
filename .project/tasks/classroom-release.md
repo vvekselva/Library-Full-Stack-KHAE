@@ -1,7 +1,7 @@
 # Classroom Release Preparation Task Queue
 
 **Stream weight:** 10% — SUPPORTING.  
-**Active logical worker:** Agent 7 only under the current stale-recovery allocation.  
+**Active logical workers:** Agents 4, 5 and 7 under the current watchdog allocation.  
 **Public publication:** Presenter-only/manual. No ChatGPT/automation write is permitted to the public classroom repository.
 
 ## Current verified state
@@ -22,12 +22,13 @@
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000%**
-- State: **STALE / WAITING_ON_DOCUMENT — EVENT-DRIVEN SINGLE LANE**.
+- State: **STALE / DOCUMENT-GATED — THREE PREREQUISITE-SAFE PRIVATE LANES**.
 
-## Current lane action
-- Agent 7 retains Release-01/02 private readiness and promotion boundary.
-- Agent 7 wakes on a relevant Document prerequisite change instead of repeatedly polling unchanged blockers.
-- No blocked materialization/publication action is performed.
+## Current lane actions
+- Agent 4: retains Release-01 identity/prerequisite matrix and private materialization readiness; no blocked materialization.
+- Agent 5: retains Release-02 accepted baseline/document prerequisite matrix and private materialization readiness.
+- Agent 7: retains manifest/checklist consistency and private promotion-boundary guard; no publication action.
+- These lanes may perform prerequisite-safe private verification but must not count unchanged polling as progress.
 
 ## Tasks closed
 None. No eligible release gate has opened.
@@ -38,4 +39,4 @@ None. No eligible release gate has opened.
 - Public publication — PRESENTER ONLY / NOT EXECUTED.
 
 ## >3-cycle stalled action
-Classroom remains beyond three no-increase cycles. **Action Taken:** reduced execution capacity to one event-driven lane and reallocated the freed capacity upstream to Document Rerun; no repeated unchanged polling, blocked materialization, public write, or Quality Gate write.
+Classroom remains beyond three no-increase cycles. **Action Taken in This Cycle:** the three lanes retained exact private preflights, release identity checks and promotion boundaries while preserving document blockers; no blocked candidate materialization, public write, Quality Gate write, or false progress was recorded.
