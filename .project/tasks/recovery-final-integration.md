@@ -8,12 +8,12 @@
 - T51-T55 Reservation candidate: OPEN / NOT FREEZABLE.
 - T51-T53 are immutable VERIFIED through Assigned Frontend.
 - T54 Service `3f8ebd45cf15c48418a9552fa09811612ddc7100` and Unit `1e37f0f25ba9765eb23caca8af23eb1ad5c942ca` remain provisional.
-- A new private exact-CI retrigger marker exists at `fb0ecb94bc7152f84212b4a8c66838aed186e15b`, but the connected exact-commit workflow surface still exposes no run.
+- Current Presenter retry tip `fb0ecb94bc7152f84212b4a8c66838aed186e15b` has no observable exact workflow run/check through the connected surfaces.
 - T55 Search Reservation remains source-ready only and dependency-blocked behind T54.
 - `freeze_allowed=false` until every Presenter component checkpoint and cumulative registry-tip CI is green.
 
 ## Current stream accounting
-- Frozen verified registry coverage remains **50 / 60 tracks**.
+- Frozen verified registry coverage: **50 / 60 tracks**.
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000 percentage points**
@@ -31,4 +31,4 @@ None at a Recovery percentage gate.
 - Final integration remains blocked by remaining Presenter, Document and Classroom prerequisites.
 
 ## Open More Than 3 Cycles / Agent 8 Action Taken in This Cycle
-Recovery remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** Agent 8 stayed evidence-reactive rather than performing another unchanged registry poll. It recorded the new T54 retry boundary `fb0ecb94...` as provisional only, preserved immutable T51-T53 evidence, and retained `freeze_allowed=false` because no new verified Presenter checkpoint exists.
+Recovery remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** Agent 8 consumed the latest Presenter evidence query, retained immutable T51-T53 evidence and the T54 provisional commits, and kept `freeze_allowed=false`. No repeated registry freeze attempt was made because no new exact-green Presenter checkpoint exists.
