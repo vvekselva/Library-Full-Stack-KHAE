@@ -57,5 +57,23 @@ Agent 8 captures newly verified immutable Presenter evidence, prepares cumulativ
 - More than 10 cycles: STRUCTURAL_BLOCKER; reallocate execution capacity or change strategy.
 - Do not credit percentages for preparation, inspection, or incomplete gates.
 
+### Mandatory stale-cycle accounting
+Every future coordinator/watchdog cycle must maintain a persistent **total stale-cycle count** for each task or stream that is open more than three completed cycles.
+
+For every row reported under **Tasks / Streams Open More Than 3 Cycles and Action Taken**, the required columns are:
+
+| Task / Stream | State | Total Stale Cycles | Stale Since Cycle | Action Taken in This Cycle |
+|---|---|---:|---|---|
+
+Rules:
+- `Total Stale Cycles` is the cumulative number of consecutive completed coordinator/watchdog cycles in which the task/stream remained open without its defined completion/percentage gate closing.
+- Increment the counter by exactly 1 at each completed cycle that remains stale.
+- Reset the counter to 0 when the relevant task/stream closes or records a genuine percentage-bearing progress gate, according to that task/stream's stale definition.
+- `Stale Since Cycle` must preserve the first cycle ID of the current uninterrupted stale run.
+- Do not replace the number with vague labels such as `>3 cycles`; always show the exact persisted count.
+- If a historical exact count cannot be proven from repository evidence, mark it `UNKNOWN_PENDING_RECONCILIATION` rather than inventing a number; reconcile it on the next explicit manual coordinator run.
+- Watchdog cycles must persist these counters in `.project/execution-cycle-monitor.yml` and may mirror them into stream task files, but must still leave `.project/PROJECT_PROGRESS.md` unchanged.
+- Manual coordinator/consolidation runs must copy the exact persisted counts into the **Tasks / Streams Open More Than 3 Cycles and Action Taken** table in `.project/PROJECT_PROGRESS.md`.
+
 ## Safety and consolidation
 Never write to the public classroom repository or read-only Quality Gate repository unless explicitly authorized. A task closes only with its defined evidence. Manual coordinator/consolidation runs update stream task files, `.project/execution-cycle-monitor.yml`, and `.project/PROJECT_PROGRESS.md`. Watchdog cycles follow the separate read-only dashboard policy above.
