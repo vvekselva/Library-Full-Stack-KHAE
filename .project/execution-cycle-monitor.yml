@@ -8,17 +8,17 @@ orchestration:
   current_lane_focus: "4 Presenter / 3 Classroom / 1 Recovery; Document dependency only"
   document_work_allocated_to_current_eight: false
   allocation:
-    agent_1: "Presenter Solutions - diagnose corrected T55 local PostgreSQL gate"
-    agent_2: "Presenter Solutions - correct T55 local PostgreSQL fixture and verify exact CI"
-    agent_3: "Presenter Solutions - reconcile PostgreSQL 18 Testcontainers pattern; implementation held"
+    agent_1: "Presenter Solutions - T55 local PostgreSQL failure diagnosis and corrected green proof"
+    agent_2: "Presenter Solutions - T55 PostgreSQL 18 Testcontainers Integration"
+    agent_3: "Presenter Solutions - reconcile T55 Testcontainers/frontend contract boundaries"
     agent_4: "Classroom Release - Release-01 blocked after private preflight"
     agent_5: "Classroom Release - Release-02 blocked after private preflight"
     agent_6: "Presenter Solutions - hold T55 Frontend behind combined Integration"
     agent_7: "Classroom Release - private promotion-boundary guard"
-    agent_8: "Recovery / Final Integration - provisional corrected T55 evidence + freeze guard"
+    agent_8: "Recovery / Final Integration - corrected T55 evidence + freeze guard"
 current_cycle:
   cycle_id: C-20260818-0089
-  status: SUBSTANTIVE_PROGRESS_T55_INTEGRATION_FAILURE_DIAGNOSED_CORRECTED_CI_RUNNING
+  status: SUBSTANTIVE_PROGRESS_T55_LOCAL_FIXED_GREEN_POSTGRES18_RUNNING
   tasks:
     - task: "T55 Search Reservation Service + Unit"
       stream: Presenter Solutions
@@ -31,18 +31,19 @@ current_cycle:
       status: FAILED_NOT_PROMOTABLE
       closed_this_cycle: false
       evidence: "workflow 32107054525; frontend 95618516153 SUCCESS; backend 95618516140 FAILURE"
-      action_taken_in_this_cycle: "Diagnosed the failure at source/fixture level instead of treating it as a transient stall."
+      action_taken_in_this_cycle: "Diagnosed invalid integration fixture foreign keys; production Search Reservation code was not changed."
     - task: "T55 corrected local PostgreSQL Integration"
+      stream: Presenter Solutions
+      status: CLOSED_VERIFIED_GREEN_SUBGATE
+      closed_this_cycle: true
+      evidence: "commit 98138a4b49686b08bc3222cc8b474343acfd3b70; workflow 32110010694; frontend 95627183985 SUCCESS; backend 95627183939 SUCCESS"
+      action_taken_in_this_cycle: "Corrected only fixture foreign keys to valid Flyway-seeded membership/book IDs and verified the full branch-tip suite green."
+    - task: "T55 PostgreSQL 18 Testcontainers / combined Integration"
       stream: Presenter Solutions
       status: IN_PROGRESS_EXACT_CI
       closed_this_cycle: false
-      evidence: "commit 98138a4b49686b08bc3222cc8b474343acfd3b70; workflow 32110010694; frontend 95627183985 SUCCESS; backend 95627183939 IN_PROGRESS"
-      action_taken_in_this_cycle: "Corrected only invalid integration fixture foreign keys to valid Flyway-seeded membership/book IDs; production Search Reservation code unchanged."
-    - task: "T55 PostgreSQL 18 Testcontainers"
-      stream: Presenter Solutions
-      status: BLOCKED_BY_LOCAL_INTEGRATION
-      closed_this_cycle: false
-      action_taken_in_this_cycle: "Reconciled existing PostgreSQL 18 Testcontainers pattern only; did not implement before corrected local CI is green."
+      evidence: "commit 1e1a3e7d647ad9296a0a4e438e7912142d368c1a; workflow 32110395678; frontend 95628335685 SUCCESS; backend 95628335767 IN_PROGRESS"
+      action_taken_in_this_cycle: "Added PostgreSQL 18 Testcontainers Integration only after corrected local PostgreSQL gate became green."
     - task: "Release-01 materialization/freeze"
       stream: Classroom Release Preparation
       status: STALE_DOCUMENT_GATED
@@ -57,7 +58,7 @@ current_cycle:
       stream: Recovery / Final Integration
       status: STALE_CANDIDATE_OPEN
       closed_this_cycle: false
-      action_taken_in_this_cycle: "Rejected failed T55 local Integration evidence, captured corrected tip/workflow provisionally, retained freeze_allowed=false."
+      action_taken_in_this_cycle: "Rejected failed initial T55 evidence, promoted corrected local subgate, captured PostgreSQL 18 evidence provisionally, retained freeze_allowed=false."
     - task: "Document dependency state"
       stream: Document Rerun
       status: STALE_NO_LANE
@@ -75,7 +76,7 @@ stream_stall_monitor:
     current_percent: 89.3333
     increase: 0.0000
     over_three_cycles: false
-    action_taken_in_this_cycle: "Diagnosed failed T55 local Integration, corrected the fixture, and started exact corrected acceptance CI without bypassing dependency gates."
+    action_taken_in_this_cycle: "Diagnosed failed local Integration, proved corrected local suite green, and advanced PostgreSQL 18 without bypassing the combined gate."
   - stream: Classroom Release Preparation
     previous_percent: 33.3333
     current_percent: 33.3333
@@ -87,13 +88,13 @@ stream_stall_monitor:
     current_percent: 33.3333
     increase: 0.0000
     over_three_cycles: true
-    action_taken_in_this_cycle: "Rejected failed Integration evidence, captured corrected evidence provisionally, and retained freeze guard."
+    action_taken_in_this_cycle: "Promoted only corrected exact-green local evidence; PostgreSQL 18 remains provisional and freeze guard stays active."
   - stream: Overall
     previous_percent: 40.3583
     current_percent: 40.3583
     increase: 0.0000
     over_three_cycles: false
-    action_taken_in_this_cycle: "Substantive T55 fixture correction completed; no weighted checkpoint credited while corrected backend CI runs."
+    action_taken_in_this_cycle: "Substantive Presenter Integration correction/progression completed; atomic Integration checkpoint remains uncredited until PostgreSQL 18 backend CI is green."
 safety:
   public_classroom_write: FORBIDDEN
   quality_gate_write: FORBIDDEN
