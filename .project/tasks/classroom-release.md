@@ -12,9 +12,10 @@
 - Release-01 materialization/freeze remains blocked.
 
 ### Release-02
-- Accepted application/source baseline: `Frontend-backend-Baseline@24179fb905fd69f816bfeb5db0ee7206401a3ceb`.
-- Accepted workflow `31989985693`: backend `95271686668` SUCCESS; frontend `95271686680` SUCCESS.
-- T02_01 APPROVED. T02_02 candidate materialization is now explicitly audited, but final rendered QA/identity verification is still outstanding; T02_03 remains blocked behind T02_02 approval.
+- Accepted application/source baseline remains green.
+- T02_01 APPROVED.
+- T02_02 candidate was re-fetched from `Document-Rerun-QG` and still matches audited blob `aa450d585b405f1e8974534392705aafa4e993a2`, but final rendered visual/accessibility QA and final approval are still outstanding.
+- T02_03 remains blocked behind T02_02 approval.
 - Private preflight/promotion guard remains complete.
 
 ## Current stream accounting
@@ -24,8 +25,8 @@
 - State: **STALE / WAITING_ON_DOCUMENT — EVENT-DRIVEN**.
 
 ## Action Taken in This Cycle
-Agent 7 consumed the new T02 materialization-audit evidence but retained the final document gate. No candidate was prematurely materialized or frozen, and no public or Quality Gate write occurred.
+Agent 7 consumed the T02 exact re-fetch/identity evidence but correctly retained the final document gate. No candidate was prematurely materialized or frozen, and no public or Quality Gate write occurred.
 
 ## Blocked
 - Release-01: T01_01/T01_03 identity transition.
-- Release-02: T02_02 final QA/identity verification + T02_03 completion.
+- Release-02: T02_02 final QA/approval + T02_03 completion.
