@@ -1,6 +1,6 @@
-version: 15
+version: 16
 repository: vvekselva/Library-Full-Stack-KHAE-Master
-updated_at: 2026-08-18T13:29:44+05:30
+updated_at: 2026-08-18T14:05:00+05:30
 orchestration:
   coordinator: primary
   logical_worker_lanes: 8
@@ -8,57 +8,51 @@ orchestration:
   current_lane_focus: "4 Presenter / 3 Classroom / 1 Recovery; Document dependency only"
   document_work_allocated_to_current_eight: false
   allocation:
-    agent_1: "Presenter Solutions - T56 Create Fine Service"
-    agent_2: "Presenter Solutions - T56 Unit and Integration readiness after exact CI"
+    agent_1: "Presenter Solutions - T56 exact Service/Unit CI evidence"
+    agent_2: "Presenter Solutions - T56 Integration readiness after green CI"
     agent_3: "Presenter Solutions - T57-T60 source/test reconciliation only until ordered eligibility"
-    agent_4: "Classroom Release - Release-01 WAITING_ON_DOCUMENT after private preflight"
-    agent_5: "Classroom Release - Release-02 WAITING_ON_DOCUMENT after private preflight"
-    agent_6: "Presenter Solutions - T56 Assigned Frontend/cumulative regression readiness; blocked behind Integration"
+    agent_4: "Classroom Release - Release-01 WAITING_ON_DOCUMENT"
+    agent_5: "Classroom Release - Release-02 WAITING_ON_DOCUMENT"
+    agent_6: "Presenter Solutions - T56 Assigned Frontend/cumulative regression readiness"
     agent_7: "Classroom Release - private promotion-boundary guard"
-    agent_8: "Recovery / Final Integration - provisional T56 evidence and freeze guard"
+    agent_8: "Recovery / Final Integration - provisional T56 exact-CI evidence and freeze guard"
 current_cycle:
-  cycle_id: C-20260818-0091
-  status: SUBSTANTIVE_PROGRESS_T56_SERVICE_UNIT_IMPLEMENTED_CI_PENDING
+  cycle_id: C-20260818-0092
+  status: SUBSTANTIVE_PROGRESS_T56_CI_OBSERVABILITY_BACKEND_RUNNING
   tasks:
-    - task: "T56 Create Fine Service"
-      stream: Presenter Solutions
-      status: IMPLEMENTED_UNVERIFIED_UNCREDITED
-      closed_this_cycle: false
-      evidence: "commit da2641d8ab02091ea8ea5c9fe3a20664adec648c; correct Maven path backend/backend.lib.mgmt/.../CreateFineServiceImpl.java"
-      action_taken_in_this_cycle: "Replaced hard-coded teaching stub with validated normalized DAO-backed persistence and controlled T56 errors."
-    - task: "T56 Create Fine Unit Test"
-      stream: Presenter Solutions
-      status: IMPLEMENTED_UNVERIFIED_UNCREDITED
-      closed_this_cycle: false
-      evidence: "commit 5ed2d15a35e693e906e6319480fa11a200a16ecc; focused CreateFineServiceImplTest"
-      action_taken_in_this_cycle: "Added success/normalization, duplicate, null, amount, outstanding and status-default coverage; held Integration behind exact CI."
     - task: "T56 exact Service+Unit CI"
       stream: Presenter Solutions
-      status: IN_PROGRESS_EVIDENCE_PENDING
+      status: IN_PROGRESS
       closed_this_cycle: false
-      evidence: "branch tip 5ed2d15a35e693e906e6319480fa11a200a16ecc; connected commit workflow-run and combined-status surfaces currently expose no exact result"
-      action_taken_in_this_cycle: "Checked both exact workflow-run and commit-status surfaces; no success assumed and no dependent Integration started."
+      evidence: "draft PR #2; exact head 5ed2d15a35e693e906e6319480fa11a200a16ecc; workflow 32116884487; frontend 95648294580 SUCCESS; backend 95648294457 IN_PROGRESS"
+      action_taken_in_this_cycle: "Opened private DO-NOT-MERGE diagnostic draft PR solely to expose exact branch-tip CI; frontend is green and backend PostgreSQL tests are actively running. Integration remains blocked."
+    - task: "T56 CI observability recovery"
+      stream: Presenter Solutions
+      status: CLOSED_NON_PERCENTAGE_PREREQUISITE
+      closed_this_cycle: true
+      evidence: "PR #2 and workflow 32116884487 now provide exact observable CI for branch head 5ed2d15a..."
+      action_taken_in_this_cycle: "Changed recovery path from unavailable push-run lookup to PR-visible exact CI without application-code modification."
     - task: "Release-01 materialization/freeze"
       stream: Classroom Release Preparation
       status: STALE_WAITING_ON_DOCUMENT
       closed_this_cycle: false
-      action_taken_in_this_cycle: "Retained completed private preflight; stopped at T01_01/T01_03 identity transition blockers."
+      action_taken_in_this_cycle: "Retained completed private preflight and stopped at T01_01/T01_03 identity blockers; no repeated polling credited as progress."
     - task: "Release-02 materialization/freeze"
       stream: Classroom Release Preparation
       status: STALE_WAITING_ON_DOCUMENT
       closed_this_cycle: false
-      action_taken_in_this_cycle: "Retained accepted baseline/private preflight; stopped at T02_02 final approval/repository verification plus T02_03."
+      action_taken_in_this_cycle: "Retained accepted baseline/private preflight and stopped at T02_02/T02_03 document gates."
     - task: "Recovery T56-T60 registry candidate"
       stream: Recovery / Final Integration
       status: OPEN_NOT_FREEZABLE
       closed_this_cycle: false
-      evidence: "T56 Service da2641d8... and Unit 5ed2d15a... provisional only; frozen coverage 55/60"
-      action_taken_in_this_cycle: "Captured T56 implementation evidence provisionally and retained freeze_allowed=false."
+      evidence: "workflow 32116884487 exact T56 CI active; frozen coverage remains 55/60"
+      action_taken_in_this_cycle: "Captured exact PR-visible workflow/job identities provisionally and retained freeze_allowed=false."
     - task: "Document dependency state"
       stream: Document Rerun
       status: STALE_STRUCTURAL_NO_LANE
       closed_this_cycle: false
-      action_taken_in_this_cycle: "Revalidated only because it gates Classroom; no Document lane and no progress credit."
+      action_taken_in_this_cycle: "Reported exact dependency state only; no Document lane and no progress credit."
 stream_stall_monitor:
   - stream: Document Rerun
     previous_percent: 5.3889
@@ -71,25 +65,25 @@ stream_stall_monitor:
     current_percent: 91.6667
     increase: 0.0000
     over_three_cycles: false
-    action_taken_in_this_cycle: "Implemented eligible T56 Service and Unit; awaiting exact green CI before Integration."
+    action_taken_in_this_cycle: "Established exact PR-visible T56 CI; backend PostgreSQL test is running, so no percentage gate credited yet."
   - stream: Classroom Release Preparation
     previous_percent: 33.3333
     current_percent: 33.3333
     increase: 0.0000
     over_three_cycles: true
-    action_taken_in_this_cycle: "Private preflights remain complete; WAITING_ON_DOCUMENT, no public/QG write."
+    action_taken_in_this_cycle: "WAITING_ON_DOCUMENT after completed private preflights; no blocked materialization/public/QG write."
   - stream: Recovery / Final Integration
     previous_percent: 36.6667
     current_percent: 36.6667
     increase: 0.0000
     over_three_cycles: false
-    action_taken_in_this_cycle: "Captured provisional T56 evidence and retained freeze guard."
+    action_taken_in_this_cycle: "Captured active exact T56 CI evidence provisionally; freeze guard retained."
   - stream: Overall
     previous_percent: 41.5083
     current_percent: 41.5083
     increase: 0.0000
     over_three_cycles: false
-    action_taken_in_this_cycle: "Substantive T56 implementation occurred, but no defined percentage gate was credited before exact CI."
+    action_taken_in_this_cycle: "Substantive CI-observability recovery occurred; no percentage-bearing checkpoint closed because backend CI is still running."
 safety:
   public_classroom_write: FORBIDDEN
   quality_gate_write: FORBIDDEN
