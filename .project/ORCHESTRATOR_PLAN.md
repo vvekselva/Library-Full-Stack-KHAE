@@ -43,6 +43,13 @@ Agent 7 is event-driven. Do not repeatedly poll unchanged Document blockers. Rel
 ## Recovery rules
 Agent 8 captures newly verified immutable Presenter evidence, prepares cumulative regression/final integration, and guards freeze eligibility. `freeze_allowed=false` for T56-T60 until the full Fine batch is complete with registry-tip CI.
 
+## Watchdog write policy
+- Any future `WATCHDOG_COORDINATOR` cycle must treat `.project/PROJECT_PROGRESS.md` as **READ-ONLY**.
+- Watchdog cycles must **not create, replace, modify, touch, or commit** `.project/PROJECT_PROGRESS.md`, even when substantive work or percentages change.
+- Watchdog evidence may be recorded in `.project/execution-cycle-monitor.yml` and the appropriate stream task files only.
+- `.project/PROJECT_PROGRESS.md` may be changed only by an explicitly requested **manual coordinator/manual consolidation run**, not by an automatic/watchdog run.
+- A watchdog must report that the dashboard is intentionally unchanged rather than synchronizing it.
+
 ## Stale policy
 - A status check is an action, not progress.
 - 4-6 completed cycles without closure: STALE and mandatory alternative action.
@@ -51,4 +58,4 @@ Agent 8 captures newly verified immutable Presenter evidence, prepares cumulativ
 - Do not credit percentages for preparation, inspection, or incomplete gates.
 
 ## Safety and consolidation
-Never write to the public classroom repository or read-only Quality Gate repository unless explicitly authorized. A task closes only with its defined evidence. Update stream task files, `.project/execution-cycle-monitor.yml`, and `.project/PROJECT_PROGRESS.md` after substantive gates/consolidation.
+Never write to the public classroom repository or read-only Quality Gate repository unless explicitly authorized. A task closes only with its defined evidence. Manual coordinator/consolidation runs update stream task files, `.project/execution-cycle-monitor.yml`, and `.project/PROJECT_PROGRESS.md`. Watchdog cycles follow the separate read-only dashboard policy above.
