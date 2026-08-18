@@ -7,38 +7,36 @@
 ## Current verified state
 - T01-T55 are completed/frozen/verified; T51-T55 registry `4ec7937a06244d4e1eaa33dbbb16b968e7ccf73b` has registry-tip workflow `32112252425` fully SUCCESS.
 - T56-T60 Fine batch is ACTIVE on `Presenter-Solutions-T56-T60`.
-- T56 Create Fine Service `da2641d8ab02091ea8ea5c9fe3a20664adec648c` and Unit Test `5ed2d15a35e693e906e6319480fa11a200a16ecc` are VERIFIED through workflow `32116884487`.
-- T56 local PostgreSQL Integration `0a0e6a5b9e9b1eba3a8e4e09390066bb099e3c6e` is VERIFIED through workflow `32119570698`.
-- T56 PostgreSQL 18 Testcontainers Integration `7946476c6b0852e2ad2e193f52213a3130ec90b4` is VERIFIED through workflow `32124520224`; therefore the atomic combined Integration checkpoint is CLOSED / VERIFIED.
-- T56 assigned Create Fine frontend `361fbb18272e9d79bec5d9975281c465eeb4c210` is now CLOSED / VERIFIED: workflow `32127222354`, retry backend `95680667205` SUCCESS and frontend `95680668410` SUCCESS.
-- T57 Read Fine source/contract reconciliation prerequisite is complete at `072cf119a642f9af04be10ad3a01730f3ffb1d44`.
-- T57 Read Fine Service is implemented at `9bd85388dab1996a1e413113cfbe9f5a260f648a`: validates ID, uses `FineDao.findCurrentById`, maps through `FineDtoDoMapper`, and reports controlled `T57_READ_FINE` errors.
-- T57 focused Unit Test is implemented at branch tip `f0c4afc4d8011553e22f09931e8aab74d7fbe84d`, covering current Fine, unknown/VOID Fine, and null ID/no persistence interaction.
-- Exact T57 Service+Unit workflow `32129629331` is PENDING at consolidation; no T57 Service/Unit percentage credit is applied until exact backend+frontend CI is fully green.
+- T56 is complete through assigned Create Fine frontend and remains exact-green verified.
+- T57 Read Fine Service `9bd85388dab1996a1e413113cfbe9f5a260f648a` and focused Unit Test `f0c4afc4d8011553e22f09931e8aab74d7fbe84d` are now CLOSED / VERIFIED through exact workflow `32129629331`: backend `95687851293` SUCCESS and frontend `95687851420` SUCCESS.
+- T57 local PostgreSQL Integration was implemented at `d3eca97d0ba983095db6707356e56380bd8139a7`. It persists OPEN and VOID Fine rows through `FineDao`, verifies Read Fine mapping, and verifies VOID is treated as not found.
+- Exact local Integration workflow `32134475416` is active: frontend `95702532854` SUCCESS; backend `95702532912` IN_PROGRESS at consolidation.
+- T58 source reconciliation during the CI window confirmed `UpdateFineServiceImpl` is still a synthetic echo stub. `FineUpdateRequestDto` contains fineNumber, bookReturnId, membershipId, amount, outstandingAmount and status. T58 implementation remains dependency-blocked behind T57 completion.
 
 ## Current stream accounting
-- Previous: **92.6667%**
-- Updated: **93.0000%**
-- Increase: **+0.3333 percentage points**
-- Verified total: **279 / 300**
-- State: **IN PROGRESS — T56 FRONTEND CLOSED; T57 SERVICE+UNIT CI PENDING**.
+- Previous: **93.0000%**
+- Updated: **93.6667%**
+- Increase: **+0.6667 percentage points**
+- Verified total: **281 / 300**
+- State: **IN PROGRESS — T57 SERVICE+UNIT CLOSED; LOCAL POSTGRESQL INTEGRATION CI ACTIVE**.
 
 ## Lane actions this cycle
-- Agent 1: verified T56 frontend backend retry SUCCESS and closed the assigned Frontend checkpoint.
-- Agent 2: retained the dependency gate; T57 Integration remains blocked until exact Service+Unit CI is green.
-- Agent 3: replaced the T57 synthetic Read Fine stub with DAO/mapper-backed implementation after T56 Frontend closure.
-- Agent 6: added the focused T57 Read Fine unit test and exposed exact branch-tip workflow `32129629331`.
+- Agent 1: verified exact T57 Service+Unit workflow fully green and closed both percentage-bearing checkpoints.
+- Agent 2: implemented the now-eligible T57 local PostgreSQL Integration and exposed exact workflow `32134475416`; PostgreSQL 18 remains blocked until this run is fully green.
+- Agent 3: inspected T58 Update Fine source/DTO only during the CI window; confirmed the implementation is still a teaching stub and did not start T58 prematurely.
+- Agent 6: retained T57 Assigned Frontend readiness behind the combined Integration gate.
 
 ## Tasks closed this cycle
-- **T56 Assigned Frontend / Create Fine — CLOSED / VERIFIED GREEN.**
+- **T57 Read Fine Service — CLOSED / VERIFIED GREEN.**
+- **T57 Read Fine Unit Test — CLOSED / VERIFIED GREEN.**
 
 ## In progress / blocked
-- T57 Service — IMPLEMENTED / UNVERIFIED / UNCREDITED at `9bd85388dab1996a1e413113cfbe9f5a260f648a`.
-- T57 Unit Test — IMPLEMENTED / UNVERIFIED / UNCREDITED at `f0c4afc4d8011553e22f09931e8aab74d7fbe84d`.
-- T57 exact Service+Unit CI — workflow `32129629331` PENDING.
-- T57 local PostgreSQL Integration — BLOCKED until exact Service+Unit CI is fully green.
+- T57 local PostgreSQL Integration — IMPLEMENTED / CI ACTIVE at `d3eca97d0ba983095db6707356e56380bd8139a7`; workflow `32134475416`, frontend SUCCESS, backend IN_PROGRESS.
+- T57 PostgreSQL 18 Testcontainers Integration — BLOCKED until local PostgreSQL Integration CI is fully green.
+- T57 combined Integration — UNCREDITED until both local PostgreSQL and PostgreSQL 18 subgates are exact-green.
+- T57 Assigned Frontend — BLOCKED until combined Integration closes.
 - T58-T60 implementation — dependency ordered; source inspection may proceed independently only.
 - T56-T60 cumulative registry/freeze — BLOCKED until all five Fine tracks close.
 
 ## >3-cycle stalled action
-Presenter is not stale: T56 Assigned Frontend closed this cycle and T57 Service+Unit were immediately implemented. No dependent Integration work was started before the exact T57 CI gate.
+Presenter is not stale because two weighted T57 checkpoints closed and the next dependency-eligible local Integration was immediately implemented. No dependent PostgreSQL 18, Frontend, or T58 implementation was started prematurely.
