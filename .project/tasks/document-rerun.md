@@ -10,7 +10,7 @@
 - T01_03: QUALITY_GATE_PASSED; repository materialization/re-fetch/identity transition pending.
 - T02_01-T06_01: APPROVED.
 - T02_02-T06_02: GENERATING.
-- T02_02, T03_02 and T05_02 have repository-backed pre-render Content/Technical/Diagram QA from the prior Document correction cycle.
+- T02_02, T03_02 and T05_02 retain repository-backed pre-render Content/Technical/Diagram QA from the prior Document correction cycle.
 - T02_03-T06_03: PENDING behind same-track Progressive Guide approval.
 - T07-T60: queued PENDING.
 
@@ -22,7 +22,7 @@
 - State: **STALE / STRUCTURAL UPSTREAM DEPENDENCY — NO CURRENT WORKER LANE**.
 
 ## Tasks closed this cycle
-None. This cycle did not allocate Document work.
+None. No Document work was allocated under the authoritative 4 Presenter / 3 Classroom / 1 Recovery plan.
 
 ## In progress / blocked
 - T02_02-T06_02 remain unfinished.
@@ -30,4 +30,4 @@ None. This cycle did not allocate Document work.
 - T02_02/T02_03 block Classroom Release-02.
 
 ## >3-cycle stalled action
-Document Rerun remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** no Document worker lane was assigned under the authoritative allocation. The unchanged dependency state was propagated only to Release-01/02 preflight controls; no status check was counted as Document progress and no Quality Gate/public write occurred.
+Document Rerun remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** its exact state was read only because it materially gates Classroom Release; no lane was assigned, no status check was counted as Document progress, and no Quality Gate/public write occurred.
