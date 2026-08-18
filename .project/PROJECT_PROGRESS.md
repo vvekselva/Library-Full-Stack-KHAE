@@ -10,68 +10,74 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-18 08:29 IST
+## Current Status - 2026-08-18 09:37 IST
 
-| Stream | Previous % | Updated % | Increase | Last Update Time | Current Stage |
-|---|---:|---:|---:|---|---|
-| Document Rerun | 5.3889% | **5.3889%** | +0.0000% | **2026-08-16 23:19 IST** | **STALE / STRUCTURAL UPSTREAM DEPENDENCY.** No current worker lane; T01 identity and T02_02/T02_03 blockers remain. |
-| Presenter Solutions | 87.3333% | **87.3333%** | +0.0000% | **2026-08-18 08:29 IST** | **STALE / T54 CI TRIGGER-RUN VISIBILITY.** Diagnostic tip `6d0a0bc6...` created; no exact run/checks exposed. |
-| Classroom Release Preparation | 33.3333% | **33.3333%** | +0.0000% | **2026-08-18 08:29 IST** | **STALE / DOCUMENT-GATED.** No new prerequisite-safe release step became eligible. |
-| Recovery / Final Integration | 33.3333% | **33.3333%** | +0.0000% | **2026-08-18 08:29 IST** | **STALE / WAITING_ON_PRESENTER.** T51-T55 candidate remains not freezable. |
-| **Overall** | 39.6583% | **39.6583%** | **+0.0000%** | **2026-08-18 08:29 IST** | Substantive non-percentage CI diagnostic work completed; no defined percentage-bearing gate closed. |
-
-`Last Update Time` records the most recent stream-specific status/evidence update, not merely the time this dashboard is viewed. This makes stale/no-progress streams auditable by age as well as lifecycle state.
+| Stream | Previous % | Updated % | Increase | Current Stage |
+|---|---:|---:|---:|---|
+| Document Rerun | 5.3889% | **5.3889%** | +0.0000% | **STALE / STRUCTURAL UPSTREAM DEPENDENCY.** No current worker lane; unchanged document gates still block Classroom releases. |
+| Presenter Solutions | 87.3333% | **87.3333%** | +0.0000% | **IN PROGRESS / CORRECTNESS REPAIR.** Prior T54 Service/Unit were outside the Maven project. Corrected files are now in `backend/backend.lib.mgmt/...`; exact backend CI retry is running. |
+| Classroom Release Preparation | 33.3333% | **33.3333%** | +0.0000% | **STALE / DOCUMENT-GATED.** Private preflights remain complete; no new prerequisite-safe release step is eligible. |
+| Recovery / Final Integration | 33.3333% | **33.3333%** | +0.0000% | **STALE / WAITING_ON_CORRECTED_T54_CI.** Wrong-path T54 evidence was rejected; candidate remains not freezable. |
+| **Overall** | 39.6583% | **39.6583%** | **+0.0000%** | Substantive corrective progress completed; no percentage-bearing checkpoint credited before corrected exact CI succeeds. |
 
 ## Active logical lanes
-- Agent 1 — Presenter Solutions: T54 exact CI recovery/diagnostic.
-- Agent 2 — Presenter Solutions: T54 Integration/Testcontainers only after observable green Service+Unit CI.
-- Agent 3 — Presenter Solutions: T55 source/test readiness.
-- Agent 4 — Classroom Release: Release-01 identity/readiness work.
-- Agent 5 — Classroom Release: Release-02 accepted baseline/document prerequisite mapping.
-- Agent 6 — Presenter Solutions: Assigned Frontend/cumulative regression readiness.
-- Agent 7 — Classroom Release: manifest/checklist/private promotion boundary.
-- Agent 8 — Recovery / Final Integration: evidence capture/freeze guard.
+- Agent 1 — Presenter Solutions: corrected T54 Service/Unit exact CI.
+- Agent 2 — Presenter Solutions: T54 Integration/Testcontainers only after corrected green Service+Unit CI.
+- Agent 3 — Presenter Solutions: T55 source/test readiness; implementation blocked behind T54.
+- Agent 4 — Classroom Release: Release-01 private readiness only.
+- Agent 5 — Classroom Release: Release-02 private readiness only.
+- Agent 6 — Presenter Solutions: Assigned Frontend/cumulative regression readiness after Integration.
+- Agent 7 — Classroom Release: private promotion-boundary guard.
+- Agent 8 — Recovery / Final Integration: corrected evidence capture/freeze guard.
 - Document Rerun receives no current lane under this allocation.
 
 ## Tasks Taken Up This Cycle
 - Re-read all required orchestration, progress, monitor and stream task controls before selecting work.
-- Verified Presenter branch `Presenter-Solutions-T51-T55` exact head `b7fabb6aa153333e7c4e5a2b8acf4ac5b3d8a57c` and confirmed workflow `.github/workflows/presenter-solution-build.yml` exists on that branch with matching push pattern `Presenter-Solutions-*`.
-- Created repository-backed T54 CI diagnostic artifact at `6d0a0bc6242a7c4b248a3b4d5efbbf9a16d5b6ac`.
-- Queried combined commit-status and exact-commit workflow discovery for the diagnostic tip; both surfaces remain empty.
-- Revalidated Classroom Release-01 identity and Release-02 document gates against the existing private readiness matrix; no new safe materialization step became eligible.
-- Agent 8 captured the T54 diagnostic tip provisionally and retained `freeze_allowed=false`.
-- Document status was propagated only as dependency evidence; no Document work or progress was claimed.
+- Rechecked exact workflow `32095854781`; both backend and frontend had completed SUCCESS.
+- Before crediting T54, inspected the actual Presenter branch source and discovered the intended T54 Service and Unit commits were under repository-root `backend.lib.mgmt/...`, not the real Maven project `backend/backend.lib.mgmt/...`; the live Maven service was still the teaching stub.
+- Corrected T54 Service into the real Maven project at `35513b7445e8e5852e58c80252b9c0c81225e1c0`.
+- Corrected focused T54 Unit tests into the real Maven project at `0c1208f5c6cb835c7065211e54b581bcd448c18f`.
+- Reopened diagnostic draft PR #1 to trigger exact corrected-head workflow `32097667111`.
+- Frontend completed SUCCESS. Initial backend job `95592060418` was CANCELLED during PostgreSQL container initialization before checkout/tests; this is not code-failure evidence.
+- Requested backend-only retry. Retry job `95592166341` successfully passed container initialization/checkout/Java setup and is now IN PROGRESS in `Run Presenter solution tests with PostgreSQL`.
+- Agent 8 removed the prior wrong-path green run from promotable Recovery evidence and retained `freeze_allowed=false`.
+- Classroom lanes retained completed private preflights and safety boundary; no new prerequisite-safe work became eligible.
+- Document state was propagated only as dependency evidence; no Document work or progress was claimed.
 
 ## Tasks Closed This Cycle
-- T54 CI evidence diagnostic artifact — CLOSED as non-percentage execution work at `6d0a0bc6242a7c4b248a3b4d5efbbf9a16d5b6ac`.
+- T54 wrong-path diagnosis and Maven-project correction — CLOSED as non-percentage corrective work.
+- T54 backend infrastructure retry request — CLOSED as non-percentage CI recovery work.
+- T54 Recovery evidence correction — CLOSED as non-percentage evidence-integrity work.
 
 ## Tasks In Progress / Blocked
-- T54 Service+Unit exact green CI — STALE / CI trigger-run visibility blocker.
-- T54 Integration and Assigned Frontend — BLOCKED behind observable exact green CI and ordered Integration.
+- T54 corrected Service+Unit exact green CI — IN PROGRESS, workflow `32097667111`, backend retry `95592166341` running, frontend SUCCESS.
+- T54 Service and Unit — IMPLEMENTED / UNVERIFIED / UNCREDITED until backend SUCCESS on corrected Maven paths.
+- T54 Integration and Assigned Frontend — BLOCKED behind corrected Service+Unit green CI and ordered Integration.
 - T55 implementation — BLOCKED behind T54.
-- T51-T55 cumulative registry/freeze — BLOCKED.
+- T51-T55 cumulative registry/freeze — BLOCKED / `freeze_allowed=false`.
 - Release-01 — BLOCKED by T01_01/T01_03 identity transition.
 - Release-02 — BLOCKED by T02_02 final approval/repository verification and T02_03.
-- Recovery T51-T55 candidate — OPEN / `freeze_allowed=false`.
 - Document T02_02-T06_02 remain unfinished; no current lane assigned.
 
 ## Tasks / Streams Open More Than 3 Cycles and Action Taken
 | Task / Stream | State | Action Taken in This Cycle |
 |---|---|---|
 | Document Rerun | STALE / structural upstream dependency | No lane allocated; dependency state propagated into Classroom gating without false progress. |
-| T54 exact Service+Unit CI | STALE / CI trigger-run visibility blocker | Replaced another identical trigger-only attempt with repository-backed diagnostic `6d0a0bc6...`; verified branch/workflow match and confirmed both exact-run and commit-status surfaces remain empty. |
-| Presenter Solutions | STALE | Performed alternative CI diagnosis; no false CI success assumed and no dependent Integration started. |
-| Classroom Release | STALE / document-gated | Revalidated exact gates against private readiness evidence; no premature materialization/public/QG write. |
-| Recovery / Final Integration | STALE / waiting on Presenter | Captured diagnostic tip provisionally; retained frozen coverage 50/60 and `freeze_allowed=false`. |
-| Overall | STALE by percentage | Substantive diagnostic work occurred, but no defined percentage gate closed. |
+| T54 exact Service+Unit CI | STALE history / active corrected CI | Detected that prior green evidence did not cover the intended files because they were outside the Maven project; corrected Service/Unit into actual Maven paths, triggered exact workflow `32097667111`, and retried only the infrastructure-cancelled backend job. |
+| Presenter Solutions | IN PROGRESS after substantive correction | No percentage credit was taken from invalid wrong-path evidence; Integration remains blocked while corrected backend tests run. |
+| Classroom Release | STALE / document-gated | Existing private preflights remain complete; no new eligible work and no premature public/QG write. |
+| Recovery / Final Integration | STALE / waiting on Presenter | Rejected invalid wrong-path T54 evidence, captured corrected commits/workflow and retained frozen coverage 50/60 with `freeze_allowed=false`. |
+| Overall | STALE by percentage | Substantive correctness repair occurred, but no defined percentage-bearing gate is credited until corrected CI succeeds. |
 
 ## Control evidence
-- T54 CI diagnostic tip: `6d0a0bc6242a7c4b248a3b4d5efbbf9a16d5b6ac`.
-- Presenter task control: `88737e93ff9cdcc63befbd40c94eb1164903ef41`.
-- Recovery task control: `f1666d7f4fde87926f5fb83d44d5fff1412f5f27`.
-- Classroom task control: `d801f11b853c731addf13401b28b8d6ed01e2da9`.
-- Document dependency control: `d14b1664b6309bf50c6fc3af7ef597b2fec5edc5`.
-- Execution monitor: `66ad722d7850dcd6a0423f720340dc68383d3455`.
+- Corrected T54 Service: `35513b7445e8e5852e58c80252b9c0c81225e1c0`.
+- Corrected T54 Unit: `0c1208f5c6cb835c7065211e54b581bcd448c18f`.
+- Corrected exact workflow: `32097667111`.
+- Backend retry: `95592166341` IN PROGRESS.
+- Frontend: `95592167359` SUCCESS.
+- Presenter task control: `126ed64494b83f1c94f05de6a0684c51193eb532`.
+- Recovery task control: `6e3f3c774229a3cba0ad00e58640dcd9a2682f62`.
+- Execution monitor: `9e79eb4116fb9dab80c2659e1e9b46e28ff85439`.
 
 ## Safety
 - No write to the public classroom repository.
