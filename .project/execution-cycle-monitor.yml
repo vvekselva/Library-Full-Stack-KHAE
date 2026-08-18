@@ -1,12 +1,12 @@
-version: 38
+version: 39
 repository: vvekselva/Library-Full-Stack-KHAE-Master
-updated_at: 2026-08-18T22:28:32+05:30
+updated_at: 2026-08-18T22:54:00+05:30
 orchestration:
   coordinator: primary
   logical_worker_lanes: 8
   actual_autonomous_agent_runtime_available: false
   watchdog_project_progress_write_allowed: false
-  project_progress_write_authority: "MANUAL_COORDINATOR_ONLY"
+  project_progress_write_authority: "PROJECT_PROGRESS_SYNCHRONIZER_ONLY"
   current_lane_focus: "Presenter complete; 4 Document / 1 Classroom / 1 Recovery dependency work under current ORCHESTRATOR_PLAN"
   document_work_allocated_to_current_eight: true
   allocation:
@@ -20,15 +20,23 @@ orchestration:
     agent_8: "Recovery / Final Integration — all Presenter registries frozen; wait on Document/Classroom final integration prerequisites"
 watchdog_policy:
   project_progress_path: ".project/PROJECT_PROGRESS.md"
-  mode: READ_ONLY
-  allowed_updates:
+  mode: SYNCHRONIZER_ONLY
+  direct_writers_forbidden:
+    - WATCHDOG_COORDINATOR
+    - MANUAL_COORDINATOR
+    - WORKER_LANES
+  allowed_input_updates:
     - ".project/execution-cycle-monitor.yml"
     - ".project/tasks/document-rerun.md"
     - ".project/tasks/presenter-solutions.md"
     - ".project/tasks/classroom-release.md"
     - ".project/tasks/recovery-final-integration.md"
-  forbidden_action: "Any WATCHDOG_COORDINATOR cycle modifying or committing .project/PROJECT_PROGRESS.md"
-  manual_exception: "Only an explicitly requested manual coordinator/manual consolidation run may update .project/PROJECT_PROGRESS.md"
+    - ".project/ORCHESTRATOR_PLAN.md"
+  dashboard_writer: "PROJECT_PROGRESS_SYNCHRONIZER"
+  synchronizer_script: "scripts/project_progress_sync.py"
+  synchronizer_workflow: ".github/workflows/project-progress-sync.yml"
+  synchronizer_spec: ".project/PROJECT_PROGRESS_SYNC_SPEC.md"
+  post_cycle_rule: "After authoritative input changes are committed, the dedicated synchronizer regenerates PROJECT_PROGRESS.md."
 current_cycle:
   cycle_id: C-20260818-WATCHDOG-0109
   trigger: WATCHDOG_COORDINATOR
@@ -108,6 +116,7 @@ stream_stall_monitor:
     over_three_cycles: false
     total_stale_cycles: 0
     stale_since_cycle: null
+    action_taken_in_this_cycle: "Overall advanced only from verified Document repository-verification gates."
 stalled_tasks:
   - task: "Release-01 materialization/freeze"
     state: BLOCKED_DOCUMENT_APPROVAL
@@ -122,5 +131,7 @@ stalled_tasks:
 safety:
   public_classroom_write: FORBIDDEN
   quality_gate_write: FORBIDDEN
-  watchdog_project_progress_write: FORBIDDEN
-  project_progress_dashboard_intentionally_unchanged: true
+  watchdog_project_progress_direct_write: FORBIDDEN
+  manual_project_progress_direct_write: FORBIDDEN
+  project_progress_dashboard_writer: PROJECT_PROGRESS_SYNCHRONIZER
+  project_progress_dashboard_auto_sync_required: true
