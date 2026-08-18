@@ -6,43 +6,33 @@
 
 ## Current verified state
 - T01-T55 remain completed/frozen/verified; T51-T55 registry `4ec7937a06244d4e1eaa33dbbb16b968e7ccf73b` has registry-tip workflow `32112252425` fully SUCCESS.
-- T56 is complete through Assigned Frontend and exact-green verified.
-- T57 is CLOSED through Assigned Frontend. PostgreSQL 18 workflow `32137441585` and frontend workflow `32137927917` are fully SUCCESS.
-- T58 Service `2751c57b738ffa631a30e4ff8d073541a248614a`, Unit `347a12ae9b55d87184ccfd2ed8d265e71cdfb3cb`, local PostgreSQL `4ab9be0519c0aff468ba1799909ff9840d98c803`, PostgreSQL 18 `d138966e50de81f53056906ddecbef4f61e2cef8`, and Assigned Frontend `871f7028f6f531dc2a76cda113ce71ee7f45af54` are exact-green verified. Frontend workflow `32140053352`: backend `95720320953` SUCCESS; frontend `95720321102` SUCCESS.
-- **T58 Update Fine is CLOSED through Assigned Frontend.**
-- T59 Void Fine Service was implemented at `f91ce659af7ffe216ca3de41829d9f5f24607e16` using `FineDao.findCurrentById`, posted Fine Payment dependency protection, `VOID` persistence, mapper response, and frozen `T59_VOID_FINE` codes.
-- T59 focused Unit Test is at branch tip `7c8106658610f6fce2543dad13bb1b24e498cdc1`, covering success, dependency rejection, missing/already-void Fine and invalid ID.
-- Exact T59 Service+Unit workflow `32140581974` is IN_PROGRESS at consolidation. T59 Service and Unit remain IMPLEMENTED / UNVERIFIED / UNCREDITED until the workflow becomes fully green.
-- T59 Integration/Frontend and all T60 implementation remain blocked behind that gate.
+- T56-T58 are CLOSED through Assigned Frontend with exact-green evidence.
+- **T59 Void Fine Service `f91ce659af7ffe216ca3de41829d9f5f24607e16` and Unit `7c8106658610f6fce2543dad13bb1b24e498cdc1` are now CLOSED / VERIFIED GREEN.** Exact workflow `32140581974`: backend `95722051001` SUCCESS; frontend `95722051071` SUCCESS.
+- T59 local PostgreSQL Integration is now the next eligible gate. PostgreSQL 18, combined Integration and Assigned Frontend remain ordered behind it.
+- T60 implementation remains blocked until T59 closes through Assigned Frontend.
 
 ## Current stream accounting
-- Previous: **93.6667%**
-- Updated: **95.6667%**
-- Increase: **+2.0000 percentage points**
-- Verified total: **287 / 300**
-- State: **IN PROGRESS — T58 CLOSED; T59 SERVICE+UNIT CI ACTIVE**.
+- Previous: **95.6667%**
+- Updated: **96.3333%**
+- Increase: **+0.6666 percentage points**
+- Verified total: **289 / 300**
+- State: **IN PROGRESS — T59 SERVICE+UNIT GREEN; LOCAL INTEGRATION NEXT**.
 
 ## Lane actions this cycle
-- Agent 1: verified T57 PostgreSQL 18 and Assigned Frontend exact-green evidence.
-- Agent 2: verified T58 Service, Unit and both Integration environments exact-green.
-- Agent 3: implemented the now-eligible T59 DAO-backed Void Fine Service only after T58 frontend turned fully green.
-- Agent 6: verified T58 Assigned Frontend exact-green, added the focused T59 Unit Test, and exposed exact workflow `32140581974`.
+- Agent 1: revalidated T59 exact Service+Unit workflow and closed Service.
+- Agent 2: closed T59 Unit and opened the local PostgreSQL Integration execution boundary.
+- Agent 3: retained T60 source/test readiness only; no implementation before T59 closes.
+- Agent 6: retained Assigned Frontend guard until combined Integration is green.
 
 ## Tasks closed this cycle
-- T57 combined Integration — CLOSED / VERIFIED GREEN.
-- T57 Assigned Frontend — CLOSED / VERIFIED GREEN.
-- T58 Service — CLOSED / VERIFIED GREEN.
-- T58 Unit Test — CLOSED / VERIFIED GREEN.
-- T58 combined Integration — CLOSED / VERIFIED GREEN.
-- **T58 Assigned Frontend — CLOSED / VERIFIED GREEN.**
+- **T59 Void Fine Service — CLOSED / VERIFIED GREEN.**
+- **T59 Void Fine Unit Test — CLOSED / VERIFIED GREEN.**
 
 ## In progress / blocked
-- T59 Service — IMPLEMENTED / CI ACTIVE at `f91ce659...`.
-- T59 Unit Test — IMPLEMENTED / CI ACTIVE at `7c810665...`; workflow `32140581974` IN_PROGRESS.
-- T59 local PostgreSQL Integration — BLOCKED until Service+Unit exact CI is fully green.
+- T59 local PostgreSQL Integration — NEXT ELIGIBLE / IN PROGRESS EXECUTION BOUNDARY.
 - T59 PostgreSQL 18 / combined Integration / Assigned Frontend — BLOCKED behind ordered prerequisites.
-- T60 ordered implementation — BLOCKED until T59 closes.
+- T60 ordered implementation — BLOCKED until T59 closes through Assigned Frontend.
 - T56-T60 cumulative registry/freeze — BLOCKED until all five Fine tracks and registry-tip CI close.
 
 ## >3-cycle stalled action
-Presenter is not stale: six percentage-bearing checkpoints were closed from exact evidence, then the newly eligible T59 Service and Unit were implemented and placed under exact CI. No T59 Integration or T60 implementation was started prematurely.
+Presenter is not stale because two percentage-bearing checkpoints closed from exact green evidence. No dependent T59/T60 stage was credited prematurely.
