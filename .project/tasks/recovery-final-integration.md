@@ -7,8 +7,9 @@
 - T01-T50 registries: VERIFIED, including T46-T50 Book Return registry `cd03adf2280237f35f85cdced7d97f1f1a888f5e` with run `32056947711` SUCCESS.
 - T51-T55 Reservation candidate: OPEN / NOT FREEZABLE.
 - T51-T53 are immutable VERIFIED through Assigned Frontend.
-- T54 Service `3f8ebd45cf15c48418a9552fa09811612ddc7100` and Unit `1e37f0f25ba9765eb23caca8af23eb1ad5c942ca` remain provisional because exact green branch-tip Actions evidence is not observable.
-- T55 Search Reservation is source-ready only; implementation remains dependency-blocked behind T54.
+- T54 Service `3f8ebd45cf15c48418a9552fa09811612ddc7100` and Unit `1e37f0f25ba9765eb23caca8af23eb1ad5c942ca` remain provisional.
+- A new private exact-CI retrigger marker exists at `fb0ecb94bc7152f84212b4a8c66838aed186e15b`, but the connected exact-commit workflow surface still exposes no run.
+- T55 Search Reservation remains source-ready only and dependency-blocked behind T54.
 - `freeze_allowed=false` until every Presenter component checkpoint and cumulative registry-tip CI is green.
 
 ## Current stream accounting
@@ -16,7 +17,7 @@
 - Previous: **33.3333%**
 - Updated: **33.3333%**
 - Increase: **+0.0000 percentage points**
-- State: **BLOCKED / WAITING_ON_PRESENTER**.
+- State: **STRUCTURAL BLOCKER / WAITING_ON_PRESENTER**.
 
 ## Tasks Closed This Cycle
 None at a Recovery percentage gate.
@@ -30,4 +31,4 @@ None at a Recovery percentage gate.
 - Final integration remains blocked by remaining Presenter, Document and Classroom prerequisites.
 
 ## Open More Than 3 Cycles / Agent 8 Action Taken in This Cycle
-Recovery remains beyond the stale threshold. **Action Taken in This Cycle:** because no new verified Presenter checkpoint exists, Agent 8 did not perform another unchanged registry inspection. The lane is explicitly `WAITING_ON_PRESENTER`, preserves the existing immutable T51-T53 evidence, and retains `freeze_allowed=false` until T54 produces exact green CI evidence.
+Recovery remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** Agent 8 stayed evidence-reactive rather than performing another unchanged registry poll. It recorded the new T54 retry boundary `fb0ecb94...` as provisional only, preserved immutable T51-T53 evidence, and retained `freeze_allowed=false` because no new verified Presenter checkpoint exists.
