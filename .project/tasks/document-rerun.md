@@ -30,4 +30,4 @@ None. No Document work was allocated under the authoritative 4 Presenter / 3 Cla
 - T02_02/T02_03 block Classroom Release-02.
 
 ## >3-cycle stalled action
-Document Rerun remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** its exact dependency state was revalidated only because it materially gates Classroom. No worker lane was assigned, no status check was counted as progress, and no write was made to the Quality Gate or public classroom repositories.
+Document Rerun remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** exact dependency state was propagated only because it materially gates Classroom. No worker lane was assigned, no status inspection was counted as progress, and no write was made to the Quality Gate or public classroom repositories.
