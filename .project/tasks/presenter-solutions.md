@@ -8,33 +8,34 @@
 - T01-T55 remain completed/frozen/verified; T51-T55 registry `4ec7937a06244d4e1eaa33dbbb16b968e7ccf73b` has registry-tip workflow `32112252425` fully SUCCESS.
 - T56-T58 are CLOSED through Assigned Frontend with exact-green evidence.
 - T59 Void Fine Service `f91ce659af7ffe216ca3de41829d9f5f24607e16` and Unit `7c8106658610f6fce2543dad13bb1b24e498cdc1` are CLOSED / VERIFIED GREEN.
-- T59 local PostgreSQL Integration `babd253a662f0f3b6e8802a0cd6febd5ffa770e4` is VERIFIED GREEN under workflow `32146489639`; backend `95741381800` SUCCESS and frontend `95741381894` SUCCESS.
-- **T59 PostgreSQL 18 Testcontainers has been implemented at `405a9b95b407c26b2bddeab4913075ea916928bb`.** Exact PR-visible workflow `32149025207` is active. Combined T59 Integration remains uncredited until this workflow is fully green.
-- T59 Assigned Frontend remains blocked until combined Integration is green.
-- T60 Search Fine is source-reconciled only; current `SearchFineServiceImpl` remains a synthetic fixed-response teaching stub. Implementation remains ordered behind T59 closure.
+- T59 local PostgreSQL Integration `babd253a662f0f3b6e8802a0cd6febd5ffa770e4` is VERIFIED GREEN under workflow `32146489639`.
+- **T59 PostgreSQL 18 Testcontainers `405a9b95b407c26b2bddeab4913075ea916928bb` is VERIFIED GREEN.** Workflow `32149025207`: backend `95749924520` SUCCESS; frontend `95749924404` SUCCESS.
+- **T59 combined Integration is therefore CLOSED / VERIFIED GREEN.**
+- **T59 Assigned Frontend has been implemented at `de5fe904dbcbf74ea8ec5465c2ee68946f2e0cba`.** Exact workflow `32149651752`: frontend `95752030456` SUCCESS; backend `95752030445` IN_PROGRESS at consolidation.
+- T60 Search Fine is source-reconciled only; current `SearchFineServiceImpl` remains a synthetic fixed-response teaching stub. Implementation remains blocked until T59 Assigned Frontend is fully green.
 
 ## Current stream accounting
 - Previous: **96.3333%**
-- Updated: **96.3333%**
-- Increase: **+0.0000 percentage points this consolidation**
-- Verified total: **289 / 300**
-- State: **IN PROGRESS — T59 POSTGRESQL 18 TESTCONTAINERS CI ACTIVE**.
+- Updated: **96.6667%**
+- Increase: **+0.3334 percentage points**
+- Verified total: **290 / 300**
+- State: **IN PROGRESS — T59 COMBINED INTEGRATION GREEN; ASSIGNED FRONTEND CI ACTIVE**.
 
 ## Current lane actions
-- Agent 1: T59 PostgreSQL 18 Testcontainers implementation + exact CI evidence.
-- Agent 2: T59 Assigned Frontend immediately after combined Integration is green, then T60 ordered execution.
-- Agent 3: T60 source/test reconciliation and implementation readiness only while T59 remains dependency-blocked.
-- Agent 6: Assigned Frontend/cumulative-regression readiness; no dependent execution before its gate.
+- Agent 1: closed exact T59 Testcontainers + combined Integration evidence.
+- Agent 2: implemented T59 Assigned Frontend and owns exact CI evidence; T60 opens only after full green.
+- Agent 3: revalidated T60 source/test boundary during CI wait window; no implementation before T59 closure.
+- Agent 6: retains cumulative-regression/final batch readiness; no dependent implementation prematurely.
 
 ## Tasks closed this cycle
-- T59 PostgreSQL 18 Testcontainers implementation — CLOSED non-percentage implementation sub-stage at `405a9b95b407c26b2bddeab4913075ea916928bb`.
+- T59 PostgreSQL 18 Testcontainers — CLOSED / VERIFIED GREEN.
+- T59 combined Integration — CLOSED / VERIFIED GREEN.
+- T59 Assigned Frontend implementation sub-stage — CLOSED non-percentage implementation stage at `de5fe904dbcbf74ea8ec5465c2ee68946f2e0cba`.
 
 ## In progress / blocked
-- T59 PostgreSQL 18 Testcontainers verification — IN PROGRESS under workflow `32149025207`.
-- T59 combined Integration — OPEN / uncredited until Testcontainers CI is green.
-- T59 Assigned Frontend — BLOCKED behind combined Integration.
-- T60 ordered implementation — BLOCKED until T59 closes through Assigned Frontend.
+- T59 Assigned Frontend verification — IN PROGRESS under workflow `32149651752`; frontend SUCCESS, backend IN_PROGRESS.
+- T60 ordered implementation — BLOCKED until T59 Assigned Frontend workflow is fully green.
 - T56-T60 cumulative registry/freeze — BLOCKED until all five Fine tracks and registry-tip CI close.
 
 ## Stale action
-Presenter is not stale. The next eligible repository gate was executed instead of status-only polling.
+Presenter is not stale. Two eligible repository stages were executed in dependency order and the percentage-bearing combined Integration checkpoint closed from exact green evidence.
