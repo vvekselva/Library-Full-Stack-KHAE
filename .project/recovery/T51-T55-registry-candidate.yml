@@ -1,0 +1,62 @@
+version: 1
+batch: T51-T55
+module: Reservation
+status: FROZEN_VERIFIED
+freeze_allowed: true
+presenter_branch: Presenter-Solutions-T51-T55
+verified_registry_commit: 4ec7937a06244d4e1eaa33dbbb16b968e7ccf73b
+registry_tip_ci:
+  workflow_run: 32112252425
+  backend_job: 95634038304
+  backend_result: SUCCESS
+  frontend_job: 95634038380
+  frontend_result: SUCCESS
+tracks:
+  T51:
+    operation: Create Reservation
+    service: 42965168682f4b67450763005159685bd2a75090
+    unit_test: 7c5de1548fc2c77c5f29a71103753732e443f4f6
+    local_integration: 31e35f5d2c86fd6b5e5f9739eaf7a50822aed736
+    testcontainers: 8ddc0ce070c0968007c95bf889bebc81efd4050f
+    assigned_frontend: acd31c24bee6b44cd642030b7a422f2dae474b9b
+    registry_checkpoint: verified
+  T52:
+    operation: Read Reservation
+    service: b72e1008760a762d083ae670fe7a45e59c9fee1e
+    unit_test: 4aaa035121eccb3cbdb8ddd7aa5fcdde2ed53c12
+    local_integration: 853605c6b3f7779b2301075d65cb6dd58c996d4e
+    testcontainers: f4f86e4bce81505e2119e71168648f19550e58d4
+    assigned_frontend: e3777b25e3dc2db829fc6676ba329454b1921a57
+    registry_checkpoint: verified
+  T53:
+    operation: Update Reservation
+    service: 7b4224faa28ebad683e835f7301b12b6078ad3f2
+    unit_test: d1fbee463fcbac923803780e415b360fd9346eff
+    local_integration: 4ac36fe1fe49132a5f24a8044b0de0538d65d66b
+    testcontainers: 06bc35a831140793cf208effb06423aa9d4d2aeb
+    assigned_frontend: 591f7a4637aa05da9f772be12c8e4a758fd1ffc5
+    registry_checkpoint: verified
+  T54:
+    operation: Cancel Reservation
+    service: 35513b7445e8e5852e58c80252b9c0c81225e1c0
+    unit_test: 0c1208f5c6cb835c7065211e54b581bcd448c18f
+    local_integration: 78da9eb0f02203f70ecc0363da2b4d1c8360723a
+    testcontainers: 605566a2c0d97badc69f44885d9c5bf9197b2949
+    assigned_frontend: b90958ced2c314749817c8b6928230ffa4e2f0d9
+    registry_checkpoint: verified
+  T55:
+    operation: Search Reservation
+    service: f19715e0e1d9d4a4b1e558a222195fe8c02b7214
+    unit_test: c89706a3ae4640336d47457af2c57e0fafe2620b
+    local_integration: 98138a4b49686b08bc3222cc8b474343acfd3b70
+    testcontainers: 1e1a3e7d647ad9296a0a4e438e7912142d368c1a
+    assigned_frontend: 4eb8bd6464fb808ced97be5b9cac9f1d341de090
+    assigned_frontend_path: frontend/frontend.lib.mgmt/src/tracks/t55-search-reservation.js
+    frontend_ci:
+      workflow_run: 32111670679
+      backend_job: 95632262446
+      backend_result: SUCCESS
+      frontend_job: 95632262585
+      frontend_result: SUCCESS
+    registry_checkpoint: verified
+freeze_guard: "Satisfied: all five Reservation tracks have immutable Service, Unit, local PostgreSQL Integration, PostgreSQL 18 Testcontainers, assigned Frontend and green registry-tip CI evidence."
