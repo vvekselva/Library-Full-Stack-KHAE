@@ -1,6 +1,6 @@
-version: 19
+version: 20
 repository: vvekselva/Library-Full-Stack-KHAE-Master
-updated_at: 2026-08-18T16:18:00+05:30
+updated_at: 2026-08-18T16:32:00+05:30
 orchestration:
   coordinator: primary
   logical_worker_lanes: 8
@@ -8,27 +8,27 @@ orchestration:
   current_lane_focus: "4 Presenter / 3 Classroom / 1 Recovery; Document dependency only"
   document_work_allocated_to_current_eight: false
 current_cycle:
-  cycle_id: C-20260818-0095
-  status: SUBSTANTIVE_PROGRESS_T56_INTEGRATION_GREEN_FRONTEND_RETRY_RUNNING
+  cycle_id: C-20260818-0096
+  status: SUBSTANTIVE_PROGRESS_T56_FRONTEND_GREEN_T57_SERVICE_UNIT_CI_RUNNING
   tasks:
-    - task: "T56 PostgreSQL 18 Testcontainers Integration"
+    - task: "T56 Assigned Create Fine Frontend"
       stream: Presenter Solutions
       status: CLOSED_VERIFIED
       closed_this_cycle: true
-      evidence: "commit 7946476c6b0852e2ad2e193f52213a3130ec90b4; workflow 32124520224; backend 95672018748 SUCCESS; frontend 95672018766 SUCCESS"
-      action_taken_in_this_cycle: "Verified exact full-green Testcontainers workflow and closed the atomic T56 combined Integration checkpoint."
-    - task: "T56 Assigned Create Fine Frontend"
+      evidence: "frontend commit 361fbb18272e9d79bec5d9975281c465eeb4c210; workflow 32127222354; retry backend 95680667205 SUCCESS; frontend 95680668410 SUCCESS"
+      action_taken_in_this_cycle: "Verified the exact retry finished fully green and closed the percentage-bearing T56 assigned Frontend checkpoint."
+    - task: "T57 Read Fine Service"
       stream: Presenter Solutions
-      status: IN_PROGRESS_CI_RETRY
+      status: IMPLEMENTED_UNVERIFIED
       closed_this_cycle: false
-      evidence: "frontend commit 361fbb18272e9d79bec5d9975281c465eeb4c210; workflow 32127222354; retry frontend 95680668410 SUCCESS; retry backend 95680667205 IN_PROGRESS"
-      action_taken_in_this_cycle: "Implemented only after Integration became green; first backend regression was CANCELLED, so the cancelled backend job was explicitly rerun and no Frontend credit was applied."
-    - task: "T57 Read Fine source/contract reconciliation"
+      evidence: "commit 9bd85388dab1996a1e413113cfbe9f5a260f648a; FineDao.findCurrentById -> FineDtoDoMapper.toResponse; controlled T57_READ_FINE errors"
+      action_taken_in_this_cycle: "Replaced the synthetic stub only after T56 Frontend closed."
+    - task: "T57 Read Fine Unit Test"
       stream: Presenter Solutions
-      status: CLOSED_NON_PERCENTAGE_PREREQUISITE
-      closed_this_cycle: true
-      evidence: "commit 072cf119a642f9af04be10ad3a01730f3ffb1d44; GET /rest/fines/{id} -> FineDao.findCurrentById -> FineDtoDoMapper.toResponse; T57_READ_FINE"
-      action_taken_in_this_cycle: "Completed source reconciliation during the T56 CI window; no T57 implementation started prematurely."
+      status: IMPLEMENTED_CI_RUNNING
+      closed_this_cycle: false
+      evidence: "branch tip f0c4afc4d8011553e22f09931e8aab74d7fbe84d; workflow 32129629331; frontend 95687851420 SUCCESS; backend 95687851293 IN_PROGRESS"
+      action_taken_in_this_cycle: "Added focused current/not-found/null-ID tests and started exact branch-tip CI; Integration remains blocked."
     - task: "Release-01 materialization/freeze"
       stream: Classroom Release Preparation
       status: STALE_WAITING_ON_DOCUMENT
@@ -43,8 +43,8 @@ current_cycle:
       stream: Recovery / Final Integration
       status: OPEN_NOT_FREEZABLE
       closed_this_cycle: false
-      evidence: "T56 Service+Unit and combined Integration verified; T56 frontend provisional; frozen coverage 55/60"
-      action_taken_in_this_cycle: "Promoted T56 combined Integration evidence, captured frontend retry provisionally, retained freeze_allowed=false."
+      evidence: "T56 full track through assigned Frontend immutable VERIFIED; T57 Service+Unit provisional; frozen coverage 55/60"
+      action_taken_in_this_cycle: "Promoted T56 frontend evidence, captured T57 Service+Unit provisionally, retained freeze_allowed=false."
     - task: "Document dependency state"
       stream: Document Rerun
       status: STALE_STRUCTURAL_NO_LANE
@@ -58,11 +58,11 @@ stream_stall_monitor:
     over_three_cycles: true
     action_taken_in_this_cycle: "No lane allocated; propagated exact T01/T02 blockers only and credited no status-check progress."
   - stream: Presenter Solutions
-    previous_percent: 92.3333
-    current_percent: 92.6667
-    increase: 0.3334
+    previous_percent: 92.6667
+    current_percent: 93.0000
+    increase: 0.3333
     over_three_cycles: false
-    action_taken_in_this_cycle: "Closed T56 combined Integration and executed the newly eligible Frontend; reran cancelled backend regression."
+    action_taken_in_this_cycle: "Closed T56 Assigned Frontend and immediately implemented T57 Service+Unit; exact CI is running."
   - stream: Classroom Release Preparation
     previous_percent: 33.3333
     current_percent: 33.3333
@@ -74,13 +74,13 @@ stream_stall_monitor:
     current_percent: 36.6667
     increase: 0.0000
     over_three_cycles: false
-    action_taken_in_this_cycle: "Promoted newly verified T56 Integration evidence and retained frontend provisionally; no premature freeze."
+    action_taken_in_this_cycle: "Promoted T56 frontend evidence and retained T57 provisional; no premature Fine batch freeze."
   - stream: Overall
-    previous_percent: 41.7417
-    current_percent: 41.8584
+    previous_percent: 41.8584
+    current_percent: 41.9750
     increase: 0.1167
     over_three_cycles: false
-    action_taken_in_this_cycle: "Weighted progress came only from the newly verified T56 combined Integration checkpoint."
+    action_taken_in_this_cycle: "Weighted progress came only from the newly verified T56 Assigned Frontend checkpoint."
 safety:
   public_classroom_write: FORBIDDEN
   quality_gate_write: FORBIDDEN
