@@ -10,81 +10,84 @@ This file is the private, authoritative execution dashboard for the KHAE Full St
 
 `Overall = Documents*0.45 + PresenterSolutions*0.35 + ClassroomReleases*0.10 + Recovery*0.10`
 
-## Current Status - 2026-08-18 12:42 IST
+## Current Status - 2026-08-18 13:00 IST
 
 | Stream | Previous % | Updated % | Increase | Current Stage |
 |---|---:|---:|---:|---|
-| Document Rerun | 5.3889% | **5.3889%** | +0.0000% | **STALE / STRUCTURAL UPSTREAM DEPENDENCY.** No current worker lane; unchanged document gates still block Classroom releases. |
-| Presenter Solutions | 89.3333% | **89.3333%** | +0.0000% | **IN PROGRESS.** Failed T55 local PostgreSQL fixture corrected and exact-green; PostgreSQL 18 Testcontainers CI is running. |
-| Classroom Release Preparation | 33.3333% | **33.3333%** | +0.0000% | **STALE / DOCUMENT-GATED.** Private preflights are complete; no new prerequisite-safe release step is eligible. |
-| Recovery / Final Integration | 33.3333% | **33.3333%** | +0.0000% | **STALE / CANDIDATE OPEN.** Corrected local T55 evidence promoted; PostgreSQL 18 provisional; `freeze_allowed=false`. |
-| **Overall** | 40.3583% | **40.3583%** | **+0.0000%** | Substantive Presenter correction/progression; atomic T55 Integration remains uncredited until PostgreSQL 18 backend CI is green. |
+| Document Rerun | 5.3889% | **5.3889%** | +0.0000% | **STALE / STRUCTURAL UPSTREAM DEPENDENCY.** No current worker lane; T01 identity and T02 document gates still block Classroom releases. |
+| Presenter Solutions | 89.3333% | **91.6667%** | **+2.3334%** | **IN PROGRESS.** T51-T55 Reservation is FROZEN_VERIFIED; T56-T60 Fine branch/source reconciliation is open and T56 Create Fine is next eligible. |
+| Classroom Release Preparation | 33.3333% | **33.3333%** | +0.0000% | **STALE / WAITING_ON_DOCUMENT.** Private preflights are complete; no new prerequisite-safe release step is eligible. |
+| Recovery / Final Integration | 33.3333% | **36.6667%** | **+3.3334%** | **IN PROGRESS.** T51-T55 registry is FROZEN_VERIFIED; frozen registry coverage is now 55/60 tracks. |
+| **Overall** | 40.3583% | **41.5083%** | **+1.1500%** | Real progress from T55 Integration/Frontend, five Reservation registry checkpoints, and Recovery registry freeze. |
 
 ## Active logical lanes
-- Agent 1 — Presenter Solutions: diagnose T55 local PostgreSQL failure and prove corrected rerun.
-- Agent 2 — Presenter Solutions: T55 PostgreSQL 18 Testcontainers Integration after corrected local green.
-- Agent 3 — Presenter Solutions: reconcile T55 Testcontainers/frontend contract boundaries without skipping gates.
-- Agent 4 — Classroom Release: Release-01 private readiness; blocked by Documents.
-- Agent 5 — Classroom Release: Release-02 private readiness; blocked by Documents.
-- Agent 6 — Presenter Solutions: hold T55 Assigned Frontend behind combined Integration.
-- Agent 7 — Classroom Release: private promotion-boundary guard.
-- Agent 8 — Recovery / Final Integration: promote corrected T55 evidence provisionally and preserve freeze guard.
+- Agent 1 — Presenter Solutions: closed T55 Integration; next T56 Create Fine Service.
+- Agent 2 — Presenter Solutions: executed T55 Search Reservation frontend; next T56 Unit/Integration after ordered gates.
+- Agent 3 — Presenter Solutions: assembled T51-T55 registry and reconciled T56-T60 Fine source/contract.
+- Agent 4 — Classroom Release: Release-01 private readiness complete; WAITING_ON_DOCUMENT.
+- Agent 5 — Classroom Release: Release-02 private readiness complete; WAITING_ON_DOCUMENT.
+- Agent 6 — Presenter Solutions: validated frontend and registry-tip gates; holds T56 Frontend until Integration green.
+- Agent 7 — Classroom Release: private promotion-boundary guard; no repeated unchanged polling.
+- Agent 8 — Recovery / Final Integration: froze T51-T55 after exact registry-tip CI; next tracks T56-T60 evidence.
 - Document Rerun receives no current lane under this allocation.
 
 ## Tasks Taken Up This Cycle
 - Read the orchestration plan, prior dashboard, execution monitor, and all four stream task files before work selection.
-- Re-fetched T55 Integration workflow `32107054525`: frontend `95618516153` SUCCESS and backend `95618516140` FAILURE.
-- Diagnosed the failure against the actual Flyway/PostgreSQL schema and seed data. The integration fixture used invalid Book foreign keys; existing seed data provides valid Book and Membership IDs `1-4`, and seeded Book Issues reference existing Reservations, so destructive reservation cleanup was also unsafe.
-- Corrected `SearchReservationIntegrationTest` at branch tip `98138a4b49686b08bc3222cc8b474343acfd3b70` to use valid membership/book pairs `1/1` and `2/2`, transactional rollback, DAO ordering verification, no-match behavior and blank-input validation. Production Search Reservation code was not altered.
-- Exact corrected workflow `32110010694` completed green: backend `95627183939` SUCCESS and frontend `95627183985` SUCCESS.
-- Only after that local gate became green, added `SearchReservationTestcontainersIntegrationTest` at `1e1a3e7d647ad9296a0a4e438e7912142d368c1a` using PostgreSQL 18 Testcontainers and Spring Boot `@ServiceConnection`.
-- Exact PostgreSQL 18 workflow `32110395678` is active; frontend `95628335685` SUCCESS and backend `95628335767` IN_PROGRESS at consolidation.
-- Did not start T55 Assigned Frontend before the combined Integration gate.
-- Classroom Agents 4/5/7 revalidated Release-01/02 private preflights and exact document gates; no blocked materialization/public/QG write.
-- Agent 8 rejected failed T55 Integration evidence, promoted corrected local evidence, captured PostgreSQL 18 evidence provisionally, and retained `freeze_allowed=false`.
+- Consumed T55 PostgreSQL 18 workflow `32110395678`: backend `95628335767` SUCCESS and frontend `95628335685` SUCCESS, closing combined Integration.
+- Reconciled the Reservation frontend sequence and created `frontend/frontend.lib.mgmt/src/tracks/t55-search-reservation.js` at `4eb8bd6464fb808ced97be5b9cac9f1d341de090` only after Integration became green.
+- Consumed exact T55 frontend workflow `32111670679`: backend `95632262446` SUCCESS and frontend `95632262585` SUCCESS.
+- Built `.presenter/solution-registry/T51-T55.yml` at `4ec7937a06244d4e1eaa33dbbb16b968e7ccf73b` from exact immutable T51-T55 component evidence.
+- Waited for registry-tip workflow `32112252425`; backend `95634038304` SUCCESS and frontend `95634038380` SUCCESS before closing any registry checkpoint.
+- Agent 8 recorded `.project/recovery/T51-T55-registry-candidate.yml` as FROZEN_VERIFIED at control commit `b0b4e2378e98ff56b81de95fbf394a28c869b27e`.
+- Created `Presenter-Solutions-T56-T60` from the verified Reservation registry and closed Fine source/contract reconciliation at `2bc7575a33185b7f65e5c746275aee24ef534174` as a non-percentage prerequisite.
+- Classroom Agents 4/5/7 retained completed private preflights and stopped at unchanged Document gates; no blocked materialization/public/QG write.
 - Document state was retained only because it materially gates Classroom; no Document lane or progress credit.
 
 ## Tasks Closed This Cycle
-- **T55 local PostgreSQL integration fixture diagnosis/correction — CLOSED as substantive non-percentage work.**
-- **T55 corrected local PostgreSQL Integration subgate — CLOSED / VERIFIED GREEN as a non-percentage substage of the atomic combined Integration checkpoint.**
-- Recovery promotion of corrected local T55 evidence — CLOSED as non-percentage evidence work.
+- **T55 PostgreSQL 18 / combined Integration — CLOSED / VERIFIED GREEN.**
+- **T55 Assigned Frontend — CLOSED / VERIFIED GREEN.**
+- **T51-T55 final CI/registry checkpoints — five CLOSED after exact registry-tip CI.**
+- **T51-T55 Reservation batch — CLOSED / FROZEN_VERIFIED.**
+- **T51-T55 Recovery registry candidate — CLOSED / FROZEN_VERIFIED.**
+- **T56-T60 Fine source/contract reconciliation — CLOSED as a non-percentage prerequisite.**
 
 ## Tasks In Progress / Blocked
-- T55 PostgreSQL 18 Testcontainers / combined Integration — IN PROGRESS at `1e1a3e7d...`, workflow `32110395678`; frontend green, backend running.
-- T55 Assigned Frontend — BLOCKED behind green combined Integration.
-- T51-T55 cumulative registry/freeze — BLOCKED / `freeze_allowed=false` until T55 Integration, Frontend and registry-tip CI close.
+- T56 Create Fine Service — NEXT ELIGIBLE.
+- T56 Unit/Integration/Frontend — BLOCKED behind ordered prerequisites.
+- T57-T60 source inspection may proceed independently; implementation remains dependency ordered.
+- T56-T60 cumulative registry/freeze — BLOCKED until all five Fine tracks and registry-tip CI close.
 - Release-01 — BLOCKED by T01_01/T01_03 identity transition.
 - Release-02 — BLOCKED by T02_02 final approval/repository verification and T02_03.
 - Document T02_02-T06_02 remain unfinished; no current lane assigned.
+- Final integration remains blocked by T56-T60 plus Document/Classroom prerequisites.
 
 ## Tasks / Streams Open More Than 3 Cycles and Action Taken
 | Task / Stream | State | Action Taken in This Cycle |
 |---|---|---|
 | Document Rerun | **STALE / structural upstream dependency (>3 cycles)** | No lane allocated; exact dependency state retained for Classroom gating only, with no false progress. |
-| Release-01 materialization/freeze | **BLOCKED >3 cycles** | Revalidated complete private preflight and retained the T01_01/T01_03 identity transition gate; no premature materialization. |
-| Release-02 materialization/freeze | **BLOCKED >3 cycles** | Revalidated accepted application baseline/private preflight and retained T02_02 final-approval/repository-verification plus T02_03 gates. |
-| Classroom Release | **STALE / document-gated (>3 cycles)** | Revalidated Release-01/02 private readiness and stopped at exact document gates; no public/QG write. |
-| Recovery / Final Integration | **STALE / candidate open (>3 cycles)** | Rejected failed T55 evidence, promoted corrected exact-green local evidence, captured PostgreSQL 18 provisionally, retained `freeze_allowed=false`. |
+| Release-01 materialization/freeze | **BLOCKED >3 cycles** | Retained completed private preflight and exact T01_01/T01_03 identity transition gate; no premature materialization. |
+| Release-02 materialization/freeze | **BLOCKED >3 cycles** | Retained accepted baseline/private preflight and exact T02_02 final-approval/repository-verification plus T02_03 gates. |
+| Classroom Release | **STALE / WAITING_ON_DOCUMENT (>3 cycles)** | Stopped repeated unchanged polling; all independent private preflight work is already complete. |
 
-Presenter is not beyond the >3-cycle no-increase threshold because T55 Service+Unit closed in the immediately preceding cycle; this cycle nevertheless performed substantive corrective and next-stage work.
+Presenter and Recovery are not stale this cycle because both achieved genuine percentage increases. The prior Recovery candidate was closed only after registry-tip CI succeeded.
 
 ## Streams With No Increase More Than 3 Cycles
-- **Document Rerun:** unchanged at 5.3889%; structural upstream blocker with no lane under this allocation.
-- **Classroom Release:** unchanged at 33.3333%; Release-01/02 remain document-gated after private preflights.
-- **Recovery / Final Integration:** unchanged at 33.3333%; candidate remains open until Presenter batch completion.
+- **Document Rerun:** unchanged at 5.3889%; structural upstream blocker with no lane under this allocation. Action: report exact dependency only; no progress credit.
+- **Classroom Release:** unchanged at 33.3333%; Release-01/02 remain document-gated after private preflights. Action: `WAITING_ON_DOCUMENT`, no repeated polling/public/QG write.
 
 ## Control evidence
-- T55 Service: `f19715e0e1d9d4a4b1e558a222195fe8c02b7214`.
-- T55 Unit: `c89706a3ae4640336d47457af2c57e0fafe2620b`.
-- T55 Service+Unit workflow: `32105302556`; frontend `95613403416` SUCCESS; backend `95613403559` SUCCESS.
-- Failed initial T55 local Integration workflow: `32107054525`; frontend `95618516153` SUCCESS; backend `95618516140` FAILURE.
-- Corrected T55 local PostgreSQL Integration: `98138a4b49686b08bc3222cc8b474343acfd3b70`; workflow `32110010694`; frontend `95627183985` SUCCESS; backend `95627183939` SUCCESS.
-- T55 PostgreSQL 18 Testcontainers: `1e1a3e7d647ad9296a0a4e438e7912142d368c1a`; workflow `32110395678`; frontend `95628335685` SUCCESS; backend `95628335767` IN_PROGRESS.
-- Presenter task control: `b37b1e03b20fff1cf7b912831f645756424e9600`.
-- Classroom task control: `c3b8428d765f81c873796095a41fbd17f6ed6cfb`.
-- Recovery task control: `9d73522473c634e608831b40ca56632cfd259459`.
-- Document task control remains unchanged; no Document work allocated.
-- Execution monitor: `65dedbb795873fdc93443a879c1a8e73e4a64daf`.
+- T55 PostgreSQL 18 Testcontainers: `1e1a3e7d647ad9296a0a4e438e7912142d368c1a`; workflow `32110395678`; backend `95628335767` SUCCESS; frontend `95628335685` SUCCESS.
+- T55 Assigned Frontend: `4eb8bd6464fb808ced97be5b9cac9f1d341de090`; workflow `32111670679`; backend `95632262446` SUCCESS; frontend `95632262585` SUCCESS.
+- T51-T55 registry: `4ec7937a06244d4e1eaa33dbbb16b968e7ccf73b`; workflow `32112252425`; backend `95634038304` SUCCESS; frontend `95634038380` SUCCESS.
+- Recovery frozen candidate control: `b0b4e2378e98ff56b81de95fbf394a28c869b27e`.
+- T56-T60 branch: `Presenter-Solutions-T56-T60`; source reconciliation `2bc7575a33185b7f65e5c746275aee24ef534174`.
+- Presenter task control: `911759db04b59575cbf2f9c11c579f07bcb1e5bb`.
+- Classroom task control: `ec2d1f59bb30ff161496b619a2655a8d48f80e33`.
+- Recovery task control: `079c561f381625ff0df2acf0d21f70cf4a0e43bd`.
+- Document dependency control: `4d2bd00a5a2bd32086a5581ea10a26d8209585d8`.
+- Recovery status reconciliation: `3035c258f3abf3e764653a537af43cd9646ff2b3`.
+- Orchestration plan: `94acd768fadd344c3fb67d4e833a6e96172cdbeb`.
+- Execution monitor: `7131ab327f63c3e92f108f2a777ca02cfc1d6a04`.
 
 ## Safety
 - No write to the public classroom repository.
