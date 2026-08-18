@@ -8,12 +8,15 @@
 - T01-T50: completed/frozen/verified batch registries.
 - T51-T55 Reservation batch: ACTIVE on `Presenter-Solutions-T51-T55`.
 - T51-T53: CLOSED through Assigned Frontend.
-- T54 Service `3f8ebd45cf15c48418a9552fa09811612ddc7100` and Unit `1e37f0f25ba9765eb23caca8af23eb1ad5c942ca` remain implemented but CI-unverified.
-- Prior fresh trigger: `b7fabb6aa153333e7c4e5a2b8acf4ac5b3d8a57c`.
-- New exact diagnostic tip: `6d0a0bc6242a7c4b248a3b4d5efbbf9a16d5b6ac` (`T54: capture CI evidence diagnostic`). No application behavior changed.
-- The workflow is present on the exact Presenter branch and its push pattern `Presenter-Solutions-*` matches `Presenter-Solutions-T51-T55`.
-- Exact-commit workflow discovery and combined commit-status discovery both expose no run/checks for the new diagnostic tip.
-- T54 Service/Unit therefore remain uncredited; Integration remains blocked.
+- T54 Service `3f8ebd45cf15c48418a9552fa09811612ddc7100` and Unit `1e37f0f25ba9765eb23caca8af23eb1ad5c942ca` remain implemented but not yet percentage-credited.
+- Presenter branch head: `6d0a0bc6242a7c4b248a3b4d5efbbf9a16d5b6ac`.
+- Root cause of the prior observability blocker was narrowed: the connector exact-commit workflow lookup exposes pull-request-triggered runs, so absence of a push run on that surface was not evidence that Actions had not executed.
+- A private diagnostic draft PR `#1` was opened from `Presenter-Solutions-T51-T55` to `main` and explicitly marked DO NOT MERGE.
+- Private Master now contains `.github/workflows/presenter-solution-pr-verify.yml` at commit `69610f022b975fd7dfd93aa9b309433a3ba61199`, scoped to PR heads beginning `Presenter-Solutions-`.
+- Reopening draft PR #1 produced observable workflow `32095854781` against exact Presenter head `6d0a0bc6...`.
+- Frontend job `95586947404`: SUCCESS.
+- Backend job `95586947321`: IN PROGRESS in `Run Presenter solution tests with PostgreSQL` at the current consolidation point.
+- T54 Service/Unit remain uncredited until backend is SUCCESS; T54 Integration remains blocked until that full gate closes.
 - T55 Search Reservation source/contract reconciliation is complete; implementation remains ordered behind T54.
 
 ## Current stream accounting
@@ -21,22 +24,22 @@
 - Updated: **87.3333%**
 - Increase: **+0.0000 percentage points**
 - Verified total: **262 / 300**
-- State: **STALE / CI TRIGGER-RUN VISIBILITY BLOCKER**.
+- State: **IN PROGRESS — EXACT PR-VISIBLE CI NOW RUNNING**.
 
 ## Lane actions this cycle
-- Agent 1: created `.project/presenter-solutions/T54-ci-evidence-diagnostic-2026-08-18.md` at `6d0a0bc6...` and re-ran exact evidence discovery against the new tip.
-- Agent 2: preserved T54 Integration/Testcontainers boundary pending observable green Service+Unit CI.
-- Agent 3: preserved T55 source-ready boundary; no premature implementation.
-- Agent 6: preserved Assigned Frontend/cumulative-regression boundary pending Integration.
+- Agent 1: replaced the unobservable push-only evidence path with draft PR #1 plus PR-visible CI; exact workflow `32095854781` is now observable.
+- Agent 2: preserved T54 Integration/Testcontainers boundary while backend CI runs.
+- Agent 3: preserved T55 source-ready boundary and did not start blocked implementation.
+- Agent 6: preserved Assigned Frontend/cumulative-regression boundary pending T54 Integration.
 
 ## Tasks closed
-- T54 CI evidence diagnostic artifact — CLOSED as non-percentage execution work.
+- T54 CI observability recovery path — CLOSED as non-percentage infrastructure work: PR #1 + PR-visible workflow configuration.
 
 ## In progress / blocked
-- T54 Service+Unit exact green CI — STALE / BLOCKED BY CI TRIGGER-RUN VISIBILITY.
+- T54 Service+Unit exact green CI — IN PROGRESS; workflow `32095854781`, backend `95586947321` running, frontend `95586947404` SUCCESS.
 - T54 Integration and Frontend — dependency-blocked.
 - T55 implementation — dependency-blocked behind T54.
 - T51-T55 cumulative registry/freeze — blocked.
 
 ## >3-cycle stalled action
-T54 exact CI evidence remains open beyond three cycles. **Action Taken in This Cycle:** moved from repeated trigger-only commits to a repository-backed diagnostic boundary `6d0a0bc6...`, verified the workflow exists and matches the branch, and confirmed that both exact-run and commit-status surfaces remain empty. Do not create another identical trigger marker; the next recovery action must address repository Actions visibility/trigger configuration or obtain an observable exact run through a different supported surface.
+The T54 exact CI evidence task has remained open beyond three cycles. **Action Taken in This Cycle:** stopped interpreting the connector's push-run blind spot as a project failure, created a narrowly scoped private PR-verification workflow on `main`, opened/reopened diagnostic draft PR #1, and obtained an observable exact workflow run. This is a different recovery action; no percentage is credited until backend CI actually succeeds.
