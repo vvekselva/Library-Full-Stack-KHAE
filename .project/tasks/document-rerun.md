@@ -30,4 +30,4 @@ None. This cycle did not allocate Document work.
 - T02_02/T02_03 block Classroom Release-02.
 
 ## >3-cycle stalled action
-Document Rerun remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** the dependency state was read and propagated into Classroom gating only because the current orchestrator plan explicitly assigns no worker lane to Documents. No status check was counted as progress and no Quality Gate/public write occurred.
+Document Rerun remains beyond the structural-blocker threshold. **Action Taken in This Cycle:** no Document worker lane was assigned under the authoritative allocation. The unchanged dependency state was propagated only to Release-01/02 preflight controls; no status check was counted as Document progress and no Quality Gate/public write occurred.
