@@ -7,6 +7,7 @@ A compact full-stack deployment exercise containing:
 - **Database migration:** Flyway
 - **Frontend:** Vite + Vanilla JavaScript
 - **Container deployment:** Docker + Docker Compose
+- **CI/CD:** GitHub Actions + GitHub Container Registry (GHCR)
 - **API base path:** `/rest`
 
 ## Project layout
@@ -23,6 +24,12 @@ library-deployment-activity/
 │   └── src/
 ├── .env.docker.example
 └── docker-compose.yml
+```
+
+The CI/CD workflow is stored at:
+
+```text
+.github/workflows/library-deployment-ci-cd.yml
 ```
 
 ## Backend environment variables
@@ -148,6 +155,64 @@ docker push your-registry/library-frontend:1.0
 ```
 
 `VITE_API_BASE_URL` is a Vite build-time variable. When the backend URL changes, rebuild the frontend image with the new URL.
+
+## GitHub Actions CI/CD
+
+The workflow runs automatically when deployment application files are pushed to `FrontEnd-Backend-DB-Deployment`. It can also be started manually from the **Actions** tab using **Run workflow**.
+
+### Continuous Integration gates
+
+1. **Backend CI + PostgreSQL + Flyway**
+   - Starts PostgreSQL 16 as a GitHub Actions service container.
+   - Builds and verifies the Spring Boot application with Maven and Java 21.
+   - Starts the packaged backend.
+   - Calls `/rest/health`.
+   - Calls `/rest/books` and confirms Flyway seed data is available.
+
+2. **Frontend CI**
+   - Uses Node.js 20.
+   - Installs the frontend dependencies.
+   - Builds the Vite production bundle.
+   - Uploads `dist/` as a workflow artifact.
+
+3. **Docker Build Validation**
+   - Builds the backend Docker image.
+   - Builds the frontend Docker image.
+   - Does not publish anything unless both application CI jobs have succeeded.
+
+### Continuous Delivery
+
+After all CI gates succeed on a push to `FrontEnd-Backend-DB-Deployment`, the workflow publishes these images to GitHub Container Registry:
+
+```text
+ghcr.io/vvekselva/library-deployment-backend:latest
+ghcr.io/vvekselva/library-deployment-frontend:latest
+```
+
+Each image also receives an immutable commit-based tag such as:
+
+```text
+sha-1a2b3c4
+```
+
+No separate registry password is required. The workflow authenticates to GHCR using the repository-provided `GITHUB_TOKEN` with `packages: write` permission.
+
+### Required repository variable for a deployed frontend
+
+The frontend API URL is embedded during the Vite build. Before using the published frontend image in a real hosted environment, create this GitHub Actions repository variable:
+
+```text
+Name:  VITE_API_BASE_URL
+Value: https://your-backend-host/rest
+```
+
+GitHub path:
+
+```text
+Repository -> Settings -> Secrets and variables -> Actions -> Variables -> New repository variable
+```
+
+If this variable is not configured, the workflow uses `http://localhost:8080/rest`, which is suitable only for the local deployment demonstration.
 
 ## API endpoints
 
