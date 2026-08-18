@@ -1,6 +1,6 @@
-version: 7
+version: 8
 repository: vvekselva/Library-Full-Stack-KHAE-Master
-updated_at: 2026-08-18T09:04:00+05:30
+updated_at: 2026-08-18T09:36:00+05:30
 orchestration:
   coordinator: primary
   logical_worker_lanes: 8
@@ -8,86 +8,91 @@ orchestration:
   current_lane_focus: "4 Presenter / 3 Classroom / 1 Recovery; Document dependency only"
   document_work_allocated_to_current_eight: false
   allocation:
-    agent_1: "Presenter Solutions - T54 exact CI recovery/verification"
-    agent_2: "Presenter Solutions - T54 Integration when green"
+    agent_1: "Presenter Solutions - T54 corrected Service/Unit exact CI"
+    agent_2: "Presenter Solutions - T54 Integration only after corrected green CI"
     agent_3: "Presenter Solutions - T55 source/test readiness"
-    agent_4: "Classroom Release - Release-01 private materialization preflight"
-    agent_5: "Classroom Release - Release-02 private materialization preflight"
+    agent_4: "Classroom Release - Release-01 private readiness"
+    agent_5: "Classroom Release - Release-02 private readiness"
     agent_6: "Presenter Solutions - Assigned Frontend/cumulative regression readiness"
     agent_7: "Classroom Release - private promotion-boundary guard"
-    agent_8: "Recovery / Final Integration - observable evidence/freeze guard"
+    agent_8: "Recovery / Final Integration - corrected evidence/freeze guard"
 current_cycle:
-  cycle_id: C-20260818-0082
-  status: SUBSTANTIVE_NON_PERCENTAGE_PROGRESS_CI_RUNNING
+  cycle_id: C-20260818-0083
+  status: SUBSTANTIVE_CORRECTIVE_PROGRESS_CI_RUNNING
   tasks:
-    - task: "T54 Cancel Reservation Service+Unit exact CI recovery"
+    - task: "T54 wrong-path Service/Unit diagnosis"
+      stream: Presenter Solutions
+      status: CLOSED_NON_PERCENTAGE_CORRECTION
+      closed_this_cycle: true
+      evidence: "prior files backend.lib.mgmt/... outside Maven project; actual Maven service remained teaching stub"
+    - task: "T54 corrected Service"
+      stream: Presenter Solutions
+      status: IMPLEMENTED_UNVERIFIED
+      closed_this_cycle: false
+      evidence: "35513b7445e8e5852e58c80252b9c0c81225e1c0 at backend/backend.lib.mgmt/..."
+    - task: "T54 corrected Unit"
+      stream: Presenter Solutions
+      status: IMPLEMENTED_UNVERIFIED
+      closed_this_cycle: false
+      evidence: "0c1208f5c6cb835c7065211e54b581bcd448c18f at backend/backend.lib.mgmt/..."
+    - task: "T54 corrected exact CI"
       stream: Presenter Solutions
       status: IN_PROGRESS_EXACT_CI
       closed_this_cycle: false
-      action_taken_in_this_cycle: "Identified connector push-run blind spot; created private PR-visible CI workflow on main, opened/reopened draft PR #1, and obtained observable workflow 32095854781 for exact Presenter head 6d0a0bc6... Frontend is SUCCESS; backend remains IN_PROGRESS."
-      evidence: "PR #1; workflow config commit 69610f022b975fd7dfd93aa9b309433a3ba61199; run 32095854781; backend 95586947321 IN_PROGRESS; frontend 95586947404 SUCCESS"
+      action_taken_in_this_cycle: "Triggered PR-visible workflow 32097667111 for corrected head. Frontend green. Initial backend cancelled during container initialization before checkout/tests; backend-only retry requested. Retry job 95592166341 is IN_PROGRESS at container initialization."
+      evidence: "workflow 32097667111; frontend 95592167359 SUCCESS; backend retry 95592166341 IN_PROGRESS"
       over_three_cycles: true
-    - task: "T54 CI observability recovery path"
-      stream: Presenter Solutions
-      status: CLOSED_NON_PERCENTAGE_INFRASTRUCTURE
-      closed_this_cycle: true
-      evidence: "draft PR #1 plus PR-visible Verify Presenter Solution PR workflow"
-    - task: "Release-01 materialization preflight"
+    - task: "Release-01 materialization/freeze"
       stream: Classroom Release Preparation
-      status: CLOSED_NON_PERCENTAGE_PREREQUISITE
-      closed_this_cycle: true
-      evidence: "6d45d1a9f60c850c1aaecc98acf654715583aefb"
-    - task: "Release-02 materialization preflight"
+      status: STALE_DOCUMENT_GATED
+      closed_this_cycle: false
+      action_taken_in_this_cycle: "Existing private preflight remains complete; no new prerequisite-safe step eligible. No public/QG write."
+    - task: "Release-02 materialization/freeze"
       stream: Classroom Release Preparation
-      status: CLOSED_NON_PERCENTAGE_PREREQUISITE
-      closed_this_cycle: true
-      evidence: "1c811dd37b8f60ded8a427301804cb9ba029406e"
-    - task: "Classroom promotion-boundary guard"
-      stream: Classroom Release Preparation
-      status: CLOSED_NON_PERCENTAGE_PREREQUISITE
-      closed_this_cycle: true
-      evidence: "4e0ab65d4744da7bc461512bbc1ba66cb1d5af0a"
+      status: STALE_DOCUMENT_GATED
+      closed_this_cycle: false
+      action_taken_in_this_cycle: "Existing private preflight remains complete; T02_02 final approval/repository verification and T02_03 still block materialization. No public/QG write."
     - task: "Recovery freeze guard"
       stream: Recovery / Final Integration
-      status: STALE_WAITING_ON_T54_BACKEND_CI
+      status: STALE_WAITING_ON_CORRECTED_T54_CI
       closed_this_cycle: false
-      action_taken_in_this_cycle: "Captured exact observable PR workflow/job identities; retained freeze_allowed=false."
+      action_taken_in_this_cycle: "Rejected prior wrong-path T54 green evidence, captured corrected commits/workflow, retained freeze_allowed=false."
     - task: "Document dependency state"
       stream: Document Rerun
       status: STALE_NO_LANE
       closed_this_cycle: false
-      action_taken_in_this_cycle: "Propagated unchanged T01/T02 dependency state into Classroom preflight only; no Document lane and no progress credit."
+      action_taken_in_this_cycle: "Dependency state used only for Classroom gates; no Document lane and no progress credit."
 stream_stall_monitor:
   - stream: Document Rerun
     previous_percent: 5.3889
     current_percent: 5.3889
     increase: 0.0000
     over_three_cycles: true
-    action_taken_in_this_cycle: "No lane allocated; dependency state used only to define exact Release-01/02 NO-GO criteria."
+    action_taken_in_this_cycle: "No lane allocated; unchanged dependency state only propagated."
   - stream: Presenter Solutions
     previous_percent: 87.3333
     current_percent: 87.3333
     increase: 0.0000
     over_three_cycles: true
-    action_taken_in_this_cycle: "Replaced unobservable push-only evidence path with PR-visible CI; exact workflow 32095854781 is running."
+    action_taken_in_this_cycle: "Detected invalid wrong-path evidence before crediting; corrected Service/Unit into actual Maven project and started exact CI."
   - stream: Classroom Release Preparation
     previous_percent: 33.3333
     current_percent: 33.3333
     increase: 0.0000
     over_three_cycles: true
-    action_taken_in_this_cycle: "Completed Release-01/02 private materialization preflights and promotion-boundary guard; no percentage gate eligible."
+    action_taken_in_this_cycle: "No new prerequisite-safe work after prior preflights; retained document gates and safety boundary."
   - stream: Recovery / Final Integration
     previous_percent: 33.3333
     current_percent: 33.3333
     increase: 0.0000
     over_three_cycles: true
-    action_taken_in_this_cycle: "Captured exact workflow/job evidence and retained freeze guard while backend CI runs."
+    action_taken_in_this_cycle: "Corrected candidate evidence and retained freeze guard."
   - stream: Overall
     previous_percent: 39.6583
     current_percent: 39.6583
     increase: 0.0000
     over_three_cycles: true
-    action_taken_in_this_cycle: "Substantive CI infrastructure and private release-preflight work closed, but no percentage-bearing gate completed."
+    action_taken_in_this_cycle: "Substantive correctness repair performed; no percentage-bearing gate credited before corrected CI succeeds."
 safety:
   public_classroom_write: FORBIDDEN
   quality_gate_write: FORBIDDEN
