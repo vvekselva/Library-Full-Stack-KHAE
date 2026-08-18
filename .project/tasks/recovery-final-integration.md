@@ -5,31 +5,34 @@
 
 ## Registry coverage queue
 - T01-T50 registries: VERIFIED.
-- T51-T55 Reservation candidate: OPEN / NOT FREEZABLE.
-- T51-T54 immutable VERIFIED through Assigned Frontend.
-- T55 Service `f19715e0e1d9d4a4b1e558a222195fe8c02b7214` and Unit branch tip `c89706a3ae4640336d47457af2c57e0fafe2620b`: immutable VERIFIED on workflow `32105302556`; frontend `95613403416` SUCCESS and backend `95613403559` SUCCESS.
-- Initial T55 local PostgreSQL Integration run `32107054525` is rejected/non-promotable because backend `95618516140` FAILED.
-- Corrected T55 local PostgreSQL Integration tip `98138a4b49686b08bc3222cc8b474343acfd3b70` is immutable VERIFIED as a subgate on workflow `32110010694`; backend `95627183939` SUCCESS and frontend `95627183985` SUCCESS.
-- T55 PostgreSQL 18 Testcontainers tip `1e1a3e7d647ad9296a0a4e438e7912142d368c1a` is PROVISIONAL while workflow `32110395678` runs; frontend `95628335685` SUCCESS and backend `95628335767` IN_PROGRESS at consolidation.
-- Frozen registry coverage remains **50 / 60 tracks**.
-- `freeze_allowed=false` until T55 combined Integration, Assigned Frontend and registry-tip CI are green.
+- **T51-T55 Reservation registry: FROZEN_VERIFIED.**
+- Verified registry commit: `4ec7937a06244d4e1eaa33dbbb16b968e7ccf73b`.
+- Registry-tip workflow `32112252425`: backend `95634038304` SUCCESS; frontend `95634038380` SUCCESS.
+- T55 combined Integration is immutable VERIFIED: local PostgreSQL `98138a4b49686b08bc3222cc8b474343acfd3b70` / workflow `32110010694`, PostgreSQL 18 Testcontainers `1e1a3e7d647ad9296a0a4e438e7912142d368c1a` / workflow `32110395678`.
+- T55 Assigned Frontend `4eb8bd6464fb808ced97be5b9cac9f1d341de090` is immutable VERIFIED on workflow `32111670679`: backend `95632262446` SUCCESS and frontend `95632262585` SUCCESS.
+- Recovery candidate file `.project/recovery/T51-T55-registry-candidate.yml` is FROZEN_VERIFIED at control commit `b0b4e2378e98ff56b81de95fbf394a28c869b27e`.
+- Frozen registry coverage is now **55 / 60 tracks**.
+- T56-T60 Fine candidate is the next registry batch; no freeze is allowed until all five Fine tracks and registry-tip CI are green.
 
 ## Current stream accounting
+Recovery registry component weight is 40%.
 - Previous: **33.3333%**
-- Updated: **33.3333%**
-- Increase: **+0.0000 percentage points**
-- State: **STALE BY PERCENTAGE / CANDIDATE OPEN — T55 POSTGRESQL 18 CI ACTIVE**.
+- Updated: **36.6667%**
+- Increase: **+3.3334 percentage points**
+- State: **IN PROGRESS — T51-T55 FROZEN VERIFIED; T56-T60 NEXT**.
 
 ## Action this cycle
-Agent 8 rejected the failed initial local Integration evidence, promoted the corrected exact-green local PostgreSQL subgate, captured PostgreSQL 18 Testcontainers commit/workflow provisionally, and retained `freeze_allowed=false` rather than promoting the atomic Integration checkpoint early.
+Agent 8 promoted exact-green T55 Integration and Assigned Frontend evidence, waited for the T51-T55 registry-tip workflow to finish fully green, then froze the Reservation candidate with exact immutable evidence. No partial or premature registry credit was used.
 
 ## Tasks closed
-- T55 corrected local PostgreSQL subgate evidence promotion — CLOSED as non-percentage Recovery work.
+- T55 combined Integration Recovery evidence promotion — CLOSED.
+- T55 Assigned Frontend Recovery evidence promotion — CLOSED.
+- T51-T55 registry candidate — CLOSED / FROZEN_VERIFIED.
 
 ## In progress / blocked
-- T51-T55 registry candidate — OPEN / NOT FREEZABLE.
-- T55 PostgreSQL 18 / combined Integration — PROVISIONAL pending backend job `95628335767`.
-- T55 Assigned Frontend and registry-tip CI — YET TO DO / dependency ordered.
+- T56-T60 Fine registry candidate — NEXT / not yet freezable.
+- T56-T60 component evidence — YET TO DO in Presenter dependency order.
+- Final integration remains blocked by the remaining Fine Presenter batch plus Document/Classroom prerequisites.
 
 ## >3-cycle stalled action
-Recovery remains beyond three no-increase cycles. **Action Taken in This Cycle:** rejected failed evidence, promoted only the corrected exact-green local subgate, captured the newly eligible PostgreSQL 18 evidence provisionally, and preserved the freeze guard until the full T55 chain is verified.
+Recovery is **not stale this cycle** because the T51-T55 registry freeze produced a genuine percentage increase. The previous open candidate was resolved only after exact frontend and registry-tip CI became green.
