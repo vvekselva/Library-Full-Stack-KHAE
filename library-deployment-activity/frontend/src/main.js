@@ -147,5 +147,9 @@ function escapeHtml(value) {
 cancelButton.addEventListener('click', resetForm);
 refreshButton.addEventListener('click', loadBooks);
 
-await checkBackend();
-await loadBooks();
+async function initializeApp() {
+  await checkBackend();
+  await loadBooks();
+}
+
+initializeApp();
